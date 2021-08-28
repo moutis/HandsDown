@@ -6,10 +6,6 @@
 #include "moutis.h"
 
 
-/*
-user_config.osIsWindows is true, so use 0 for Mac
- */
-
 user_config_t user_config;
 
 uint32_t keyhold_timer = 0;
@@ -144,6 +140,9 @@ void keyboard_post_init_user(void) {
     // Read the user config from EEPROM to facilitate
     // appropriate for platform support
 
+    /*
+    user_config.osIsWindows is true, so use 0 for Mac
+     */
     user_config.raw = eeconfig_read_user();
     if (user_config.osIsWindows) { // kludge, 'cause I'm stupid and can't typecast a bool
         OSIndex = 1; // USED BY SemKeys
