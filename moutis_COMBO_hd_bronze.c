@@ -1,14 +1,14 @@
-#define combo_OLED_row 5
 
 // functions / state keys
 
-const uint16_t PROGMEM Macro_combo[] = {KC_G, KC_F, COMBO_END}; // a macro placeholder
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
 const uint16_t PROGMEM F_ESC_combo[] = {KC_X, KC_B, COMBO_END}; // ESCape
 const uint16_t PROGMEM F_KILL_combo[] = {KC_X, KC_W, COMBO_END}; // Force quit OR CTRL-ALT-DEL
 const uint16_t PROGMEM F_SCLP_combo[] = {KC_J, KC_V, COMBO_END}; // SCREEN shot SELECTION to clipboard
 const uint16_t PROGMEM F_SCAP_combo[] = {KC_J, KC_K, COMBO_END}; //  SCREEN shot SELECTION to file
-const uint16_t PROGMEM F_CAPS_combo[] = {KC_D, KC_U, COMBO_END}; // CAPS LOCK other shift lock
-const uint16_t PROGMEM H_CAPS_combo[] = {KC_H, KC_A, COMBO_END}; // CAPS LOCK for when I get home row combos working after merging Sevanteri's fork.  (Karabiner does L+R shift now)
+const uint16_t PROGMEM F_CAPS_combo[] = {KC_D, KC_U, COMBO_END}; // CAPS LOCK (on until hit again)
+const uint16_t PROGMEM H_CAPS_combo[] = {LSFT_T(KC_T), RSFT_T(KC_A), COMBO_END}; // CAPS WORD (on until delimiter)
 
 //  (22) keypad combos
 const uint16_t PROGMEM PSLMN_combo[] = {KC_PSLS, KC_PMNS, COMBO_END}; // toggle num layer
@@ -51,6 +51,7 @@ const uint16_t PROGMEM Hmdsh_combo[] = {KC_MINS, KC_O, COMBO_END}; // — m dash
 const uint16_t PROGMEM Hunds_combo[] = {KC_U, KC_Y, COMBO_END}; // _ underscore
 const uint16_t PROGMEM Htild_combo[] = {KC_MINS, KC_Y, COMBO_END}; // ~ tilde (not the dead one)
 const uint16_t PROGMEM Hequal_combo[] = {KC_Y, KC_W, COMBO_END}; // = equal
+const uint16_t PROGMEM Hscln_combo[] = {KC_COMM, RSFT_T(KC_A), COMBO_END}; // ; semicolon
 
 // spatially arranged characters and diacritics
 const uint16_t PROGMEM Hexlm_combo[] = {KC_DOT, KC_SLSH, COMBO_END}; // !
@@ -64,6 +65,7 @@ const uint16_t PROGMEM Hmacr_combo[] = {KC_DOT, KC_DQUO, COMBO_END}; // - macron
 const uint16_t PROGMEM Hcirc_combo[] = {KC_QUOT, KC_DOT, COMBO_END}; // ˆ circumflex (dead key)
 const uint16_t PROGMEM Hdier_combo[] = {KC_U, KC_O, COMBO_END}; // ¨ dieresis (dead key)
 const uint16_t PROGMEM Hring_combo[] = {KC_O, KC_Y, COMBO_END}; // ˚ ring (dead key)
+const uint16_t PROGMEM Henye_combo[] = {KC_F, KC_P, COMBO_END}; // ˜ enye (dead key) (over N)
 
 // LOWER ROW
 // SYMBOLS spatially arranged
@@ -71,24 +73,25 @@ const uint16_t PROGMEM Hring_combo[] = {KC_O, KC_Y, COMBO_END}; // ˚ ring (dead
 // LEFT HAND
 
 // TEXT ENTRY (ANY ROW/ MIXED ROWS
-const uint16_t PROGMEM H_Z_combo[] = {KC_M, KC_F, COMBO_END}; // TYPE "z"
-const uint16_t PROGMEM H_Q_combo[] = {KC_J, KC_M, COMBO_END}; // TYPE "q"
+const uint16_t PROGMEM H_Z_combo[] = {KC_F, KC_M, COMBO_END}; // TYPE "z"
+const uint16_t PROGMEM H_Q_combo[] = {KC_J, KC_F, COMBO_END}; // TYPE "q"
 const uint16_t PROGMEM H_Q2_combo[] = {KC_U, KC_W, COMBO_END}; // TYPE "q"
 const uint16_t PROGMEM H_LM_combo[] = {KC_M, KC_P, COMBO_END}; // TYPE "lp"
-const uint16_t PROGMEM H_tion_combo[] = {KC_N, KC_T, COMBO_END}; // TYPE "tion"
+const uint16_t PROGMEM H_tion_combo[] = {LGUI_T(KC_N), LSFT_T(KC_T), COMBO_END}; // TYPE "tion"
 const uint16_t PROGMEM H_Japan_combo[] = {KC_J, KC_P, COMBO_END}; // TYPE "Japan"
+const uint16_t PROGMEM Macro_combo[] = {KC_G, KC_F, COMBO_END}; // some macro placeholder
 
 // UPPER ROW
 
 // FUNCTIONS Spatially arranged
 const uint16_t PROGMEM Qtab_combo[] = {KC_Q, KC_W, COMBO_END}; // tab QWERTY
-const uint16_t PROGMEM Htab_combo[] = {KC_J, KC_F, COMBO_END}; // tab HANDS DOWN
-const uint16_t PROGMEM Henye_combo[] = {KC_F, KC_P, COMBO_END}; // ˜ enye (dead key)
+const uint16_t PROGMEM Htab_combo[] = {LCTL_T(KC_R), LALT_T(KC_S), COMBO_END}; // tab HANDS DOWN
+const uint16_t PROGMEM Hent_combo[] = {LSFT_T(KC_T), KC_K, COMBO_END}; // ENTER
+const uint16_t PROGMEM Hspc_combo[] = {KC_D, KC_B, COMBO_END}; // SPACE
 
 // LOWER ROW
 
-// FUNCTIONS Spatially arranged
-const uint16_t PROGMEM Hent_combo[] = {KC_D, KC_B, COMBO_END}; // ENTER
+// SEMANTIC FUNCTIONS Spatially arranged
 const uint16_t PROGMEM Hclose_combo[] = {KC_L, KC_B, COMBO_END}; // close
 const uint16_t PROGMEM Hquit_combo[] = {KC_G, KC_B, COMBO_END}; // quit
 const uint16_t PROGMEM Hfind_combo[] = {KC_F, KC_V, COMBO_END}; // find
@@ -104,7 +107,8 @@ const uint16_t PROGMEM Hdquo_combo[] = {KC_HASH, KC_QUOT, COMBO_END};  // "|" in
 const uint16_t PROGMEM Hdbrc_combo[] = {KC_MINS, KC_W, COMBO_END};  // [|] insert between double BRACKET
 
 // Major diacritic combos
-const uint16_t PROGMEM HUM_combo[] = {KC_F, KC_U, COMBO_END};  // Ü
+/*
+ const uint16_t PROGMEM HUM_combo[] = {KC_F, KC_U, COMBO_END};  // Ü
 const uint16_t PROGMEM HOM_combo[] = {KC_F, KC_O, COMBO_END};  // Ö
 const uint16_t PROGMEM HUK_combo[] = {KC_L, KC_U, COMBO_END};  // Ů
 const uint16_t PROGMEM HOK_combo[] = {KC_L, KC_O, COMBO_END};  // O̊
@@ -113,10 +117,16 @@ const uint16_t PROGMEM HOV_combo[] = {KC_P, KC_O, COMBO_END};  // Ô
 const uint16_t PROGMEM HUF_combo[] = {KC_V, KC_U, COMBO_END};  // Ú
 const uint16_t PROGMEM HOF_combo[] = {KC_V, KC_O, COMBO_END};  // Ó
 
+const uint16_t PROGMEM H1E_combo[] = {KC_P, KC_E, COMBO_END};  // É
+const uint16_t PROGMEM H2E_combo[] = {KC_M, KC_E, COMBO_END};  // Ē
+const uint16_t PROGMEM H3E_combo[] = {KC_P, KC_E, COMBO_END};  // Ê
+*/
 
-combo_t key_combos[COMBO_COUNT] = {
+
+combo_t key_combos[] = {
     // These simple combos trigger on press, repeat.
     [HC_EQL] = COMBO(Hequal_combo, KC_EQL), // =
+    [HC_SCLN] = COMBO(Hscln_combo, KC_SCLN), // ;
     [HC_UNDS] = COMBO(Hunds_combo, KC_UNDS), // _
     [HC_TILD] = COMBO(Htild_combo, KC_TILD),  // ~
     [HC_TIC] = COMBO(Htic_combo, KC_GRV),  // `
@@ -175,7 +185,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [FC_SCAP] = COMBO_ACTION(F_SCAP_combo), // SCREEN CAPTURE SELECTION
     [FC_SCLP] = COMBO_ACTION(F_SCLP_combo), // SCREEN CAPTURE SELECTION to clipboard
     [FC_CAPS] = COMBO(F_CAPS_combo, KC_CAPS), // CAPS LOCK
-    [HC_CAPS] = COMBO(H_CAPS_combo, KC_CAPS), // CAPS LOCK
+    [HC_CAPSWORD] = COMBO_ACTION(H_CAPS_combo), // CAPS_WORD
 
 // HANDSDOWN
     [HC_NDSH] = COMBO_ACTION(Hndsh_combo), // – N-DASH
@@ -189,7 +199,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [HC_ENYE] = COMBO_ACTION(Henye_combo), // ˜ enye
     [HC_ELIP] = COMBO_ACTION(Helip_combo),  // …
     [HC_EQL] = COMBO(Hequal_combo, KC_EQL),  // =
-
+/*
     [HC_UM] = COMBO_ACTION(HUM_combo), // Ü
     [HC_OM] = COMBO_ACTION(HOM_combo), // Ö
     [HC_UK] = COMBO_ACTION(HUK_combo), // Ů
@@ -199,13 +209,19 @@ combo_t key_combos[COMBO_COUNT] = {
     [HC_UF] = COMBO_ACTION(HUK_combo), // Ú
     [HC_OF] = COMBO_ACTION(HOK_combo), // Ó
 
+    [HC_1E] = COMBO_ACTION(H1E_combo), // É
+    [HC_2E] = COMBO_ACTION(H2E_combo), // Ē
+    [HC_3E] = COMBO_ACTION(H3E_combo), // Ê
+*/
+
     [MYMACRO] = COMBO_ACTION(Macro_combo),
     [HC_TYPE_LM] = COMBO_ACTION(H_LM_combo),
     [HC_TYPE_TION] = COMBO_ACTION(H_tion_combo),
     [HC_TYPE_JAPAN] = COMBO_ACTION(H_Japan_combo),
 
 //    [HC_APP] = COMBO(Happ_combo, KC_APP), // app menu
-    [HC_ENT] = COMBO_ACTION(Hent_combo), // ENTER
+    [HC_SPC] = COMBO(Hspc_combo, KC_SPC), // SPACE
+    [HC_ENT] = COMBO(Hent_combo, KC_ENT), // ENTER
     [HC_CLOZ] = COMBO_ACTION(Hclose_combo),
     [HC_QUIT] = COMBO_ACTION(Hquit_combo),
     [HC_FIND] = COMBO_ACTION(Hfind_combo), // Find the selection (COPY, FIND, PASTE)
@@ -225,11 +241,15 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 #ifdef OLED_DRIVER_ENABLE
         oled_write_P(PSTR("Combo: "), false);
 #endif
-        keyhold_timer = timer_read(); // timer for combo hold threshold
+        linger_timer = timer_read(); // UPDATE timer for combo hold threshold
         switch(combo_index) {
-            case PC_STAB ... HC_PSTM:  // these have a hold delay before triggering
+            case PC_STAB ... COMBO_LENGTH:  // these have a hold delay before triggering
                 combo_on = combo_index; // queue for matrix_scan_user_process_combo
                 break;
+            case HC_CAPSWORD: // turn on capsword (automatically turns off on delimiter)
+                toggle_caps_word();
+                break;
+
             case HC_NDSH:
                 register_code16(A(KC_MINS));
                 break;
@@ -311,6 +331,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                     tap_code(KC_9);
                     break;
 
+/*
                 case HC_UM: // Ü
                     SEND_STRING("mu");
                     break;
@@ -336,13 +357,20 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                     SEND_STRING("fo");
                     break;
 
+                case HC_1E: // É
+                    SEND_STRING("pe");
+                    break;
+                case HC_2E: // Ē
+                    SEND_STRING("me");
+                    break;
+                case HC_3E: // Ê
+                    SEND_STRING("fe");
+                    break;
+*/
                 case HC_TYPE_LM:
                     SEND_STRING("gm");
                     break;
 
-                case HC_ENT:
-                    SEND_STRING("bd");
-                    break;
                 case HC_SALL:
                     SEND_STRING("xd");
                     break;
@@ -417,7 +445,7 @@ extern uint8_t  saved_mods; // global, so we're not wasting time allocating...
         // if necessary (like releasing the underlying keys, or other cleanup)
 
 
-        if (combo_on && (timer_elapsed(keyhold_timer) > COMBO_HOLD)) {
+        if (combo_on && (timer_elapsed(linger_timer) > COMBO_HOLD)) {
             switch(combo_on) {  // combo_on is global, set in process_combo above
                 case PC_STAB:
                     tap_code16(S(KC_TAB));
@@ -436,7 +464,7 @@ extern uint8_t  saved_mods; // global, so we're not wasting time allocating...
                     break;
                 case HC_ELIP:
                 case PC_ELIP:
-                    tap_code16(A(KC_SCLN));
+                    tap_code16(A(KC_SLSH));
                     break;
                 case PC_COLN:
                     tap_code16(KC_COLN);
@@ -511,7 +539,7 @@ extern uint8_t  saved_mods; // global, so we're not wasting time allocating...
                 case HC_RING:
                      tap_code16(A(KC_K));
                     break;
-
+/*
                 case HC_UM: // Ü
                     tap_code16(A(KC_U));
                     tap_code16(KC_U);
@@ -545,6 +573,20 @@ extern uint8_t  saved_mods; // global, so we're not wasting time allocating...
                     tap_code16(KC_O);
                     break;
 
+                case HC_1E: // É
+                    tap_code16(A(KC_E));
+                    tap_code16(KC_E);
+                    break;
+                case HC_2E: // Ē
+                    tap_code16(A(KC_A));
+                    tap_code16(KC_O);
+                    break;
+                case HC_3E: // Ê
+                    tap_code16(A(KC_6));
+                    tap_code16(KC_E);
+                    break;
+*/
+                    
                 case MYMACRO:
                     SEND_STRING("End of times in 2020\n");
                     break;
@@ -586,9 +628,6 @@ extern uint8_t  saved_mods; // global, so we're not wasting time allocating...
                     tap_SemKeys(SK_COPY);
                     tap_SemKeys(SK_FIND);
                     tap_SemKeys(SK_PSTE);
-                case HC_ENT:
-                    tap_code(KC_ENT);
-                    break;
                 case HC_SALL:
                     tap_SemKeys(SK_SALL);
 /*

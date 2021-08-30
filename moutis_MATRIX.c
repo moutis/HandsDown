@@ -5,7 +5,7 @@ LEADER_EXTERNS();
 #endif
 
 void matrix_scan_user(void) {
-extern uint8_t  saved_mods;
+//extern uint8_t  saved_mods;
 
 #ifdef LEADER_ENABLE
     #include "moutis_LEADER.c"
@@ -15,19 +15,28 @@ extern uint8_t  saved_mods;
         matrix_scan_user_process_combo();
 #endif
 
-    if (appmenu_on) { // linger menu on, (no mods) check if it needs to be cleared
-        if (timer_elapsed(appmenu_timer) > TAPPING_TERM * 5) {// linger time elapsed?
-            if (user_config.osIsWindows) { // Y. stop the menu.
-                unregister_code(KC_LALT);
-            } else {
-                unregister_code(KC_LGUI);
+    if (state_reset_timer) { // is there an active state?
+    
+        if (caps_word_on) { // caps_word mode on, (no mods) check if it needs to be cleared
+            if (timer_elapsed(state_reset_timer) > STATE_RESET_TIME * 6) {// linger time over?
+                disable_caps_word(); // turn off all open states
+                state_reset_timer = 0;
             }
-            appmenu_timer = 0;
-            appmenu_on = false;
         }
+
+        if (appmenu_on) { // App menu up, (no mods) check if it needs to be cleared
+            if (timer_elapsed(state_reset_timer) > STATE_RESET_TIME) {// linger time over?
+                if (user_config.osIsWindows) { // Y. stop the menu.
+                    unregister_code(KC_LALT);
+                } else {
+                    unregister_code(KC_LGUI);
+                }
+                state_reset_timer = 0;
+                appmenu_on = false;
+            }
+        }
+
     }
-
-
 }
 
 #ifdef LEADER_ENABLE
