@@ -34,8 +34,33 @@ enum my_combos {
     PC_BSPC, // <bksp> on num
     PC_DEL, // <del> on num
     PC_TAB, // <tab> on num
-    HC_TYPE_TION,
-    HC_TYPE_JAPAN,
+
+    // Fast entry 4grams
+    // since combos are a bit slower,
+    // needs to be a 4gram+ or more to be worth it
+    HC_ing_3gram, // TYPE "ing"
+    HC_tion_4gram, // TYPE "tion" #1
+    HC_with_4gram, // TYPE "with" #5
+    HC_ment_4gram, // TYPE "ment" #6
+    HC_this_4gram, // TYPE "this" #8
+    HC_here_4gram, // TYPE "here" #9
+    HC_ould_4gram, // TYPE "ould" #11
+    HC_ting_4gram, // TYPE "ting" #12
+    HC_sion_4gram, // TYPE "sion" #20
+    HC_they_4gram, // TYPE "they" #23
+    HC_ough_4gram, // TYPE "ough" #25
+
+
+    HC_their_5gram, // TYPE "their" #6
+    HC_there_5gram, // TYPE "there" #7
+/*
+    HC_people_6gram, // TYPE "people" #23
+    HC_present_7gram, // TYPE "present" #1
+    HC_through_7gram, // TYPE "through" #3
+    HC_between_7gram, // TYPE "between" #4
+*/
+    
+    HC_TYPE_JAPAN, // TYPE "Japan" and hold for "ese"
     HC_CAPSWORD, // CAPS WORD
     FC_CAPS, // CAPS LOCK
 

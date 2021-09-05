@@ -16,21 +16,21 @@
     My globals
 */
 user_config_t user_config;
+uint8_t  saved_mods = 0; // to pass state between process_record_user and matrix_scan_user
+uint16_t record_keycode = 0; // the keykcode we poke at in process_record
 
 uint32_t linger_timer = 0; // time to hold a key before something else happens.
 uint32_t state_reset_timer = 0;  // time to leave a state active before shutting it down.
-bool appmenu_on = false;
-bool mods_held = false;
+bool appmenu_on = false;  // state of windows-like app switcher
+bool mods_held = false;  // nood to remember how we entered the appmenu state
 bool key_trap = false; // used for shift BS = del (right)
-uint8_t  saved_mods = 0; // to pass state between process_record_user and matrix_scan_user
-uint16_t record_keycode = 0; // the keykcode we poke at in process_record
 
 
 uint8_t  combo_on = 0;           // for combo actions to hold before triggering
 bool  combo_triggered = false;   // for one-shot-combo-actions
 
 
-#include "moutis_semantics.c" // anything could send a semantic, so…first
+#include "moutis_semantickeys.c" // anything could send a semantic, so…first
 
 #ifdef OLED_DRIVER_ENABLE
     #include "moutis_OLED.c"
@@ -56,9 +56,9 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 };
 #endif
 
-#include "moutis_casemods.c" // casemods could, theoretically send semantics, so define in order
+#include "moutis_casemods.c"
 
-#include "moutis_adaptives.c" // adaptives may send semantics, so …
+#include "moutis_adaptivekeys.c"
 
 #include "moutis_PROCESS_RECORD_hd_bronze.c"
 

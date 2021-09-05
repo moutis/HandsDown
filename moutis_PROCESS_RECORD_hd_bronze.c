@@ -56,7 +56,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // This logic feels kludgey.  fix it.
             if (record->event.pressed) { // key down
                 if ((saved_mods & MOD_MASK_SHIFT)) { // shift down with KC_BSPC?
-                    clear_keyboard(); // turn off shift
+                    set_mods(saved_mods & ~MOD_MASK_SHIFT); // turn off shift
                     register_code16(KC_DEL);
                     key_trap = true;  // mode monitor on to clear this on keyup
                     return_state = false; // don't do more with this record.
@@ -97,8 +97,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // This logic feels kludgey.  fix it.
             if (record->event.pressed) { // key down
                 if ((saved_mods & MOD_MASK_ALT)) { // alt down with KC_J?
-                    clear_keyboard(); // turn off all mods now for blank state. will get restored later.
-                    register_code16(KC_Z);
+                    clear_keyboard(); // Seems that set_mods(saved_mods & ~MOD_MASK_SHIFT) doesn't work.
+                    if (saved_mods & MOD_MASK_CTRL) {
+                        if (saved_mods & MOD_MASK_ALT) { // so we need to check this
+                            tap_code16(A(KC_J)); // reclaim access to this
+                        }
+                    } else {
+                        if (saved_mods & MOD_MASK_SHIFT) { // alt down with KC_J?
+                            register_code16(S(KC_Z));
+                        } else {
+                            register_code16(KC_Z);
+                        }
+                    }
                     return_state = false; // don't do more with this record.
                 }
             } else {
@@ -111,8 +121,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // This logic feels kludgey.  fix it.
             if (record->event.pressed) { // key down
                 if ((saved_mods & MOD_MASK_ALT)) { // alt down with KC_X?
-                    clear_keyboard(); // turn off all mods now for blank state. will get restored later.
-                    register_code16(KC_Q);
+                    clear_keyboard(); // Seems that set_mods(saved_mods & ~MOD_MASK_SHIFT) doesn't work.
+                    if (saved_mods & MOD_MASK_CTRL) {
+                        if (saved_mods & MOD_MASK_ALT) { // so we need to check this
+                            tap_code16(A(KC_X)); // reclaim access to this
+                        }
+                    } else {
+                        if (saved_mods & MOD_MASK_SHIFT) { // so we need to check this
+                            register_code16(S(KC_Q));
+                        } else {
+                            register_code16(KC_Q);
+                        }
+                    }
                     return_state = false; // don't do more with this record.
                 }
             } else {
@@ -339,14 +359,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_PERC:  // % + shft = ‰
             // This logic feels kludgey.  fix it.
             if (record->event.pressed) { // key down
-                if ((saved_mods & MOD_MASK_SHIFT)) { // ALT down?
-                    clear_keyboard(); // turn off all mods now for blank state. will get restored later.
+                if ((saved_mods & MOD_MASK_SHIFT)) { // shift down?
+                    set_mods(saved_mods & ~(MOD_MASK_GUI || MOD_MASK_CTRL)); // turn off unused mods
                     tap_code16(A(S(KC_R))); // ‰
                     return_state = false; // don't do more with this record.
                 }
             }
             break;
     } // switch (record_keycode) {
-    if (!return_state) set_mods(saved_mods); // restore shift state if we tickled anything
+    if (!return_state) set_mods(saved_mods); // restore mod state if we tickled anything
     return return_state;  // keep processing record
 }

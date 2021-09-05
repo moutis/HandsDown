@@ -6,7 +6,7 @@
 
 #include <quantum.h>
 
-#include "moutis_semantics.h"
+#include "moutis_semantickeys.h"
 
 #include "moutis_casemods.h"
 
