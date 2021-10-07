@@ -21,17 +21,17 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   } else  {  // Second (right) encoder
       switch(get_highest_layer(layer_state)){
           case L_MEDIA_NAV: // media/nav layer
-//              if (clockwise) {
-//                  tap_code16(G(KC_RBRC)); // prev page
-//              } else {
-//                  tap_code16(G(KC_LBRC)); // next page
-//              }
-//              break;
+              if (clockwise) {
+                  tap_SemKey(SK_HISTPRV); // prev page
+              } else {
+                  tap_SemKey(SK_HISTNXT); // next page
+              }
+              break;
           case L_LANG_NUM: // punctuation layer
               if (clockwise) {
-                  tap_code16(G(S(KC_EQL))); // ZOOM IN
+                  tap_SemKey(SK_ZOOMIN); // ZOOM IN
               } else {
-                  tap_code16(G(KC_MINS)); // ZOOM OUT
+                  tap_SemKey(SK_ZOOMOUT); // ZOOM OUT
               }
               break;
           default:
@@ -43,5 +43,5 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
               break;
       }
   }
-    return true;
+    return false;
 }

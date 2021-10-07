@@ -3,10 +3,10 @@
 
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM F_ESC_combo[] = {KC_X, KC_B, COMBO_END}; // ESCape
-const uint16_t PROGMEM F_KILL_combo[] = {KC_X, KC_W, COMBO_END}; // Force quit OR CTRL-ALT-DEL
-const uint16_t PROGMEM F_SCLP_combo[] = {KC_J, KC_V, COMBO_END}; // SCREEN shot SELECTION to clipboard
-const uint16_t PROGMEM F_SCAP_combo[] = {KC_J, KC_K, COMBO_END}; //  SCREEN shot SELECTION to file
+const uint16_t PROGMEM F_ESC_combo[] = {KC_QUOT, KC_B, COMBO_END}; // ESCape
+const uint16_t PROGMEM F_KILL_combo[] = {KC_X, KC_QUOT, COMBO_END}; // Force quit OR CTRL-ALT-DEL
+const uint16_t PROGMEM F_SCLP_combo[] = {KC_W, KC_V, COMBO_END}; // SCREEN shot SELECTION to clipboard
+const uint16_t PROGMEM F_SCAP_combo[] = {KC_W, KC_K, COMBO_END}; //  SCREEN shot SELECTION to file
 const uint16_t PROGMEM F_CAPS_combo[] = {KC_D, KC_U, COMBO_END}; // CAPS LOCK (on until hit again)
 //const uint16_t PROGMEM H_CAPS_combo[] = {LSFT_T(KC_BSPC), RSFT_T(KC_ENT), COMBO_END}; // CAPS WORD (on until delimiter)
 const uint16_t PROGMEM H_CAPS_combo[] = {LSFT_T(KC_T), RSFT_T(KC_A), COMBO_END}; // CAPS WORD (on until delimiter)
@@ -51,7 +51,7 @@ const uint16_t PROGMEM Hndsh_combo[] = {KC_MINS, KC_U, COMBO_END}; // – n dash
 const uint16_t PROGMEM Hmdsh_combo[] = {KC_MINS, KC_O, COMBO_END}; // — m dash
 const uint16_t PROGMEM Hunds_combo[] = {KC_U, KC_Y, COMBO_END}; // _ underscore
 const uint16_t PROGMEM Htild_combo[] = {KC_MINS, KC_Y, COMBO_END}; // ~ tilde (not the dead one)
-const uint16_t PROGMEM Hequal_combo[] = {KC_Y, KC_W, COMBO_END}; // = equal
+const uint16_t PROGMEM Hequal_combo[] = {KC_Y, KC_X, COMBO_END}; // = equal
 const uint16_t PROGMEM Hscln_combo[] = {KC_COMM, RSFT_T(KC_A), COMBO_END}; // ; semicolon
 
 // spatially arranged characters and diacritics
@@ -59,14 +59,14 @@ const uint16_t PROGMEM Hexlm_combo[] = {KC_DOT, KC_SLSH, COMBO_END}; // !
 const uint16_t PROGMEM Hques_combo[] = {KC_SLSH, KC_DQUO, COMBO_END}; // ?
 const uint16_t PROGMEM Hat_combo[] = {KC_HASH, KC_DOT, COMBO_END}; // @ at mark
 const uint16_t PROGMEM Helip_combo[] = {KC_HASH, KC_SLSH, COMBO_END}; // … elipses
-const uint16_t PROGMEM Htic_combo[] = {KC_QUOT, KC_DQUO, COMBO_END}; // ` tic (not dead key grave)
-const uint16_t PROGMEM Hacut_combo[] = {KC_QUOT, KC_SLSH, COMBO_END}; // ´ acute (dead key)
+const uint16_t PROGMEM Htic_combo[] = {KC_GRV, KC_DQUO, COMBO_END}; // ` tic (not dead key grave)
+const uint16_t PROGMEM Hacut_combo[] = {KC_GRV, KC_SLSH, COMBO_END}; // ´ acute (dead key)
 const uint16_t PROGMEM Hgrv_combo[] = {KC_HASH, KC_DQUO, COMBO_END}; // ` grave (dead key)
 const uint16_t PROGMEM Hmacr_combo[] = {KC_DOT, KC_DQUO, COMBO_END}; // - macron (dead key)ā
-const uint16_t PROGMEM Hcirc_combo[] = {KC_QUOT, KC_DOT, COMBO_END}; // ˆ circumflex (dead key)
+const uint16_t PROGMEM Hcirc_combo[] = {KC_J, KC_DOT, COMBO_END}; // ˆ circumflex (dead key)
 const uint16_t PROGMEM Hdier_combo[] = {KC_U, KC_O, COMBO_END}; // ¨ dieresis (dead key)
-const uint16_t PROGMEM Hring_combo[] = {KC_O, KC_W, COMBO_END}; // ˚ ring (dead key)
-const uint16_t PROGMEM Henye_combo[] = {KC_F, KC_P, COMBO_END}; // ˜ enye (dead key) (over N)
+const uint16_t PROGMEM Hring_combo[] = {KC_O, KC_X, COMBO_END}; // ˚ ring (dead key)
+const uint16_t PROGMEM Henye_combo[] = {KC_G, KC_P, COMBO_END}; // ˜ enye (dead key) (over N)
 
 // LOWER ROW
 // SYMBOLS spatially arranged
@@ -75,14 +75,15 @@ const uint16_t PROGMEM Henye_combo[] = {KC_F, KC_P, COMBO_END}; // ˜ enye (dead
 
 // TEXT ENTRY - off map (ANY ROW/ MIXED ROWS) and row jump prevention
 const uint16_t PROGMEM H_J_combo[] = {KC_O, KC_Y, COMBO_END}; // TYPE "j"
-const uint16_t PROGMEM H_Z_combo[] = {KC_F, KC_M, COMBO_END}; // TYPE "z"
-const uint16_t PROGMEM H_Q_combo[] = {KC_J, KC_F, COMBO_END}; // TYPE "q"
-const uint16_t PROGMEM H_Q2_combo[] = {KC_U, KC_W, COMBO_END}; // TYPE "q"
-const uint16_t PROGMEM H_Ph_combo[] = {KC_M, KC_P, COMBO_END}; // TYPE "ph"
+const uint16_t PROGMEM H_Z_combo[] = {KC_G, KC_H, COMBO_END}; // TYPE "z"
+const uint16_t PROGMEM H_Q_combo[] = {KC_W, KC_G, COMBO_END}; // TYPE "q"
+const uint16_t PROGMEM H_Q2_combo[] = {KC_U, KC_X, COMBO_END}; // TYPE "q"
+
+const uint16_t PROGMEM H_Ph_combo[] = {KC_H, KC_P, COMBO_END}; // TYPE "ph"
 const uint16_t PROGMEM H_Th_combo[] = {LGUI_T(KC_N), LSFT_T(KC_T), COMBO_END}; // "th"
 const uint16_t PROGMEM H_Sh_combo[] = {LALT_T(KC_S), LGUI_T(KC_N), COMBO_END}; // "sh"
 
-const uint16_t PROGMEM H_ing_combo[] = {RALT_T(KC_I), KC_G, COMBO_END}; // TYPE "ing" only a 3gram, let's see it it's worth it
+const uint16_t PROGMEM H_ing_combo[] = {RALT_T(KC_I), KC_G, COMBO_END}; // TYPE "ing" only a 3gram, let's see if it's worth it
 
 // Fast 4grams
 // FOR THUMB SHIFT
@@ -103,21 +104,20 @@ const uint16_t PROGMEM H_ough_combo[] = {KC_O, LSFT_T(KC_H), COMBO_END}; // "oug
 // FOR INDEX SHIFT
 
 //const uint16_t PROGMEM H_tion_combo[] = {LGUI_T(KC_N), LSFT_T(KC_T), COMBO_END}; // "tion" #1
-const uint16_t PROGMEM H_with_combo[] = {KC_W, LT(L_MEDIA_NAV,KC_H), COMBO_END}; // "with" #5
+const uint16_t PROGMEM H_with_combo[] = {KC_W, LSFT_T(KC_T), COMBO_END}; // "with" #5
 const uint16_t PROGMEM H_ment_combo[] = {KC_M, LSFT_T(KC_T), COMBO_END}; // "ment" #6
 const uint16_t PROGMEM H_this_combo[] = {LSFT_T(KC_T), LALT_T(KC_S), COMBO_END}; // "this" #8
-const uint16_t PROGMEM H_here_combo[] = {LT(L_MEDIA_NAV,KC_H), RGUI_T(KC_E), COMBO_END}; // "here" #9
+const uint16_t PROGMEM H_here_combo[] = {KC_H, RGUI_T(KC_E), COMBO_END}; // "here" #9
 const uint16_t PROGMEM H_ould_combo[] = {KC_O, KC_D, COMBO_END}; // "ould" #11
 const uint16_t PROGMEM H_ting_combo[] = {LSFT_T(KC_T), KC_G, COMBO_END}; // "ting" #12
-const uint16_t PROGMEM H_sion_combo[] = {LALT_T(KC_S), LGUI_T(KC_N), COMBO_END}; // "sion" #20
-const uint16_t PROGMEM H_they_combo[] = {LSFT_T(KC_T), KC_J, COMBO_END}; // "they" #23
-const uint16_t PROGMEM H_ough_combo[] = {KC_O, LT(L_MEDIA_NAV,KC_H), COMBO_END}; // "ough" #25
+const uint16_t PROGMEM H_they_combo[] = {LSFT_T(KC_T), KC_Y, COMBO_END}; // "they" #23
+const uint16_t PROGMEM H_ough_combo[] = {KC_O, KC_F, COMBO_END}; // "ough" #25
 
 
 // Fast 5-7grams
 
-const uint16_t PROGMEM H_their_combo[] = {LSFT_T(KC_T), KC_X, COMBO_END}; // TYPE "their" #6
-const uint16_t PROGMEM H_there_combo[] = {LSFT_T(KC_T), LCTL_T(KC_R), COMBO_END}; // TYPE "there" #7
+const uint16_t PROGMEM H_their_combo[] = {LSFT_T(KC_T), RCTL_T(KC_R), COMBO_END}; // TYPE "their" #6
+const uint16_t PROGMEM H_there_combo[] = {LSFT_T(KC_T), KC_X, COMBO_END}; // TYPE "there" #7
 /*const uint16_t PROGMEM H_people_combo[] = {KC_P, RGUI_T(KC_E), COMBO_END}; // TYPE "people" #23
 const uint16_t PROGMEM H_present_combo[] = {KC_P, LSFT_T(KC_T), COMBO_END}; // TYPE "present" #1
 const uint16_t PROGMEM H_through_combo[] = {LSFT_T(KC_T), LT(L_MEDIA_NAV,KC_H), COMBO_END}; // TYPE "through" #3
@@ -125,33 +125,33 @@ const uint16_t PROGMEM H_between_combo[] = {KC_B, LGUI_T(KC_N),  COMBO_END}; // 
 */
 
 /* other examples or text entry combos */
-const uint16_t PROGMEM H_Japan_combo[] = {KC_J, KC_P, COMBO_END}; // TYPE "Japan"
+const uint16_t PROGMEM H_Japan_combo[] = {KC_Y, KC_P, COMBO_END}; // TYPE "Japan"
 const uint16_t PROGMEM Macro_combo[] = {KC_G, KC_F, COMBO_END}; // some macro placeholder
 
 // UPPER ROW
 
 // FUNCTIONS Spatially arranged
 const uint16_t PROGMEM Qtab_combo[] = {KC_Q, KC_W, COMBO_END}; // tab QWERTY
-const uint16_t PROGMEM Htab_combo[] = {LCTL_T(KC_R), LALT_T(KC_S), COMBO_END}; // tab HANDS DOWN
+const uint16_t PROGMEM Htab_combo[] = {LCTL_T(KC_C), LALT_T(KC_S), COMBO_END}; // tab HANDS DOWN
 const uint16_t PROGMEM Hent_combo[] = {LSFT_T(KC_T), KC_K, COMBO_END}; // ENTER
-const uint16_t PROGMEM Hspc_combo[] = {KC_D, KC_B, COMBO_END}; // SPACE
+const uint16_t PROGMEM Hspc_combo[] = {KC_P, KC_K, COMBO_END}; // SPACE
 
 // LOWER ROW
 
 // SEMANTIC FUNCTIONS Spatially arranged  ** uses SemKeys **
-const uint16_t PROGMEM Hclose_combo[] = {KC_L, KC_B, COMBO_END}; // close
-const uint16_t PROGMEM Hquit_combo[] = {KC_G, KC_B, COMBO_END}; // quit
-const uint16_t PROGMEM Hfind_combo[] = {KC_F, KC_V, COMBO_END}; // find
-const uint16_t PROGMEM Hsall_combo[] = {KC_X, KC_D, COMBO_END}; // select all
-const uint16_t PROGMEM Hundo_combo[] = {KC_X, KC_G, COMBO_END}; // undo
-const uint16_t PROGMEM Hcut_combo[] = {KC_X, KC_L, COMBO_END}; // cut
-const uint16_t PROGMEM Hcopy_combo[] = {KC_G, KC_L, COMBO_END}; // copy
-const uint16_t PROGMEM Hpste_combo[] = {KC_L, KC_D, COMBO_END}; // paste
-const uint16_t PROGMEM Hpstm_combo[] = {KC_G, KC_D, COMBO_END}; // paste-match
+const uint16_t PROGMEM Hclose_combo[] = {KC_H, KC_K, COMBO_END}; // close
+const uint16_t PROGMEM Hquit_combo[] = {KC_G, KC_K, COMBO_END}; // quit
+const uint16_t PROGMEM Hfind_combo[] = {KC_H, LT(L_MEDIA_NAV, KC_L), COMBO_END}; // find sel
+const uint16_t PROGMEM Hsall_combo[] = {KC_QUOT, KC_D, COMBO_END}; // select all
+const uint16_t PROGMEM Hundo_combo[] = {KC_QUOT, KC_F, COMBO_END}; // undo
+const uint16_t PROGMEM Hcut_combo[] = {KC_QUOT, KC_M, COMBO_END}; // cut
+const uint16_t PROGMEM Hcopy_combo[] = {KC_F, KC_M, COMBO_END}; // copy
+const uint16_t PROGMEM Hpste_combo[] = {KC_M, KC_D, COMBO_END}; // paste
+const uint16_t PROGMEM Hpstm_combo[] = {KC_F, KC_D, COMBO_END}; // paste-match
 
 // TWO HANDS
-const uint16_t PROGMEM Hdquo_combo[] = {KC_HASH, KC_QUOT, COMBO_END};  // "|" insert between double quote
-const uint16_t PROGMEM Hdbrc_combo[] = {KC_MINS, KC_W, COMBO_END};  // [|] insert between double BRACKET
+const uint16_t PROGMEM Hdquo_combo[] = {KC_HASH, KC_J, COMBO_END};  // "|" insert between double quote
+const uint16_t PROGMEM Hdbrc_combo[] = {KC_MINS, KC_X, COMBO_END};  // [|] insert between double BRACKET
 
 // Major diacritic combos will use SemKeys for platform independance
 /*
@@ -192,6 +192,7 @@ combo_t key_combos[] = {
     [HC_Ph] = COMBO_ACTION(H_Ph_combo),
     [HC_Th] = COMBO_ACTION(H_Th_combo),
     [HC_Sh] = COMBO_ACTION(H_Sh_combo),
+
 
     [PC_PENT] = COMBO(P3E_combo, KC_PENT), // <enter> on num
     [PC_BSPC] = COMBO(P01_combo, KC_BSPC), // <bksp> on num
@@ -268,7 +269,7 @@ combo_t key_combos[] = {
 
     // Fast entry 4grams
     [HC_ing_3gram] = COMBO_ACTION(H_ing_combo), // TYPE "ing"
-//    [HC_tion_4gram] = COMBO_ACTION(H_tion_combo), // TYPE "tion" #1  // handled via adaptive keys?
+//    [HC_tion_4gram] = COMBO_ACTION(H_tion_combo), // TYPE "tion" #1
     [HC_with_4gram] = COMBO_ACTION(H_with_combo), // TYPE "with" #5
     [HC_ment_4gram] = COMBO_ACTION(H_ment_combo), // TYPE "ment" #6
     [HC_this_4gram] = COMBO_ACTION(H_this_combo), // TYPE "this" #8
@@ -336,10 +337,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             case HC_ing_3gram: // TYPE "ing"
                 SEND_STRING("ing");
                 break;
-/*            case HC_tion_4gram: // TYPE "tion" #1
-                SEND_STRING("tion");
+            case HC_tion_4gram: // TYPE "tion" #1
+                SEND_STRING("th");
                 break;
-*/
             case HC_with_4gram: // TYPE "with" #5
                 SEND_STRING("with");
                 break;
@@ -610,31 +610,31 @@ extern uint8_t  saved_mods; // global, so we're not wasting time allocating...
                     tap_code16(KC_PERC);
                     break;
                 case PC_EURO:
-                    tap_code16(A(S(KC_2)));
+                    tap_code16(A(S(KC_2))); // this should use semkeys
                     break;
                 case PC_DOLR:
                     tap_code16(S(KC_4));
                     break;
                 case PC_CENT:
-                    tap_code16(A(KC_4));
+                    tap_code16(A(KC_4)); // this should use semkeys
                     break;
                 case PC_JYEN:
-                    tap_code16(A(KC_Y));
+                    tap_code16(A(KC_Y)); // this should use semkeys
                     break;
                 case PC_BPND:
-                    tap_code16(A(KC_3));
+                    tap_code16(A(KC_3)); // this should use semkeys
                     break;
                 case PC_NEQL:
-                    tap_code16(A(KC_EQL));
+                    tap_code16(A(KC_EQL)); // this should use semkeys
                     break;
                 case PC_DIV:
-                    tap_code16(A(KC_SLSH));
+                    tap_code16(A(KC_SLSH)); // this should use semkeys
                     break;
                 case PC_PLMN:
-                    tap_code16(A(S(KC_EQL)));
+                    tap_code16(A(S(KC_EQL))); // this should use semkeys
                     break;
                 case PC_DEG:
-                    tap_code16(A(KC_0));
+                    tap_code16(A(KC_0)); // this should use semkeys
                     break;
                 case PC_LPRN:
                     tap_code16(KC_LPRN);
@@ -656,29 +656,27 @@ extern uint8_t  saved_mods; // global, so we're not wasting time allocating...
                     break;
 
                 case HC_ENYE:
-                    tap_code16(A(KC_N));
+                    tap_code16(A(KC_N)); // this should use semkeys
                     break;
                 case HC_ACUT:
-                     tap_code16(A(KC_E));
+                     tap_code16(A(KC_E)); // this should use semkeys
                     break;
                 case HC_GRV:
-                     tap_code16(A(KC_GRV));
+                     tap_code16(A(KC_GRV)); // this should use semkeys
                     break;
                 case HC_CIRC:
-                     tap_code16(A(KC_6));
+                     tap_code16(A(KC_6)); // this should use semkeys
                     break;
                 case HC_MACR:
-                    tap_code16(A(KC_A));
+                    tap_code16(A(KC_A)); // this should use semkeys
                     break;
                 case HC_DIER:
-                     tap_code16(A(KC_U));
+                     tap_code16(A(KC_U)); // this should use semkeys
                     break;
                 case HC_RING:
-                     tap_code16(A(KC_K));
+                     tap_code16(A(KC_K)); // this should use semkeys
                     break;
 /*
- // THESE SHOULD ALL BE SEMKEYS
- //
                 case HC_UM: // Ü
                     tap_code16(A(KC_U));
                     tap_code16(KC_U);
@@ -733,8 +731,8 @@ extern uint8_t  saved_mods; // global, so we're not wasting time allocating...
                 case HC_Q: // already "Q" has been sent; if held, add "u"
                 case HC_Q2: // already "Q" has been sent; if held, add "u"
                     saved_mods = get_mods();
-                    set_mods(saved_mods & ~MOD_MASK_SHIFT); // This isn't working since 14.1
-                    tap_code(KC_U);
+                    clear_mods(); //
+                    SEND_STRING("u");
                     set_mods(saved_mods); //
                     break;
                 case HC_TYPE_JAPAN: // already "Japan" has been sent; if held, add "ese"

@@ -1,19 +1,18 @@
 {
   "version": 1,
-  "notes": "",
-  "documentation": "\"This file is a QMK Configurator export. You can import this at <https://config.qmk.fm>. It can also be used directly with QMK's source code.\n\nTo setup your QMK environment check out the tutorial: <https://docs.qmk.fm/#/newbs>\n\nYou can convert this file to a keymap.c using this command: `qmk json2c {keymap}`\n\nYou can compile this keymap using this command: `qmk compile {keymap}`\"\n",
+  "documentation": "This file is a QMK Configurator export. You can import this at <https://config.qmk.fm>. It can also be used directly with QMK's source code.\n\nTo setup your QMK environment check out the tutorial: <https://docs.qmk.fm/#/newbs>\n\nYou can convert this file to a keymap.c using this command: `qmk json2c {keymap}`\n\nYou can compile this keymap using this command: `qmk compile {keymap}`\n",
   "keyboard": "foostan/cornelius",
-  "keymap": "cornelius_hd_bronze",
+  "keymap": "cornelius_hd_bronze_sk",
   "layout": "LAYOUT",
   "layers": [
     [
-      "LT(5,KC_TAB)",
-      "KC_MINS",
+      "LT(5,KC_MUTE)",
+      "KC_J",
       "KC_F",
       "KC_M",
       "KC_P",
       "KC_V",
-      "KC_EQL",
+      "KC_HASH",
       "KC_DOT",
       "KC_SLSH",
       "KC_QUOT",
@@ -37,7 +36,7 @@
       "KC_L",
       "KC_D",
       "KC_B",
-      "KC_HASH",
+      "KC_MINS",
       "KC_U",
       "KC_O",
       "KC_W",
@@ -54,7 +53,7 @@
       "LT(6,KC_LANG1)",
       "KC_LBRC",
       "KC_RBRC",
-      "LT(3,KC_MUTE)"
+      "LT(3,KC_EQL)"
     ],
     [
       "KC_TRNS",
@@ -457,5 +456,6 @@
       "KC_BRID"
     ]
   ],
-  "author": ""
+  "author": "",
+  "notes": ""
 }

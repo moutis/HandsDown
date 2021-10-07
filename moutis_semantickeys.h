@@ -14,16 +14,17 @@
  Integrate all combo and keymap processing so they both queue
  SemKeys to be handled in process_record_user, reducing the code
  and simplifying maintenance.
+    complete.
  
  Phase 3: expand to multi-keystrokes, which would enable sending
  different compose sequences based on platform (diacritics),
- and possibly facilitate editor support (vim/emacs)?
+ and possibly facilitate support for other editors (vim/emacs)?
  
- Phase 4: use in Hands Down Polyglot.
+ Phase 4: use in Hands Down Polyglot for all non-ascii glyphs
  
  */
 
-#define tap_SemKeys(sk) tap_code16(SemKeys_t[sk][OSIndex])
-#define register_SemKey(sk) register_code16(SemKeys_t[sk][OSIndex])
-#define unregister_SemKey(sk) unregister_code16(SemKeys_t[sk][OSIndex])
+#define tap_SemKey(sk) tap_code16(SemKeys_t[sk - SK_KILL][OSIndex])
+#define register_SemKey(sk) register_code16(SemKeys_t[sk - SK_KILL][OSIndex])
+#define unregister_SemKey(sk) unregister_code16(SemKeys_t[sk - SK_KILL][OSIndex])
 

@@ -10,6 +10,7 @@ enum my_combos {
     HC_EXLM, // !
     HC_AT, // @
     HC_SCLN, // ;
+    HC_COLN, // :
     HC_UNDS, // _ underscore
     HC_NDSH, // – N-dash
     HC_MDSH, // — M-dash
@@ -19,9 +20,18 @@ enum my_combos {
     HC_TAB,
     QC_TAB,
 
+    HC_J, // J is not on the map
     HC_Q, // Q is not on the map
-    HC_Q2, // 2nd location for Q on the other hand
     HC_Z, // Z is not on the map
+    HC_Ch, // treat as digraph 'CH'
+    HC_Ph, // treat as φ
+    HC_Th, // treat as θ
+    HC_Sh, // TYPE "sh"
+    HC_Wh, // treat as digraph 'WH'
+    HC_I, // Cap I + "'ve " if lingered
+    HC_Id, // "I'd " …
+    HC_Ill, // "I'll " …
+    HC_Im, // "I'm " …
 
     //
     // ACTION COMBOS (ie, not simple combos as above)
@@ -39,26 +49,21 @@ enum my_combos {
     // since combos are a bit slower,
     // needs to be a 4gram+ or more to be worth it
     HC_ing_3gram, // TYPE "ing"
-    HC_tion_4gram, // TYPE "tion" #1
+//    HC_tion_4gram, // TYPE "tion" #1 // handled via adaptive keys
     HC_with_4gram, // TYPE "with" #5
     HC_ment_4gram, // TYPE "ment" #6
     HC_this_4gram, // TYPE "this" #8
     HC_here_4gram, // TYPE "here" #9
     HC_ould_4gram, // TYPE "ould" #11
     HC_ting_4gram, // TYPE "ting" #12
-    HC_sion_4gram, // TYPE "sion" #20
     HC_they_4gram, // TYPE "they" #23
     HC_ough_4gram, // TYPE "ough" #25
 
 
     HC_their_5gram, // TYPE "their" #6
     HC_there_5gram, // TYPE "there" #7
-/*
-    HC_people_6gram, // TYPE "people" #23
-    HC_present_7gram, // TYPE "present" #1
-    HC_through_7gram, // TYPE "through" #3
-    HC_between_7gram, // TYPE "between" #4
-*/
+    HC_where_5gram, // TYPE "where"
+    HC_theyre_7gram, // TYPE "they're"
     
     HC_TYPE_JAPAN, // TYPE "Japan" and hold for "ese"
     HC_CAPSWORD, // CAPS WORD
@@ -96,10 +101,8 @@ enum my_combos {
     PC_AC,
     
     MYMACRO,
-    HC_TYPE_LM,
 
     HC_2DQUO, // "|" insertion point between double quotes
-    HC_2DBRC, // [|] insertion point between double BRACKETS (japanese quote)
 
     HC_ENYE, // ~ enye
     HC_ACUT, // ´ acute
@@ -132,10 +135,12 @@ enum my_combos {
     HC_QUIT,
     HC_FIND, // Find the selection
     HC_SALL,
+
     HC_UNDO,
     HC_CUT,
     HC_COPY,
     HC_PSTE,
     HC_PSTM,
+
     COMBO_LENGTH // END OF DELAY BLOCK
 };
