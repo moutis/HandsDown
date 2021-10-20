@@ -42,7 +42,8 @@ void keyboard_post_init_user(void) {
         OSIndex = 0;
     }
 
-
+    eeconfig_read_default_layer(); // get the default layer from eeprom.
+    
 #ifdef OLED_DRIVER_ENABLE
     oled_clear();
         if (user_config.osIsWindows) {
@@ -57,6 +58,21 @@ void keyboard_post_init_user(void) {
 #endif
 }
 
+uint32_t layer_state_set_user(uint32_t layer_state) {
+
+/*
+ Someday, when OLED is omportant again, rewrite to
+ display Host Keyboard Layer Status using a table of layer names
+*/
+    
+    
+#ifdef OLED_DRIVER_ENABLE
+    oled_set_cursor(0, 0);
+    oled_write_P (layer_name[get_highest_layer(layer_state)]);
+    }
+#endif
+    return layer_state;
+}
 
 
 #include "moutis_semantickeys.c" // anything could send a semantic, so…first
@@ -70,7 +86,7 @@ void keyboard_post_init_user(void) {
 #endif
 
 #ifdef COMBO_ENABLE
-    #include "moutis_COMBO_hd_bronze_sk.c"
+    #include "moutis_COMBO_hd_neu_sk.c"
 #endif
 
 #include "moutis_casemods.c"
@@ -82,13 +98,23 @@ void keyboard_post_init_user(void) {
 #include "moutis_MATRIX.c"
 
 #ifdef KEY_OVERRIDE_ENABLE
-const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, LT(L_LANG_NUM,KC_BSPC), KC_DELETE);
 const key_override_t ques_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUES, KC_EXLM);
+const key_override_t hash_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_HASH, KC_AT);
+const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COLN);
+const key_override_t comm_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_SCLN);
+const key_override_t slsh_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_SLSH, KC_ASTR);
+const key_override_t bsls_key_override = ko_make_basic(MOD_MASK_ALT, KC_SLSH, KC_BSLS);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
     &delete_key_override,
     &ques_key_override,
+    &hash_key_override,
+    &dot_key_override,
+    &comm_key_override,
+    &slsh_key_override,
+    &bsls_key_override,
     NULL // Null terminate the array of overrides!
 };
 #endif

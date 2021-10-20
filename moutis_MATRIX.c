@@ -3,7 +3,7 @@
 void matrix_scan_user(void) {
 
 #ifdef COMBO_ENABLE
-    if (combo_on) { // This will be true only if a combo_action is being held.
+    if (combo_on) { // Is a combo_action being held?
         matrix_scan_user_process_combo();
     }
 #endif
@@ -34,7 +34,7 @@ void matrix_scan_user(void) {
                 saved_mods = get_mods();
                 clear_mods();
                 switch(linger_key) { // only one linger_key at a time, obviously
-                    case KC_Q: // already "Q" has been sent; if held, add "u"
+                    case KC_Q: // already "Q" has been sent; if lingered, add "u"
                         unregister_code(KC_LSFT); // remove shift here.
                         unregister_code(KC_RSFT); // remove shift here.
                         tap_code(KC_U);

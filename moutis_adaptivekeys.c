@@ -138,16 +138,6 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                             return_state = false; // done.
                     }
                     break;
-                case KC_U:
-                    switch (prior_keycode) {
-                        case KC_Y: // YU = You bc YO is a tad awk, but yu is easy, and uncommon
-                            unregister_code(KC_LSFT); // remove shift here.
-                            unregister_code(KC_RSFT); // remove shift here.
-                            tap_code(KC_O);
-                            tap_code(KC_U);
-                            return_state = false; // done.
-                    }
-                    break;
                 case KC_B: // take advantage of B & V being phonotacically similar
                 case KC_V: // (and in same finger/column) to process as adaptive key
                     switch (prior_keycode) {
@@ -216,6 +206,31 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                             return_state = false; // done.
                             break;
                     }
+                    break;
+                case KC_U:
+                    switch (prior_keycode) {
+                        case KC_W: // WU = would bc wu is easy, and uncommon
+                            unregister_code(KC_LSFT); // remove shift here.
+                            unregister_code(KC_RSFT); // remove shift here.
+                            send_string("ould");
+                            return_state = false; // done.
+                            break;
+                        case KC_Y: // YU = You bc YO is a tad awk, but yu is easy, and uncommon
+                            unregister_code(KC_LSFT); // remove shift here.
+                            unregister_code(KC_RSFT); // remove shift here.
+                            tap_code(KC_O);
+                            tap_code(KC_U);
+                            return_state = false; // done.
+                   }
+                    break;
+                case KC_Y:
+                    switch (prior_keycode) {
+                        case KC_W: // WY = WH do avoid row jump (Gold)
+                            unregister_code(KC_LSFT); // remove shift here.
+                            unregister_code(KC_RSFT); // remove shift here.
+                            tap_code(KC_H);
+                            return_state = false; // done.
+                   }
                     break;
                 case KC_MINS:
                      switch (prior_keycode) {

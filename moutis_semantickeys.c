@@ -22,7 +22,7 @@
  
  */
 
-/*
+/*  This is in moutis.h for now
 enum SemKeys {
     SK_KILL,
     SK_UNDO,
@@ -44,6 +44,7 @@ enum SemKeys {
     SK_DIER_E,
     SK_RING_E,
     SK_MACR_E,
+    SK_ENYE,
 
     SemKeys_COUNT
 };
@@ -92,12 +93,15 @@ const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][SemKeys_OS_COUNT] = {
     [SK_ZOOMOUT - SK_KILL] = {G(KC_MINS),C(KC_MINS)}, // ZOOM OUT
     [SK_ZOOMRST - SK_KILL] = {G(KC_0),C(KC_0)}, // ZOOM RESET
     [SK_SECT - SK_KILL] = {A(KC_5),A(KC_5)}, // § ** SAMPLE OF GLYPH. REALLY NEED UNICODE.
+    [SK_ENYE - SK_KILL] = {A(KC_N),A(KC_N)}, // ñ/Ñ ** SAMPLE OF GLYPH. REALLY NEED UNICODE?
 
 };
 
 bool process_semkey(uint16_t keycode, const keyrecord_t *record) {
     // custom processing could hapen here
+    uint8_t  saved_mods;
     if (keycode >= SK_KILL && keycode < SemKeys_COUNT) {
+        saved_mods = get_mods();
         if (record->event.pressed) {
             switch (keycode) {
 /*
@@ -164,6 +168,14 @@ bool process_semkey(uint16_t keycode, const keyrecord_t *record) {
                     break;
                 case SK_COPY:
                     tap_SemKey(SK_COPY);
+                    break;
+                case SK_ENYE: // ñ/Ñ ENYE
+                    // Doing it this way until proper multi-keystroke table is implemented
+                    clear_keyboard(); // clean record to tinker with.
+                    tap_SemKey(SK_ENYE);
+                    set_mods(saved_mods & MOD_MASK_SHIFT); // Preserve shift state
+                    tap_code16(KC_N);
+                    // set_mods(saved_mods); // restore mods just in case? (not necessary?)
                     break;
                 default: // default keydown event
                     register_SemKey(keycode);

@@ -1,9 +1,16 @@
 #pragma once
 
+#ifndef NO_DEBUG
+#define NO_DEBUG
+#endif // !NO_DEBUG
+#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+#define NO_PRINT
+#endif // !NO_PRINT
 
-// Set the mouse settings to a comfortable speed/accuracy trade-off,
-// assuming a screen refresh rate of 60 Htz or higher
-// The default is 50. This makes the mouse ~3 times faster and more accurate
+// This enables Link Time Optimization, saving a significant amount of space. Because the Macro and Function features are incompatible with Link Time Optimization, disable those features in config.h:
+
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 
 // The Leader key allows to flexibly assign macros to key sequences.
 #ifdef LEADER_ENABLE
@@ -57,14 +64,12 @@
 #define TAPPING_TERM 170 // TAP VS HOLD timing in milliseconds
 
 // Pick good defaults for enabling homerow modifiers
-// Allows media codes to properly register in macros and rotary encoder code
 #define TAP_CODE_DELAY 5
 #define TAP_HOLD_CAPS_DELAY 0
 #define PERMISSIVE_HOLD
-#define BILATERAL_COMBINATIONS
+//#define BILATERAL_COMBINATIONS
 #define IGNORE_MOD_TAP_INTERRUPT
 
-#define ADAPTIVE_TERM TAPPING_TERM/2 // default time between keystrokes allowed for adaptives
 #ifdef COMBO_ENABLE
     #ifdef COMBO_COUNT
         #undef COMBO_COUNT
@@ -85,6 +90,6 @@
     #define ADAPTIVE_TERM COMBO_HOLD  // use COMBO_HOLD time as a standard threshold (same recation time)
 #endif
 
-#define LINGER_TIME TAPPING_TERM * 1.3 // how long to hold before a time-depentant behavior begins
+#define LINGER_TIME TAPPING_TERM * 1.2 // how long to hold before a time-depentant behavior begins
 #define STATE_RESET_TIME LINGER_TIME * 4 // how long to leave a state active before resetting
 

@@ -100,7 +100,7 @@ bool process_caps_word(uint16_t keycode, const keyrecord_t *record) {
 
     if (caps_word_on) {
         // Filter out the actual keycode from MT and LT keys.
-        // This isn't working right
+        // This isn't working right. need to allow a layer to happen.
         switch (keycode) {
             case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:

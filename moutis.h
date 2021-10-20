@@ -28,6 +28,7 @@ extern rgblight_config_t rgblight_config;
 
 
 void matrix_scan_user_process_combo(void);
+
 // this borrowed from Thomas Bart
 typedef union {
     uint32_t raw;
@@ -40,13 +41,17 @@ typedef union {
 
 
 enum my_layers {
-  L_HANDSDOWN,
-  L_QWERTY,
-  L_PUNCT,
-  L_FN,
-  L_MEDIA_NAV,
-  L_LANG_NUM,
-  L_DIACR
+    L_HANDSDOWN,
+    L_HDSILVER,
+    L_HDPLATINUM,
+    L_HDGOLD,
+    L_HDNEU,
+    L_PUNCT,
+    L_FN,
+    L_NAV,
+    L_LANG_NUM,
+    L_SYMBOLS,
+    L_MEDIA_KBD
 };
 
  enum my_keycodes {
@@ -80,9 +85,19 @@ enum my_layers {
      SK_ZOOMOUT, // ZOOM OUT
      SK_ZOOMRST, // ZOOM RESET
      SK_SECT, // §
+     SK_ENYE, // ñ/Ñ ENYE
      SemKeys_COUNT, // end of non-glyph SemKeys
+     HD_HASH, // Do we need our own unshifted shift symbols
+     HD_DQUO, // to avoid the QMK 14.1 bug on not-split boards?
+     HD_L_Bronze,
+     HD_L_Silver,
+     HD_L_Platinum,
+     HD_L_Gold,
+     HD_L_Neu,
 
-/* Eventually…these should be handled as SemKeys
+
+
+/* Eventually…these should be handled as SemKeys?
     HD_aumlt,
     HD_amacr,
     HD_aacut,
