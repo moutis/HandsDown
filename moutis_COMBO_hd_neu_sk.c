@@ -88,9 +88,11 @@ const uint16_t PROGMEM H_Chg_combo[] = {RALT_T(KC_I), RGUI_T(KC_E), COMBO_END}; 
 const uint16_t PROGMEM H_Wh_combo[] = {KC_O, KC_W, COMBO_END}; // TYPE "wh"
 const uint16_t PROGMEM H_Whg_combo[] = {KC_O, KC_Y, COMBO_END}; // TYPE "wh" // for HD Gold/neu
 const uint16_t PROGMEM H_Ph_combo[] = {KC_M, KC_P, COMBO_END}; // TYPE "ph"
-const uint16_t PROGMEM H_Th_combo[] = {LGUI_T(KC_N), LSFT_T(KC_T), COMBO_END}; // "th"
-const uint16_t PROGMEM H_Thg_combo[] = {LGUI_T(KC_N), LSFT_T(KC_D), COMBO_END}; // "th" // for HD Goldnd
 const uint16_t PROGMEM H_Sh_combo[] = {LALT_T(KC_S), LGUI_T(KC_N), COMBO_END}; // "sh"
+const uint16_t PROGMEM H_Shs_combo[] = {LALT_T(KC_S), LGUI_T(KC_H), COMBO_END}; // "sh" // (for Neu-nx a.k.a Silver)
+const uint16_t PROGMEM H_Th_combo[] = {LGUI_T(KC_N), LSFT_T(KC_T), COMBO_END}; // "th"
+const uint16_t PROGMEM H_Ths_combo[] = {LGUI_T(KC_H), LSFT_T(KC_T), COMBO_END}; // "th" // (for Neu-nx a.k.a Silver)
+const uint16_t PROGMEM H_Thg_combo[] = {LGUI_T(KC_N), LSFT_T(KC_D), COMBO_END}; // "th" // for HD Gold
 
 // TEXT ENTRY - (ANY ROW/ MIXED ROWS)
 const uint16_t PROGMEM H_Icap_combo[] = {RALT_T(KC_C), RCTL_T(KC_I), COMBO_END}; // TYPE "I"+"'ve"
@@ -205,8 +207,10 @@ combo_t key_combos[] = {
     [HC_Chg] = COMBO_ACTION(H_Chg_combo), // for Gold/Neu
     [HC_Ph] = COMBO_ACTION(H_Ph_combo),
     [HC_Th] = COMBO_ACTION(H_Th_combo),
-    [HC_Thg] = COMBO_ACTION(H_Thg_combo),
+    [HC_Ths] = COMBO_ACTION(H_Ths_combo), // (for Neu-nx a.k.a Silver)
+    [HC_Thg] = COMBO_ACTION(H_Thg_combo), // (for Neu-tx a.k.a Gold)
     [HC_Sh] = COMBO_ACTION(H_Sh_combo),
+    [HC_Shs] = COMBO_ACTION(H_Shs_combo), // (for Neu-nx a.k.a Silver)
     [HC_Wh] = COMBO_ACTION(H_Wh_combo),
     [HC_Whg] = COMBO_ACTION(H_Whg_combo), // for Gold/neu
     
@@ -451,12 +455,14 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 tap_code(KC_H); // send "h" honoring CAPSLK state
                 break;
             case HC_Sh:
+            case HC_Shs:
                 tap_code(KC_S); // send "S" honoring caps
                 unregister_code(KC_LSFT); // remove shift here.
                 unregister_code(KC_RSFT); // remove shift here.
                 tap_code(KC_H); // send "h" honoring CAPSLK state
                 break;
             case HC_Th:
+            case HC_Ths:
             case HC_Thg:
                 tap_code(KC_T); // send "T" honoring caps
                 unregister_code(KC_LSFT); // remove shift here.
