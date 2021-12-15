@@ -30,21 +30,6 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 /*
 // Left hand adaptives (most are single-handed, bc speed, dexterity limits)
 */
-
-                case KC_D:
-                    switch (prior_keycode) {
-                        case KC_C: // CD = could unless you are a programmer, then use CU below
-                        case RALT_T(KC_C): //
-                        case KC_W: // WU = would bc wu is easy, and uncommon
-                            send_string("ould");
-                            return_state = false; // done.
-                            break;
-                        case KC_Y: // YU = You bc YO is a tad awk, but yu is easy, and uncommon
-                            send_string("ou'd");
-                            return_state = false; // done.
-                            break;
-                    }
-                    if (!return_state) break;
                 case KC_F:
                     switch (prior_keycode) {
                         case KC_B:
@@ -88,7 +73,6 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                 case KC_M: // M becomes L after DFGKPVW
                     switch (prior_keycode) {
                         case KC_D:
-                        case LSFT_T(KC_D): // (Gold/Neu-tx)
                         case KC_F:
                         case KC_G:
                         case KC_K:
@@ -101,7 +85,6 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     }
                     break;
                 case KC_N: // Do we need to watch for more?
-                case LGUI_T(KC_N):
                     switch (prior_keycode) {
                         case KC_P: // is this needed?
                             tap_code(KC_H); // quickly typing "?n" yields "?h"
@@ -140,13 +123,22 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                             break;
                     }
                     break;
+                case KC_C:
+                case KC_D:
                 case KC_T:
-                case LSFT_T(KC_D): // Gold (Neu-tx)
-                case LSFT_T(KC_T):
                     switch (prior_keycode) {
                         case KC_B:
                         case KC_K: // quickly typing "?t" yields "?l"
                             tap_code(KC_L);
+                            return_state = false; // done.
+                            break;
+                        case KC_C: // CD = could unless you are a programmer, then use CU below
+                        case KC_W: // WU = would bc wu is easy, and uncommon
+                            send_string("ould");
+                            return_state = false; // done.
+                            break;
+                        case KC_Y: // YU = You bc YO is a tad awk, but yu is easy, and uncommon
+                            send_string("ou'd");
                             return_state = false; // done.
                             break;
                     }
@@ -173,13 +165,10 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     break;
                     break;
                 case KC_S:
-                case LALT_T(KC_S):
                     switch (prior_keycode) {
-                        case KC_T:
-                        case LSFT_T(KC_T): // for "tness"
+                        case KC_T: // for "tness"
                             tap_code(KC_N);
-                        case KC_N:
-                        case LGUI_T(KC_N): // for "ness"
+                        case KC_N: // for "ness"
                             send_string("ess");
                             return_state = false; // done.
                             break;
@@ -212,7 +201,6 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 /*
 // right hand adaptives
 */
-
                case KC_A:
                     switch (prior_keycode) {
                         case KC_COMM:
@@ -260,7 +248,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
             }
             if (return_state) set_mods(saved_mods); // Restore mods
         }
-        prior_keycode = keycode;
+        prior_keycode = keycode; // this keycode is stripped of mods+taps
         prior_keydown = timer_read(); // (re)start prior_key timing
     }
     return return_state; //
