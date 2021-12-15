@@ -29,9 +29,6 @@
  *     - Added @baffalop's separator defaulting on first keypress, with a
  *       configurable default separator and overrideable function to determine
  *       if the default should be used.
- 
-    currently doesn't handle layer/mod taps properly. why?
- 
  */
 
 
@@ -82,8 +79,9 @@ bool terminate_caps_word(uint16_t keycode, const keyrecord_t *record) {
             case KC_MINS:
             case KC_UNDS:
             case KC_BSPC:
+            case KC_RIGHT ... KC_LEFT:
                 state_reset_timer = timer_read(); // (re)start timing hold for auto-off delay
-                if (record->event.pressed && (get_mods() != 0)) {
+                if (record->event.pressed && (get_mods() != 0)) { // hitting any mod...
                     return true;
                 }
                 break;
@@ -106,8 +104,8 @@ bool process_caps_word(uint16_t keycode, const keyrecord_t *record) {
             case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
             case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
                 if (record->tap.count == 0) // if not tapped yet…
-                    return false; // do that first
-                keycode = keycode & 0xFF; // This may ignore off layer keys?
+                    return true; // do that first
+                keycode = keycode & 0xFF; // process the base key
             default:
                 break;
         }

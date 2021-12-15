@@ -11,6 +11,11 @@
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
+#define NO_ACTION_ONESHOT
+#define NO_MUSIC_MODE
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+#define EXTRA_SHORT_COMBOS
 
 // The Leader key allows to flexibly assign macros to key sequences.
 #ifdef LEADER_ENABLE
@@ -19,43 +24,7 @@
     #define LEADER_NO_TIMEOUT
 #endif
 
-#ifdef RGBLIGHT_ENABLE
 
-#ifdef RGBLIGHT_ANIMATIONS
-    #undef RGBLIGHT_ANIMATIONS
-#endif
-#define RGBLIGHT_ANIMATIONS
-
-#ifdef RGBLIGHT_HUE_STEP
-    #undef RGBLIGHT_HUE_STEP
-#endif
-#define RGBLIGHT_HUE_STEP 8
-
-#ifdef RGBLIGHT_SAT_STEP
-    #undef RGBLIGHT_SAT_STEP
-#endif
-#define RGBLIGHT_SAT_STEP 8
-
-#ifdef RGBLIGHT_VAL_STEP
-    #undef RGBLIGHT_VAL_STEP
-#endif
-#define RGBLIGHT_VAL_STEP 8
-
-#ifdef RGBLIGHT_SLEEP
-    #undef RGBLIGHT_SLEEP
-#endif
-#define RGBLIGHT_SLEEP
-
-#endif
-
-#ifdef OLED_DRIVER_ENABLE
-  #define OLED_DISPLAY_128X64
-    #ifdef OLED_TIMEOUT
-        #undef OLED_TIMEOUT
-    #endif
-    #define OLED_TIMEOUT 9000
-#endif
- 
 // I dont' know why these must be here, not in user space...
 // but it won't compile otherwise
 //
@@ -77,7 +46,7 @@
 
     #define COMBO_ALLOW_ACTION_KEYS
     #define COMBO_STRICT_TIMER
-
+    #define EXTRA_SHORT_COMBOS
     #ifdef COMBO_TERM
         #undef COMBO_TERM
     #endif
@@ -91,5 +60,6 @@
 #endif
 
 #define LINGER_TIME TAPPING_TERM * 1.2 // how long to hold before a time-depentant behavior begins
-#define STATE_RESET_TIME LINGER_TIME * 4 // how long to leave a state active before resetting
+// how long to leave a state active before resetting like APPMENU or SHIFTWORD
+#define STATE_RESET_TIME LINGER_TIME * 4
 
