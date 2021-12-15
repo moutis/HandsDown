@@ -29,11 +29,13 @@ extern rgblight_config_t rgblight_config;
 
 void matrix_scan_user_process_combo(void);
 
-// this borrowed from Thomas Bart
 typedef union {
     uint32_t raw;
     struct {
-        bool osIsWindows; // index of platforms
+        uint8_t LBRC_key;  // keycode for "["
+        uint8_t RBRC_key;  // keycode for "]"
+        uint8_t OSIndex; // index of platforms (0=mac, 1=win, 2=lux)?
+        bool AdaptiveKeys; // Adaptive Keys On?
     };
 } user_config_t;
 
@@ -41,16 +43,16 @@ typedef union {
 
 
 enum my_layers {
-    L_HANDSDOWN,
-    L_HDSILVER,
-    L_HDPLATINUM,
+    L_HDBRONZE,
+//    L_HDSILVER,
+//    L_HDPLATINUM,
     L_HDGOLD,
-    L_HDNEU,
+    L_QWERTY, //
     L_PUNCT,
     L_FN,
-    L_NAV,
     L_LANG_NUM,
-    L_SYMBOLS,
+    L_NAV,
+//    L_SYMBOLS,
     L_MEDIA_KBD
 };
 
@@ -86,14 +88,20 @@ enum my_layers {
      SK_ZOOMRST, // ZOOM RESET
      SK_SECT, // §
      SK_ENYE, // ñ/Ñ ENYE
+     SK_SQUL, // ’ ** Left single quote UNICODE?
+     SK_SQUR, // ’ ** Right single quote UNICODE?
+     SK_SDQL, // ’ ** Left double quote UNICODE?
+     SK_SDQR, // ’ ** Right double quote UNICODE?
      SemKeys_COUNT, // end of non-glyph SemKeys
-     HD_HASH, // Do we need our own unshifted shift symbols
-     HD_DQUO, // to avoid the QMK 14.1 bug on not-split boards?
-     HD_L_Bronze,
-     HD_L_Silver,
-     HD_L_Platinum,
+//     HD_DQUO, // Do we need our own unshifted shift symbols
+     HD_AdaptKeyToggle,
+     HD_HASH, // to avoid the QMK 14.1 bug on not-split boards?
+     HD_L_Bronze,  // KC to switch default layout
+//     HD_L_Silver,
+//     HD_L_Platinum,
      HD_L_Gold,
-     HD_L_Neu,
+//     HD_L_Neu,
+     HD_L_QWERTY,
 
 
 

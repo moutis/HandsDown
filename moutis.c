@@ -12,6 +12,8 @@ user_config_t user_config;
 uint8_t  saved_mods = 0; // to pass state between process_record_user and matrix_scan_user
 uint16_t record_keycode = 0; // the keykcode we poke at in process_record
 
+uint16_t LBRC_key = KC_LBRC;  // keycode for "["
+uint16_t RBRC_key = KC_RBRC;  // keycode for "]"
 uint16_t linger_key = 0;  // keycode for linger actions (ex. "Qu")
 uint32_t linger_timer = 0; // time to hold a key before something else happens.
 uint32_t state_reset_timer = 0;  // time to leave a state active before shutting it down automatically.
@@ -26,27 +28,20 @@ int RGB_current_mode;
 
 uint8_t  combo_on = 0;           // for combo actions to hold before triggering
 bool  combo_triggered = false;   // for one-shot-combo-actions
-uint8_t  OSIndex = (uint8_t) 0;  // kludge, 'cause I'm stupid
 
 void keyboard_post_init_user(void) {
     // Read the user config from EEPROM to facilitate
-    // appropriate for platform support
+    // appropriate platform support
 
     /*
-    user_config.osIsWindows is true, so use 0 for Mac
+    user_config.OSIndex use 0 for Mac; 1 for Win
      */
     user_config.raw = eeconfig_read_user();
-    if (user_config.osIsWindows) { // kludge, 'cause I'm stupid and can't typecast a bool
-        OSIndex = 1; // USED BY SemKeys
-    } else {
-        OSIndex = 0;
-    }
-
     eeconfig_read_default_layer(); // get the default layer from eeprom.
     
 #ifdef OLED_DRIVER_ENABLE
     oled_clear();
-        if (user_config.osIsWindows) {
+        if (user_config.OSIndex) {
             oled_set_cursor(oled_max_chars() - 3, 0);
             oled_write_P(PSTR("WIN"), false);
         } else {
@@ -97,7 +92,7 @@ uint32_t layer_state_set_user(uint32_t layer_state) {
 
 #include "moutis_MATRIX.c"
 
-#ifdef KEY_OVERRIDE_ENABLE
+#ifdef KEY_OVERRIDE_ENABLE  // If using QMK's key overrides...
 const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, LT(L_LANG_NUM,KC_BSPC), KC_DELETE);
 const key_override_t ques_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUES, KC_EXLM);
 const key_override_t hash_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_HASH, KC_AT);

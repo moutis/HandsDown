@@ -3,7 +3,7 @@
  This is compatible with Hands Down Platinum (neu-lx), Silver (neu-nx), Bronze (neu-hx)
  May not play nice with Hands Down Neu & Gold (neu-tx) (shift '&" for [&] are backwards)
  
- Keyboard should report as ISO/JIS (not ANSI)
+ Set keyboard on host to ANSI (not ISO/JIS for now. will eventually invert this.)
  
  */
 
@@ -22,9 +22,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false; // took care of that key
     }
 
-    // Do we handle an adaptive key?  (Semkey may send Adaptive?)
-    if (!process_adaptive_key(keycode, record)) {
-        return false; // took care of that key
+    // Should we handle an adaptive key?  (Semkey may send Adaptive?)
+    if (user_config.AdaptiveKeys) {
+        if (!process_adaptive_key(keycode, record)) {
+            return false; // took care of that key
+        }
     }
  
     // Do we handle a semantic key? Combos or adaptives could have sent one.
@@ -37,10 +39,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case KC_APP:  // mimic windows app key behavior (only better?) also in scan_matrix
                 mods_held = (saved_mods & (MOD_MASK_GUI | MOD_MASK_ALT)); // were mods held?
                 if (!mods_held) { // gui/alt not down, supply them
-                    if (user_config.osIsWindows) {
-                        register_code(KC_RALT);
+                    if (user_config.OSIndex) {
+                        register_code(KC_RALT); // Windows
                     } else {
-                        register_code(KC_RGUI);
+                        register_code(KC_RGUI); // Mac
                     }
                 }
                 state_reset_timer = timer_read(); // (re)start timing hold for keyup below
@@ -49,18 +51,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 break;
 
             case CG_SWAP: // SINCE MAC IS MY LAYOUT DEFAULT switch to windows
-                user_config.osIsWindows = true;
-                OSIndex = 1; // for Semkeys
-                eeconfig_update_user(user_config.raw);// Remember platform after powerdown
-                break;
+                user_config.OSIndex = 1; // for Semkeys
+                return_state = true; // let QMK do it's swap thing.
+                goto storeSettings;
             case CG_NORM: // Back to default
-                user_config.osIsWindows = false;
-                OSIndex = 0; // for Semkeys
-                eeconfig_update_user(user_config.raw);// Remember platform after powerdown
-                break;
-            case HD_L_Bronze ... HD_L_Gold: // are we changing default layers?
-                set_single_persistent_default_layer(keycode-HD_L_Bronze);// Remember default layer after powerdown
+                user_config.OSIndex = 0; // for Semkeys
+                return_state = true; // let QMK do it's swap thing.
+                goto storeSettings;
+            case HD_AdaptKeyToggle: // toggle AdaptiveKeys (and LingerKeys)
+                user_config.AdaptiveKeys = !user_config.AdaptiveKeys;
                 return_state = false; // don't do more with this record.
+                goto storeSettings;
+            case HD_L_Bronze: // are we changing default layers?
+                user_config.LBRC_key = KC_LBRC;  // swap keycode for "["
+                user_config.RBRC_key = KC_RBRC;  // swap keycode for "]"
+                user_config.AdaptiveKeys = true;
+                goto setLayer;
+            case HD_L_Gold: // are we changing default layers?
+                user_config.LBRC_key = KC_RBRC;  // swap keycode for "["
+                user_config.RBRC_key = KC_LBRC;  // swap keycode for "]"
+                user_config.AdaptiveKeys = true;
+                goto setLayer;
+            case HD_L_QWERTY: // are we changing default layers?
+                user_config.AdaptiveKeys = false; // no adaptive keys on QWERTY
+setLayer:
+                return_state = false; // don't do more with this record.
+                //layer_on(keycode-HD_L_Bronze);
+                set_single_persistent_default_layer(keycode-HD_L_Bronze);// Remember default layer after powerdown
+storeSettings:
+                eeconfig_update_user(user_config.raw); // Remember platform after powerdown
                 break;
 
             case KC_Q:  // for linger Qu (ironically, need to handle this direclty w/o the macros.)
@@ -72,6 +91,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return_state = false; // don't do more with this record.
                 break;
 
+            case KC_J:
+                if ((saved_mods & MOD_MASK_SHIFT)) { // can this linger?
+                    register_linger_key(keycode); // example of simple linger macro
+                    return_state = false; // don't do more with this record.
+                }
+                break;
                 /*
                  Key overrides here. use SemKey wherever possible (del_wd?)
                 */
@@ -83,7 +108,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 */
 
     //        case KC_BSPC:  // make S(KC_BSPC) = KC_DEL; plus word_del L & R
-            case LT(L_LANG_NUM,KC_BSPC):  // make S(KC_BSPC) = KC_DEL; plus word_del L & R
+            case LT(L_FN, KC_BSPC):  // make S(KC_BSPC) = KC_DEL; plus word_del L & R
                 // This logic feels kludgey (but it works).  fix it.
                 if (saved_mods & MOD_MASK_SHIFT) { // shift down with KC_BSPC?
                     clear_keyboard(); // clean record to tinker with.
@@ -194,21 +219,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 break;
 
             case KC_QUOT:  // SHIFT = [ (linger=[|]), ALT=‹, ALT+SHIFT=«
-                if (saved_mods & MOD_MASK_ALT) { // ALT (only) down?
-                    clear_keyboard(); // clean record to tinker with.
-                    if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
-                        tap_code16(A(KC_BSLS));// this should be linger on semkey for ‹?
-                    } else { // alt & shift?
-                        tap_code16(A(S(KC_3)));// this should be linger on semkey for «?
+                if (saved_mods) { // any mods?
+                    if (saved_mods & MOD_MASK_ALT) { // ALT (only) down?
+                        clear_keyboard(); // clean record to tinker with.
+                        if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
+                            tap_code16(A(KC_BSLS));// this should be linger on semkey for ‹?
+                        } else { // alt & shift?
+                            tap_code16(A(S(KC_3)));// this should be linger on semkey for «?
+                        }
+                        return_state = false; // don't do more with this record.
+                    } else if (saved_mods & MOD_MASK_SHIFT) { // SHFT (only) down?
+                        clear_keyboard(); // clean record to tinker with.
+                        register_linger_key((uint16_t)user_config.LBRC_key); // example of simple linger macro
+                        return_state = false; // don't do more with this record.
                     }
-                    return_state = false; // don't do more with this record.
-                } else if (saved_mods & MOD_MASK_SHIFT) { // SHFT (only) down?
-                    clear_keyboard(); // clean record to tinker with.
-                    register_linger_key(KC_LBRC); // example of simple linger macro
+                } else { // no mods, so linger
+                    register_linger_key(keycode); // example of simple linger macro
                     return_state = false; // don't do more with this record.
                 }
                 break;
-            case HD_DQUO:
             case KC_DQUO:  // SHIFT = ], ALT=›, ALT+SHIFT=»
                 if (saved_mods) { // any mods?
                     if (saved_mods & MOD_MASK_ALT) { // ALT (only) down?
@@ -221,7 +250,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         return_state = false; // don't do more with this record.
                     } else if (saved_mods & MOD_MASK_SHIFT) { // SHFT?
                         clear_keyboard(); // clean record to tinker with.
-                        tap_code16(KC_RBRC);
+                        register_linger_key((uint16_t)user_config.RBRC_key); // example of simple linger macro
+//                        tap_code16((uint16_t)user_config.RBRC_key);
                         return_state = false; // don't do more with this record.
                     }
                 } else { // no mods, so linger
@@ -238,7 +268,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return_state = false; // don't do more with this record.
                 }
                 break;
-
+/*
             case KC_MINS:  // SHIFT = +, ALT=–(n-dash), ALT+SHIFT=±
                 if (saved_mods & MOD_MASK_SHIFT) { // shift down?
                     del_mods(MOD_MASK_CG); // turn off unused mods (timing off in 14.1)
@@ -248,6 +278,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 break;
 
+            case KC_EQL:  // ALT _
+                if (saved_mods & MOD_MASK_SHIFT) { // shift down?
+                    register_code16(S(KC_MINS));
+                    key_trap = true;  // mode monitor – enter state
+                    return_state = false; // don't do more with this record.
+                }
+                break;
+*/
             case KC_SLSH:  // SHIFT = *, ALT=\, ALT+SHIFT=⁄
                 if (saved_mods & MOD_MASK_ALT) { // ALT down?
                     if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
@@ -305,7 +343,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             appmenu_on = true; // turn on menu (taken down in matrix_scan_user)
                             state_reset_timer = timer_read(); // start timer
                         } else { // no, just a quick tap for app switch.
-                            if (user_config.osIsWindows) { // let mod keys up now
+                            if (user_config.OSIndex) { // let mod keys up now
                                 unregister_code(KC_RALT);
                             } else {
                                 unregister_code(KC_RGUI);
@@ -316,6 +354,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 return_state = false; // don't do more with this record.
                 break;
+            case KC_J:  // SHIFT = ( (linger=(|))
             case KC_Q:  // for linger Qu (ironically, need to handle this direclty w/o the macros.)
                 unregister_code16(keycode);
                 linger_key = 0; // make sure nothing lingers
@@ -330,7 +369,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 */
 
     //    case KC_BSPC:  // make S(KC_BSPC) = KC_DEL; plus word_del L & R
-            case LT(L_LANG_NUM,KC_BSPC):  // make S(KC_BSPC) = KC_DEL; plus word_del L & R
+            case LT(L_FN, KC_BSPC):  // make S(KC_BSPC) = KC_DEL; plus word_del L & R
                 if (key_trap) { // did we snag this earlier?
                     unregister_code16(KC_DEL); // make sure KC_DEL isn't held down
                     key_trap = false;  // mode monitor off.
@@ -340,20 +379,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case KC_LPRN:  // SHIFT = { (linger=(|))
             case KC_LBRC:  // SHIFT = ( (linger=[|])
             case KC_LCBR:  // SHIFT = { (linger={|})
-            case HD_DQUO:
-            case KC_DQUO:  // SHIFT = ], ALT=›, ALT+SHIFT=»
                 if (!saved_mods) {
                     unregister_linger_key(); // stop lingering
                     return_state = false; // don't do more with this record.
                 }
                 break;
 
+            case KC_DQUO:  // SHIFT = ], ALT=›, ALT+SHIFT=»
             case KC_QUOT:  // SHIFT = [ (linger=[|]), ALT=‹, ALT+SHIFT=«
                 unregister_linger_key(); // stop lingering
                 unregister_code16(keycode); // may still need to handle this
                 return_state = false; // don't do more with this record.
                 break;
-
+/*
             case KC_MINS:  // SHIFT = +, ALT=–(n-dash), ALT+SHIFT=±
                 if (key_trap) { // did we snag this earlier?
                     unregister_code16(KC_PLUS); //
@@ -361,6 +399,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return_state = false; // don't do more with this record.
                 }
                 break;
+            case KC_EQL:  // ALT _
+                if (key_trap) { // did we snag this earlier?
+                    unregister_code16(S(KC_MINS)); //
+                    key_trap = false;  // mode monitor – exit state.
+                    return_state = false; // don't do more with this record.
+                }
+                break;
+*/
             case KC_SLSH:  // SHIFT = *, ALT=\, ALT+SHIFT=⁄
                 if (key_trap) { // did we snag this earlier?
                     unregister_code16(KC_ASTR); // *

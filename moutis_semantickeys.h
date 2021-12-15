@@ -24,7 +24,7 @@
  
  */
 
-#define tap_SemKey(sk) tap_code16(SemKeys_t[sk - SK_KILL][OSIndex])
-#define register_SemKey(sk) register_code16(SemKeys_t[sk - SK_KILL][OSIndex])
-#define unregister_SemKey(sk) unregister_code16(SemKeys_t[sk - SK_KILL][OSIndex])
+#define tap_SemKey(sk) tap_code16(SemKeys_t[sk - SK_KILL][user_config.OSIndex])
+#define register_SemKey(sk) register_code16(SemKeys_t[sk - SK_KILL][user_config.OSIndex])
+#define unregister_SemKey(sk) unregister_code16(SemKeys_t[sk - SK_KILL][user_config.OSIndex])
 
