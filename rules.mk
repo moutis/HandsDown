@@ -1,12 +1,12 @@
-# hardware features
-BOOTMAGIC_ENABLE = lite     # Enables nvmemory & reset?
-ENCODER_ENABLE = yes        # Enables the use of one or more encoders
+# hardware features (set in keyboard rules.mk)
+# BOOTMAGIC_ENABLE = lite     # Enables nvmemory & reset?
+# ENCODER_ENABLE = yes        # Enables the use of one or more encoders
 
-BACKLIGHT_ENABLE = no
-RGB_ENABLE = no            # Enable per key RGB
-RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
-OLED_ENABLE = no           # Enables the use of OLED displays
-OLED_DRIVER = SSD1306
+# BACKLIGHT_ENABLE = no
+# RGB_ENABLE = no            # Enable per key RGB
+# RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
+# OLED_ENABLE = no           # Enables the use of OLED displays
+# OLED_DRIVER = SSD1306
 
 # QMK software features
 
