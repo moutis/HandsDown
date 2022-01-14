@@ -6,25 +6,22 @@
 
  I think this will work with all Hands Down Neu variants (Platinum, Gold, Silver, Bronze)
  Finally getting to the last of imagined features that spurred Hands Down design!
- 
- uses globals 
- uint16_t prior_keycode = KC_NO; // for process_adaptive_key
- uint16_t prior_keydown = 0; // time since finished processing prior_keycode
- 
+  
  */
 
 
 bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
+    static uint16_t prior_keycode = KC_NO; // for process_adaptive_key & process_caps_word
+    static uint16_t prior_keydown = 0; // time since finished processing prior_keycode
     bool return_state = true; // assume we don't do anything.
-    static uint16_t prior_keycode = KC_NO; // for process_adaptive_key
-    static uint16_t prior_keydown = 0;
 
     if (record->event.pressed) {
         if ((timer_elapsed(prior_keydown) < ADAPTIVE_TERM)) {
-            saved_mods = get_mods();  // !!! We're using the global !!!
+            return_state = true;
+            saved_mods = get_mods();  //
             unregister_code(KC_LSFT); // turn off shift to facilitate
             unregister_code(KC_RSFT); // first-words & Proper nouns.
-            keycode = keycode & 0xFF; // ignore all taps&mods? (or just shift?)
+            keycode = keycode & 0xFF; // taps&mods handled earlier.
             switch (keycode) {
 
 /*
@@ -94,14 +91,6 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     break;
                 case KC_P:
                     switch (prior_keycode) {
-                        case KC_J: // "jp" is "Japan"…ese? A demonstrator AK
-                            tap_code(KC_BSPC);
-                            register_code(KC_LSFT); // shift here.
-                            tap_code(KC_J); // this should always be cap
-                            unregister_code(KC_LSFT); // remove shift here.
-                            send_string("apan");
-                            return_state = false; // done.
-                            break;
                         case KC_H: // "hp" is "lp" (Platinum/Neu-tx)
                             tap_code(KC_BSPC);
                             tap_code(KC_L);
@@ -123,22 +112,16 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                             break;
                     }
                     break;
-                case KC_C:
-                case KC_D:
-                case KC_T:
+                case KC_C:  // inner column accommodations
+                case KC_D:  // to relieve stretch between
+                case KC_T:  // index and middle (index<->others is easier)
                     switch (prior_keycode) {
                         case KC_B:
-                        case KC_K: // quickly typing "?t" yields "?l"
                             tap_code(KC_L);
                             return_state = false; // done.
                             break;
-                        case KC_C: // CD = could unless you are a programmer, then use CU below
-                        case KC_W: // WU = would bc wu is easy, and uncommon
-                            send_string("ould");
-                            return_state = false; // done.
-                            break;
-                        case KC_Y: // YU = You bc YO is a tad awk, but yu is easy, and uncommon
-                            send_string("ou'd");
+                        case KC_K: // quickly typing "k?" yields "kn"
+                            tap_code(KC_N);
                             return_state = false; // done.
                             break;
                     }
@@ -176,13 +159,12 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     break;
 
                 case KC_J: // SAME-HAND TOWARD PINKY ISSUES
-                case KC_W: // adjacent fingers don't do next row as easily,
-                case KC_X: // especially on ring to pinky.
+                //case KC_W: // for Neu
+                case KC_X: // adjacent fingers don't do next row as easily,especially on ring to pinky.
                     switch (prior_keycode) {
                         case KC_B: //
                         case KC_C: // RING TO PINKY This softens the burden,
                         case KC_D: //
-                        case LSFT_T(KC_D): // (Gold/Neu-tx)
                         case KC_F: // and equalizes column-stagger & ortho boards.
                         case KC_G: //
                         case KC_M: // anything that is statistically much more frequent
@@ -192,7 +174,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                             return_state = false; // done.
                             break;
                         case KC_L: // L repeater (Platinum/Neu-lx)
-                            tap_code16(KC_L); // LW isn't likely, so we'll leave it for the sake of smaller code
+                            tap_code(prior_keycode); // LW isn't likely, so we'll leave it for the sake of smaller code
                             return_state = false; // done.
                             break;
                     }
@@ -216,6 +198,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                         case KC_Y: // YU = You bc YO is a tad awk, but yu is easy, and uncommon
                             tap_code(KC_O);
                             tap_code(KC_U);
+                            tap_code(KC_SPC);
                             return_state = false; // done.
                             break;
                    }
@@ -236,7 +219,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                              break;
                      }
                      break;
-                case KC_COMM:
+                case KC_COMM: // why is this not working?
                     switch (prior_keycode) {
                         case KC_A:
                             tap_code(KC_U); // quickly typing "A," yields "AU"

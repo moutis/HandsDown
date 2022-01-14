@@ -1,3 +1,4 @@
+
 bool encoder_update_user(uint8_t index, bool clockwise) {
   /* With an if statement we can check which encoder was turned. */
   if (!index) { /* First (left) encoder */
@@ -12,20 +13,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
               break;
 
 #ifdef RGBLIGHT_ENABLE
-          case L_NAV: // media/nav layer
+          case L_NAV: // nav layer
+          case L_MEDIA_KBD: // media/kbd settings layer
               saved_mods = get_mods();
-              if (saved_mods & MOD_MASK_SHIFT) {
-                  if (clockwise) {
-                      tap_code16(RGB_SAI); // Sat +
-                  } else {
-                      tap_code16(RGB_SAD); // Sat -
-                  }
+              if (clockwise) {
+                  rgblight_increase_val(); // val (brightness) +
               } else {
-                  if (clockwise) {
-                      tap_code16(RGB_HUI); // Hue +
-                  } else {
-                      tap_code16(RGB_HUD); // Hue -
-                  }
+                  rgblight_decrease_val(); // val (brightness) -
               }
               break;
 #endif
@@ -40,6 +34,26 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       }
   } else  {  // Second (right) encoder
       switch(get_highest_layer(layer_state)){
+#ifdef RGBLIGHT_ENABLE
+          case L_MEDIA_KBD: // media/kbd settings layer
+              saved_mods = get_mods();
+              if ((saved_mods & MOD_MASK_SHIFT)) {
+                  if (clockwise) {
+                      rgblight_increase_sat(); // Sat +
+                  } else {
+                      rgblight_decrease_sat(); // Sat -
+                  }
+              } else {
+                  if (clockwise) {
+                      rgblight_increase_hue(); // Hue +
+                  } else {
+                      rgblight_decrease_hue(); // Hue -
+                  }
+              }
+              break;
+#endif
+
+          case L_LANG_NUM:
           case L_FN: // function layer
               if (clockwise) {
                   tap_SemKey(SK_ZOOMIN); // ZOOM IN
@@ -47,7 +61,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                   tap_SemKey(SK_ZOOMOUT); // ZOOM OUT
               }
               break;
-          case L_NAV: // media/nav layer
+          case L_NAV: // nav layer
               if (clockwise) {
                   tap_SemKey(SK_HISTNXT); // prev page
               } else {

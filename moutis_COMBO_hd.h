@@ -7,6 +7,7 @@ enum my_combos {
 
     HC_EQL, // = equal
     HC_QUES, // ?
+    HC_QUESg, // ?
     HC_EXLM, // !
     HC_AT, // @
     HC_SCLN, // ;
@@ -18,8 +19,9 @@ enum my_combos {
     HC_TIC, // ` tic (not a dead key)
     HC_GRV, // ` grave (dead key)
     HC_TAB,
+    HC_TABt, // tab for Titanium
 
-    HC_J, // J is not on the map
+//    HC_J, // J is not on the map
     HC_Q, // Q is not on the map
     HC_Z, // Z is not on the map
 
@@ -40,16 +42,25 @@ enum my_combos {
     // since combos are a bit slower,
     // needs to be a 4gram+ or more to be worth it
     HC_Ch, // treat as digraph 'CH'
-    HC_Chg, // treat as digraph 'CH' (for Neu-tx a.k.a Gold)
+    HC_Chg, // treat as digraph 'CH' (for Neu-tx/rx a.k.a Gold/Titanium)
     HC_Gh, // treat as digraph 'GH'
     HC_Ph, // treat as φ
     HC_Th, // treat as θ
 //    HC_Ths, // treat as θ (for Neu-nx a.k.a Silver)
-    HC_Thg, // treat as θ (for Neu-tx a.k.a Gold)
+//    HC_Thg, // treat as θ (for Neu-tx a.k.a Gold)
     HC_Sh, // TYPE "sh"
 //    HC_Shs, // TYPE "sh" (for Neu-nx a.k.a Silver)
     HC_Wh, // treat as digraph 'WH'
-    HC_Whg, // treat as digraph 'WH' (for Neu-tx a.k.a Gold)
+    HC_Whg, // treat as digraph 'WH' (for Neu-tx/rx a.k.a Gold/Titanium)
+
+    // Pronoun combos. KEEP these together!
+    
+
+    HC_I, // Cap I + "'ve " if lingered
+    HC_Id, // "I'd " …
+    HC_Ill, // "I'll " …
+    HC_Im, // "I'm " …
+    HC_Iv, // "I've " …
 
     HC_Ig, // Cap I + "'ve " if lingered for Gold/Neu
     HC_Idg, // "I'd " … for Gold/Neu
@@ -57,51 +68,60 @@ enum my_combos {
     HC_Img, // "I'm " … for Gold/Neu
     HC_Ivg, // "I've " … for Gold/Neu
 
-    HC_I, // Cap I + "'ve " if lingered
-    HC_Id, // "I'd " …
-    HC_Ill, // "I'll " …
-    HC_Im, // "I'm " …
-    HC_Iv, // "I've " …
     HC_wed_4gram, // we'd
     HC_well_5gram, // we'll
     HC_were_5gram, // we're
     HC_weve_5gram, // we've
     HC_youd_5gram,
+    HC_youdg_5gram,
     HC_youll_6gram,
     HC_youre_6gram,
     HC_youve_6gram,
     HC_your_4gram,
-    HC_their_5gram, // "their" #6
-    HC_there_5gram, // "there" #7
+    HC_they_4gram, // TYPE "they" #23
+//    HC_theyg_4gram, // TYPE "they" #23
+    HC_theyd_6gram, // TYPE "they'd " #23
+//    HC_theydg_6gram, // TYPE "they'd " #23
+    HC_theyll_7gram, // TYPE "they'll" #23
+//    HC_theyllg_7gram, // TYPE "they'll" #23
     HC_theyre_7gram, // "they're"
-    HC_ing_3gram, // TYPE "ing"
-//    HC_tion_4gram, // TYPE "tion" #1 // handled via adaptive keys
-    HC_with_4gram, // TYPE "with" #5
-    HC_withg_4gram, // TYPE "with" #5
-    HC_ment_4gram, // TYPE "ment" #6
+//    HC_theyreg_7gram, // "they're" for Gold/Neu
+    HC_theyve_7gram, // "they've"
+//    HC_theyveg_7gram, // "they've"
+    HC_there_5gram, // "there" #7
+    HC_thereg_5gram, // "there" #7 for Gold/Neu
+    HC_their_5gram, // "their" #6
+//    HC_theirg_5gram, // "their" #6 for Gold/Neu
     HC_this_4gram, // TYPE "this" #8
     HC_here_4gram, // TYPE "here" #9
-    HC_hereg_4gram, // TYPE "here" #9
+    HC_hereg_4gram, // TYPE "here" #9 for Gold/Neu
+    HC_whereg_5gram, // TYPE "where"
+    HC_where_5gram, // TYPE "where"
+
+// END of PRONOUN combos ()
+
+    HC_ing_3gram, // TYPE "ing"
+//    HC_tion_4gram, // TYPE "tion" #1 // handled via hold combo Th
+    HC_with_4gram, // TYPE "with" #5
+//    HC_withg_4gram, // TYPE "with" #5
+    HC_ment_4gram, // TYPE "ment" #6
     HC_ould_4gram, // TYPE "ould" #11
     HC_ting_4gram, // TYPE "ting" #12
-    HC_they_4gram, // TYPE "they" #23
     HC_ough_4gram, // TYPE "ough" #25
     HC_oughg_4gram, // TYPE "ough" #25
 
 
-    HC_where_5gram, // TYPE "where"
-    HC_whereg_5gram, // TYPE "where"
     
     HC_TYPE_JAPAN, // TYPE "Japan" and hold for "ese"
 
-    HC_CAPG, // CAPS WORD for Gold
     HC_CAPW, // CAPS WORD for all others
-    FC_CAPG, // CAPS LOCK (Gold)
     FC_CAPS, // CAPS LOCK (others)
     FC_LANG2, // eisuu (others)
-    FC_LANG2g, // eisuu (neu/Gold)
     FC_LANG1, // kana (others)
+//    HC_CAPG, // CAPS WORD for Gold
+//    FC_CAPG, // CAPS LOCK (Gold)
     FC_LANG1g, // kana (neu/Gold)
+//    FC_LANG2g, // eisuu (neu/Gold)
     FC_LANG2q, // eisuu (QWERTY)
     FC_LANG1q, // kana (QWERTY)
 
@@ -166,23 +186,23 @@ enum my_combos {
     FC_SCLP, // Screen Capture Selection to clipboard
 
     HC_ENT,
-    HC_ENTg,
+//    HC_ENTg,
     HC_SPC,
-    HC_SPCg,
+//    HC_SPCg,
     HC_CLOZ,
 //    HC_CLOZg,
     HC_QUIT,
 //    HC_QUITg,
     HC_FIND, // Find the selection
     HC_SALL,
-    HC_SALLg,
+//    HC_SALLg,
 
     HC_UNDO,
     HC_CUT,
     HC_COPY,
     HC_PSTE,
-    HC_PSTEg,
-    HC_PSTMg,
+//    HC_PSTEg,
+//    HC_PSTMg,
     HC_PSTM,
 
     COMBO_LENGTH // END OF DELAY BLOCK

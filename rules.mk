@@ -18,6 +18,7 @@ KEY_OVERRIDE_ENABLE = no
 CONSOLE_ENABLE = no
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
+TAP_DANCE_ENABLE = no
 EXTRAKEY_ENABLE = yes    # Audio control and System control
 COMBO_ENABLE = yes       # chording
 LTO_ENABLE = yes

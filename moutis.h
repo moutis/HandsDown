@@ -17,6 +17,21 @@
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
+
+    #ifdef RGBLIGHT_HUE_STEP
+        #undef RGBLIGHT_HUE_STEP
+    #endif
+    #define RGBLIGHT_HUE_STEP 4
+
+    #ifdef RGBLIGHT_SAT_STEP
+        #undef RGBLIGHT_SAT_STEP
+    #endif
+    #define RGBLIGHT_SAT_STEP 4
+
+    #ifdef RGBLIGHT_VAL_STEP
+        #undef RGBLIGHT_VAL_STEP
+    #endif
+    #define RGBLIGHT_VAL_STEP 4
 #endif
 
 #include "moutis_casemods.h"
@@ -49,8 +64,8 @@ enum my_layers {
     L_HDGOLD,
     L_QWERTY, //
     L_PUNCT,
-    L_FN,
     L_LANG_NUM,
+    L_FN,
     L_NAV,
 //    L_SYMBOLS,
     L_MEDIA_KBD
@@ -58,6 +73,8 @@ enum my_layers {
 
  enum my_keycodes {
      SK_KILL = SAFE_RANGE, // SK_KILL must be the first of contiguous block of SKs
+     SK_HENK,
+     SK_MHEN,
      SK_UNDO, // undo
      SK_CUT, // cut
      SK_COPY, // copy

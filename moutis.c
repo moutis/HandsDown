@@ -12,6 +12,8 @@ user_config_t user_config;
 uint8_t  saved_mods = 0; // to pass state between process_record_user and matrix_scan_user
 uint16_t record_keycode = 0; // the keykcode we poke at in process_record
 
+uint16_t myKC_C = KC_C;  // keycode for "C"  (could be K if Japanese)
+uint16_t myKC_L = KC_L;  // keycode for "L"  (could be R if Japanese)
 uint16_t LBRC_key = KC_LBRC;  // keycode for "["
 uint16_t RBRC_key = KC_RBRC;  // keycode for "]"
 uint16_t linger_key = 0;  // keycode for linger actions (ex. "Qu")

@@ -25,6 +25,8 @@
 /*  This is in moutis.h for now
 enum SemKeys {
     SK_KILL,
+    SK_HENK,
+    SK_MHEN,
     SK_UNDO,
     SK_CUT,
     SK_COPY,
@@ -65,6 +67,8 @@ enum SemKeys_OS {
 const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][SemKeys_OS_COUNT] = {
     // Mac, Win, (Phase 3, add others if necessary, expand to multi-key?)
     [SK_KILL - SK_KILL] = {G(A(KC_ESC)),C(A(KC_DEL))}, // "KILL" OR Force quit / ctrl-alt-del
+    [SK_HENK - SK_KILL] = {KC_LANG1, KC_HENK}, // 変換
+    [SK_MHEN - SK_KILL] = {KC_LANG2, KC_MHEN}, // 無変換
     [SK_UNDO - SK_KILL] = {G(KC_Z),C(KC_Z)}, // undo
     [SK_CUT  - SK_KILL] = {G(KC_X),C(KC_X)}, // cut
     [SK_COPY - SK_KILL] = {G(KC_C),C(KC_C)}, // copy
@@ -94,6 +98,10 @@ const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][SemKeys_OS_COUNT] = {
     [SK_ZOOMRST - SK_KILL] = {G(KC_0),C(KC_0)}, // ZOOM RESET
     [SK_SECT - SK_KILL] = {A(KC_5),A(KC_5)}, // § ** SAMPLE OF GLYPH. REALLY NEED UNICODE.
     [SK_ENYE - SK_KILL] = {A(KC_N),A(KC_N)}, // ñ/Ñ ** SAMPLE OF GLYPH. REALLY NEED UNICODE?
+    [SK_SQUL - SK_KILL] = {A(KC_RBRC),A(KC_RBRC)}, // ’ ** Left single quote UNICODE?
+    [SK_SQUR - SK_KILL] = {S(A(KC_RBRC)),S(A(KC_RBRC))}, // ’ ** Right single quote UNICODE?
+    [SK_SDQL - SK_KILL] = {A(KC_LBRC),A(KC_LBRC)}, // ’ ** Left double quote UNICODE?
+    [SK_SDQR - SK_KILL] = {A(S(KC_LBRC)),A(S(KC_LBRC))}, // ’ ** Right double quote UNICODE?
 
 };
 

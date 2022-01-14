@@ -18,8 +18,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
     // Do we turn off CAPS_WORD?
-    if (!process_caps_word(keycode, record)) {
-        return false; // took care of that key
+    if (caps_word_on) {
+        if (!process_caps_word(keycode, record)) {
+            return false; // took care of that key
+        }
     }
 
     // Should we handle an adaptive key?  (Semkey may send Adaptive?)
@@ -50,38 +52,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return_state = false; // don't do more with this record.
                 break;
 
-            case CG_SWAP: // SINCE MAC IS MY LAYOUT DEFAULT switch to windows
-                user_config.OSIndex = 1; // for Semkeys
-                return_state = true; // let QMK do it's swap thing.
-                goto storeSettings;
-            case CG_NORM: // Back to default
-                user_config.OSIndex = 0; // for Semkeys
-                return_state = true; // let QMK do it's swap thing.
-                goto storeSettings;
-            case HD_AdaptKeyToggle: // toggle AdaptiveKeys (and LingerKeys)
-                user_config.AdaptiveKeys = !user_config.AdaptiveKeys;
-                return_state = false; // don't do more with this record.
-                goto storeSettings;
-            case HD_L_Bronze: // are we changing default layers?
-                user_config.LBRC_key = KC_LBRC;  // swap keycode for "["
-                user_config.RBRC_key = KC_RBRC;  // swap keycode for "]"
-                user_config.AdaptiveKeys = true;
-                goto setLayer;
-            case HD_L_Gold: // are we changing default layers?
-                user_config.LBRC_key = KC_RBRC;  // swap keycode for "["
-                user_config.RBRC_key = KC_LBRC;  // swap keycode for "]"
-                user_config.AdaptiveKeys = true;
-                goto setLayer;
-            case HD_L_QWERTY: // are we changing default layers?
-                user_config.AdaptiveKeys = false; // no adaptive keys on QWERTY
-setLayer:
-                return_state = false; // don't do more with this record.
-                //layer_on(keycode-HD_L_Bronze);
-                set_single_persistent_default_layer(keycode-HD_L_Bronze);// Remember default layer after powerdown
-storeSettings:
-                eeconfig_update_user(user_config.raw); // Remember platform after powerdown
-                break;
 
+            case LCTL_T(KC_C):
+            case RALT_T(KC_C):
+            case KC_C: // C if English, K if Japanese
+                if (!saved_mods || (saved_mods & MOD_MASK_SHIFT)) { // only shift allowed
+                    register_code16(myKC_C);
+                    return_state = false; // don't do more with this record.
+                }
+                break;
+            case KC_L: // L if English, R if Japanese
+                if (!saved_mods || (saved_mods & MOD_MASK_SHIFT)) { // only shift allowed
+                    register_code16(myKC_L);
+                    return_state = false; // don't do more with this record.
+                }
+                break;
             case KC_Q:  // for linger Qu (ironically, need to handle this direclty w/o the macros.)
                 if ((!saved_mods) || (saved_mods & MOD_MASK_SHIFT)) { // can this linger?
                     linger_key =  keycode; // may add "u" in matrix_scan_user
@@ -107,8 +92,8 @@ storeSettings:
                  so for now I roll my own here.
                 */
 
-    //        case KC_BSPC:  // make S(KC_BSPC) = KC_DEL; plus word_del L & R
-            case LT(L_FN, KC_BSPC):  // make S(KC_BSPC) = KC_DEL; plus word_del L & R
+//          case KC_BSPC:  // make S(KC_BSPC) = KC_DEL; plus word_del L & R
+            case LT(L_LANG_NUM, KC_BSPC):  // make S(KC_BSPC) = KC_DEL; plus word_del L & R
                 // This logic feels kludgey (but it works).  fix it.
                 if (saved_mods & MOD_MASK_SHIFT) { // shift down with KC_BSPC?
                     clear_keyboard(); // clean record to tinker with.
@@ -268,7 +253,7 @@ storeSettings:
                     return_state = false; // don't do more with this record.
                 }
                 break;
-/*
+
             case KC_MINS:  // SHIFT = +, ALT=–(n-dash), ALT+SHIFT=±
                 if (saved_mods & MOD_MASK_SHIFT) { // shift down?
                     del_mods(MOD_MASK_CG); // turn off unused mods (timing off in 14.1)
@@ -277,7 +262,7 @@ storeSettings:
                     return_state = false; // don't do more with this record.
                 }
                 break;
-
+/*
             case KC_EQL:  // ALT _
                 if (saved_mods & MOD_MASK_SHIFT) { // shift down?
                     register_code16(S(KC_MINS));
@@ -316,18 +301,61 @@ storeSettings:
                 }
                 break;
 
-                
             case HD_HASH:  // my own since KC_HASH and ilk are misbehaving after QMK 14.1
             case KC_HASH:  // SHIFT = @, ALT= , ALT+SHIFT=
                 if (saved_mods & MOD_MASK_SHIFT) { // shift down?
                     // clear_keyboard(); // clean record to tinker with.
-                    register_code16(KC_AT);
+                    register_code16(KC_DLR);
                     key_trap = true;  // mode monitor – enter state
                 } else {
                     register_code16(KC_HASH);
                 }
                 return_state = false; // don't do more with this record.
                 break;
+            case KC_HENK: // Japanese
+                myKC_C = KC_Z;
+                myKC_L = KC_K;
+                tap_SemKey(SK_HENK);
+                return_state = false; // don't do more with this record.
+                break;
+            case KC_MHEN: // English
+                myKC_C = KC_C;
+                myKC_L = KC_L;
+                tap_SemKey(SK_MHEN);
+                return_state = false; // don't do more with this record.
+                break;
+            case CG_SWAP: // SINCE MAC IS MY LAYOUT DEFAULT switch to windows
+                user_config.OSIndex = 1; // for Semkeys
+                return_state = true; // let QMK do it's swap thing.
+                goto storeSettings;
+            case CG_NORM: // Back to default
+                user_config.OSIndex = 0; // for Semkeys
+                return_state = true; // let QMK do it's swap thing.
+                goto storeSettings;
+            case HD_AdaptKeyToggle: // toggle AdaptiveKeys (and LingerKeys)
+                user_config.AdaptiveKeys = !user_config.AdaptiveKeys;
+                return_state = false; // don't do more with this record.
+                goto storeSettings;
+            case HD_L_Bronze: // are we changing default layers?
+                user_config.LBRC_key = KC_LBRC;  // swap keycode for "["
+                user_config.RBRC_key = KC_RBRC;  // swap keycode for "]"
+                user_config.AdaptiveKeys = true;
+                goto setLayer;
+            case HD_L_Gold: // are we changing default layers?
+                user_config.LBRC_key = KC_RBRC;  // swap keycode for "["
+                user_config.RBRC_key = KC_LBRC;  // swap keycode for "]"
+                user_config.AdaptiveKeys = true;
+                goto setLayer;
+            case HD_L_QWERTY: // are we changing default layers?
+                user_config.AdaptiveKeys = false; // no adaptive keys on QWERTY
+setLayer:
+                return_state = false; // don't do more with this record.
+                //layer_on(keycode-HD_L_Bronze);
+                set_single_persistent_default_layer(keycode-HD_L_Bronze);// Remember default layer after powerdown
+storeSettings:
+                eeconfig_update_user(user_config.raw); // Remember platform after powerdown
+                break;
+
 #endif // KEY_OVERRIDE_ENABLE
         } // switch (keycode) {
 /*
@@ -336,6 +364,20 @@ storeSettings:
     } else { // key up event
         switch (keycode) { // should switch off record_keycode?
 
+            case LCTL_T(KC_C):
+            case RALT_T(KC_C):
+            case KC_C: // C if English, K if Japanese
+                if (!saved_mods || (saved_mods & MOD_MASK_SHIFT)) { // only shift allowed
+                    unregister_code16(myKC_C);
+                    return_state = false; // don't do more with this record.
+                }
+                break;
+            case KC_L: // L if English, R if Japanese (may have probs syncing w/OS)
+                if (!saved_mods || (saved_mods & MOD_MASK_SHIFT)) { // only shift allowed
+                    unregister_code16(myKC_L);
+                    return_state = false; // don't do more with this record.
+                }
+                break;
             case KC_APP:  // mimic windows app key behavior (only better?)
                 if (!mods_held) {// just app key, so see if held for menu
                     if (!appmenu_on) {// menu not already up
@@ -369,7 +411,7 @@ storeSettings:
 */
 
     //    case KC_BSPC:  // make S(KC_BSPC) = KC_DEL; plus word_del L & R
-            case LT(L_FN, KC_BSPC):  // make S(KC_BSPC) = KC_DEL; plus word_del L & R
+            case LT(L_LANG_NUM, KC_BSPC):  // make S(KC_BSPC) = KC_DEL; plus word_del L & R
                 if (key_trap) { // did we snag this earlier?
                     unregister_code16(KC_DEL); // make sure KC_DEL isn't held down
                     key_trap = false;  // mode monitor off.
@@ -391,7 +433,7 @@ storeSettings:
                 unregister_code16(keycode); // may still need to handle this
                 return_state = false; // don't do more with this record.
                 break;
-/*
+
             case KC_MINS:  // SHIFT = +, ALT=–(n-dash), ALT+SHIFT=±
                 if (key_trap) { // did we snag this earlier?
                     unregister_code16(KC_PLUS); //
@@ -399,6 +441,7 @@ storeSettings:
                     return_state = false; // don't do more with this record.
                 }
                 break;
+/*
             case KC_EQL:  // ALT _
                 if (key_trap) { // did we snag this earlier?
                     unregister_code16(S(KC_MINS)); //
