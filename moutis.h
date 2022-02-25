@@ -41,6 +41,11 @@ extern rgblight_config_t rgblight_config;
 #endif
 
 
+enum OS_Platform { // Used for platform support via SemKeys
+    OS_Mac,
+    OS_Win,
+    OS_count
+};
 
 void matrix_scan_user_process_combo(void);
 
@@ -64,8 +69,8 @@ enum my_layers {
     L_HDGOLD,
     L_QWERTY, //
     L_PUNCT,
-    L_LANG_NUM,
-    L_FN,
+    L_FN_NUM,
+    L_NUMPAD,
     L_NAV,
 //    L_SYMBOLS,
     L_MEDIA_KBD
@@ -110,9 +115,7 @@ enum my_layers {
      SK_SDQL, // ’ ** Left double quote UNICODE?
      SK_SDQR, // ’ ** Right double quote UNICODE?
      SemKeys_COUNT, // end of non-glyph SemKeys
-//     HD_DQUO, // Do we need our own unshifted shift symbols
      HD_AdaptKeyToggle,
-     HD_HASH, // to avoid the QMK 14.1 bug on not-split boards?
      HD_L_Bronze,  // KC to switch default layout
 //     HD_L_Silver,
 //     HD_L_Platinum,
@@ -163,3 +166,4 @@ enum my_layers {
 #define register_linger_key(kc) register_code16(kc);
 #define unregister_linger_key(kc) unregister_code16(kc);
 */
+

@@ -51,12 +51,14 @@ enum SemKeys {
     SemKeys_COUNT
 };
 */
-
+/*
 enum SemKeys_OS {
     SKP_Mac,
-    SKP_Min,
+    SKP_Win,
     SemKeys_OS_COUNT
 };
+*/
+
 /*
 * based on the table at:
 * https://en.wikipedia.org/wiki/Table_of_keyboard_shortcuts
@@ -64,7 +66,7 @@ enum SemKeys_OS {
 *
 */
 
-const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][SemKeys_OS_COUNT] = {
+const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][OS_count] = {
     // Mac, Win, (Phase 3, add others if necessary, expand to multi-key?)
     [SK_KILL - SK_KILL] = {G(A(KC_ESC)),C(A(KC_DEL))}, // "KILL" OR Force quit / ctrl-alt-del
     [SK_HENK - SK_KILL] = {KC_LANG1, KC_HENK}, // 変換
@@ -93,7 +95,7 @@ const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][SemKeys_OS_COUNT] = {
     [SK_PARANXT - SK_KILL] = {A(KC_DOWN),C(KC_DOWN)}, // Go to next paragraph
     [SK_HISTPRV - SK_KILL] = {G(KC_LBRC),A(KC_LEFT)}, // BROWSER BACK
     [SK_HISTNXT - SK_KILL] = {G(KC_RBRC),A(KC_RIGHT)}, // BROWSER FWD
-    [SK_ZOOMIN - SK_KILL] = {G(S(KC_EQL)),C(KC_EQL)}, // ZOOM IN
+    [SK_ZOOMIN - SK_KILL] = {G(KC_EQL),C(KC_EQL)}, // ZOOM IN
     [SK_ZOOMOUT - SK_KILL] = {G(KC_MINS),C(KC_MINS)}, // ZOOM OUT
     [SK_ZOOMRST - SK_KILL] = {G(KC_0),C(KC_0)}, // ZOOM RESET
     [SK_SECT - SK_KILL] = {A(KC_5),A(KC_5)}, // § ** SAMPLE OF GLYPH. REALLY NEED UNICODE.

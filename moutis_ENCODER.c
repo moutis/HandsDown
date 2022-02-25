@@ -3,7 +3,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   /* With an if statement we can check which encoder was turned. */
   if (!index) { /* First (left) encoder */
       switch(get_highest_layer(layer_state)){
-          case L_FN: // function layer
+          case L_FN_NUM: // function layer
               /* for audio scrub bk/fwd. */
               if (clockwise) {
                   tap_code16(KC_BRIU); // Screen BRIGHTNESS UP
@@ -11,9 +11,22 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                   tap_code16(KC_BRID);  // Screen BRIGHTNESS DN
               }
               break;
+          case L_NUMPAD: // numpad layer (for navigating in spreadsheets)
+              if (clockwise) {
+                  tap_code16(KC_RGHT); //
+              } else {
+                  tap_code16(KC_LEFT);  //
+              }
+              break;
+          case L_NAV: // nav layer
+              if (clockwise) {
+                  tap_SemKey(SK_ZOOMIN); // ZOOM IN
+              } else {
+                  tap_SemKey(SK_ZOOMOUT); // ZOOM OUT
+              }
+              break;
 
 #ifdef RGBLIGHT_ENABLE
-          case L_NAV: // nav layer
           case L_MEDIA_KBD: // media/kbd settings layer
               saved_mods = get_mods();
               if (clockwise) {
@@ -23,7 +36,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
               }
               break;
 #endif
-
           default:
               if (clockwise) {
                 tap_code(KC_VOLU); // media vol up
@@ -34,6 +46,21 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       }
   } else  {  // Second (right) encoder
       switch(get_highest_layer(layer_state)){
+          case L_NUMPAD: // numpad layer (for navigating in spreadsheets)
+              if (clockwise) {
+                  tap_code16(KC_DOWN);  //
+                        } else {
+                  tap_code16(KC_UP); //
+              }
+              break;
+          case L_NAV: // nav layer
+              if (clockwise) {
+                  tap_SemKey(SK_HISTNXT); // prev page
+              } else {
+                  tap_SemKey(SK_HISTPRV); // next page
+              }
+              break;
+
 #ifdef RGBLIGHT_ENABLE
           case L_MEDIA_KBD: // media/kbd settings layer
               saved_mods = get_mods();
@@ -52,22 +79,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
               }
               break;
 #endif
-
-          case L_LANG_NUM:
-          case L_FN: // function layer
-              if (clockwise) {
-                  tap_SemKey(SK_ZOOMIN); // ZOOM IN
-              } else {
-                  tap_SemKey(SK_ZOOMOUT); // ZOOM OUT
-              }
-              break;
-          case L_NAV: // nav layer
-              if (clockwise) {
-                  tap_SemKey(SK_HISTNXT); // prev page
-              } else {
-                  tap_SemKey(SK_HISTPRV); // next page
-              }
-              break;
           default:
               if (clockwise) {
                 tap_code(KC_MNXT); // media next track

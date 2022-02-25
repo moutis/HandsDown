@@ -73,18 +73,21 @@ bool process_caps_word(uint16_t keycode, const keyrecord_t *record) {
 
     // Filter out the actual keycode from MT and LT keys.
     // This isn't working right. need to allow a layer to happen.
-    switch (keycode) {
+/*    switch (keycode) {
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-        case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
+ #ifdef TAP_DANCE_ENABLE
+         case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
+ #endif
             if (record->tap.count == 0) // if not tapped yet…
                 return true; // do that first
             keycode = keycode & 0xFF; // process the base key
         default:
             break;
     }
-
+*/
     if (record->event.pressed) {
+        keycode = keycode & QK_BASIC_MAX; // process the base key
         // check if the case modes have been terminated
         if ((get_mods() != 0)) { // hitting any mod...go handle it
             disable_caps_word();
@@ -99,12 +102,16 @@ bool process_caps_word(uint16_t keycode, const keyrecord_t *record) {
             case KC_RIGHT ... KC_LEFT:
                 last_press_was_space = false;
                 return true; // let QMK handle it.
+//            case KC_DOT:
             case KC_SPC:
                 if (last_press_was_space) {
                     disable_caps_word();
                     return true; // let QMK handle space normally
                 } else {
-                    register_code16(KC_UNDS);
+//                    if (keycode == KC_DOT)
+//                        register_code16(KC_DOT);
+//                    else
+                        register_code16(KC_UNDS);
                     last_press_was_space = true;
                     return false; // We handled it
                 }

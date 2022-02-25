@@ -6,6 +6,8 @@
 
  I think this will work with all Hands Down Neu variants (Platinum, Gold, Silver, Bronze)
  Finally getting to the last of imagined features that spurred Hands Down design!
+ 
+ dual-function keys (MOD_TAP, LAYER_TAP) have already been handled and filtered out.
   
  */
 
@@ -69,13 +71,15 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 
                 case KC_M: // M becomes L after DFGKPVW
                     switch (prior_keycode) {
-                        case KC_D:
-                        case KC_F:
+                        case KC_J:
+                            tap_code(KC_BSPC);
+                            tap_code(KC_L);
+                            tap_code16(keycode);
+                            return_state = false; // done.
+                            break;
                         case KC_G:
-                        case KC_K:
                         case KC_P:
                         case KC_V:
-                        case KC_W:
                             tap_code(KC_L);
                             return_state = false; // done.
                             break;
@@ -89,20 +93,19 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                             break;
                     }
                     break;
+                case KC_G:
                 case KC_P:
                     switch (prior_keycode) {
-                        case KC_H: // "hp" is "lp" (Platinum/Neu-tx)
-                            tap_code(KC_BSPC);
-                            tap_code(KC_L);
-                            tap_code16(keycode);
-                            return_state = false; // done.
-                            break;
+/*
+ */
                         case KC_B:
                         case KC_K:
                         case KC_V: // quickly typing "?p" yields "?l"
                             tap_code(KC_L);
                             return_state = false; // done.
                             break;
+/*
+                        case KC_H: // "hp" is "lp" (Platinum/Neu-tx)
                         case KC_M:
                         case KC_F: // "f?" is really uncommon, we prolly want "l?"
                             tap_code(KC_BSPC);
@@ -110,6 +113,8 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                             tap_code16(keycode);
                             return_state = false; // done.
                             break;
+*/
+
                     }
                     break;
                 case KC_C:  // inner column accommodations
@@ -159,7 +164,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     break;
 
                 case KC_J: // SAME-HAND TOWARD PINKY ISSUES
-                //case KC_W: // for Neu
+                //case KC_W: // for Neu?
                 case KC_X: // adjacent fingers don't do next row as easily,especially on ring to pinky.
                     switch (prior_keycode) {
                         case KC_B: //

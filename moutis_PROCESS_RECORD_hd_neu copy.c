@@ -66,9 +66,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return_state = false; // don't do more with this record.
                 }
                 break;
-            case KC_X: // X if English, z if Japanese mode
+            case KC_L: // L if English, R if Japanese mode
                 if (!saved_mods || (saved_mods & MOD_MASK_SHIFT)) { // only shift allowed
-                    register_code16(myKC_X);
+                    register_code16(myKC_L);
                     return_state = false; // don't do more with this record.
                 }
                 break;
@@ -336,13 +336,13 @@ byteshave: // CAUTION: messing w/stack frame here!!
                 break;
             case KC_HENK: // Japanese
                 myKC_C = KC_Z;
-                myKC_X = KC_Z;
+                myKC_L = KC_K;
                 tap_SemKey(SK_HENK);
                 return_state = false; // don't do more with this record.
                 break;
             case KC_MHEN: // English
                 myKC_C = KC_C;
-                myKC_X = KC_X;
+                myKC_L = KC_L;
                 tap_SemKey(SK_MHEN);
                 return_state = false; // don't do more with this record.
                 break;
@@ -381,20 +381,20 @@ storeSettings:
 #endif // KEY_OVERRIDE_ENABLE
         } // switch (keycode) {
 /*
-
+ 
  */
     } else { // key up event
         switch (keycode) { // should switch off record_keycode?
 
-            case KC_C: // C if English, Z if Japanese
+            case KC_C: // C if English, K if Japanese
                 if (!saved_mods || (saved_mods & MOD_MASK_SHIFT)) { // only shift allowed
                     unregister_code16(myKC_C);
                     return_state = false; // don't do more with this record.
                 }
                 break;
-            case KC_X: // X if English, Z if Japanese (may have probs syncing w/OS)
+            case KC_L: // L if English, R if Japanese (may have probs syncing w/OS)
                 if (!saved_mods || (saved_mods & MOD_MASK_SHIFT)) { // only shift allowed
-                    unregister_code16(myKC_X);
+                    unregister_code16(myKC_L);
                     return_state = false; // don't do more with this record.
                 }
                 break;

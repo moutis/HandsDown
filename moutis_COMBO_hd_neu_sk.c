@@ -4,36 +4,52 @@
  ** This will misbehave w/o QMK 14.1 or later (Sevanteri's early combos)
 
  I think this will work with Hands Down Neu variants Gold, Bronze.
- Others have been removed, but I'll try to get everwthing in here soon enough.
+ Others have been removed, but I'll try to get everything in here soon enough.
  Finally getting to the last of imagined features that spurred Hands Down design!
   
  */
 
-// functions / state keys
+
+#define JapanComboTapE "Japan "
+#define JapanComboHeldE "Japanese "
+#define JapanComboTapJ "arigatou"
+#define JapanComboHeldJ "yorosiku"
+#define EnglishComboTapE "English "
+#define EnglishComboHeldE "End of times in 2020"
+#define EnglishComboTapJ "gozaimasu."
+#define EnglishComboHeldJ "onegaisimasu."
 
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
+/* examples of text entry combos */
+const uint16_t PROGMEM H_Japan_combo[] = {KC_G, KC_M, KC_P, COMBO_END}; // TYPE EnglishComboTapE
+const uint16_t PROGMEM H_English_combo[] = {KC_DOT, KC_SLSH, KC_DQUO, COMBO_END}; // some demonstrator macro placeholder
+//const uint16_t PROGMEM H_Japan_combo[] = {KC_J, KC_P, COMBO_END}; // TYPE JapanComboTapE
+//const uint16_t PROGMEM H_English_combo[] = {KC_DOT, KC_SLSH, KC_QUOT, COMBO_END}; // some demonstrator macro placeholder
+
+
 const uint16_t PROGMEM F_ESC_combo[] = {KC_X, KC_K, COMBO_END}; // ESCape
-const uint16_t PROGMEM F_KILL_combo[] = {KC_J, KC_DQUO, COMBO_END}; // KILL = Force quit OR CTRL-ALT-DEL
-const uint16_t PROGMEM F_SCLP_combo[] = {KC_J, KC_P, COMBO_END}; // SCREEN shot SELECTION to clipboard
-const uint16_t PROGMEM F_SCAP_combo[] = {KC_J, KC_V, COMBO_END}; //  SCREEN shot SELECTION to file
+const uint16_t PROGMEM F_KILL_combo[] = {KC_X, KC_V, COMBO_END}; // KILL = Force quit OR CTRL-ALT-DEL
+const uint16_t PROGMEM F_SCLP_combo[] = {KC_J, KC_G, KC_P, COMBO_END}; // SCREEN shot SELECTION to clipboard
+const uint16_t PROGMEM F_SCAP_combo[] = {KC_J, KC_G, KC_V, COMBO_END}; //  SCREEN shot SELECTION to file
+
 const uint16_t PROGMEM F_CAPG_combo[] = {KC_C, KC_U, COMBO_END}; // CAPS LOCK (on until hit again) Gold
 const uint16_t PROGMEM F_CAPS_combo[] = {KC_D, KC_U, COMBO_END}; // CAPS LOCK (on until hit again)
-const uint16_t PROGMEM H_CAPW_combo[] = {LSFT_T(KC_T), RSFT_T(KC_A), COMBO_END}; // CAPS WORD (on until delimiter)
-const uint16_t PROGMEM H_EISUU_combo[] = {LALT_T(KC_S), LGUI_T(KC_N), LSFT_T(KC_T), COMBO_END}; // KC_HENK
-const uint16_t PROGMEM H_KANA_combo[] = {RALT_T(KC_C), RGUI_T(KC_E), RSFT_T(KC_A), COMBO_END}; // KC_MHEN
+const uint16_t PROGMEM H_CAPW_combo[] = {LSFT_T(KC_T), RSFT_T(KC_A), COMBO_END}; // CAPS WORD (on until word delimiter)
 //const uint16_t PROGMEM H_CAPG_combo[] = {LSFT_T(KC_D), RSFT_T(KC_A), COMBO_END}; // CAPS WORD for Gold
 //const uint16_t PROGMEM H_EISUUg_combo[] = {LALT_T(KC_S), LGUI_T(KC_N), LSFT_T(KC_D), COMBO_END}; // KC_LANG2
-const uint16_t PROGMEM H_KANAg_combo[] = {RALT_T(KC_I), RGUI_T(KC_E), RSFT_T(KC_A), COMBO_END}; // KC_MHEN for Gold/Titanium
+const uint16_t PROGMEM H_EISUU_combo[] = {LALT_T(KC_S), LGUI_T(KC_N), LSFT_T(KC_T), COMBO_END}; // KC_HENK
+const uint16_t PROGMEM H_KANA_combo[] = {RALT_T(KC_C), RGUI_T(KC_E), RSFT_T(KC_A), COMBO_END}; // KC_MHEN
+const uint16_t PROGMEM H_KANAg_combo[] = {RSFT_T(KC_A), RGUI_T(KC_E), RALT_T(KC_I), COMBO_END}; // KC_MHEN for neu/Gold/Titanium
 const uint16_t PROGMEM H_EISUUq_combo[] = {KC_S,KC_D,KC_F, COMBO_END}; // KC_MHEN for QWERTY
 const uint16_t PROGMEM H_KANAq_combo[] = {KC_J,KC_K,KC_L, COMBO_END}; // KC_LANG1 for QWERTY
 
 //  (22) keypad combos
-const uint16_t PROGMEM PSLMN_combo[] = {KC_PSLS, KC_PMNS, COMBO_END}; // toggle num layer
+const uint16_t PROGMEM PNLCK_combo[] = {KC_P4, KC_P5, KC_P6, COMBO_END}; // toggle num layer
 const uint16_t PROGMEM P0E_combo[] = {KC_P0, KC_PEQL, COMBO_END};
-const uint16_t PROGMEM PCME_combo[] = {KC_DOT, KC_PEQL, COMBO_END};
-const uint16_t PROGMEM PCM1_combo[] = {KC_DOT, KC_P1, COMBO_END};
-const uint16_t PROGMEM PCM2_combo[] = {KC_DOT, KC_P2, COMBO_END};
+const uint16_t PROGMEM PCME_combo[] = {KC_PDOT, KC_PEQL, COMBO_END};
+const uint16_t PROGMEM PCM1_combo[] = {KC_PDOT, KC_P1, COMBO_END};
+const uint16_t PROGMEM PCM2_combo[] = {KC_PDOT, KC_P2, COMBO_END};
 const uint16_t PROGMEM P01_combo[] = {KC_P0, KC_P1, COMBO_END};
 const uint16_t PROGMEM P02_combo[] = {KC_P0, KC_P2, COMBO_END};
 const uint16_t PROGMEM P04_combo[] = {KC_P0, KC_P4, COMBO_END};
@@ -62,35 +78,32 @@ const uint16_t PROGMEM PPLMN_combo[] = {KC_P4, KC_PPLS, COMBO_END};
 
 
 // RIGHT HAND
-// LOWER ROW
 
 const uint16_t PROGMEM Hndsh_combo[] = {KC_MINS, KC_U, COMBO_END}; // – n dash
 const uint16_t PROGMEM Hmdsh_combo[] = {KC_MINS, KC_O, COMBO_END}; // — m dash
 const uint16_t PROGMEM Hunds_combo[] = {KC_U, KC_W, COMBO_END}; // _ underscore
 const uint16_t PROGMEM Htild_combo[] = {KC_MINS, KC_W, COMBO_END}; // ~ tilde (not the dead one)
-const uint16_t PROGMEM Hequal_combo[] = {KC_Y, KC_W, COMBO_END}; // = equal
+const uint16_t PROGMEM Hequal_combo[] = {KC_MINS, KC_Y, COMBO_END}; // = equal
 const uint16_t PROGMEM Hscln_combo[] = {KC_COMM, RSFT_T(KC_A), COMBO_END}; // ; semicolon
-const uint16_t PROGMEM Hcoln_combo[] = {HD_HASH, KC_DOT, COMBO_END}; // : colon
+const uint16_t PROGMEM Hcoln_combo[] = {KC_HASH, KC_DOT, COMBO_END}; // : colon
 
 // spatially arranged characters and diacritics
 const uint16_t PROGMEM Hexlm_combo[] = {KC_DOT, KC_SLSH, COMBO_END}; // !
 const uint16_t PROGMEM Hques_combo[] = {KC_SLSH, KC_QUOT, COMBO_END}; // ?
-const uint16_t PROGMEM Hquesg_combo[] = {KC_SLSH, KC_DQUO, COMBO_END}; // ?
-const uint16_t PROGMEM Hat_combo[] = {KC_P, KC_V, COMBO_END}; // @ at mark
-const uint16_t PROGMEM Helip_combo[] = {HD_HASH, KC_SLSH, COMBO_END}; // … elipses
+const uint16_t PROGMEM Hquesg_combo[] = {KC_SLSH, KC_DQUO, COMBO_END}; //
+const uint16_t PROGMEM Hat_combo[] = {KC_P, KC_V, COMBO_END}; // MENU (now shift ! = ?) @ at mark
+const uint16_t PROGMEM Helip_combo[] = {KC_HASH, KC_SLSH, COMBO_END}; // … elipses
 const uint16_t PROGMEM Htic_combo[] = {KC_DQUO, KC_QUOT, COMBO_END}; // ` tic (not dead key grave)
 
 // spatially arranged diacritics
 const uint16_t PROGMEM Hacut_combo[] = {RSFT_T(KC_A), RGUI_T(KC_E), COMBO_END}; // ´ acute (dead key)
-const uint16_t PROGMEM Hgrv_combo[] = {RALT_T(KC_I), RCTL_T(KC_H), COMBO_END}; // ` grave (dead key)
-const uint16_t PROGMEM Hmacr_combo[] = {RSFT_T(KC_A), RALT_T(KC_I), COMBO_END}; // - macron (dead key)ā
+const uint16_t PROGMEM Hgrv_combo[] = {RGUI_T(KC_E), RCTL_T(KC_H), COMBO_END}; // ` grave (dead key)
+const uint16_t PROGMEM Hmacr_combo[] = {RSFT_T(KC_A), RALT_T(KC_I), COMBO_END}; // - macron (dead key)
 const uint16_t PROGMEM Hcirc_combo[] = {KC_DOT, KC_DQUO, COMBO_END}; // ˆ circumflex (dead key)
 const uint16_t PROGMEM Hdier_combo[] = {KC_U, KC_O, COMBO_END}; // ¨ dieresis (dead key)
 //const uint16_t PROGMEM Hring_combo[] = {KC_O, KC_Y, COMBO_END}; // ˚ ring (dead key)
 const uint16_t PROGMEM Henye_combo[] = {LALT_T(KC_S), LSFT_T(KC_D), COMBO_END}; // ˜ enye (dead key) (ñ only?)
 
-// LOWER ROW
-// SYMBOLS spatially arranged
 
 // LEFT HAND
 
@@ -101,14 +114,14 @@ const uint16_t PROGMEM H_Q_combo[] = {KC_U, KC_Y, COMBO_END}; // TYPE "q"
 
 // H digraphs
 const uint16_t PROGMEM H_Ch_combo[] = {RALT_T(KC_C), RGUI_T(KC_E), COMBO_END}; // TYPE "ch" for Bronze/Silver/Platinum
-const uint16_t PROGMEM H_Chg_combo[] = {LCTL_T(KC_C), LSFT_T(KC_T), COMBO_END}; // TYPE "ch" // for Titanium
-const uint16_t PROGMEM H_Wh_combo[] = {KC_O, KC_W, COMBO_END}; // TYPE "wh"
-const uint16_t PROGMEM H_Whg_combo[] = {RALT_T(KC_I), RCTL_T(KC_H), COMBO_END}; // TYPE "wh" // for HD Gold/neu/Ti
+const uint16_t PROGMEM H_Chg_combo[] = {LALT_T(KC_S), LSFT_T(KC_T), COMBO_END}; // TYPE "ch" // for Titanium
+const uint16_t PROGMEM H_Wh_combo[] = {KC_O, KC_W, COMBO_END}; // TYPE "wh"  // TYPE "wh" // for HD Bronze/Silver/Platinum
+const uint16_t PROGMEM H_Whg_combo[] = {KC_O, KC_Y, COMBO_END}; // TYPE "wh" // for HD Gold/neu/Ti
 const uint16_t PROGMEM H_Ph_combo[] = {KC_M, KC_P, COMBO_END}; // TYPE "ph"
 const uint16_t PROGMEM H_Gh_combo[] = {KC_G, KC_M, COMBO_END}; // TYPE "gh"
 const uint16_t PROGMEM H_Sh_combo[] = {LALT_T(KC_S), LGUI_T(KC_N), COMBO_END}; // "sh"
-//const uint16_t PROGMEM H_Shs_combo[] = {LALT_T(KC_S), LGUI_T(KC_H), COMBO_END}; // "sh" // (for Neu-nx a.k.a Silver)
 const uint16_t PROGMEM H_Th_combo[] = {LGUI_T(KC_N), LSFT_T(KC_T), COMBO_END}; // "th"
+//const uint16_t PROGMEM H_Shs_combo[] = {LALT_T(KC_S), LGUI_T(KC_H), COMBO_END}; // "sh" // (for Neu-nx a.k.a Silver)
 //const uint16_t PROGMEM H_Ths_combo[] = {LGUI_T(KC_H), LSFT_T(KC_T), COMBO_END}; // "th" // (for Neu-nx a.k.a Silver)
 //const uint16_t PROGMEM H_Thg_combo[] = {LGUI_T(KC_N), LSFT_T(KC_D), COMBO_END}; // "th" // for HD Gold
 
@@ -118,19 +131,15 @@ const uint16_t PROGMEM H_ing_combo[] = {RCTL_T(KC_I), KC_G, COMBO_END}; // TYPE 
 
 // Fast 4grams
 
-//const uint16_t PROGMEM H_tion_combo[] = {LGUI_T(KC_N), LSFT_T(KC_T), COMBO_END}; // "tion" #1 handled w/Adaptive keys
-
 const uint16_t PROGMEM H_withg_combo[] = {KC_W, RCTL_T(KC_H), COMBO_END}; // "with" #5 for Gold/Neu
 const uint16_t PROGMEM H_oughg_combo[] = {KC_O, RCTL_T(KC_H), COMBO_END}; // "ough" #25 for Gold/Neu
 
 const uint16_t PROGMEM H_with_combo[] = {KC_W, LT(L_NAV,KC_H), COMBO_END}; // "with" #5
 const uint16_t PROGMEM H_ment_combo[] = {KC_M, LSFT_T(KC_T), COMBO_END}; // "ment" #6
 const uint16_t PROGMEM H_there_combo[] = {LSFT_T(KC_T), LCTL_T(KC_R), COMBO_END}; // TYPE "there" #7
-const uint16_t PROGMEM H_this_combo[] = {LSFT_T(KC_T), LALT_T(KC_S), COMBO_END}; // "this" #8
 const uint16_t PROGMEM H_here_combo[] = {LT(L_NAV,KC_H), LCTL_T(KC_R), COMBO_END}; // "here" #9
 const uint16_t PROGMEM H_ould_combo[] = {KC_O, KC_D, COMBO_END}; // "ould" #11
 const uint16_t PROGMEM H_ting_combo[] = {LSFT_T(KC_T), KC_G, COMBO_END}; // "ting" #12
-const uint16_t PROGMEM H_sion_combo[] = {LALT_T(KC_S), LGUI_T(KC_N), COMBO_END}; // "sion" #20
 const uint16_t PROGMEM H_ough_combo[] = {KC_O, LT(L_NAV,KC_H), COMBO_END}; // "ough" #25
 
 
@@ -177,21 +186,16 @@ const uint16_t PROGMEM H_theyre_combo[] = {LSFT_T(KC_T), KC_J, COMBO_END}; // "t
 const uint16_t PROGMEM H_where_combo[] = {KC_W, LCTL_T(KC_R), COMBO_END}; // "where"
 
 
-
-/* other examples or text entry combos */
-const uint16_t PROGMEM H_Japan_combo[] = {KC_G, KC_M, KC_P, COMBO_END}; // TYPE "Japan"
-const uint16_t PROGMEM Macro_combo[] = {KC_J, KC_B, COMBO_END}; // some demonstrator macro placeholder
-
 // UPPER ROW
 
 // FUNCTIONS/COMMANDS Spatially arranged
 
 const uint16_t PROGMEM Htab_combo[] = {LCTL_T(KC_R), LALT_T(KC_S), COMBO_END}; // tab
 const uint16_t PROGMEM Htabt_combo[] = {LCTL_T(KC_C), LALT_T(KC_S), COMBO_END}; // tab for Titanium
-const uint16_t PROGMEM Hspc_combo[] = {LSFT_T(KC_T), KC_B, COMBO_END}; // SPACE
-//const uint16_t PROGMEM Hspcg_combo[] = {LSFT_T(KC_D), KC_B, COMBO_END}; // SPACE for Gold
+const uint16_t PROGMEM Hspc_combo[] = {LSFT_T(KC_T), LT(5,KC_B), COMBO_END}; // SPACE
+const uint16_t PROGMEM Hspcg_combo[] = {LSFT_T(KC_T), LT(5,KC_K), COMBO_END}; // SPACE for Gold
 const uint16_t PROGMEM Hent_combo[] = {KC_D, KC_K, COMBO_END}; // ENTER
-//const uint16_t PROGMEM Hentg_combo[] = {KC_C, KC_K, COMBO_END}; // ENTER for gold (should be CH?)
+const uint16_t PROGMEM Hentg_combo[] = {KC_D, KC_B, COMBO_END}; // ENTER for gold (should be CH?)
 
 // LOWER ROW
 
@@ -205,12 +209,13 @@ const uint16_t PROGMEM Hcut_combo[] = {KC_X, KC_L, COMBO_END}; // cut
 const uint16_t PROGMEM Hcopy_combo[] = {KC_F, KC_L, COMBO_END}; // copy
 const uint16_t PROGMEM Hpste_combo[] = {KC_L, KC_D, COMBO_END}; // paste
 const uint16_t PROGMEM Hpstm_combo[] = {KC_F, KC_D, COMBO_END}; // paste-match
-//const uint16_t PROGMEM Hcloseg_combo[] = {KC_L, KC_K, COMBO_END}; // close FOR GOLD
-//const uint16_t PROGMEM Hquitg_combo[] = {KC_G, KC_K, COMBO_END}; // quit FOR GOLD
-//const uint16_t PROGMEM Hsallg_combo[] = {KC_X, KC_C, COMBO_END}; // select all FOR GOLD
-//const uint16_t PROGMEM Hpsteg_combo[] = {KC_L, KC_C, COMBO_END}; // paste FOR GOLD
-//const uint16_t PROGMEM Hpstmg_combo[] = {KC_F, KC_C, COMBO_END}; // paste-match FOR GOLD
-
+/*
+const uint16_t PROGMEM Hcloseg_combo[] = {KC_L, KC_K, COMBO_END}; // close FOR GOLD
+const uint16_t PROGMEM Hquitg_combo[] = {KC_G, KC_K, COMBO_END}; // quit FOR GOLD
+const uint16_t PROGMEM Hsallg_combo[] = {KC_X, KC_C, COMBO_END}; // select all FOR GOLD
+const uint16_t PROGMEM Hpsteg_combo[] = {KC_L, KC_C, COMBO_END}; // paste FOR GOLD
+const uint16_t PROGMEM Hpstmg_combo[] = {KC_F, KC_C, COMBO_END}; // paste-match FOR GOLD
+*/
 // TWO HANDS
 //const uint16_t PROGMEM Hdquo_combo[] = {HD_HASH, HD_DQUO, COMBO_END};  // "|" insert between double quote
 
@@ -246,26 +251,21 @@ combo_t key_combos[] = {
     [HC_EXLM] = COMBO(Hexlm_combo, KC_EXLM), // !
     [HC_QUES] = COMBO(Hques_combo, KC_QUES), // ?
     [HC_QUESg] = COMBO(Hquesg_combo, KC_QUES), // ?
-    [HC_AT] = COMBO(Hat_combo, KC_AT), // @
+    [HC_AT] = COMBO(Hat_combo, KC_APP), // APP SWITCHER MENU
     [HC_TAB] = COMBO(Htab_combo, KC_TAB),
     [HC_TABt] = COMBO(Htabt_combo, KC_TAB), // tab for Titanium
 
-//    [HC_J] = COMBO(H_J_combo, KC_J),
     [HC_Q] = COMBO(H_Q_combo, KC_Q),
-//    [HC_Z] = COMBO(H_Z_combo, KC_Z),
     [HC_Z] = COMBO_ACTION(H_Z_combo),
     [HC_Ch] = COMBO_ACTION(H_Ch_combo),
     [HC_Chg] = COMBO_ACTION(H_Chg_combo), // for Gold/Neu
     [HC_Gh] = COMBO_ACTION(H_Gh_combo),
     [HC_Ph] = COMBO_ACTION(H_Ph_combo),
     [HC_Th] = COMBO_ACTION(H_Th_combo),
-//    [HC_Ths] = COMBO_ACTION(H_Ths_combo), // (for Neu-nx a.k.a Silver)
-//    [HC_Thg] = COMBO_ACTION(H_Thg_combo), // (for Neu-tx a.k.a Gold)
     [HC_Sh] = COMBO_ACTION(H_Sh_combo),
-//    [HC_Shs] = COMBO_ACTION(H_Shs_combo), // (for Neu-nx a.k.a Silver)
+    [HC_Whg] = COMBO_ACTION(H_Whg_combo),
     [HC_Wh] = COMBO_ACTION(H_Wh_combo),
-    [HC_Whg] = COMBO_ACTION(H_Whg_combo), // for Gold/neu
-    
+
     [PC_PENT] = COMBO(P3E_combo, KC_PENT), // <enter> on num
     [PC_BSPC] = COMBO(P01_combo, KC_BSPC), // <bksp> on num
     [PC_DEL] = COMBO(P02_combo, KC_DEL), // <del> on num
@@ -273,7 +273,6 @@ combo_t key_combos[] = {
 
     // action combos below
     // This group have custom actions on trigger (no hold-delay), repeat if held
-//    [HC_2DQUO] = COMBO_ACTION(Hdquo_combo),
 
     // this block should be contiguous,
     // Delayed action (COMBO_HOLD threshold). No repeat if held (tap_code)
@@ -281,9 +280,9 @@ combo_t key_combos[] = {
 
     // Keypad combos (all need actions or mods, so must be here)
     [PC_STAB] = COMBO_ACTION(PCM2_combo), // shift-<tab> on num
-    [PC_TGNM] = COMBO_ACTION(PSLMN_combo), // toggle num layer
     
     [PC_SENT] = COMBO_ACTION(P2E_combo), // shift-<enter> on num
+    [PC_TGNM] = COMBO(PNLCK_combo, KC_NLCK), // toggle num lock
     [PC_DASH] = COMBO_ACTION(P12_combo), // – for time span on number layer
     [PC_TILD] = COMBO_ACTION(P13_combo), // ~ for time span on number layer
     [PC_ELIP] = COMBO_ACTION(P23_combo), // … for time span on number layer
@@ -310,8 +309,6 @@ combo_t key_combos[] = {
     [FC_SCLP] = COMBO(F_SCLP_combo, SK_SCLP), // SCREEN CAPTURE SELECTION to clipboard
     [FC_CAPS] = COMBO(F_CAPS_combo, KC_CAPS), // CAPS LOCK
     [HC_CAPW] = COMBO_ACTION(H_CAPW_combo), // CAPS_WORD
-//    [FC_CAPG] = COMBO(F_CAPG_combo, KC_CAPS), // CAPS LOCK for Gold
-//    [HC_CAPG] = COMBO_ACTION(H_CAPG_combo), // CAPS_WORD for Gold
 
     [FC_LANG2] = COMBO(H_EISUU_combo, KC_MHEN), // eisuu (others)
     [FC_LANG1] = COMBO(H_KANA_combo, KC_HENK), // kana (others)
@@ -331,7 +328,8 @@ combo_t key_combos[] = {
 //    [HC_RING] = COMBO_ACTION(Hring_combo), // ˚ ring
     [HC_ENYE] = COMBO(Henye_combo, SK_ENYE), // ñ/Ñ enye
     [HC_ELIP] = COMBO_ACTION(Helip_combo),  // …
-/* These will be handled by SemKeys
+
+/* These will need to be handled by SemKeys w/unicode support
     [HC_UM] = COMBO_ACTION(HUM_combo), // Ü
     [HC_OM] = COMBO_ACTION(HOM_combo), // Ö
     [HC_UK] = COMBO_ACTION(HUK_combo), // Ů
@@ -359,7 +357,7 @@ combo_t key_combos[] = {
 
     // PRONOUNS Fast entry 4-7gram PRONOUNS (an English quirk)
 
-    [HC_this_4gram] = COMBO_ACTION(H_this_combo), // TYPE "this" #8
+//    [HC_this_4gram] = COMBO_ACTION(H_this_combo), // TYPE "this" #8
     [HC_they_4gram] = COMBO_ACTION(H_they_combo), // TYPE "they" #23
 //    [HC_theyg_4gram] = COMBO_ACTION(H_theyg_combo), // TYPE "they" #23
 
@@ -407,15 +405,15 @@ combo_t key_combos[] = {
 */
 
     [HC_TYPE_JAPAN] = COMBO_ACTION(H_Japan_combo), // a personally useful 5-8gram!
-    [MYMACRO] = COMBO_ACTION(Macro_combo), // a demonstrator, how long autotypes can be!
+    [HC_TYPE_ENGLISH] = COMBO_ACTION(H_English_combo), // a demonstrator, how long autotypes can be!
 
 //    [HC_APP] = COMBO(Happ_combo, KC_APP), // app menu
 
 
     [HC_SPC] = COMBO(Hspc_combo, KC_SPC), // SPACE
     [HC_ENT] = COMBO(Hent_combo, KC_ENT), // ENTER
-//    [HC_SPCg] = COMBO(Hspcg_combo, KC_SPC), // SPACE for Gold
-//    [HC_ENTg] = COMBO(Hentg_combo, KC_ENT), // ENTER for Gold
+    [HC_SPCg] = COMBO(Hspcg_combo, KC_SPC), // SPACE for Gold
+    [HC_ENTg] = COMBO(Hentg_combo, KC_ENT), // ENTER for Gold
     /* Uses SemKeys, even as simple combos (handled by process_semkey from process_record_user) */
     [HC_CLOZ] = COMBO(Hclose_combo, SK_CLOZ),
     [HC_QUIT] = COMBO(Hquit_combo, SK_QUIT),
@@ -445,9 +443,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         oled_write_P(PSTR("Combo: "), false);
 #endif
         switch(combo_index) {
-            case PC_STAB ... COMBO_LENGTH:  // these have a hold delay BEFORE triggering
-            case HC_Ch ... HC_Whg:          // The H digraphs determined on up event
-                combo_on = combo_index;     // queue for matrix_scan_user_process_combo
+            case PC_STAB ... COMBO_LENGTH:// these have a hold delay BEFORE triggering
+            case HC_Ch ... HC_Wh:   // The H digraphs determined on up event, or may process a hold, so
+                combo_on = combo_index; // queue for matrix_scan_user_process_combo
                 break;
 
 //            case HC_CAPG: // turn on capsword for Gold
@@ -458,25 +456,22 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             case HC_Z: // (Q gets special treatment)
                 register_linger_key(KC_Z); // example of simple linger macro: name "Zoe"
                 break;
-            case HC_TYPE_JAPAN:
-                send_string("Japan"); // send "Japan" right away
-                combo_on = combo_index; // may add "ese " if held
-                break;
 
             case HC_NDSH:
                 register_code16(A(KC_MINS));
                 break;
             case HC_MDSH:
-                 register_code16(A(S(KC_MINS)));
-
+                 register_code16(A(S(KC_MINS))); // should be a semkey
+                break;
 // the entirely unnecessary pronoun combo shenanigans
-    
+/*
             case HC_this_4gram: // TYPE "this" #8
                 tap_code(KC_T);
                 unregister_code(KC_LSFT); // turn off shift to facilitate
                 unregister_code(KC_RSFT); // first-words & Proper nouns.
-                send_string("his");
+                send_string("his ");
                 break;
+*/
             case HC_here_4gram: // TYPE "here" #9
             case HC_hereg_4gram: // TYPE "here" #9
                 tap_code(KC_H);
@@ -620,7 +615,20 @@ addonsuffix: // sharing this saves about 100 bytes (10 bytes per instance)
                     case HC_theyve_7gram: // "they've"
 //                    case HC_theyveg_7gram: // "they've"
                         send_string("ve ");
-                }
+                        break;
+                    case HC_Chg:
+                    case HC_Ch:
+                    case HC_Whg:
+                    case HC_Wh:
+/*
+                        tap_code(KC_W); // send "W" honoring caps
+                        unregister_code(KC_LSFT); // remove shift here.
+                        unregister_code(KC_RSFT); // remove shift here.
+                        tap_code(KC_H); // send "h" honoring CAPSLK state
+*/
+                        combo_on = combo_index; // may add "i" in matrix_scan_user_process_combo
+                        break;
+               }
 
 // END of the common suffix group with the goto addonsuffix:
 
@@ -645,6 +653,56 @@ addonsuffix: // sharing this saves about 100 bytes (10 bytes per instance)
     oled_write_P(PSTR("abort"), true);
 #endif
             switch(combo_index) {
+// the H digraphs
+
+                case HC_Ch:
+                case HC_Chg:
+                    tap_code(KC_C); // send "C" honoring caps
+                    unregister_code(KC_LSFT); // remove shift here.
+                    unregister_code(KC_RSFT); // remove shift here.
+                    tap_code(KC_H); // send "h" honoring CAPSLK state
+                    break;
+                case HC_Gh:
+                    tap_code(KC_G); // send "P" honoring caps
+                    unregister_code(KC_LSFT); // remove shift here.
+                    unregister_code(KC_RSFT); // remove shift here.
+                    tap_code(KC_H); // send "h" honoring CAPSLK state
+                    break;
+                case HC_Ph:
+                    tap_code(KC_P); // send "P" honoring caps
+                    unregister_code(KC_LSFT); // remove shift here.
+                    unregister_code(KC_RSFT); // remove shift here.
+                    tap_code(KC_H); // send "h" honoring CAPSLK state
+                    break;
+                case HC_Sh:
+//                case HC_Shs: // for Silver w/ N on thumb, H on middle
+                    if (myKC_C == KC_K) { // in Japanese mode?
+                        tap_code(KC_Z); // send "Z"
+                    } else {
+                        tap_code(KC_S); // send "S" honoring caps
+                        unregister_code(KC_LSFT); // remove shift here.
+                        unregister_code(KC_RSFT); // remove shift here.
+                        tap_code(KC_H); // send "h" honoring CAPSLK state
+                    }
+                    break;
+                case HC_Th:
+//                case HC_Ths: // for Silver w/ N on thumb, H on middle
+//                case HC_Thg:
+                    tap_code(KC_T); // send "T" honoring caps
+                    unregister_code(KC_LSFT); // remove shift here.
+                    unregister_code(KC_RSFT); // remove shift here.
+                    tap_code(KC_H); // send "h" honoring CAPSLK state
+                    break;
+
+                case HC_Whg:
+                case HC_Wh:
+                    tap_code(KC_W); // send "W" honoring caps
+                    unregister_code(KC_LSFT); // remove shift here.
+                    unregister_code(KC_RSFT); // remove shift here.
+                    tap_code(KC_H); // send "h" honoring CAPSLK state
+                    break;
+
+// END the H digraphs
                 case PC_DASH:
                     tap_code(KC_P1);
                     tap_code(KC_P2);
@@ -690,55 +748,22 @@ addonsuffix: // sharing this saves about 100 bytes (10 bytes per instance)
                     tap_code(KC_9);
                     break;
 
-// the H digraphs
 
-                case HC_Ch:
-                case HC_Chg:
-                    tap_code(KC_C); // send "C" honoring caps
-                    unregister_code(KC_LSFT); // remove shift here.
-                    unregister_code(KC_RSFT); // remove shift here.
-                    tap_code(KC_H); // send "h" honoring CAPSLK state
-                    break;
-                case HC_Gh:
-                    tap_code(KC_G); // send "P" honoring caps
-                    unregister_code(KC_LSFT); // remove shift here.
-                    unregister_code(KC_RSFT); // remove shift here.
-                    tap_code(KC_H); // send "h" honoring CAPSLK state
-                    break;
-                case HC_Ph:
-                    tap_code(KC_P); // send "P" honoring caps
-                    unregister_code(KC_LSFT); // remove shift here.
-                    unregister_code(KC_RSFT); // remove shift here.
-                    tap_code(KC_H); // send "h" honoring CAPSLK state
-                    break;
-                case HC_Sh:
-//                case HC_Shs: // for Silver w/ N on thumb, H on middle
-                    if (myKC_C == KC_K) { // in Japanese mode?
-                        tap_code(KC_Z); // send "Z"
+                                        
+                case HC_TYPE_ENGLISH:
+                    if (myKC_C == KC_C) {
+                        send_string(EnglishComboTapE); //
                     } else {
-                        tap_code(KC_S); // send "S" honoring caps
-                        unregister_code(KC_LSFT); // remove shift here.
-                        unregister_code(KC_RSFT); // remove shift here.
-                        tap_code(KC_H); // send "h" honoring CAPSLK state
+                        send_string(EnglishComboTapJ); //
                     }
                     break;
-                case HC_Th:
-//                case HC_Ths: // for Silver w/ N on thumb, H on middle
-//                case HC_Thg:
-                    tap_code(KC_T); // send "T" honoring caps
-                    unregister_code(KC_LSFT); // remove shift here.
-                    unregister_code(KC_RSFT); // remove shift here.
-                    tap_code(KC_H); // send "h" honoring CAPSLK state
+                case HC_TYPE_JAPAN:
+                    if (myKC_C == KC_C) {
+                        send_string(JapanComboTapE); // send "Japan" right away
+                    } else {
+                        send_string(JapanComboTapJ); // send "Japan" right away
+                    }
                     break;
-                case HC_Wh:
-                case HC_Whg:
-                    tap_code(KC_W); // send "W" honoring caps
-                    unregister_code(KC_LSFT); // remove shift here.
-                    unregister_code(KC_RSFT); // remove shift here.
-                    tap_code(KC_H); // send "h" honoring CAPSLK state
-                    break;
-
-// END the H digraphs
 
 
                 case HC_ing_3gram: // TYPE "ing"
@@ -765,7 +790,6 @@ addonsuffix: // sharing this saves about 100 bytes (10 bytes per instance)
                     break;
 
                 case HC_I ... HC_where_5gram:
-                case HC_TYPE_JAPAN:
                     tap_code(KC_SPC); // add space after a pronoun
                     combo_on = 0;  // done w/these shenanigans
                     break;
@@ -822,11 +846,13 @@ void matrix_scan_user_process_combo() {  // called from matrix_scan_user if comb
                 case PC_STAB:
                     tap_code16(S(KC_TAB));
                     break;
+/*
                 case PC_TGNM:
                     layer_on(L_LANG_NUM); // toggle num layer
                     break;
+*/
                 case PC_SENT:
-                    tap_code16(S(KC_ENT));
+                    tap_code16(S(KC_ENT)); // this should use semkeys
                     break;
                 case PC_DASH:
                     tap_code16(A(KC_MINS));
@@ -845,31 +871,31 @@ void matrix_scan_user_process_combo() {  // called from matrix_scan_user if comb
                     tap_code16(KC_PERC);
                     break;
                 case PC_EURO:
-                    tap_code16(A(S(KC_2)));
+                    tap_code16(A(S(KC_2))); // this should use semkeys
                     break;
                 case PC_DOLR:
                     tap_code16(S(KC_4));
                     break;
                 case PC_CENT:
-                    tap_code16(A(KC_4));// may need to be SemKeys
+                    tap_code16(A(KC_4)); // this should use semkeys
                     break;
                 case PC_JYEN:
-                    tap_code16(A(KC_Y)); // may need to be SemKeys
+                    tap_code16(A(KC_Y)); // this should use semkeys
                     break;
                 case PC_BPND:
-                    tap_code16(A(KC_3));// may need to be SemKeys
+                    tap_code16(A(KC_3)); // this should use semkeys
                     break;
                 case PC_NEQL:
-                    tap_code16(A(KC_EQL));// may need to be SemKeys
+                    tap_code16(A(KC_EQL)); // this should use semkeys
                     break;
                 case PC_DIV:
-                    tap_code16(A(KC_SLSH));// may need to be SemKeys
+                    tap_code16(A(KC_SLSH)); // this should use semkeys
                     break;
                 case PC_PLMN:
-                    tap_code16(A(S(KC_EQL)));// may need to be SemKeys
+                    tap_code16(A(S(KC_EQL))); // this should use semkeys
                     break;
                 case PC_DEG:
-                    tap_code16(A(KC_0));// may need to be SemKeys
+                    tap_code16(A(KC_0)); // this should use semkeys
                     break;
                 case PC_LPRN:
                     tap_code16(KC_LPRN);
@@ -879,22 +905,22 @@ void matrix_scan_user_process_combo() {  // called from matrix_scan_user if comb
                     break;
 
                 case HC_ACUT:
-                     tap_code16(A(KC_E));
+                     tap_code16(A(KC_E)); // this should use semkeys
                     break;
                 case HC_GRV:
-                     tap_code16(A(KC_GRV));
+                     tap_code16(A(KC_GRV)); // this should use semkeys
                     break;
                 case HC_CIRC:
-                     tap_code16(A(KC_6));
+                     tap_code16(A(KC_6)); // this should use semkeys
                     break;
                 case HC_MACR:
-                    tap_code16(A(KC_A));
+                    tap_code16(A(KC_A)); // this should use semkeys
                     break;
                 case HC_DIER:
-                     tap_code16(A(KC_U));
+                     tap_code16(A(KC_U)); // this should use semkeys
                     break;
 /*                case HC_RING:
-                     tap_code16(A(KC_K));
+                     tap_code16(A(KC_K)); // this should use semkeys
                     break;
 */
 
@@ -903,28 +929,34 @@ void matrix_scan_user_process_combo() {  // called from matrix_scan_user if comb
 //                case HC_Shs: // for Silver
                     tap_code(KC_S); // send "S" honoring caps
                     goto ion;
-                case HC_Th:
-//                case HC_Ths:
-//                case HC_Thg: // for Silver
+                case HC_Th: // Works w/ Neu/Bronze/Platinum/Titanium
+//                case HC_Ths: // for Silver
+//                case HC_Thg: // for Gold
                     tap_code(KC_T); // send "T" honoring caps
-ion:
+ion: // an phonoLOGICAL extension of the Th&Sh digraph phenomenon
                     unregister_code(KC_LSFT); // remove shift here.
                     unregister_code(KC_RSFT); // remove shift here.
                     send_string("ion");
                     break;
-                case HC_Wh:
+                case HC_Ch:
+                case HC_Chg:
+                    tap_code(KC_C); // send "C" honoring caps
+                    goto addHI;
                 case HC_Whg:
+                case HC_Wh:
                     tap_code(KC_W); // send "W" honoring caps
+addHI:
                     unregister_code(KC_LSFT); // remove shift here.
                     unregister_code(KC_RSFT); // remove shift here.
                     send_string("hi");
                     break;
+                case HC_Gh:
+                    send_string("lm"); // no need do worry about CAPS on this consonant bigram.
 
-
-
-                case MYMACRO:
-                    SEND_STRING("End of times in 2020\n"); // some random demonstrator
                     break;
+
+
+
                 case HC_ing_3gram: // TYPE "ing"
                 case HC_ment_4gram: // TYPE "ment" #6
                 case HC_ting_4gram: // TYPE "ting" #12
@@ -950,7 +982,7 @@ ion:
                 case HC_wed_4gram:
                 case HC_well_5gram:
                 case HC_youd_5gram:
-//                case HC_youdg_5gram:
+//                case HC_youdg_5gram:https://www.amazon.com/gp/product/B07Z97C45D/ref=ewc_pr_img_3?smid=ATZS6TEUCJJVO&psc=1
                 case HC_youll_6gram:
                     unregister_code(KC_LSFT); // remove shift here.
                     unregister_code(KC_RSFT); // remove shift here.
@@ -971,8 +1003,20 @@ ion:
 
 // END PRONOUN shenanigans
 
+
+                case HC_TYPE_ENGLISH: // already "English" has been sent; if held, undo and send "End of times in 2020"
+                    if (myKC_C == KC_C) {
+                        send_string(EnglishComboHeldE); //
+                    } else {
+                        send_string(EnglishComboHeldJ); //
+                    }
+                    break;
                 case HC_TYPE_JAPAN: // already "Japan" has been sent; if held, add "ese"
-                    SEND_STRING("ese ");
+                    if (myKC_C == KC_C) {
+                        send_string(JapanComboHeldE); //
+                    } else {
+                        send_string(JapanComboHeldJ); //
+                    }
                     break;
 
             } // switch

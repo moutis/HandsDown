@@ -50,8 +50,8 @@ enum my_combos {
 //    HC_Thg, // treat as θ (for Neu-tx a.k.a Gold)
     HC_Sh, // TYPE "sh"
 //    HC_Shs, // TYPE "sh" (for Neu-nx a.k.a Silver)
+    HC_Whg, // treat as digraph 'WH'
     HC_Wh, // treat as digraph 'WH'
-    HC_Whg, // treat as digraph 'WH' (for Neu-tx/rx a.k.a Gold/Titanium)
 
     // Pronoun combos. KEEP these together!
     
@@ -92,7 +92,7 @@ enum my_combos {
     HC_thereg_5gram, // "there" #7 for Gold/Neu
     HC_their_5gram, // "their" #6
 //    HC_theirg_5gram, // "their" #6 for Gold/Neu
-    HC_this_4gram, // TYPE "this" #8
+//    HC_this_4gram, // TYPE "this" #8
     HC_here_4gram, // TYPE "here" #9
     HC_hereg_4gram, // TYPE "here" #9 for Gold/Neu
     HC_whereg_5gram, // TYPE "where"
@@ -111,8 +111,6 @@ enum my_combos {
     HC_oughg_4gram, // TYPE "ough" #25
 
 
-    
-    HC_TYPE_JAPAN, // TYPE "Japan" and hold for "ese"
 
     HC_CAPW, // CAPS WORD for all others
     FC_CAPS, // CAPS LOCK (others)
@@ -133,7 +131,7 @@ enum my_combos {
     // may repeat if appropriate. (tap_code vs register_code)
     //
     PC_STAB,  // Shift-<tab>
-    PC_TGNM, // TOGGLE NUM LAYER
+    PC_TGNM, // TOGGLE NUMLCK on numpad layer
     PC_DASH, // – on number layer (keypad)
     PC_TILD, // ˜
     PC_ELIP, // …
@@ -156,9 +154,10 @@ enum my_combos {
     PC_CLR,
     PC_AC,
     
-    MYMACRO,
+    HC_TYPE_ENGLISH, // TYPE "English" and hold for "End of times in 2020"
+    HC_TYPE_JAPAN, // TYPE "Japan" and hold for "ese"
 
-//    HC_2DQUO, // "|" insertion point between double quotes
+    //    HC_2DQUO, // "|" insertion point between double quotes
 
     HC_ACUT, // ´ acute
     HC_CIRC, // ˆ circumflex
@@ -186,9 +185,9 @@ enum my_combos {
     FC_SCLP, // Screen Capture Selection to clipboard
 
     HC_ENT,
-//    HC_ENTg,
+    HC_ENTg,
     HC_SPC,
-//    HC_SPCg,
+    HC_SPCg,
     HC_CLOZ,
 //    HC_CLOZg,
     HC_QUIT,
