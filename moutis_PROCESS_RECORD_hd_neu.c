@@ -354,7 +354,7 @@ byteshave: // CAUTION: messing w/stack frame here!!
                 user_config.OSIndex = 0; // for Mac Semkeys
                 return_state = true; // let QMK do it's swap thing.
                 goto storeSettings;
-            case HD_AdaptKeyToggle: // toggle AdaptiveKeys (and LingerKeys)
+            case HD_AdaptKeyToggle: // toggle AdaptiveKeys (& LingerKeys, linger combos)
                 user_config.AdaptiveKeys = !user_config.AdaptiveKeys;
                 return_state = false; // don't do more with this record.
                 goto storeSettings;

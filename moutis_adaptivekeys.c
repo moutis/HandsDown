@@ -7,7 +7,7 @@
  I think this will work with all Hands Down Neu variants (Platinum, Gold, Silver, Bronze)
  Finally getting to the last of imagined features that spurred Hands Down design!
  
- dual-function keys (MOD_TAP, LAYER_TAP) have already been handled and filtered out.
+ NOTE: assumed dual-function keys (MOD_TAP, LAYER_TAP) have already been handled and filtered out.
   
  */
 
@@ -151,7 +151,6 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                             break;
                     }
                     break;
-                    break;
                 case KC_S:
                     switch (prior_keycode) {
                         case KC_T: // for "tness"
@@ -224,7 +223,15 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                              break;
                      }
                      break;
-                case KC_COMM: // why is this not working?
+                case KC_SLSH:
+                    switch (prior_keycode) {
+                        case KC_DOT:
+                            send_string("com");
+                            return_state = false; // done.
+                            break;
+                    }
+                    break;
+                case KC_COMM:
                     switch (prior_keycode) {
                         case KC_A:
                             tap_code(KC_U); // quickly typing "A," yields "AU"

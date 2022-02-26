@@ -84,7 +84,7 @@ const uint16_t PROGMEM Hmdsh_combo[] = {KC_MINS, KC_O, COMBO_END}; // — m dash
 const uint16_t PROGMEM Hunds_combo[] = {KC_U, KC_W, COMBO_END}; // _ underscore
 const uint16_t PROGMEM Htild_combo[] = {KC_MINS, KC_W, COMBO_END}; // ~ tilde (not the dead one)
 const uint16_t PROGMEM Hequal_combo[] = {KC_MINS, KC_Y, COMBO_END}; // = equal
-const uint16_t PROGMEM Hscln_combo[] = {KC_COMM, RSFT_T(KC_A), COMBO_END}; // ; semicolon
+const uint16_t PROGMEM Hscln_combo[] = {LT(4, KC_COMM), RSFT_T(KC_A), COMBO_END}; // ; semicolon
 const uint16_t PROGMEM Hcoln_combo[] = {KC_HASH, KC_DOT, COMBO_END}; // : colon
 
 // spatially arranged characters and diacritics
@@ -108,7 +108,7 @@ const uint16_t PROGMEM Henye_combo[] = {LALT_T(KC_S), LSFT_T(KC_D), COMBO_END}; 
 // LEFT HAND
 
 // TEXT ENTRY - off map standard alphas
-//const uint16_t PROGMEM H_J_combo[] = {KC_O, KC_W, COMBO_END}; // TYPE "j"
+//const uint16_t PROGMEM H_J_combo[] = {KC_P, KC_V, COMBO_END}; // TYPE "j"
 const uint16_t PROGMEM H_Z_combo[] = {KC_J, KC_G, COMBO_END}; // TYPE "z"
 const uint16_t PROGMEM H_Q_combo[] = {KC_U, KC_Y, COMBO_END}; // TYPE "q"
 
