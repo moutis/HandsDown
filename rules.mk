@@ -1,5 +1,5 @@
 # hardware features (set in keyboard rules.mk)
-# BOOTMAGIC_ENABLE = lite     # Enables nvmemory & reset?
+# BOOTMAGIC_ENABLE = no     # Enables nvmemory & reset?
 # ENCODER_ENABLE = yes        # Enables the use of one or more encoders
 
 # BACKLIGHT_ENABLE = no
@@ -19,6 +19,9 @@ CONSOLE_ENABLE = no
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 TAP_DANCE_ENABLE = no
+
+AUTO_SHIFT_ENABLE = no  # requires 1936 bytes!
+
 EXTRAKEY_ENABLE = yes    # Audio control and System control
 COMBO_ENABLE = yes       # chording
 LTO_ENABLE = yes

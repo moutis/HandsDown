@@ -61,13 +61,16 @@ typedef union {
 
 
 
-
 enum my_layers {
-    L_HDBRONZE,
-//    L_HDSILVER,
-//    L_HDPLATINUM,
-    L_HDGOLD,
-    L_QWERTY, //
+// enum my_layers for layout layers for HD Neu/Au/Ti/Rh
+//    L_HDNUE,     // N             RSNT AEIH (same home row as Rhodium)
+      L_HDBRONZE,  // B BR (Neu-hx) RSNT AECI
+//    L_HDSILVER,  // S Ag (Neu-nx) RSHT AECI
+//    L_HDPLATINUM,// P Pl (Neu-lx) RSNT AECI
+//    L_HDGOLD,    // G Au (Neu-tx) RSND AEIH
+      L_HDTITANIUM,// T Ti (Neu-rx) CSNT AEIH
+      L_HDRHODIUM, // R Rh (Neu-cx) RSNT AEIH
+//    L_QWERTY,    //
     L_PUNCT,
     L_FN_NUM,
     L_NUMPAD,
@@ -80,6 +83,7 @@ enum my_layers {
      SK_KILL = SAFE_RANGE, // SK_KILL must be the first of contiguous block of SKs
      SK_HENK,
      SK_MHEN,
+     SK_HENT, // Hard-Enter
      SK_UNDO, // undo
      SK_CUT, // cut
      SK_COPY, // copy
@@ -108,6 +112,8 @@ enum my_layers {
      SK_ZOOMIN, // ZOOM IN
      SK_ZOOMOUT, // ZOOM OUT
      SK_ZOOMRST, // ZOOM RESET
+     SK_APPNXT, // APP switcher FWD
+     SK_APPPRV, // APP switcher BACK
      SK_SECT, // §
      SK_ENYE, // ñ/Ñ ENYE
      SK_SQUL, // ’ ** Left single quote UNICODE?
@@ -119,10 +125,11 @@ enum my_layers {
      HD_L_Bronze,  // KC to switch default layout
 //     HD_L_Silver,
 //     HD_L_Platinum,
-     HD_L_Gold,
 //     HD_L_Neu,
-     HD_L_QWERTY,
-
+//     HD_L_Gold,
+     HD_L_Titanium,
+     HD_L_Rhodium,
+//     HD_L_QWERTY,
 
 
 /* Eventually…these should be handled as SemKeys?
@@ -167,3 +174,8 @@ enum my_layers {
 #define unregister_linger_key(kc) unregister_code16(kc);
 */
 
+#ifdef JP_MODE_ENABLE
+bool IS_ENGLISH_MODE;
+//#define IS_ENGLISH_MODE (myKC_C == KC_C)
+#define TOGGLE_ENGLISH_MODE {IS_ENGLISH_MODE ^= true;}
+#endif

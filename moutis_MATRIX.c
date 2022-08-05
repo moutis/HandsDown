@@ -31,16 +31,20 @@ void matrix_scan_user(void) {
 
         
         if (linger_key && user_config.AdaptiveKeys) { // A linger key is being held down
-            if (timer_elapsed(linger_timer) > LINGER_TIME) {
+            if (timer_elapsed(linger_timer) > LINGER_TIME) { // linger triggered
                 saved_mods = get_mods();
                 clear_mods();
-                unregister_code(KC_LSFT); // remove shift here.
-                unregister_code(KC_RSFT); // remove shift here.
+                unregister_mods(MOD_MASK_SHIFT);  // second char isn't shifted. CAPSLOCK UNAFFECTED.
                 switch(linger_key) { // only one linger_key at a time, obviously
                     case KC_Q: // already "Q" has been sent; if lingered, add "u"
                         tap_code(KC_U);
                         break;
 
+                    case KC_V: // already "V" has been sent; if lingered, add "ivi "
+                        if ((saved_mods & MOD_MASK_SHIFT)) {
+                            SEND_STRING("ivi");
+                        }
+                        break;
                     case KC_Z: // already "Z" has been sent; if lingered, add "oe "
                         if ((saved_mods & MOD_MASK_SHIFT)) {
                             SEND_STRING("oe");
@@ -64,6 +68,10 @@ void matrix_scan_user(void) {
                         tap_code16(KC_RCBR);
                         tap_code16(KC_LEFT);
                         break;
+                    case KC_LT: //
+                        tap_code16(KC_GT);
+                        tap_code16(KC_LEFT);
+                        break;
 
                     case KC_QUOT: //
                         tap_code16(KC_BSPC);
@@ -71,19 +79,37 @@ void matrix_scan_user(void) {
                         tap_SemKey(SK_SQUR);
                         tap_code16(KC_LEFT);
                         break;
-                    case KC_DQUO: // Shift is not being lifted. Why?
-                        unregister_code(KC_LSFT); // remove shift here.
-//                        unregister_code(KC_RSFT); // remove shift here.
+                    case KC_DQUO: //
                         tap_code16(KC_BSPC);
+                        clear_keyboard(); // QMK doesn't let go of shift properly?
                         tap_SemKey(SK_SDQL);
                         tap_SemKey(SK_SDQR);
-                        tap_code16(KC_LEFT);
+                        tap_code(KC_LEFT);
                         break;
+/*
+#ifdef JP_MODE_ENABLE
+                   case KC_A: // long 長母音・ん if held in Japanese mode
+                   case KC_I: // KC_I won't work with (home row) mod_taps…
+                   case KC_U:
+                   case KC_E: // KC_E won't work with (home row) mod_taps…
+                   case KC_O:
+                       if (IS_ENGLISH_MODE) {
+                           unregister_linger_key(); // example of simple linger macro
+                           tap_code16(KC_MINS);
+                       }
+                       break;
+                    case KC_N: // KC_N won't work with (home row) mod_taps…
+                        if (IS_ENGLISH_MODE) {
+                            unregister_linger_key(); // example of simple linger macro
+                            tap_code16(KC_N);
+                        }
+#endif
+*/
 
                     default:
                         break;
                 }
-                linger_timer = state_reset_timer = 0; // finished with this state
+                linger_timer = state_reset_timer = 0; // stop lingering
                 set_mods(saved_mods); // Restore mods
             }
         }

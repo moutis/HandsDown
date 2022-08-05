@@ -132,9 +132,9 @@ bool process_caps_word(uint16_t keycode, const keyrecord_t *record) {
                         }
                         break; // compiler takes this out if necessary?
                     case KC_A ... KC_Z: // only works for ASCII. fix this.
-                        register_code(KC_LSFT); // for platforms that do CAPSLK differently
+//                        register_code(KC_LSFT); // for platforms that do CAPSLK differently
                         register_code(keycode); // like iOS, etc.
-                        unregister_code(KC_LSFT);
+//                        unregister_code(KC_LSFT);
                         return false; // We handled it
                 }
             }

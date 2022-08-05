@@ -102,15 +102,11 @@ bool process_caps_word(uint16_t keycode, const keyrecord_t *record) {
             case KC_RIGHT ... KC_LEFT:
                 last_press_was_space = false;
                 return true; // let QMK handle it.
-//            case KC_DOT:
             case KC_SPC:
                 if (last_press_was_space) {
                     disable_caps_word();
                     return true; // let QMK handle space normally
                 } else {
-//                    if (keycode == KC_DOT)
-//                        register_code16(KC_DOT);
-//                    else
                         register_code16(KC_UNDS);
                     last_press_was_space = true;
                     return false; // We handled it

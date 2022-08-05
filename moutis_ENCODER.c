@@ -1,6 +1,9 @@
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
   /* With an if statement we can check which encoder was turned. */
+    uint8_t  held_mods;
+
+    held_mods = get_mods(); // fetch mods
   if (!index) { /* First (left) encoder */
       switch(get_highest_layer(layer_state)){
           case L_FN_NUM: // function layer
@@ -28,7 +31,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 #ifdef RGBLIGHT_ENABLE
           case L_MEDIA_KBD: // media/kbd settings layer
-              saved_mods = get_mods();
               if (clockwise) {
                   rgblight_increase_val(); // val (brightness) +
               } else {
@@ -37,10 +39,18 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
               break;
 #endif
           default:
-              if (clockwise) {
-                tap_code(KC_VOLU); // media vol up
+              if (held_mods & MOD_MASK_GUI) {
+                  if (clockwise) { // Use SemKey for Platform flexible app switch
+                      tap_SemKey(SK_APPNXT); // app right
+                  } else {
+                      tap_SemKey(SK_APPPRV); // app left
+                  }
               } else {
-                tap_code(KC_VOLD); // media vol dn
+                  if (clockwise) {
+                    tap_code(KC_VOLU); // media vol up
+                  } else {
+                    tap_code(KC_VOLD); // media vol dn
+                  }
               }
               break;
       }
@@ -63,8 +73,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 #ifdef RGBLIGHT_ENABLE
           case L_MEDIA_KBD: // media/kbd settings layer
-              saved_mods = get_mods();
-              if ((saved_mods & MOD_MASK_SHIFT)) {
+              if ((held_mods & MOD_MASK_SHIFT)) {
                   if (clockwise) {
                       rgblight_increase_sat(); // Sat +
                   } else {
@@ -80,10 +89,18 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
               break;
 #endif
           default:
-              if (clockwise) {
-                tap_code(KC_MNXT); // media next track
+              if (held_mods & MOD_MASK_GUI) {
+                  if (clockwise) { // Use SemKey for Platform flexible app switch
+                      tap_SemKey(SK_APPNXT); // app right
+                  } else {
+                      tap_SemKey(SK_APPPRV); // app left
+                  }
               } else {
-                tap_code(KC_MPRV); // media prev track
+                  if (clockwise) {
+                    tap_code(KC_MNXT); // media next track
+                  } else {
+                    tap_code(KC_MPRV); // media prev track
+                  }
               }
               break;
       }
