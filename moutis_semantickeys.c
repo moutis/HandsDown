@@ -22,42 +22,7 @@
  
  */
 
-/*  This is in moutis.h for now
-enum SemKeys {
-    SK_KILL,
-    SK_HENK,
-    SK_MHEN,
-    SK_UNDO,
-    SK_CUT,
-    SK_COPY,
-    SK_PSTE,
-    SK_PSTM,
-    SK_SALL,
-    SK_CLOZ,
-    SK_QUIT,
-    SK_FIND,
-    SK_FAGN,
-    SK_SCAP,
-    SK_SCLP,
-    SK_SECT,
 
-    SK_GRAV_E,
-    SK_ACUT_E,
-    SK_DIER_E,
-    SK_RING_E,
-    SK_MACR_E,
-    SK_ENYE,
-
-    SemKeys_COUNT
-};
-*/
-/*
-enum SemKeys_OS {
-    SKP_Mac,
-    SKP_Win,
-    SemKeys_OS_COUNT
-};
-*/
 
 /*
 unsigned char BCD_TO_ASCII(uint8 src) {
@@ -100,8 +65,8 @@ void tap_SemKey(uint16_t semkeycode) {
 const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][OS_count] = {
     // Mac, Win, (Phase 3, add others if necessary, expand to multi-key?)
     [SK_KILL - SK_KILL] = {G(A(KC_ESC)),C(A(KC_DEL))}, // "KILL" OR Force quit / ctrl-alt-del
-    [SK_HENK - SK_KILL] = {KC_LANG1, KC_HENK}, // 変換
-    [SK_MHEN - SK_KILL] = {KC_LANG2, KC_MHEN}, // 無変換
+    [SK_HENK - SK_KILL] = {KC_INT4, KC_INT4}, // 変換
+    [SK_MHEN - SK_KILL] = {KC_INT5, KC_INT5}, // 無変換
     [SK_HENT - SK_KILL] = {G(KC_ENT),C(KC_ENT)}, // Hard ENTER
     [SK_UNDO - SK_KILL] = {G(KC_Z),C(KC_Z)}, // undo
     [SK_CUT  - SK_KILL] = {G(KC_X),C(KC_X)}, // cut
@@ -111,6 +76,8 @@ const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][OS_count] = {
     [SK_SALL - SK_KILL] = {G(KC_A),C(KC_A)}, // select all
     [SK_CLOZ - SK_KILL] = {G(KC_W),C(KC_W)}, // close
     [SK_QUIT - SK_KILL] = {G(KC_Q),C(KC_Q)}, // quit
+    [SK_NEW - SK_KILL] = {G(KC_N),C(KC_N)}, // new
+    [SK_OPEN - SK_KILL] = {G(KC_O),C(KC_O)}, // open
     [SK_FIND - SK_KILL] = {G(KC_F),C(KC_F)}, // find
     [SK_FAGN - SK_KILL] = {G(KC_G),KC_F3}, // find again
     [SK_SCAP - SK_KILL] = {S(G(KC_4)),KC_PSCR}, // Screen Capture
@@ -130,8 +97,10 @@ const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][OS_count] = {
     [SK_ZOOMIN - SK_KILL] = {G(KC_EQL),C(KC_EQL)}, // ZOOM IN
     [SK_ZOOMOUT - SK_KILL] = {G(KC_MINS),C(KC_MINS)}, // ZOOM OUT
     [SK_ZOOMRST - SK_KILL] = {G(KC_0),C(KC_0)}, // ZOOM RESET
-    [SK_APPNXT - SK_KILL] = {G(KC_TAB),A(KC_TAB)}, // APP switcher FWD
-    [SK_APPPRV - SK_KILL] = {G(S(KC_TAB)),A(S(KC_TAB))}, // APP switcher BACK
+    [SK_APPNXT - SK_KILL] = {RGUI(KC_TAB),A(KC_TAB)}, // APP switcher Next (last used)
+    [SK_APPPRV - SK_KILL] = {RGUI(RSFT(KC_TAB)),A(S(KC_TAB))}, // APP switcher Prev (least recently used)
+    [SK_WINNXT - SK_KILL] = {RCTL(KC_TAB),C(KC_TAB)}, // Window/tab switcher Next
+    [SK_WINPRV - SK_KILL] = {RCTL(RSFT(KC_TAB)),C(S(KC_TAB))}, // Window/tab switcher Prev
     [SK_SECT - SK_KILL] = {A(KC_5),0xE167}, // § ** SAMPLE OF GLYPH. REALLY NEED UNICODE.
     [SK_ENYE - SK_KILL] = {A(KC_N),A(KC_N)}, // ñ/Ñ ** SAMPLE OF GLYPH. REALLY NEED UNICODE?
     [SK_SQUL - SK_KILL] = {A(KC_RBRC),A(KC_RBRC)}, // ’ ** Left single quote UNICODE?
@@ -201,13 +170,19 @@ bool process_semkey(uint16_t keycode, const keyrecord_t *record) {
 /*
     Example of custom behaviors.
  */
-                case SK_SCAP:
-                    tap_SemKey(SK_SCAP);
+                case SK_SWRD: // Select current word
+                    tap_SemKey(SK_WORDPRV);
+                    register_code(KC_LSFT); // shift for select is close to universal?
+                    tap_SemKey(SK_WORDNXT); // of course, not for VIM and the like,
+                    unregister_code(KC_LSFT); // but we're talking OS platforms?
                     break;
-                case SK_SCLP:
+                case SK_SCAP: // screen capture to clipboard
+                    tap_SemKey(SK_SCAP); // default probably works, but since only tap is desired, we'll tap it here.
+                    break;
+                case SK_SCLP: // selection capture to clipboard
                     tap_SemKey(SK_SCLP);
                     break;
-                case SK_CUT:
+                case SK_CUT: // cut
                     tap_SemKey(SK_CUT);
                     break;
                 case SK_COPY:

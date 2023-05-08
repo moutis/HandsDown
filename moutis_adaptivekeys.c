@@ -76,9 +76,9 @@ ReplacePriorWithLthenBreak: // each short jump = only 2 bytes!
                     return_state = true; // send the keycode.
                     break;
                 case KC_T:
-                    send_string("hi");
-                case KC_I: // doubles will never happen bc can't roll.
-                    send_string("ng");
+                    send_string("hing");
+//                case KC_I:
+//                    send_string("ng");
                     return_state = false; // done.
                     break;
             }
@@ -190,19 +190,21 @@ addRE:
             }
             break;
 */
-        case KC_S:
+/*       case KC_S:
             switch (prior_keycode) {
+*/
 /*
                 case KC_T: // for "tness"
                     tap_code(KC_N);
 */
+/*
                 case KC_N: // for "ness"
                     send_string("ess");
                     return_state = false; // done.
                     break;
             }
             break;
-
+*/
         //case KC_W: // for Neu?
         case KC_J: // SAME-HAND TOWARD PINKY ISSUES
             if (prior_keycode == KC_M) {

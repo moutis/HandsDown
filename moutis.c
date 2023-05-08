@@ -1,5 +1,5 @@
 
-#include QMK_KEYBOARD_H
+//#include QMK_KEYBOARD_H
 
 #include <stdio.h>
 
@@ -13,9 +13,10 @@ user_config_t user_config;
 uint8_t  saved_mods = 0; // to pass state between process_record_user and matrix_scan_user
 uint16_t record_keycode = 0; // the keykcode we poke at in process_record
 uint16_t key_trap = 0; // the actual keycode registered (need to unregister)
+#ifdef ADAPTIVE_ENABLED
 uint16_t prior_keycode = KC_NO;
-uint16_t prior_keydown = 0;
-
+uint16_t prior_keydown = 0; // timer of keydown for adaptive threshhold.
+#endif
 
 uint16_t linger_key = 0;  // keycode for linger actions (ex. "Qu")
 uint32_t linger_timer = 0; // time to hold a key before something else happens.
@@ -26,9 +27,9 @@ bool mods_held = false;  // nood to remember how we entered the appmenu state
 #ifdef JP_MODE_ENABLE
 bool IS_ENGLISH_MODE = true;
 uint16_t myKC_C = KC_C;  // keycode for "C"  (could be Z if Japanese mode)
-uint16_t myKC_L = KC_L;  // keycode for "L"  (could be K if Japanese mode)
-uint16_t myKC_K = KC_K;  // keycode for "K"  (could be L if Japanese mode)
 uint16_t myKC_X = KC_X;  // keycode for "X"  (could be - if Japanese mode)
+//uint16_t myKC_L = KC_L;  // keycode for "L"  (could be K if Japanese mode)
+//uint16_t myKC_K = KC_K;  // keycode for "K"  (could be L if Japanese mode)
 #endif
 //uint16_t LBRC_key = KC_LBRC;  // keycode for "[" // Bronze/Ag/Pl are swapped
 //uint16_t RBRC_key = KC_RBRC;  // keycode for "]" // unneeded if only one map onboard.
@@ -81,7 +82,7 @@ bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
 
 
 
-uint32_t layer_state_set_user(uint32_t layer_state) {
+layer_state_t layer_state_set_user(layer_state_t layer_state) {
 
 /*
  Someday, when OLED is important again, rewrite to
@@ -109,11 +110,9 @@ uint32_t layer_state_set_user(uint32_t layer_state) {
             break;
 #endif
 #endif
-#ifdef L_HDTITANIUM
+//#ifdef L_HDTITANIUM
         case L_HDTITANIUM:
-#ifdef RGBLIGHT_ENABLE
-#endif
-#endif
+//#endif
 #ifdef L_HDRHODIUM
         case L_HDRHODIUM:
 #ifdef RGBLIGHT_ENABLE
@@ -122,9 +121,9 @@ uint32_t layer_state_set_user(uint32_t layer_state) {
 #endif
 #endif
 #if defined(L_HDNEU) || defined(L_HDGOLD) || defined(L_HDTITANIUM) || defined(L_HDRHODIUM)
-//            LBRC_key = KC_LBRC;  // keycode for "["
-//            RBRC_key = KC_RBRC;  // keycode for "]"
-//            break;
+           LBRC_key = KC_LBRC;  // keycode for "["
+           RBRC_key = KC_RBRC;  // keycode for "]"
+           break;
 #endif
 #ifdef L_HDBRONZE
         case L_HDBRONZE:
@@ -216,16 +215,20 @@ void keyboard_post_init_user(void) {
 #endif
 
 #ifdef COMBO_ENABLE
-    #include "moutis_COMBO_hd_rh.c"
+    #include HD_combo_code
 #endif
 
 #include "moutis_casemods.c"
 
-#include "moutis_adaptivekeys.c"
+#ifdef ADAPTIVE_ENABLED
+#include HD_adaptive_code
+#endif
 
-#include "moutis_PROCESS_RECORD_hd_rh.c"
+#include HD_process_record_code
+
 
 #include "moutis_MATRIX.c"
+// This
 
 #ifdef KEY_OVERRIDE_ENABLE  // If using QMK's key overrides...
 const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, LT(L_NUMPAD,KC_BSPC), KC_DELETE);
