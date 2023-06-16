@@ -2,7 +2,7 @@
 //
 // The Hands Down Variation dependent defs & files
 //
-#define HD_adaptive_code "handsdown/nu-adaptive.c"
+#define HD_adaptive_code "handsdown/neu-adaptive.c"
 //
 //
 //       Alpha Layer for a 34 key formfactor
