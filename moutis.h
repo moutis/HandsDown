@@ -1,5 +1,12 @@
 #pragma once
 
+//
+// which HD alpha variation are we using?
+//
+// defines all variation dependent constants/files/keycodes, etc.
+#include "handsdown/au-config.h"
+
+
 #ifndef USERSPACE
     #define USERSPACE
 #endif
@@ -42,55 +49,54 @@ extern rgblight_config_t rgblight_config;
 #endif
 
 
+
 #ifdef COMBO_ENABLE
     #include "process_combo.h"
 #endif
 
 #include "moutis_casemods.h"
 
-#include "HDvariations/vb/moutis_COMBO_hd.h"
+#include "moutis_combo.h"  //
 
-#define HD_combo_code "HDvariations/vb/moutis_COMBO_hd.c"
-#define HD_adaptive_code "HDvariations/vb/moutis_adaptivekeys_hd.c"
-#define HD_process_record_code "HDvariations/vb/moutis_PROCESS_RECORD_hd.c"
-
-
-void matrix_scan_user_process_combo(void);
-
+//
+// These COULD be made variation dependent, to allow
+// them to adapt to geometry differences. Ex.
+// most NEU variations have " ' on ring/pinky
+// but Bronze/Silver heve ' " (inverted)
+// since [ ] and « » are SHIFT/ALT of " '
+// the paired brackets would be inverted.
+// Perhaps simply redefining these in the xx-config.h
+// to override these defs would be the right approach?
+//
 #define DQUO_S  KC_RBRC // ]
 #define DQUO_A  A(S(KC_BSLS)) // »
 #define DQUO_SA A(S(KC_4)) // ›
 #define SQUO_S  KC_LBRC // [
 #define SQUO_A  A(KC_BSLS) // «
 #define SQUO_SA A(S(KC_3)) // ‹
+#define JRQU KC_RBRC // keycode for "[" in Japanese mode
+#define JLQU KC_LBRC // keycode for "]" in Japanese mode
+
 
 typedef union {
     uint32_t raw;
     struct {
-        uint8_t LBRC_key;  // keycode for "["
-        uint8_t RBRC_key;  // keycode for "]"
-        uint8_t OSIndex; // index of platforms (0=mac, 1=win, 2=lux)?
-        bool AdaptiveKeys; // Adaptive Keys On?
+        uint8_t OSIndex; // index of platforms (0=mac, 1=win, 2=lux)? // used by semantickeys
+        bool AdaptiveKeys; // Adaptive Keys On? (and advanced combos)
     };
 } user_config_t;
 
 
 enum my_layers {  // must be difined before semantickeys.h
 // enum my_layers for layout layers for HD Neu family
-    L_QWERTY,    //
-//    L_HDNUE,     // N             RSNT AEIH
-//      L_HDBRONZE,  // B BR (Neu-hx) RSNT AECI (same home row as Platinum)
-//    L_HDSILVER,  // S Ag (Neu-nx) RSHT AECI
-//    L_HDPLATINUM,// P Pl (Neu-lx) RSNT AECI (same home row as Bronze)
-//    L_HDGOLD,    // G Au (Neu-tx) RSND AEIH
-      L_HDTITANIUM,// T Ti (Neu-rx) CSNT AEIH
-//    L_HDRHODIUM, // R Rh (Neu-rxm) CSNT AEIM
-      L_PUNCT,     // 2
-      L_FN_NUM,    // 3
-      L_NUMPAD,    // 4
-      L_NAV,       // 5
-//    L_SYMBOLS,   //  diacritics…maybe to be handled by semantickeys?
-      L_MEDIA_KBD  // 6
+    L_QWERTY,    // 0 - QWERTY compatibility layer
+    L_HDALPHA,   // 1 - Hands Down Alpha layer
+    L_PUNCT,     // 2 - symbols, punctuation, off-map alphas
+    L_FN_NUM,    // 3 - number row & function row
+    L_NUMPAD,    // 4 - numpad (right); navpad (left)
+    L_NAV,       // 5 - nav pad (right); meta keys (left)
+//  L_SYMBOLS,   //  diacritics are better handled by combos and semantickeys?
+    L_MEDIA_KBD  // 6 - Media/Consumer controls; Keyboard settings
 };
 
 enum OS_Platform { // Used for platform support via SemKeys
@@ -103,13 +109,6 @@ enum OS_Platform { // Used for platform support via SemKeys
 
 #define register_linger_key(kc) {register_code16(kc);linger_key = kc;linger_timer = state_reset_timer = timer_read();}
 #define unregister_linger_key() {unregister_code16(linger_key);linger_key = 0;}
-/*
-#define register_linger_key(kc) register_code16(kc);
-#define unregister_linger_key(kc) unregister_code16(kc);
-*/
 
-#ifdef JP_MODE_ENABLE
-bool IS_ENGLISH_MODE;
-//#define IS_ENGLISH_MODE (myKC_C == KC_C)
-#define TOGGLE_ENGLISH_MODE {IS_ENGLISH_MODE ^= true;}
-#endif
+
+void matrix_scan_user_process_combo(void);

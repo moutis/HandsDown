@@ -7,10 +7,6 @@
 // https://docs.qmk.fm/#/config_options?id=setting-handedness
 #define EE_HANDS
 
-//#ifdef PRODUCT
-//#undef PRODUCT
-//#define PRODUCT   "Rollow HD-Vibranium"
-//#endif
 
 #ifdef ENCODER_ENABLE
     #ifdef ENCODER_RESOLUTION

@@ -27,10 +27,11 @@
 
 enum my_keycodes {
     SK_KILL = SAFE_RANGE, // SK_KILL must be the first of contiguous block of SKs
-    SK_HENK,
-    SK_MHEN,
+    SK_HENK,  // kana (others)
+    SK_MHEN, // eisuu (others)
     SK_HENT, // Hard-Enter
     SK_UNDO, // undo
+    SK_REDO, // redo
     SK_CUT, // cut
     SK_COPY, // copy
     SK_PSTE, // paste
@@ -71,35 +72,17 @@ enum my_keycodes {
     SK_SQUR, // ’ ** Right single quote UNICODE?
     SK_SDQL, // ’ ** Left double quote UNICODE?
     SK_SDQR, // ’ ** Right double quote UNICODE?
+    SK_FDQL, // ’ « Left double French quote UNICODE?
+    SK_FDQR, // ’ » Right double French quote UNICODE?
+    SK_FSQL, // ’ ‹ Left single French quote UNICODE? S(A(3))
+    SK_FSQR, // ’ › Right single French quote UNICODE? S(A(4))
     SemKeys_COUNT, // end of non-glyph SemKeys
     HD_AdaptKeyToggle,
-//#ifdef L_QWERTY
-     HD_L_QWERTY,
-//#endif
-#ifdef L_HDNUE
-     HD_L_Neu,
-#endif
-#ifdef L_HDBRONZE
-    HD_L_Bronze,  // KC to switch default layout
-#endif
-#ifdef L_HDSILVER
-     HD_L_Silver,
-#endif
-#ifdef L_HDPLATINUM
-     HD_L_Platinum,
-#endif
-#ifdef L_HDGOLD
-     HD_L_Gold,
-#endif
-//#ifdef L_HDTITANIUM
-    HD_L_Titanium,
-//#endif
-#ifdef L_HDRHODIUM
-    HD_L_Rhodium,
-#endif
+    HD_L_QWERTY,
+    HD_L_ALPHA,
 
 
-/* Eventually…these should be handled as SemKeys?
+/* Eventually…these should be handled as SemKeys with BCD Alt-gr?
    HD_aumlt,
    HD_amacr,
    HD_aacut,

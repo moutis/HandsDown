@@ -65,10 +65,11 @@ void tap_SemKey(uint16_t semkeycode) {
 const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][OS_count] = {
     // Mac, Win, (Phase 3, add others if necessary, expand to multi-key?)
     [SK_KILL - SK_KILL] = {G(A(KC_ESC)),C(A(KC_DEL))}, // "KILL" OR Force quit / ctrl-alt-del
-    [SK_HENK - SK_KILL] = {KC_INT4, KC_INT4}, // 変換
-    [SK_MHEN - SK_KILL] = {KC_INT5, KC_INT5}, // 無変換
+    [SK_HENK - SK_KILL] = {KC_LNG1, KC_INT4}, // 変換
+    [SK_MHEN - SK_KILL] = {KC_LNG2, KC_INT5}, // 無変換
     [SK_HENT - SK_KILL] = {G(KC_ENT),C(KC_ENT)}, // Hard ENTER
     [SK_UNDO - SK_KILL] = {G(KC_Z),C(KC_Z)}, // undo
+    [SK_REDO - SK_KILL] = {G(S(KC_Z)),C(S(KC_Z))}, // Redo
     [SK_CUT  - SK_KILL] = {G(KC_X),C(KC_X)}, // cut
     [SK_COPY - SK_KILL] = {G(KC_C),C(KC_C)}, // copy
     [SK_PSTE - SK_KILL] = {G(KC_V),C(KC_V)}, // paste
@@ -107,6 +108,10 @@ const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][OS_count] = {
     [SK_SQUR - SK_KILL] = {S(A(KC_RBRC)),S(A(KC_RBRC))}, // ’ ** Right single quote UNICODE?
     [SK_SDQL - SK_KILL] = {A(KC_LBRC),A(KC_LBRC)}, // ’ ** Left double quote UNICODE?
     [SK_SDQR - SK_KILL] = {A(S(KC_LBRC)),A(S(KC_LBRC))}, // ’ ** Right double quote UNICODE?
+    [SK_FDQL - SK_KILL] = {A(KC_BSLS),A(KC_BSLS)}, //  « Left double French quote UNICODE?
+    [SK_FDQR - SK_KILL] = {S(A(KC_BSLS)),S(A(KC_BSLS))}, //  » Right double French quote UNICODE?
+    [SK_FSQL - SK_KILL] = {S(A(KC_3)),A(KC_LBRC)}, //  ‹ Left single French quote UNICODE?
+    [SK_FSQR - SK_KILL] = {S(A(KC_4)),A(S(KC_LBRC))}, //  › Right single French quote UNICODE?
 
 };
 
@@ -206,6 +211,20 @@ bool process_semkey(uint16_t keycode, const keyrecord_t *record) {
                         tap_code16(KC_N);  //
 #endif
                     }
+                    break;
+                case SK_HENK: // Japanese
+#ifdef JP_MODE_ENABLE
+                    IS_ENGLISH_MODE = false;
+#endif
+                    tap_SemKey(SK_HENK); // Mac/Win/iOS all different?
+//                    return_state = false; // stop processing this record.
+                    break;
+                case SK_MHEN: // English
+#ifdef JP_MODE_ENABLE
+                    IS_ENGLISH_MODE = true;
+#endif
+                    tap_SemKey(SK_MHEN); // Mac/Win/iOS all different?
+//                    return_state = false; // stop processing this record.
                     break;
                 default: // default keydown event
                     register_SemKey(keycode);

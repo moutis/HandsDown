@@ -77,13 +77,21 @@ volbright:
               break;
     #endif
           default:
-              if (clockwise) {
+                if (clockwise) {
+                    tap_code(KC_VOLU); // media vol up
+                } else {
+                    tap_code(KC_VOLD); // media vol dn
+                }
+/*
+            if (clockwise) {
                   tap_code(KC_RIGHT); // fwd
               } else {
                   tap_code(KC_LEFT); // back
               }
               break;
-      }
+*/
+                
+        }
   } else  {  // Second (right) encoder
       switch(get_highest_layer(layer_state)){
           case L_PUNCT: // puncuation layer
