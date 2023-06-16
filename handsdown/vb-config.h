@@ -76,9 +76,9 @@
 #define HD_COMM LT(L_FN_NUM, KC_COMM)
 
 //
-// Now let's also defineo the keycodes on the map for spatial referencing
+// Now let's also define the keycodes on the map for spatial referencing
 //
-// (is there anyway to combine these 2 steps?)
+// (is there any way to combine these 2 steps?)
 //
 #define HD_LT4 HD_X
 #define HD_LT3 HD_W
@@ -138,8 +138,13 @@
 
 // TEXT ENTRY - off map standard alphas (also on Layer L_PUNCT @ Z=LT4 & Q=LT3)
 //
-#define HD_Z_keys HD_LM3, HD_LM1 // TYPE "z"
 #define HD_Qu_keys HD_LT3, HD_LT1 // TYPE "q" (Qu & Linger deletes u)
+#define HD_L1_keys HD_LM3, HD_LM1 // ex. TYPE "z"
+#define HD_L1 HD_Z
+//#define HD_L2_keys HD_LM3, HD_LM1 // ex. TYPE "x"
+//#define HD_L2 HD_X
+//#define HD_L3_keys HD_LM3, HD_LM1 // ex. TYPE "j"
+//#define HD_L3 HD_J
 
 //
 // H digraph combos
