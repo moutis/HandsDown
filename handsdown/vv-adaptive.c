@@ -2,7 +2,7 @@
  Adaptive Keys
  Called from within process_record_user
  
- Tailored for HD Gold (au)
+ Tailored for HD Vibranium-v (vv)
  
  NOTE: assumed dual-function keys (MOD_TAP, LAYER_TAP) have already been handled AND
     FILTERED OUT! The combos handler will have already taken out combo candidates,
@@ -12,14 +12,6 @@
  (not totally possible, as many of my boards have embedded AVR mcus)
 
  */
-//              Hands Down Gold
-// ╭─────────────────────╮ ╭─────────────────────╮
-// │  J   G   M   P   V  │ │  #$  .:  /*  "[  '] │
-// │  R   S   N   D   B  | |  ,;   A   E   I   H │
-// │  X   F   L   C   W  │ │  -+   U   O   Y   K │
-// ╰───────────╮ BSP  T  │ │ SPC  RET ╭──────────╯
-//             ╰─────────╯ ╰──────────╯
-// Q (LT3) & Z (LT4) are on the punc layer
 
 
 bool process_adaptive_key(uint16_t *calling_keycode, const keyrecord_t *record) {
@@ -44,48 +36,146 @@ bool process_adaptive_key(uint16_t *calling_keycode, const keyrecord_t *record) 
 /*
 // Left hand adaptives (most are single-handed neighbor fingers, bc speed, dexterity limits)
 */
-        case KC_B:  // avoid the index-middle split
+        case KC_C:
             switch (prior_keycode) {
-                case KC_P: // pull up M over
-                    tap_code(KC_M);
+                case KC_T: // roll for tch
+                    send_string("ch"); // 85% of tc is tch, so this saves a lot of key press "H"
                     return_state = false; // done.
-                case KC_D: // pull L over
-                    goto PullUpLAndExit; // short jumps save bytes
-                break;
-           }
+                    break;
+                case KC_B: // eliminate BS SFB (BS is 23x more common than BC)
+                    tap_code(KC_S);  //
+                    return_state = false; // done.
+                    break;
+            }
+            break;
+        case KC_V: // VP/PV = SP/PS
+            switch (prior_keycode) {
+                case KC_P: // avoid row step (PS is 246x more common than PV)
+                    tap_code(KC_S);
+                    return_state = false; // done.
+                    break;
+            }
             break;
         case KC_M: // M becomes L (pull up "L" to same row)
             switch (prior_keycode) {
-                case KC_P: //
-                case KC_G: //
+                case KC_B: // tricksy - trilling "mxm" results in "mbl" trigram instead of scissor
+                case KC_P: // tricksy - trilling "mwm" results in "mpl" trigram instead of scissor
+                           // rolling "xwm" is also captured here, resulting in "xpl"
+                case KC_G: // pull up "L" (GL is 5x more common than GM)
+                case KC_X: // pull up "L" (XL is 1.5x more common than XM)
 PullUpLAndExit:
-                    tap_code(KC_L);  //
+                    tap_code(KC_L);  // pull up "L" (PL is 15x more common than PM)
                     return_state = false; // done.
                     break;
-                case KC_J: //
+                case KC_W: // WM = LM (LM 20x more common)
+                    *calling_keycode = KC_L; // tricksy - pretend the last was L, for "lml"
 ReplacePriorWithL:
                     tap_code(KC_BSPC);
                     tap_code(KC_L);
                     break;
             }
             break;
-        case KC_D: //
+        case KC_D: // (for KD=KL; least code, no side effects)
             switch (prior_keycode) { //
-                case KC_B:
+                case KC_K:
+                case KC_V:
                     goto PullUpLAndExit; // short jumps save bytes
             }
             break;
-        case KC_P:
+
+        case KC_L: // catch this so we can unshift L on these rolls.
             switch (prior_keycode) {
-                case KC_G: // avoid the scissor
-                    goto ReplacePriorWithL; // short jumps save bytes
-                case KC_J:
+                case KC_B: //
+                case KC_P: //
+                case KC_S: //
+                    goto PullUpLAndExit; // no change except shift is now off
+            }
+            break;
+        case KC_W:
+            switch (prior_keycode) {
+                case KC_L: // tricksy - trilling "wmw" results in "lml" trigram instead of SFB
+                    goto PullUpLAndExit; // short jumps save bytes
+                case KC_X: // pull up P (W becomes P after X to set up "xp"+l)
+                case KC_M: // pull up P (W becomes P abter M to set up "mp"+l)
+                    *calling_keycode = KC_P; // tricksy - pretend the last was P, for "mpl" or "xpl" trigram
+                    tap_code(KC_P); // pull up P from bottom row.
+                    return_state = false; // done.
+                    break;
+                case KC_G:
+                    tap_code(KC_D); // eliminate SFB.
+                    return_state = false; // done.
+                    break;
+            }
+            break;
+        case KC_G:
+            switch (prior_keycode) {
+                case KC_K:
+                    goto PullUpLAndExit; // short jumps save bytes
+               case KC_M:
+                    goto ReplacePriorWithL;
+                case KC_W:
                     tap_code(KC_BSPC);
                     send_string("lml"); // for "calmly" but not quite intuitive…
                     return_state = false; // done.
                     break;
-                case KC_V: // avoid the index-middle split
-                    goto PullUpLAndExit; // short jumps save bytes
+            }
+            break;
+
+        case KC_K: // remedy ring-index split by shifting fingering
+            switch (prior_keycode) {
+                case KC_T: // TK/DK/GK = LK ()
+                    tap_code(KC_BSPC);
+                    tap_code(KC_C);
+                    break;
+                case KC_D: // DV/TV/GV = LV ()
+                case KC_G: //
+                    goto ReplacePriorWithL; // short jumps save bytes
+           }
+            break;
+        case KC_T:  // alt fingering remedy for middle-index splits
+            switch (prior_keycode) {
+                case KC_K: // quickly typing "k?" yields "kn" (+48x)
+                    tap_code(KC_N);
+                    return_state = false; // done.
+                    break;
+            }
+            break;
+        case KC_R:  // LL is the highest consonant repeat, and it's off home, so eliminate this SFB
+            switch (prior_keycode) {
+                case KC_L: // quickly typing "lr" yields "ll" (+56x)
+                    tap_code(KC_L);
+                    return_state = false; // done.
+                    break;
+            }
+            break;
+
+        case KC_X:
+            switch (prior_keycode) {
+                case KC_P: // MW->MP, so MPL rolling out
+                case KC_W:
+                    goto PullUpLAndExit;
+                case KC_M: // "MB" is 2558x more frequent than "MX"
+                    *calling_keycode = KC_B; // tricksy - pretend the last was B, for "mbl" trigram
+                    tap_code(KC_B); // pull up B from bottom row.
+                    return_state = false; // done.
+                    break;
+                case KC_G:
+                    tap_code(KC_T); // eliminate SFB.
+                    return_state = false; // done.
+                    break;
+            }
+        case KC_P:
+            switch (prior_keycode) {
+                case KC_D: // DP = DT eliminate SFB (DT is 2.5x more common)
+                    tap_code(KC_G);
+                    return_state = false; // done.
+                    break;
+                case KC_V: // Pull S down from middle row. (VP/PV = SP/PS)
+                case KC_B: // Pull S down [SP is 83x more common than BP]
+                    tap_code(KC_BSPC);
+                    tap_code(KC_S); //(but maybe should be BS? SP/BS are about equal...)
+                    return_state = true; // not done (process this key normally)
+                    break;
             }
             break;
 
@@ -93,8 +183,8 @@ ReplacePriorWithL:
 /*
 // right hand adaptives
 */
-
-        case KC_H: // How often are we likely to hit BS so quickly after?
+            
+        case KC_H: // H precedes a vowel much more often than it follows (thanks, Ancient Greek!)
             switch (prior_keycode) { // maybe OK? What about xxR? resulting in a SFB on thumb?
                 case KC_A: // AE is a fraction less common, but I find the EAE trill harder than EAH.
                     tap_code(KC_U); // "AH" yields "AU" (8x more common)
@@ -112,26 +202,62 @@ ReplacePriorWithL:
                     tap_code(KC_A); // "UH" yields "UA" (126x more common)
                     return_state = false; // done.
                     break;
+                case KC_I: // avoid row skip on outward pinky roll
+                    tap_code(KC_F); // "IH" yields "IF" (96x more common)
+                    return_state = false; // done.
+                    break;
 
             }
             break;
 
-        case KC_K:
+        case KC_F:
             switch (prior_keycode) {
-                case KC_Y:  // eliminate SFB on ring finger
-                    tap_code(KC_I);
+                case KC_Y: //
+                    tap_code(KC_I); // YF = YI (eliminate SFB on ring finger YI is 37x YF)
                     return_state = false; // done.
                     break;
             }
             break;
-        case KC_U:
+        case KC_J:
             switch (prior_keycode) {
-                case KC_K: // make KU send Qu
-                    tap_code(KC_BSPC);
-                    tap_code(KC_Q);
+                case KC_QUOT:
+                case KC_B: //
+                    tap_code(KC_Y); // BJ = BY (eliminate scissor on ring finger BY is 6x BJ)
+                    return_state = false; // done.
+                    break;
+                case KC_DOT:
+                    send_string("edu");
+                    return_state = false; // done.
                     break;
             }
             break;
+        case KC_QUOT:
+            switch (prior_keycode) {
+                case KC_DOT:
+                    send_string("com");
+                    return_state = false; // done.
+                    break;
+                case KC_J: //
+                case KC_B: //
+                    tap_code(KC_O); // (eliminate scissor)
+                    return_state = false; // done.
+                    break;
+            }
+            break;
+      case KC_B:
+          switch (prior_keycode) {
+              case KC_DOT:
+                  tap_code(KC_BSPC);
+                  send_string(".org");
+                  return_state = false; // done.
+                  break;
+              case KC_J:
+                  tap_code(KC_I); // (eliminate SFB)
+                  return_state = false; // done.
+                  break;
+         }
+          break;
+
 
 
 #ifdef THUMB_REPEATER

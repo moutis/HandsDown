@@ -20,7 +20,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_SemKey(SK_APPPRV); // APP switcher Prev (least recently used)
         }
         goto exit;
-    } else if (held_mods & MOD_MASK_CTRL) { // just ctrl switch
+    }
+    if (held_mods & MOD_MASK_CTRL) { // just ctrl switch
         unregister_mods(MOD_MASK_SAG); // lift all but ctrl
         if (clockwise) { // Uses SemKey for Platform flexible app switch
             tap_code16(C(KC_TAB)); // fwd
@@ -138,9 +139,9 @@ volbright:
 #endif
           default:
               if (clockwise) {
-                  tap_code(KC_PGDN); //
+                  tap_code(KC_RIGHT); //
               } else {
-                  tap_code(KC_PGUP); //
+                  tap_code(KC_LEFT); //
               }
               break;
       }

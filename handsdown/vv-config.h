@@ -2,23 +2,26 @@
 //
 // The Hands Down Variation dependent defs & files
 //
-#define HD_adaptive_code "handsdown/vb-adaptive.c"
+#define HD_adaptive_code "handsdown/vv-adaptive.c"
 //
 //
-//       Alpha Layer for a 34 key formfactor
-// ╭─────────────────────╮ ╭─────────────────────╮
-// │ LT4 LT3 LT2 LT1 LT0 │ │ RT0 RT1 RT2 RT3 RT4 │
-// │ LM4 LM3 LM2 LM1 LM0 | | RT0 RM1 RM2 RM3 RM4 │
-// │ LB4 LB3 LB2 LB1 LB0 │ │ RB0 RB1 RB2 RB3 RB4 │
-// ╰───────────╮ LH2 LH1 │ │ RH1 RH2  ╭──────────╯
-//             ╰─────────╯ ╰──────────╯
-//              Hands Down Vibranium b
-// ╭─────────────────────╮ ╭─────────────────────╮
-// │  X   W   M   G   J  │ │  #$  .:  /*  "[  '] │
-// │  S   C   N   T   K  | |  ,;   A   E   I   H │
-// │  B   P   L   D   V  │ │  -+   U   O   Y   F │
-// ╰───────────╮ BSP  R  │ │ SPC  RET ╭──────────╯
-//             ╰─────────╯ ╰──────────╯
+//      KEY POSITION Names
+//╭─────────────────────╮ ╭─────────────────────╮
+//│ LT4 LT3 LT2 LT1 LT0 │ │ RT0 RT1 RT2 RT3 RT4 │
+//│ LM4 LM3 LM2 LM1 LM0 │ │ RM0 RM1 RM2 RM3 RM4 │
+//│ LB4 LB3 LB2 LB1 LB0 │ │ RB0 RB1 RB2 RB3 RB4 │
+//╰───────────╮ LH2 LH1 | | RH1 RH2 ╭───────────╯
+//            ╰─────────╯ ╰─────────╯
+//
+//  Base (alpha) Layer  Hands Down Vibranium-vv
+//        Building for a 34 key board
+//    ╭─────────────────╮ ╭─────────────────╮
+//    │  X  W  M  G  "[ │ │ #$  .: ']  J  B │
+//    │  S  C  N  T  K  | | ,;   A  E  I  H │
+//    │  V  P  L  D  /* │ │ -+   U  O  Y  F │
+//    ╰───────╮  BSP R  │ │ SPC RET  ╭──────╯
+//            ╰─────────╯ ╰──────────╯
+//
 // Q (LT3) & Z (LT4) are on the punc layer
 // and on combos (defined below)
 //
@@ -85,12 +88,12 @@
 #define HD_LT3 HD_W
 #define HD_LT2 HD_M
 #define HD_LT1 HD_G
-#define HD_LT0 HD_J
+#define HD_LT0 HD_DQUO
 #define HD_RT0 HD_HASH
 #define HD_RT1 HD_DOT
-#define HD_RT2 HD_SLSH
-#define HD_RT3 HD_DQUO
-#define HD_RT4 HD_QUOT
+#define HD_RT2 HD_QUOT
+#define HD_RT3 HD_J
+#define HD_RT4 HD_B
 
 #define HD_LM4 HD_S
 #define HD_LM3 HD_C
@@ -103,11 +106,11 @@
 #define HD_RM3 HD_I
 #define HD_RM4 HD_H
 
-#define HD_LB4 HD_B
+#define HD_LB4 HD_V
 #define HD_LB3 HD_P
 #define HD_LB2 HD_L
 #define HD_LB1 HD_D
-#define HD_LB0 HD_V
+#define HD_LB0 HD_SLSH
 #define HD_RB0 HD_MINS
 #define HD_RB1 HD_U
 #define HD_RB2 HD_O

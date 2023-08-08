@@ -55,6 +55,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // APP_MENU gets special treatment (also needs matrix_APP_MENU)
 
+//    if  ((keycode & QK_BASIC_MAX) == KC_APP) {  // mimic windows app key behavior (only better?) also in scan_matrix
     if  (keycode == KC_APP) {  // mimic windows app key behavior (only better?) also in scan_matrix
         process_APP_MENU(record);
         return false; // took care of that key

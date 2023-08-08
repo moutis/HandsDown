@@ -15,10 +15,10 @@
 void process_APP_MENU(keyrecord_t *record) {
 // KC_APP key gets special treatment
   if (record->event.pressed) {
-    if (saved_mods & (MOD_MASK_CTRL)) {
+    if (saved_mods & MOD_MASK_CTRL) { // cycle window w/in app (semkey?)
       unregister_code(KC_RALT);  // ignore these if ctrl
       unregister_code(KC_RGUI);
-      tap_code(KC_TAB);  // switch window w/in app (need semkey for this.)
+      tap_code(KC_TAB);
       return; // handled this record.
     }
     mods_held = (saved_mods & (MOD_MASK_GUI | MOD_MASK_ALT)); // were mods held?
@@ -29,13 +29,19 @@ void process_APP_MENU(keyrecord_t *record) {
         register_code(KC_RGUI); // Mac
       }
     }
+/*
+      if (saved_mods & MOD_MASK_SHIFT)
+        tap_code16(S(KC_TAB)); // switch app
+    else
+*/
     tap_code(KC_TAB); // switch app
     state_reset_timer = timer_read(); // (re)start timing hold for keyup below
     return; // handled this record.
   }
   // up event
-  if (mods_held || appmenu_on) // mods down, or already on…
-    return; // so nothing to do here (scan_matrix_user will handle it)
+  // if (mods_held || appmenu_on) // mods down, or already on…
+  if (appmenu_on) // mods down, or already on…
+    return; // so nothing to do here (matrix_APP_MENU will handle it)
   if (timer_elapsed(state_reset_timer) > LINGER_TIME) { // held long enough?
     appmenu_on = true; // Y:turn on menu (taken down in matrix_scan_user)
     state_reset_timer = timer_read(); // start timer

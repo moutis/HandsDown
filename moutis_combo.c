@@ -209,6 +209,13 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 combo_on = combo_index; // may add "'ve " if held
                 break;
             case HC_Id:
+#ifdef JP_MODE_ENABLE
+                if (!IS_ENGLISH_MODE) { // if in Japanese mode
+                    send_string("dhi");  // でぃ
+                    break;
+                }
+#endif // JP_MODE_ENABLE
+
             case HC_Ill:
             case HC_Im:
             case HC_Iv:
@@ -287,6 +294,8 @@ addonsuffix: // sharing this saves about 100 bytes (10 bytes per instance)
                         send_string("d");
                         combo_on = combo_index; // may add "'ve " in matrix_scan_user_process_combo
                         break;
+
+
 #ifdef EN_PRONOUN_COMBOS_ALL
 #ifdef EN_W_PRONOUNS
                     case HC_well_5gram: // we'll
@@ -457,9 +466,12 @@ ADD_HERE:
             case jp_dha:  // でゃ
                 send_string("dha");  //
                 break;
-            case jp_dhi:  // でぃ
-                send_string("dhi");  //
+ #ifndef EN_PRONOUN_COMBOS
+           case jp_dhi:  // でぃ
+                send_string("dhi");  // /onflicts with I'd pronoun combo, so handle it there.
+
                 break;
+#endif
             case jp_dhu:  // でょ
                 send_string("dhu");  //
                 break;
@@ -558,12 +570,8 @@ ADD_HERE:
 
 // END the H digraphs
 
-                case HC_FIND:  // Find next of selection. Should work with many editors/platforms, but not all...obviously.
-                    tap_SemKey(SK_COPY);
+                case HC_FIND:  // Simple Find if not held
                     tap_SemKey(SK_FIND);
-                    tap_SemKey(SK_PSTE);
-                    tap_SemKey(KC_ENT); // register current find
-                    tap_SemKey(SK_FAGN); // find next
                     break;
                 case HC_NEW:
                     tap_SemKey(SK_NEW);
@@ -711,17 +719,20 @@ void matrix_scan_user_process_combo() {  // called from matrix_scan_user if comb
         // then handle hold actions here,
         // before resolving in keyup event above.
         // if necessary (like releasing the underlying keys, or other cleanup)
-        if ((timer_elapsed(linger_timer) > COMBO_HOLD) && combo_on && user_config.AdaptiveKeys) {
+        if ((timer_elapsed(linger_timer) > COMBO_HOLD) && combo_on) {
             saved_mods = get_mods();
             clear_mods();
             switch(combo_on) {  // combo_on is global, set in process_combo above
+
 
                 case HC_FIND: // Held, so find selection (should work with most apps/platforms)
                     tap_SemKey(SK_COPY); // copy the selection
                     tap_SemKey(SK_FIND); // start find
                     tap_SemKey(SK_PSTE); // paste the copy. will find the selection
-                    tap_SemKey(SK_FAGN); // now find the next...
+//                    tap_code(KC_ENT); // register current find
+//                    tap_SemKey(SK_FAGN); // now find the next...
                     break;
+
                 case HC_COPY: // held, so cut
                     tap_SemKey(SK_CUT);
                     break;
@@ -730,9 +741,9 @@ void matrix_scan_user_process_combo() {  // called from matrix_scan_user if comb
                     break;
 
                     
-                case HC_Sh:
-                case HC_Th: // if this H digragh combo is held, then send T/Sion instead
-                    unregister_mods(MOD_MASK_SHIFT);  //
+                case HC_Sh: // if these H digragh combos are held, then send T/SION instead
+                case HC_Th: // TION = by far most common 4-gram, (then THAT/THER/WITH/MENT)
+                    unregister_mods(MOD_MASK_SHIFT);
                     send_string("ion");
                     break;
                 case HC_Gh: // held, send "ght"

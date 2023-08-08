@@ -114,16 +114,12 @@ ReplacePriorWithL:
 // right hand adaptives
 */
 
-        case KC_E: //
-            switch (prior_keycode) { //
-                case KC_A:
-                    tap_code(KC_U); // "AE" yields "AU" (8x more common)
-                    return_state = false; // done.
-                    break;
-            }
-            break;
         case KC_H: // How often are we likely to hit BS so quickly after?
             switch (prior_keycode) { // maybe OK? What about xxR? resulting in a SFB on thumb?
+                case KC_A: // AE is a fraction less common, but I find the EAE trill harder than EAH.
+                    tap_code(KC_U); // "AH" yields "AU" (8x more common)
+                    return_state = false; // done.
+                    break;
                 case KC_E:
                     tap_code(KC_O); // "EH" yields "EO" (1.75:1)
                     return_state = false; // done.

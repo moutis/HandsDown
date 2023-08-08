@@ -20,7 +20,7 @@
 
 // for 34 key boards
 const uint16_t PROGMEM HC_kbd_combo[] = {HD_RH1, HD_RH2, COMBO_END}; // keyboard settings/config layer
-const uint16_t PROGMEM H_menu_combo[] = {HD_LH2, HD_LH1, COMBO_END}; // MENU
+const uint16_t PROGMEM H_menu_combo[] = {HD_LT0, HD_LT1, COMBO_END}; // MENU
 
 /* examples of text entry combos */
 const uint16_t PROGMEM H_Left_combo[] = {HD_LT3, HD_LT2, HD_LT1, COMBO_END}; // TYPE LeftComboTapE
@@ -208,7 +208,9 @@ const uint16_t PROGMEM thu_combo[] = {JP_thu_keys, COMBO_END};  //　てゅ
 const uint16_t PROGMEM the_combo[] = {JP_the_keys, COMBO_END};  // てぇ
 const uint16_t PROGMEM tho_combo[] = {JP_tho_keys, COMBO_END};  //　てょ
 const uint16_t PROGMEM dha_combo[] = {JP_dha_keys, COMBO_END};  // でゃ
-const uint16_t PROGMEM dhi_combo[] = {JP_dhi_keys, COMBO_END};  // でぃ
+#ifndef EN_PRONOUN_COMBOS
+const uint16_t PROGMEM dhi_combo[] = {JP_dhi_keys, COMBO_END};  // でぃ conflicts with I'd
+#endif
 const uint16_t PROGMEM dhu_combo[] = {JP_dhu_keys, COMBO_END};  //　でゅ
 const uint16_t PROGMEM dhe_combo[] = {JP_dhe_keys, COMBO_END};  // でぇ
 const uint16_t PROGMEM dho_combo[] = {JP_dho_keys, COMBO_END};  //　でょ
@@ -330,7 +332,9 @@ combo_t key_combos[] = {
     [jp_the] = COMBO_ACTION(the_combo),  // てぇ
     [jp_tho] = COMBO_ACTION(tho_combo),  // てょ
     [jp_dha] = COMBO_ACTION(dha_combo),  // でゃ
-    [jp_dhi] = COMBO_ACTION(dhi_combo),  // でぃ
+#ifndef EN_PRONOUN_COMBOS
+    [jp_dhi] = COMBO_ACTION(dhi_combo),  // でぃ conflicts with I'd
+#endif
     [jp_dhu] = COMBO_ACTION(dhu_combo),  // でゅ
     [jp_dhe] = COMBO_ACTION(dhe_combo),  // でぇ
     [jp_dho] = COMBO_ACTION(dho_combo),  // でょ

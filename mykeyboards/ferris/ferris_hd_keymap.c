@@ -4,6 +4,9 @@
 #include HD_combo_def // this has the combo definitions
 #endif
 
+#define ____ KC_TRNS
+#define _no_ KC_NO
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     
@@ -21,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Z, KC_Q, RALT(KC_5), LALT(KC_7), LSA(KC_7), LALT(KC_4), KC_DLR, A(S(KC_2)), RALT(KC_3), LALT(KC_Y),
         KC_LT, KC_LBRC, KC_LPRN, KC_LCBR, RSA(KC_5), RALT(KC_1), RSFT_T(KC_PAST), RGUI_T(KC_PEQL), RALT_T(KC_PPLS), RCTL_T(KC_PSLS),
         KC_GT, KC_RBRC, KC_RPRN, KC_RCBR, LALT(KC_8), KC_UNDS, KC_PIPE, KC_AMPR, KC_CIRC, KC_PERC,
-                SK_DELWDL, SK_DELWDR, KC_TRNS, LSA(KC_8)),
+                SK_DELWDL, SK_DELWDR, ____, LSA(KC_8)),
     [3] = LAYOUT_split_3x5_2(
         KC_F9, KC_F10, KC_F11, KC_F12, KC_F13, KC_GRV, KC_7, KC_8, KC_9, KC_MINS,
         LCTL_T(KC_F5), LALT_T(KC_F6), LGUI_T(KC_F7), LSFT_T(KC_F8), KC_F14, KC_COMM, RSFT_T(KC_1), RGUI_T(KC_2), RALT_T(KC_3), RCTL_T(KC_PPLS),
@@ -38,10 +41,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         SK_UNDO, SK_CUT, SK_COPY, SK_PSTE, SK_FAGN, SK_DOCEND, KC_END, KC_DOWN, KC_PGDN, SK_PARANXT,
                 MO(L_MEDIA_KBD), KC_APP, SK_HISTPRV, SK_HISTNXT),
     [6] = LAYOUT_split_3x5_2(
-        KC_NO, EE_CLR, AG_SWAP, CG_SWAP, LCA(KC_DEL), SK_KILL, KC_NUM, KC_EJCT, KC_NO, SK_ZOOMRST,
-        HD_AdaptKeyToggle, HD_L_QWERTY, HD_L_ALPHA, KC_VOLU, KC_BRIU, KC_NO, KC_MPRV, KC_MUTE, KC_MNXT, SK_ZOOMOUT,
-        QK_BOOT, AG_NORM, CG_NORM, KC_VOLD, KC_BRID, KC_NO, KC_MRWD, KC_MPLY, KC_MFFD, SK_ZOOMIN,
-                KC_NO, TG(L_NUMPAD), KC_NO, KC_NO)
+        _no_, EE_CLR, AG_SWAP, CG_SWAP, LCA(KC_DEL), SK_KILL, KC_NUM, KC_EJCT, _no_, SK_ZOOMRST,
+        HD_AdaptKeyToggle, HD_L_QWERTY, HD_L_ALPHA, KC_VOLU, KC_BRIU, _no_, KC_MPRV, KC_MUTE, KC_MNXT, SK_ZOOMOUT,
+        QK_BOOT, AG_NORM, CG_NORM, KC_VOLD, KC_BRID, _no_, KC_MRWD, KC_MPLY, KC_MFFD, SK_ZOOMIN,
+                _no_, TG(L_NUMPAD), _no_, _no_)
 
 };
 

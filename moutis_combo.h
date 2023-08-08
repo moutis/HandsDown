@@ -194,7 +194,9 @@ enum my_combos {
     jp_the,  // てぇ
     jp_tho,  // てょ
     jp_dha,  // でゃ
-    jp_dhi,  // でぃ
+#ifndef EN_PRONOUN_COMBOS
+    jp_dhi,  // でぃ conflicts with I'd (so handle it there if present)
+#endif
     jp_dhu,  // でょ
     jp_dhe,  // でぇ
     jp_dho,  // でょ
