@@ -51,7 +51,7 @@
         #undef COMBO_TERM
     #endif
 // these COMBO_TERM have dilicate interactions with ADAPTIVE_TERM below.
-    #define COMBO_TERM (TAPPING_TERM/5) // time to get all combo keys down
+    #define COMBO_TERM (TAPPING_TERM/4) // time to get all combo keys down
     #define COMBO_HOLD (TAPPING_TERM) // time to hold to trigger delayed combo
 #endif
 

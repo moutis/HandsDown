@@ -50,7 +50,7 @@ const uint16_t PROGMEM Hmdsh_combo[] = {HD_RB0, HD_RB2, COMBO_END}; // — m das
 const uint16_t PROGMEM Htild_combo[] = {HD_RB0, HD_RB4, COMBO_END}; // ~ tilde (not the deadkey for eñye)
 const uint16_t PROGMEM Hunds_combo[] = {HD_RB1, HD_RB3, COMBO_END}; // _ underscore
 const uint16_t PROGMEM Hequal_combo[] = {HD_RB2, HD_RB3, COMBO_END}; // = equal (hold for %)
-const uint16_t PROGMEM Hpercent_combo[] = {HD_RB3, HD_RB4, COMBO_END}; // % percent
+//const uint16_t PROGMEM Hpercent_combo[] = {HD_RB3, HD_RB4, COMBO_END}; // % percent
 
 
 // spatially arranged characters and diacritics
@@ -58,7 +58,7 @@ const uint16_t PROGMEM Hscln_combo[] = {HD_RM0, HD_RM1, COMBO_END}; // ; semicol
 const uint16_t PROGMEM Hcoln_combo[] = {HD_RT1, HD_RT3, COMBO_END}; // : colon
 const uint16_t PROGMEM Hexlm_combo[] = {HD_RT1, HD_RT2, COMBO_END}; // !
 const uint16_t PROGMEM Hques_combo[] = {HD_RT2, HD_RT3, COMBO_END}; // ?
-const uint16_t PROGMEM Hdquo_combo[] = {HD_RT2, HD_RT4, COMBO_END}; // " DOUBLE QUOTE  // " hijacked for $
+const uint16_t PROGMEM Hdolr_combo[] = {HD_RT2, HD_RT4, COMBO_END}; // " DOUBLE QUOTE  // " hijacked for $
 const uint16_t PROGMEM Htic_combo[] = {HD_RT3, HD_RT4, COMBO_END}; // ` tic (not dead key grave)
 
 const uint16_t PROGMEM Hhash_combo[] = {HD_RT0, HD_RT2, COMBO_END}; // # HASH hijacked for §
@@ -273,7 +273,7 @@ combo_t key_combos[] = {
     // These simple combos trigger on press, repeat. HC_kbd_combo
     [HC_KBD] = COMBO(HC_kbd_combo, MO(L_MEDIA_KBD)), // keyboard/media settings/config layer
     [HC_APP] = COMBO(H_menu_combo, KC_APP), // app menu
-    [HC_PCT] = COMBO(Hpercent_combo, KC_PERC), // %
+//    [HC_PCT] = COMBO(Hpercent_combo, KC_PERC), // % (hold = for %)
     [HC_SCLN] = COMBO(Hscln_combo, KC_SCLN), // ;
     [HC_COLN] = COMBO_ACTION(Hcoln_combo), // :  (hold for elipsis)
     [HC_UNDS] = COMBO_ACTION(Hunds_combo), // _ underscore
@@ -281,9 +281,9 @@ combo_t key_combos[] = {
     [HC_TIC] = COMBO(Htic_combo, KC_GRAVE),  // ` (not dead)
     [HC_EXLM] = COMBO(Hexlm_combo, KC_EXLM), // !
     [HC_QUES] = COMBO(Hques_combo, KC_QUES), // ?
-    [HC_DQUO] = COMBO(Hdquo_combo, KC_DLR), // " hijacked for $
+    [HC_DOLR] = COMBO(Hdolr_combo, KC_DLR), // $
     [HC_HASH] = COMBO(Hhash_combo, SK_SECT), // # hijacked for §
-    [HC_AT] = COMBO_ACTION(Hat_combo), // @ & alanreiser.com if held
+    [HC_AT] = COMBO_ACTION(Hat_combo), // @ (hold for alanreiser.com)
     [HC_TAB] = COMBO(Htab_combo, KC_TAB),
 
     [HC_Q] = COMBO_ACTION(H_Q_combo),

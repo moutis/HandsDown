@@ -49,8 +49,8 @@ enum my_combos {
     FC_LANG1, // kana (others)
 
     HC_TAB,
-    HC_PCT, // % percent
-    HC_DQUO, // " hijacked for $
+//    HC_PCT, // % percent (hold = for %)
+    HC_DOLR, // $
     HC_HASH, // #
     HC_QUES, // ?
     HC_EXLM, // !

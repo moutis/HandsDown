@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_VOLD, SK_UNDO, SK_CUT, SK_COPY, SK_PSTE, SK_PSTM, ____, ____, ____, ____, SK_DOCEND, KC_END, KC_DOWN, KC_PGDN, SK_PARANXT, ____,
         SK_ZOOMRST, ____, S(KC_APP), KC_APP, ____, SK_ZOOMOUT, SK_HISTPRV, SK_HISTNXT, SK_ZOOMIN, SK_ZOOMRST),
 	[L_MEDIA_KBD] = LAYOUT(
-        _no_, _no_, EE_CLR, AG_SWAP, CG_SWAP, LCA(KC_DEL), SK_KILL, KC_NUM, KC_EJCT, _no_, SK_ZOOMRST, RGB_MOD,
+        _no_, QK_RBT, AG_SWAP, CG_SWAP, EE_CLR, LCA(KC_DEL), SK_KILL, KC_NUM, KC_EJCT, _no_, SK_ZOOMRST, RGB_MOD,
         RGB_VAI, HD_AdaptKeyToggle, HD_L_QWERTY, HD_L_ALPHA, KC_VOLU, KC_BRIU, _no_, KC_MPRV, KC_MUTE, KC_MNXT, SK_ZOOMOUT, RGB_SAI,
         RGB_HUI, QK_BOOT, AG_NORM, CG_NORM, KC_VOLD, KC_BRID, RGB_VAD, _no_, _no_, RGB_SAD, _no_, KC_MRWD, KC_MPLY, KC_MFFD, SK_ZOOMIN, RGB_HUD,
         _no_, _no_, _no_, TG(L_NUMPAD), _no_, _no_, _no_, _no_, _no_, _no_)

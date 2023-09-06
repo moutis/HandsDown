@@ -27,15 +27,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [L_HDALPHA] = LAYOUT(
     HD_LT4, HD_LT3, HD_LT2, HD_LT1, HD_LT0, LT(L_MEDIA_KBD,KC_MUTE),    LT(L_MEDIA_KBD,KC_MPLY), HD_RT0, HD_RT1, HD_RT2, HD_RT3, HD_RT4,
-    HD_LM4, HD_LM3, HD_LM2, HD_LM1, HD_LM0, LT(L_NUMPAD,KC_TAB),        TT(L_NAV), HD_RM0, HD_RM1, HD_RM2, HD_RM3, HD_RM4,
-    HD_LB4, HD_LB3, HD_LB2, HD_LB1, HD_LB0, ____,                      ____, HD_RB0, HD_RB1, HD_RB2, HD_RB3, HD_RB4,
-                     ____, ____, HD_LH2, HD_LH1, ____, ____,    ____,  ____,  HD_RH1, HD_RH2, ____, ____),
+    HD_LM4, HD_LM3, HD_LM2, HD_LM1, HD_LM0, TT(L_NUMPAD),               TT(L_NAV), HD_RM0, HD_RM1, HD_RM2, HD_RM3, HD_RM4,
+    HD_LB4, HD_LB3, HD_LB2, HD_LB1, HD_LB0, LT(L_NUMPAD, KC_LBRC),      LT(L_NAV,KC_RBRC), HD_RB0, HD_RB1, HD_RB2, HD_RB3, HD_RB4,
+                     ____, ____, HD_LH2, HD_LH1, LT(L_MEDIA_KBD,KC_Q), KC_APP, LT(L_MEDIA_KBD,KC_MPLY), LT(L_MEDIA_KBD,KC_Z),  HD_RH1, HD_RH2, ____, ____),
 
 [L_PUNCT] = LAYOUT(
-    KC_Z,   KC_Q,    RALT(KC_5), LALT(KC_7), LSA(KC_7), KC_ESC,     ____, LALT(KC_4), KC_DLR, A(S(KC_2)), RALT(KC_3), LALT_T(KC_Y),
-    KC_LT,  KC_LBRC, KC_LPRN, KC_LCBR, RSA(KC_5), ____,             ____, RALT(KC_1), RSFT_T(KC_PAST), RGUI_T(KC_PEQL), RALT_T(KC_PPLS), RALT_T(KC_R),
-    KC_GT,  KC_RBRC, KC_RPRN, KC_RCBR, LALT(KC_8), ____,            ____, KC_UNDS, KC_PIPE, KC_AMPR, KC_CIRC, KC_PERC,
-            ____,    ____,    SK_DELWDL, SK_DELWDR, ____, ____,   ____, ____, LSA(KC_8), LSA(KC_9), LALT(KC_9), ____),
+    KC_Z,   KC_Q,    RALT(KC_5), LALT(KC_7), LSA(KC_7), KC_ESC,         ____, LALT(KC_4), KC_DLR, A(S(KC_2)), RALT(KC_3), LALT_T(KC_Y),
+    KC_LT,  KC_LBRC, KC_LPRN, KC_LCBR, RSA(KC_5), ____,                 ____, RALT(KC_1), RSFT_T(KC_PAST), RGUI_T(KC_PEQL), RALT_T(KC_PPLS), RALT_T(KC_R),
+    KC_GT,  KC_RBRC, KC_RPRN, KC_RCBR, LALT(KC_8), ____,                ____, KC_UNDS, KC_PIPE, KC_AMPR, KC_CIRC, KC_PERC,
+            ____,    ____,    SK_DELWDL, SK_DELWDR, ____, ____,  ____,  ____, LSA(KC_8), LSA(KC_9), LALT(KC_9), ____),
 
 [L_FN_NUM] = LAYOUT(
     KC_F9, KC_F10, KC_F11, KC_F12, KC_F13, KC_F16, ____, KC_SLSH, KC_7, KC_8, KC_9, KC_BSLS,
@@ -44,20 +44,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_PSCR, KC_SCRL, KC_BSPC, KC_ENT, ____, KC_PAUS,   KC_INS, ____, KC_0, KC_DOT, KC_SCLN, KC_PENT),
 
 [L_NUMPAD] = LAYOUT(
-    LALT(KC_RBRC), SK_QUIT, KC_HOME, KC_UP, KC_END, KC_PGUP,        ____, KC_PSLS, KC_P7, KC_P8, KC_P9, KC_PMNS,
-    LSA(KC_3), LALT_T(KC_TAB), KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  ____, KC_PAST, KC_P4, KC_P5, KC_P6, KC_PPLS,
-    LSA(KC_4), SK_UNDO, SK_CUT, SK_COPY, SK_PSTE, KC_ENT,           KC_NUM, KC_PCMM, KC_P1, KC_P2, KC_P3, KC_PEQL,
-                    ____, ____, ____, KC_BSPC, KC_ENT, ____,     ____, KC_P0, KC_PDOT, KC_C, ____, ____),
+    LALT(KC_RBRC), SK_QUIT, KC_HOME, KC_UP, KC_END, KC_PGUP,            KC_NUM, KC_PSLS, KC_P7, KC_P8, KC_P9, KC_PMNS,
+    LSA(KC_3), LALT_T(KC_TAB), KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,      ____, KC_PAST, KC_P4, KC_P5, KC_P6, KC_PPLS,
+    LSA(KC_4), SK_UNDO, SK_CUT, SK_COPY, SK_PSTE, KC_ENT,               TG(L_NUMPAD), KC_PCMM, KC_P1, KC_P2, KC_P3, KC_PEQL,
+                    ____, ____, ____, KC_BSPC, KC_ENT, ____,    ____,   KC_P0, KC_PDOT, KC_C, ____, ____),
 
 [L_NAV] = LAYOUT(
-    SK_QUIT, SK_CLOZ, SK_SCAP, SK_SCLP, SK_FAGN, ____, ____, SK_DOCBEG, KC_HOME, KC_UP, KC_PGUP, SK_PARAPRV,
-    KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, SK_FIND, ____, TG(L_NAV), SK_WORDPRV, KC_LEFT, KC_DOWN, KC_RGHT, SK_WORDNXT,
-    SK_UNDO, SK_CUT, SK_COPY, SK_PSTE, SK_PSTM, ____, ____, SK_DOCEND, KC_END, KC_DOWN, KC_LALT, SK_PARANXT,
-            ____, ____, SK_DELWDL, SK_DELWDR, ____, ____,     SK_ZOOMRST, SK_HISTPRV, SK_HISTNXT, ____, SK_ZOOMOUT, SK_ZOOMIN),
+    SK_QUIT, SK_CLOZ, SK_SCAP, SK_SCLP, SK_FAGN, ____,                  ____, SK_DOCBEG, KC_HOME, KC_UP, KC_PGUP, SK_PARAPRV,
+    KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, SK_FIND, ____,                  TG(L_NAV), SK_WORDPRV, KC_LEFT, KC_DOWN, KC_RGHT, SK_WORDNXT,
+    SK_UNDO, SK_CUT, SK_COPY, SK_PSTE, SK_PSTM, TG(L_NAV),              ____, SK_DOCEND, KC_END, KC_DOWN, KC_LALT, SK_PARANXT,
+            ____, ____, SK_DELWDL, SK_DELWDR, ____, ____,   SK_ZOOMRST, SK_HISTPRV, SK_HISTNXT, ____, SK_ZOOMOUT, SK_ZOOMIN),
     
 
 [L_MEDIA_KBD] = LAYOUT(
-    _no_, EE_CLR, AG_SWAP, CG_SWAP, LCA(KC_DEL), ____, RGB_TOG, SK_KILL, KC_NUM, KC_EJCT, _no_, SK_ZOOMRST,
+    QK_RBT, AG_SWAP, CG_SWAP, EE_CLR, LCA(KC_DEL), ____, RGB_TOG, SK_KILL, KC_NUM, KC_EJCT, _no_, SK_ZOOMRST,
     HD_AdaptKeyToggle, HD_L_QWERTY, HD_L_ALPHA, KC_VOLU, KC_BRIU, ____, ____, _no_, KC_MPRV, KC_MUTE, KC_MNXT, SK_ZOOMOUT,
 
     QK_BOOT, AG_NORM, CG_NORM, KC_VOLD, KC_BRID, AG_NORM, CG_NORM, _no_, KC_MRWD, KC_MPLY, KC_MFFD, SK_ZOOMIN,
