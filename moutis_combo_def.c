@@ -1,26 +1,53 @@
 
 //
-//      Alpha Layer for a 34 key form factor
-// ╭─────────────────────╮ ╭─────────────────────╮
-// │ LT4 LT3 LT2 LT1 LT0 │ │ RT0 RT1 RT2 RT3 RT4 │
-// │ LM4 LM3 LM2 LM1 LM0 | | RT0 RM1 RM2 RM3 RM4 │
-// │ LB4 LB3 LB2 LB1 LB0 │ │ RB0 RB1 RB2 RB3 RB4 │
-// ╰───────────╮ LH2 LH1 │ │ RH1 RH2  ╭──────────╯
-//             ╰─────────╯ ╰──────────╯
+//     Key Position Names for a 34 (-54) key split form factor
+//        Should cover Ferris through Atreus-Kyria-Ergodox
+//     ╭─────────────────────╮                  ╭─────────────────────╮
+// LT5 │ LT4 LT3 LT2 LT1 LT0 │ LTA          RTB │ RT0 RT1 RT2 RT3 RT4 │ RT5
+// LM5 │ LM4 LM3 LM2 LM1 LM0 | LMA          RMA | RT0 RM1 RM2 RM3 RM4 │ RM5
+// LB5 │ LB4 LB3 LB2 LB1 LB0 │ LBA LBB  RBB RBA │ RB0 RB1 RB2 RB3 RB4 │ RB5
+//     ╰───────────╮ LH2 LH1 │ LH0 LHA  RHA RH0 │ RH1 RH2 ╭───────────╯
+//     LH5 LH4 LH3 ╰─────────╯                  ╰─────────╯ RH3 RH4 RH5
 //
-// These definitions based on Hands Down Neu
+// These definitions based on Hands Down Neu & variations'
 // combo keycodes defined in the variation config
-// ex "HDvariations/nu/nu-config.h"
+// ex "handsdonu-config.h"
 //
 // Combo definitions defined spatially
 // Other variation dependent combos have predetermined
+// positions for 34 key boards
+
+const uint16_t PROGMEM HC_cfg_combo[] = {HD_RH1, HD_RH2, COMBO_END}; // keyboard settings/config layer
+#ifdef APPMENU_keys
+const uint16_t PROGMEM H_menu_combo[] = {APPMENU_keys, COMBO_END}; // AppMENU
+#else
+const uint16_t PROGMEM H_menu_combo[] = {HD_LB3, HD_LB1, COMBO_END}; // AppMENU // default Appmenu location
+#endif
+const uint16_t PROGMEM H_menu_nav_combo[] = {LN_LB3, LN_LB1, COMBO_END}; // AppMENU on Nav layer
+
+// Spatially arranged on the QWERTY ZXCV locations
 //
+const uint16_t PROGMEM Htab_combo[] = {HD_tab_keys, COMBO_END};    // tab
+const uint16_t PROGMEM Hstab_combo[] = {HD_stab_keys, COMBO_END};  // shift-tab
+const uint16_t PROGMEM Hspc_combo[] = {HD_spc_keys, COMBO_END};    // SPACE
+const uint16_t PROGMEM Hent_combo[] = {HD_ent_keys, COMBO_END};    // ENTER
+const uint16_t PROGMEM Hent2_combo[] = {HD_ent2_keys, COMBO_END};  // hard-ENTER/page break
+
+// SEMANTIC FUNCTIONS  ** usinp SemKeys **
+const uint16_t PROGMEM Hnew_combo[] = {HD_new_keys, COMBO_END}; // new
+const uint16_t PROGMEM Hopen_combo[] = {HD_open_keys, COMBO_END}; // openi
+const uint16_t PROGMEM Hclose_combo[] = {HD_close_keys, COMBO_END}; // close
+const uint16_t PROGMEM Hquit_combo[] = {HD_quit_keys, COMBO_END}; // quit
+const uint16_t PROGMEM Hfind_combo[] = {HD_find_keys, COMBO_END}; // find selection
+const uint16_t PROGMEM Hsall_combo[] = {HD_sall_keys, COMBO_END}; // select all
+const uint16_t PROGMEM Hswrd_combo[] = {HD_swrd_keys, COMBO_END}; // select word
+const uint16_t PROGMEM Hundo_combo[] = {HD_undo_keys, COMBO_END}; // undo
+const uint16_t PROGMEM Hredo_combo[] = {HD_redo_keys, COMBO_END}; // redo
+const uint16_t PROGMEM Hcopy_combo[] = {HD_copy_keys, COMBO_END}; // copy (hold for cut)
+const uint16_t PROGMEM Hpste_combo[] = {HD_pste_keys, COMBO_END}; // paste (hold for paste-match)
 
 
 
-// for 34 key boards
-const uint16_t PROGMEM HC_kbd_combo[] = {HD_RH1, HD_RH2, COMBO_END}; // keyboard settings/config layer
-const uint16_t PROGMEM H_menu_combo[] = {HD_LT0, HD_LT1, COMBO_END}; // MENU
 
 /* examples of text entry combos */
 const uint16_t PROGMEM H_Left_combo[] = {HD_LT3, HD_LT2, HD_LT1, COMBO_END}; // TYPE LeftComboTapE
@@ -33,8 +60,8 @@ const uint16_t PROGMEM F_SCAP_combo[] = {HD_LT3, HD_LT2, HD_LT1, HD_LT0, COMBO_E
 
 const uint16_t PROGMEM F_CAPS_combo[] = {HD_LM3, HD_LM2, HD_RM2, HD_RM3, COMBO_END}; // CAPS LOCK (on until hit again)
 const uint16_t PROGMEM H_CAPW_combo[] = {HD_LM1, HD_LM2, HD_RM1, HD_RM2, COMBO_END}; // CAPS WORD (on until word delimiter)
-const uint16_t PROGMEM H_EISUU_combo[] = {HD_LM3, HD_LM2, HD_LM1, COMBO_END}; // KC_MHEN
-const uint16_t PROGMEM H_KANA_combo[] = {HD_RM3, HD_RM2, HD_RM1, COMBO_END}; // KC_HENK
+const uint16_t PROGMEM H_EISUU_combo[] = {HD_LB3, HD_LB2, HD_LB1, COMBO_END}; // KC_MHEN
+const uint16_t PROGMEM H_KANA_combo[] = {HD_RB3, HD_RB2, HD_RB1, COMBO_END}; // KC_HENK
 
 
 
@@ -47,7 +74,7 @@ const uint16_t PROGMEM H_KANA_combo[] = {HD_RM3, HD_RM2, HD_RM1, COMBO_END}; // 
 const uint16_t PROGMEM F_ESC_combo[] = {HD_LM4, HD_LM1, COMBO_END}; // ESCape
 const uint16_t PROGMEM Hndsh_combo[] = {HD_RB0, HD_RB1, COMBO_END}; // – n dash
 const uint16_t PROGMEM Hmdsh_combo[] = {HD_RB0, HD_RB2, COMBO_END}; // — m dash
-const uint16_t PROGMEM Htild_combo[] = {HD_RB0, HD_RB4, COMBO_END}; // ~ tilde (not the deadkey for eñye)
+const uint16_t PROGMEM Htild_combo[] = {HD_RB1, HD_RB4, COMBO_END}; // ~ tilde (not the deadkey for eñye)
 const uint16_t PROGMEM Hunds_combo[] = {HD_RB1, HD_RB3, COMBO_END}; // _ underscore
 const uint16_t PROGMEM Hequal_combo[] = {HD_RB2, HD_RB3, COMBO_END}; // = equal (hold for %)
 //const uint16_t PROGMEM Hpercent_combo[] = {HD_RB3, HD_RB4, COMBO_END}; // % percent
@@ -77,7 +104,7 @@ const uint16_t PROGMEM Hring_combo[] = {HD_RM1, HD_RM4, COMBO_END}; // ˚ ring (
 const uint16_t PROGMEM Hcedi_combo[] = {HD_LM4, HD_LM2, COMBO_END}; // ¸ cedille (dead key)
 //const uint16_t PROGMEM Hoslsh_combo[] = {HD_RB2, HD_LB0, COMBO_END}; // ø/Ø or Wh
 
-// TEXT ENTRY - off map standard alphas (also on Layer L_PUNCT @ J & G respectively)byby=
+// TEXT ENTRY - off map standard alphas (also on Layer L_SYM @ J & G respectively)byby=
 const uint16_t PROGMEM H_Q_combo[] = {HD_Qu_keys, COMBO_END}; // TYPE "q" (Qu & Linger deletes u)
 const uint16_t PROGMEM H_L1_combo[] = {HD_L1_keys, COMBO_END}; // ex. TYPE "z"
 //const uint16_t PROGMEM H_L2_combo[] = {HD_L2_keys, COMBO_END}; // ex. TYPE "x"
@@ -94,7 +121,6 @@ const uint16_t PROGMEM H_Gh_combo[] = {HD_Gh_keys, COMBO_END}; // TYPE "gh"
 const uint16_t PROGMEM H_Sch_combo[] = {HD_Sch_keys, COMBO_END}; // TYPE "Sch"
 
 // TEXT ENTRY - (ANY ROW/ MIXED ROWS)
-
 
 const uint16_t PROGMEM HOE_lig_combo[] = {HD_OE_lig_keys, COMBO_END}; // Œ
 const uint16_t PROGMEM HAE_lig_combo[] = {HD_AE_lig_keys, COMBO_END}; // Æ
@@ -128,42 +154,15 @@ const uint16_t PROGMEM H_here_combo[] = {HD_here_keys, COMBO_END}; // TYPE "here
 
 #ifdef EN_W_PRONOUNS
 const uint16_t PROGMEM H_where_combo[] = {HD_where_keys, COMBO_END}; // "where" + 's
+const uint16_t PROGMEM H_were_combo[] = {HD_were_keys, COMBO_END}; // TYPE "we're"
 const uint16_t PROGMEM H_wed_combo[] = {HD_wed_keys, COMBO_END}; // TYPE "we'd" + 've
 const uint16_t PROGMEM H_well_combo[] = {HD_well_keys, COMBO_END}; // TYPE "we'll" + 've
-const uint16_t PROGMEM H_were_combo[] = {HD_were_keys, COMBO_END}; // TYPE "we're"
 const uint16_t PROGMEM H_weve_combo[] = {HD_weve_keys, COMBO_END}; // TYPE "we've"
 #endif // EN_W_PRONOUNS
 
 #endif // EN_PRONOUN_COMBOS_ALL
 
 #endif // EN_PRONOUN_COMBOS // the entirely unnecessary pronoun combo shenanigans
-
-// UPPER ROW
-
-// FUNCTIONS/COMMANDS Spatially arranged
-const uint16_t PROGMEM Htab_combo[] = {HD_tab_keys, COMBO_END};    // tab
-const uint16_t PROGMEM Hspc_combo[] = {HD_spc_keys, COMBO_END};    // SPACE
-const uint16_t PROGMEM Hent_combo[] = {HD_ent_keys, COMBO_END};    // ENTER
-const uint16_t PROGMEM Hent2_combo[] = {HD_ent2_keys, COMBO_END};  // hard-ENTER/page break
-
-// LOWER ROW
-
-// SEMANTIC FUNCTIONS  ** uses SemKeys **
-// Spatially arranged on the QWERTY ZXCV locations
-//
-const uint16_t PROGMEM Hnew_combo[] = {HD_new_keys, COMBO_END}; // new
-const uint16_t PROGMEM Hopen_combo[] = {HD_open_keys, COMBO_END}; // open
-const uint16_t PROGMEM Hclose_combo[] = {HD_close_keys, COMBO_END}; // close
-const uint16_t PROGMEM Hquit_combo[] = {HD_quit_keys, COMBO_END}; // quit
-const uint16_t PROGMEM Hfind_combo[] = {HD_find_keys, COMBO_END}; // find selection
-const uint16_t PROGMEM Hsall_combo[] = {HD_sall_keys, COMBO_END}; // select all
-const uint16_t PROGMEM Hswrd_combo[] = {HD_swrd_keys, COMBO_END}; // select word
-const uint16_t PROGMEM Hundo_combo[] = {HD_undo_keys, COMBO_END}; // undo
-const uint16_t PROGMEM Hredo_combo[] = {HD_redo_keys, COMBO_END}; // redo
-//const uint16_t PROGMEM Hcut_combo[] = {HD_cut_keys, COMBO_END}; // cut (not using this anymore?)
-const uint16_t PROGMEM Hcopy_combo[] = {HD_copy_keys, COMBO_END}; // copy (hold for cut)
-const uint16_t PROGMEM Hpste_combo[] = {HD_pste_keys, COMBO_END}; // paste (hold for paste-match)
-
 
 // TWO HANDS
 
@@ -270,10 +269,10 @@ const uint16_t PROGMEM PPLMN_combo[] = {RSFT_T(KC_P4), RCTL_T(KC_PPLS), COMBO_EN
 
 
 combo_t key_combos[] = {
-    // These simple combos trigger on press, repeat. HC_kbd_combo
-    [HC_KBD] = COMBO(HC_kbd_combo, MO(L_MEDIA_KBD)), // keyboard/media settings/config layer
+    // These simple combos trigger on press, repeat. HC_cfg_combo
+    [HC_CFG] = COMBO(HC_cfg_combo, MO(L_CFG)), // keyboard/media settings/config layer
     [HC_APP] = COMBO(H_menu_combo, KC_APP), // app menu
-//    [HC_PCT] = COMBO(Hpercent_combo, KC_PERC), // % (hold = for %)
+    [HC_APPNAV] = COMBO(H_menu_nav_combo, KC_APP), // app menu
     [HC_SCLN] = COMBO(Hscln_combo, KC_SCLN), // ;
     [HC_COLN] = COMBO_ACTION(Hcoln_combo), // :  (hold for elipsis)
     [HC_UNDS] = COMBO_ACTION(Hunds_combo), // _ underscore
@@ -285,6 +284,7 @@ combo_t key_combos[] = {
     [HC_HASH] = COMBO(Hhash_combo, SK_SECT), // # hijacked for §
     [HC_AT] = COMBO_ACTION(Hat_combo), // @ (hold for alanreiser.com)
     [HC_TAB] = COMBO(Htab_combo, KC_TAB),
+    [HC_STAB] = COMBO(Hstab_combo, S(KC_TAB)),
 
     [HC_Q] = COMBO_ACTION(H_Q_combo),
     [HC_L1] = COMBO(H_L1_combo, HD_L1),

@@ -35,8 +35,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     
     if (!index) { /* First (left) encoder */
         switch(get_highest_layer(layer_state)){
-          case L_PUNCT: // puncuation layer
-          case L_FN_NUM:
+          case L_SYM: // puncuation layer
+          case L_FUN:
 volbright:
               /* for audio scrub bk/fwd. */
             if ((held_mods & MOD_MASK_SHIFT)) {
@@ -53,7 +53,7 @@ volbright:
                 }
               }
               goto exit;
-          case L_NUMPAD: // numpad layer (for navigating in spreadsheets)
+          case L_NUM: // numpad layer (for navigating in spreadsheets)
               if (clockwise) {
                   tap_code16(KC_RGHT); //
               } else {
@@ -69,7 +69,7 @@ volbright:
               break;
 
     #ifdef RGBLIGHT_ENABLE
-          case L_MEDIA_KBD: // media/kbd settings layer
+          case L_CFG: // media/kbd settings layer
               if (clockwise) {
                   rgblight_increase_val(); // val (brightness) +
               } else {
@@ -95,9 +95,9 @@ volbright:
         }
   } else  {  // Second (right) encoder
       switch(get_highest_layer(layer_state)){
-          case L_PUNCT: // puncuation layer
+          case L_SYM: // puncuation layer
               goto volbright;
-          case L_FN_NUM: // function layer
+          case L_FUN: // function layer
               /* for audio scrub bk/fwd. */
               if (clockwise) {
                   tap_code(KC_MNXT); // media next track
@@ -105,7 +105,7 @@ volbright:
                   tap_code(KC_MPRV); // media prev track
               }
               break;
-          case L_NUMPAD: // numpad layer (for navigating in spreadsheets)
+          case L_NUM: // numpad layer (for navigating in spreadsheets)
               if (clockwise) {
                   tap_code16(KC_DOWN);  //
                         } else {
@@ -121,7 +121,7 @@ volbright:
               break;
 
 #ifdef RGBLIGHT_ENABLE
-          case L_MEDIA_KBD: // media/kbd settings layer
+          case L_CFG: // media/kbd settings layer
               if ((held_mods & MOD_MASK_SHIFT)) {
                   if (clockwise) {
                       rgblight_increase_sat(); // Sat +

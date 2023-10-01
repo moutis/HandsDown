@@ -276,13 +276,13 @@ register_key_trap_and_return:
                 }
                 break;
 
-            case KC_QUOT:  // SHIFT = ], ALT=›, ALT+SHIFT=»
+            case KC_QUOT:  // SHIFT = [ (linger=[|]), ALT=«, ALT+SHIFT=‹
                 clear_keyboard(); // clean record to tinker with.
                 if (saved_mods & MOD_MASK_ALT) { // ALT (only) down?
                         if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
-                            tap_code16(DQUO_SA);// this should be semkey for ‹?
+                            tap_code16(SQUO_SA);// this should be semkey for ‹?
                         } else { // alt & shift?
-                            tap_code16(DQUO_A);// this should be linger on semkey for «?
+                            tap_code16(SQUO_A);// this should be linger on semkey for «?
                         }
                         return_state = false; // don't do more with this record.
 #ifndef JP_MODE_ENABLE
@@ -292,7 +292,7 @@ register_key_trap_and_return:
                            || (!saved_mods && !IS_ENGLISH_MODE)) { // or no mods & not in english
 #endif
 //                    register_linger_key(user_config.RBRC_key); // example of simple linger macro
-                    register_linger_key(DQUO_S); // example of simple linger macro
+                    register_linger_key(SQUO_S); // example of simple linger macro
                     return_state = false; // don't do more with this record.
                 } else //{ // no mods, so linger
                     goto byteshave; // CAUTION: messing w/stack frame here!!
@@ -300,13 +300,14 @@ register_key_trap_and_return:
 //                    return_state = false; // don't do more with this record.
 //                }
                 break;
-            case KC_DQUO: // SHIFT = [ (linger=[|]), ALT=‹, ALT+SHIFT=«
+            case KC_DQUO: // SHIFT = ], ALT=», ALT+SHIFT=›
+                
                 clear_keyboard(); // clean record to tinker with.
                 if (saved_mods & MOD_MASK_ALT) { // ALT (only) down?
                     if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
-                        tap_code16(SQUO_SA);// this should be semkey for ›?
+                        tap_code16(DQUO_SA);// this should be semkey for ›?
                     } else {
-                        tap_code16(SQUO_A);// this should be linger on semkey for »?
+                        tap_code16(DQUO_A);// this should be linger on semkey for »?
                     }
                     return_state = false; // don't do more with this record.
 #ifndef JP_MODE_ENABLE
@@ -316,7 +317,7 @@ register_key_trap_and_return:
                            || (!saved_mods && !IS_ENGLISH_MODE)) { // or no mods & not in english
 #endif
 //                    register_linger_key(user_config.RBRC_key); // example of simple linger macro
-                    register_linger_key(SQUO_S); // example of simple linger macro
+                    register_linger_key(DQUO_S); // example of simple linger macro
                     return_state = false; // don't do more with this record.
                 } else { // no mods, so
 byteshave: // CAUTION: messing w/stack frame here!!

@@ -4,7 +4,10 @@
 // which HD alpha variation are we using?
 //
 // defines all variation dependent constants/files/keycodes, etc.
-#include "handsdown/vv-config.h"
+// they will be used in the respective keymap for each keyboard
+
+#include "handsdown/vb-config.h" // definitions for the Alpha layer and mnemonic combos
+#include "moutis_layers.h" // definitions for all the other layers
 
 
 #ifndef USERSPACE
@@ -68,12 +71,12 @@ extern rgblight_config_t rgblight_config;
 // Perhaps simply redefining these in the xx-config.h
 // to override these defs would be the right approach?
 //
-#define DQUO_S  KC_RBRC // ]
-#define DQUO_A  A(S(KC_BSLS)) // »
-#define DQUO_SA A(S(KC_4)) // ›
-#define SQUO_S  KC_LBRC // [
-#define SQUO_A  A(KC_BSLS) // «
-#define SQUO_SA A(S(KC_3)) // ‹
+#define DQUO_S  KC_RBRC // ] Double quote shifted
+#define DQUO_A  A(S(KC_BSLS)) // » Double quote alted
+#define DQUO_SA A(S(KC_4)) // › Double quote shifted & alted
+#define SQUO_S  KC_LBRC // [ Single quote shifted
+#define SQUO_A  A(KC_BSLS) // « single quote alted
+#define SQUO_SA A(S(KC_3)) // ‹ single quote shifted & alted
 #define JRQU KC_RBRC // keycode for "[" in Japanese mode
 #define JLQU KC_LBRC // keycode for "]" in Japanese mode
 
@@ -87,16 +90,15 @@ typedef union {
 } user_config_t;
 
 
-enum my_layers {  // must be difined before semantickeys.h
-// enum my_layers for layout layers for HD Neu family
-    L_QWERTY,    // 0 - QWERTY compatibility layer
-    L_HDALPHA,   // 1 - Hands Down Alpha layer
-    L_PUNCT,     // 2 - symbols, punctuation, off-map alphas
-    L_FN_NUM,    // 3 - number row & function row
-    L_NUMPAD,    // 4 - numpad (right); navpad (left)
-    L_NAV,       // 5 - nav pad (right); meta keys (left)
-//  L_SYMBOLS,   //  diacritics are better handled by combos and semantickeys?
-    L_MEDIA_KBD  // 6 - Media/Consumer controls; Keyboard settings
+// enum my_layers for layout layers
+enum my_layers {// must be difined before semantickeys.h
+    L_QWERTY,   // 0 - QWERTY compatibility layer
+    L_HD,       // 1 - Hands Down Alpha layer
+    L_SYM,      // 2 - symbols, punctuation, off-map alphas
+    L_FUN,      // 3 - function & number rows
+    L_NUM,      // 4 - numpad (right); navpad (left)
+    L_NAV,      // 5 - nav pad (right); meta keys (left)
+    L_CFG       // 6 - Media/Consumer controls; Keyboard settings
 };
 
 enum OS_Platform { // Used for platform support via SemKeys

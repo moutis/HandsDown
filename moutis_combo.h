@@ -41,15 +41,16 @@
 
 enum my_combos {
     FC_ESC, // ESCape SIMPLE COMBO must be first (used as FALSE for combo_on)
-    HC_KBD,
+    HC_CFG,  // The keyboard and media config/settings layer
     HC_APP,
+    HC_APPNAV, // App menu on Nav layer
     HC_CAPW, // CAPS WORD for all others
     FC_CAPS, // CAPS LOCK (others)
-    FC_LANG2, // eisuu (others)
-    FC_LANG1, // kana (others)
+    FC_LANG2, // eisuu/mhen (others)
+    FC_LANG1, // kana/henk (others)
 
     HC_TAB,
-//    HC_PCT, // % percent (hold = for %)
+    HC_STAB,
     HC_DOLR, // $
     HC_HASH, // #
     HC_QUES, // ?

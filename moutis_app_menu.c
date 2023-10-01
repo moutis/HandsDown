@@ -34,6 +34,7 @@ void process_APP_MENU(keyrecord_t *record) {
         tap_code16(S(KC_TAB)); // switch app
     else
 */
+    layer_on(L_NAV);
     tap_code(KC_TAB); // switch app
     state_reset_timer = timer_read(); // (re)start timing hold for keyup below
     return; // handled this record.
@@ -51,6 +52,7 @@ void process_APP_MENU(keyrecord_t *record) {
     } else {
       unregister_code(KC_RGUI); // Mac
     }
+    layer_off(L_NAV);
     state_reset_timer = 0;  // stop the timer
   }
   return; // handled this record.
@@ -68,6 +70,7 @@ void matrix_APP_MENU(void) {
             } else {
                 unregister_code(KC_RGUI); // Mac
             }
+            layer_off(L_NAV);
             state_reset_timer = mods_held = 0;  // stop the timer
             appmenu_on = false;
         }

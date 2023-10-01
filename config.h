@@ -55,14 +55,6 @@
     #define COMBO_HOLD (TAPPING_TERM) // time to hold to trigger delayed combo
 #endif
 
-#define ADAPTIVE_ENABLE
-#define ADAPTIVE_TRAILER KC_3
-
-//#define THUMB_REPEATER
-#ifdef THUMB_REPEATER
-#define HD_REPEATER_A HD_BSPC
-#define HD_REPEATER_B KC_ENT
-#endif
 
 #ifdef COMBO_HOLD
     #undef ADAPTIVE_TERM
@@ -73,8 +65,16 @@
 
 #define LINGER_TIME TAPPING_TERM * 1.2 // how long to hold before a time-depentant behavior begins
 // how long to leave a state active before resetting like APPMENU or SHIFTWORD
-#define STATE_RESET_TIME LINGER_TIME * 4
+#define STATE_RESET_TIME LINGER_TIME * 3
 
+#define ADAPTIVE_ENABLE
+#define ADAPTIVE_TRAILER KC_3
+
+//#define THUMB_REPEATER
+#ifdef THUMB_REPEATER
+#define HD_REPEATER_A HD_BSPC
+#define HD_REPEATER_B KC_ENT
+#endif
 
 #define EN_PRONOUN_COMBOS // English First Person pronoun combos (I, I'm, I've I'd I'll etc) (184 bytes on AVR)
 #define EN_PRONOUN_COMBOS_ALL  // combos for you('ve), We('ve), They('ve) etc. (616 bytes on AVR)

@@ -82,7 +82,7 @@ enum my_keycodes {
     HD_L_ALPHA,
 
 
-/* Eventually…these should be handled as SemKeys with BCD Alt-gr?
+/* Eventually…these should be handled as SemKeys with BCD & Alt-gr for Windows?
    HD_aumlt,
    HD_amacr,
    HD_aacut,

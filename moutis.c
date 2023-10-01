@@ -53,22 +53,22 @@ layer_state_t layer_state_set_user(layer_state_t layer_state) {
 
 
     switch (biton32(layer_state)) {
-        case L_HDALPHA:
+        case L_HD:
 #ifdef RGBLIGHT_ENABLE
             rgblight_sethsv_noeeprom(128, 128, 128);
             break;
 #endif
-        case L_PUNCT:
+        case L_SYM:
 #ifdef RGBLIGHT_ENABLE
             rgblight_sethsv_noeeprom(213, 255, 128);
 #endif
             break;
-        case L_FN_NUM:
+        case L_FUN:
 #ifdef RGBLIGHT_ENABLE
             rgblight_sethsv_noeeprom(64, 255, 128);
 #endif
             break;
-        case L_NUMPAD:
+        case L_NUM:
 #ifdef RGBLIGHT_ENABLE
             rgblight_sethsv_noeeprom(85, 255, 128);
 #endif
@@ -78,7 +78,7 @@ layer_state_t layer_state_set_user(layer_state_t layer_state) {
             rgblight_sethsv_noeeprom(128, 255, 128);
 #endif
             break;
-        case L_MEDIA_KBD:
+        case L_CFG:
 #ifdef RGBLIGHT_ENABLE
             rgblight_sethsv_noeeprom(0, 255, 128);
 #endif
