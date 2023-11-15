@@ -26,7 +26,11 @@
 
 
 enum my_keycodes {
-    SK_KILL = SAFE_RANGE, // SK_KILL must be the first of contiguous block of SKs
+    HD_AdaptKeyToggle = SAFE_RANGE, // Adaptive Keys Toggle on/off
+    HD_L_QWERTY, // base layer switch
+    HD_L_ALPHA,
+        // Semantic Keys (keystrokes handled by process_semkey() for platform independence)
+    SK_KILL, // SK_KILL must be the first of contiguous block of SKs
     SK_HENK,  // kana (others)
     SK_MHEN, // eisuu (others)
     SK_HENT, // Hard-Enter
@@ -66,20 +70,31 @@ enum my_keycodes {
     SK_APPPRV, // APP switcher Prev (least recently used)
     SK_WINNXT, // Window/tab switcher Next
     SK_WINPRV, // Window/tab switcher Prev
-    SK_SECT, // §
+        // Punctuation
+    SK_SECT, // § Section symbol
     SK_ENYE, // ñ/Ñ ENYE
-    SK_SQUL, // ’ ** Left single quote UNICODE?
-    SK_SQUR, // ’ ** Right single quote UNICODE?
-    SK_SDQL, // ’ ** Left double quote UNICODE?
-    SK_SDQR, // ’ ** Right double quote UNICODE?
-    SK_FDQL, // ’ « Left double French quote UNICODE?
-    SK_FDQR, // ’ » Right double French quote UNICODE?
-    SK_FSQL, // ’ ‹ Left single French quote UNICODE? S(A(3))
-    SK_FSQR, // ’ › Right single French quote UNICODE? S(A(4))
-    SemKeys_COUNT, // end of non-glyph SemKeys
-    HD_AdaptKeyToggle,
-    HD_L_QWERTY,
-    HD_L_ALPHA,
+    SK_IEXC, // ¡ Inverted exclamation mark
+    SK_ELPS, // … Elipsis
+    SK_PARA, // ¶ Paragraph symbol
+    SK_MDSH, // — M-Dash
+    SK_DCRS, // ‡ Double Cross
+    SK_SCRS, // † Single Cross
+    SK_BBLT, // • Bold Bullet
+        // Currency
+    SK_CENT, // ¢
+    SK_EURO, // €
+    SK_BPND, // £
+    SK_JPY,  // ¥
+        // Quotations
+    SK_SQUL, // ’ Left single quote (linger for paired)
+    SK_SQUR, // ’ Right single quote
+    SK_SDQL, // ’ Left double quote (linger for paired)
+    SK_SDQR, // ’ Right double quote
+    SK_FDQL, // ’ « Left double French quote (linger for paired)
+    SK_FDQR, // ’ » Right double French quote
+    SK_FSQL, // ’ ‹ Left single French quote (linger for paired)
+    SK_FSQR, // ’ › Right single French quote
+    SemKeys_COUNT, // end of SemKeys
 
 
 /* Eventually…these should be handled as SemKeys with BCD & Alt-gr for Windows?
@@ -121,3 +136,5 @@ enum my_keycodes {
 #define register_SemKey(sk) register_code16(SemKeys_t[sk - SK_KILL][user_config.OSIndex])
 #define unregister_SemKey(sk) unregister_code16(SemKeys_t[sk - SK_KILL][user_config.OSIndex])
 
+#define linger_SemKey(sk) {register_code16(SemKeys_t[sk - SK_KILL][user_config.OSIndex]);linger_key = sk;linger_timer = state_reset_timer = timer_read();}
+#define unlinger_SemKey(sk) {unregister_code16(SemKeys_t[linger_key - SK_KILL][user_config.OSIndex]);linger_key = 0;}

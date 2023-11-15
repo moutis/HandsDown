@@ -45,7 +45,7 @@ bool process_adaptive_key(uint16_t *calling_keycode, const keyrecord_t *record) 
                     return_state = false; // done.
                     break;
                 case KC_J:
-                    tap_code(KC_P);
+                    tap_code(KC_P); // yields jpg
                     break;
                 case KC_K:
                     goto PullUpLAndExit; // short jumps save bytes

@@ -53,13 +53,15 @@ volbright:
                 }
               }
               goto exit;
+#ifdef L_NUM_SCAN
           case L_NUM: // numpad layer (for navigating in spreadsheets)
-              if (clockwise) {
+                if (clockwise) {
                   tap_code16(KC_RGHT); //
               } else {
                   tap_code16(KC_LEFT);  //
               }
               break;
+#endif
           case L_NAV: // nav layer
               if (clockwise) {
                   tap_SemKey(SK_ZOOMIN); // ZOOM IN

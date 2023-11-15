@@ -62,7 +62,7 @@ extern rgblight_config_t rgblight_config;
 #include "moutis_combo.h"  //
 
 //
-// These COULD be made variation dependent, to allow
+// These COULD be made variation/platform dependent, to allow
 // them to adapt to geometry differences. Ex.
 // most NEU variations have " ' on ring/pinky
 // but Bronze/Silver heve ' " (inverted)
@@ -71,14 +71,10 @@ extern rgblight_config_t rgblight_config;
 // Perhaps simply redefining these in the xx-config.h
 // to override these defs would be the right approach?
 //
-#define DQUO_S  KC_RBRC // ] Double quote shifted
-#define DQUO_A  A(S(KC_BSLS)) // » Double quote alted
-#define DQUO_SA A(S(KC_4)) // › Double quote shifted & alted
-#define SQUO_S  KC_LBRC // [ Single quote shifted
-#define SQUO_A  A(KC_BSLS) // « single quote alted
-#define SQUO_SA A(S(KC_3)) // ‹ single quote shifted & alted
-#define JRQU KC_RBRC // keycode for "[" in Japanese mode
-#define JLQU KC_LBRC // keycode for "]" in Japanese mode
+#define DQUO_S  KC_RBRC // ] (via Double quote shifted)
+#define SQUO_S  KC_LBRC // [ (via Single quote shifted)
+#define JRQU KC_RBRC //  「 (via " in Japanese mode)
+#define JLQU KC_LBRC //  」 (via ' in Japanese mode)
 
 
 typedef union {
@@ -102,15 +98,18 @@ enum my_layers {// must be difined before semantickeys.h
 };
 
 enum OS_Platform { // Used for platform support via SemKeys
-    OS_Mac,     // uses ANSI_US_EXTENDED layout
-    OS_Win,
+    OS_Mac,     // Mac with ANSI_US_EXTENDED layout
+//    OS_iOS,     // iOS?
+    OS_Win,     // Win with default English/ANSI layout?
+//    OS_Lux,     // Linux (Gnome?/KDE?)
+//    OS_And,     // Android (flavors?)
     OS_count
 };
 
 #include "moutis_semantickeys.h"
 
-#define register_linger_key(kc) {register_code16(kc);linger_key = kc;linger_timer = state_reset_timer = timer_read();}
-#define unregister_linger_key() {unregister_code16(linger_key);linger_key = 0;}
+#define register_linger_key(kc) {((kc > (uint16_t)SK_KILL) && (kc < (uint16_t)SemKeys_COUNT)) ? register_SemKey(kc) : register_code16(kc);linger_key = kc;linger_timer = state_reset_timer = timer_read();}
 
+#define unregister_linger_key() {((linger_key > (uint16_t)SK_KILL) && (linger_key < (uint16_t)SemKeys_COUNT)) ? unregister_SemKey(linger_key) : unregister_code16(linger_key);linger_key = 0;}
 
 void matrix_scan_user_process_combo(void);

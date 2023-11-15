@@ -252,11 +252,11 @@ register_key_trap_and_return:
                     if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
                         tap_SemKey(SK_SECT); //
                     } else {
-                        tap_code16(A(KC_7)); // this should be semkey for ¶
+                        tap_SemKey(SK_PARA); // this should be semkey for ¶
                     }
                     return_state = false; // stop processing this record.
                 } else if (saved_mods & MOD_MASK_SHIFT) { // only SHFT down
-                    tap_code16(S(A(KC_MINS))); // this should be semkey for — M-Dash
+                    tap_SemKey(SK_MDSH); // this should be semkey for — M-Dash
                     return_state = false; // stop processing this record.
                 }
                 break;
@@ -271,18 +271,18 @@ register_key_trap_and_return:
                     }
                     return_state = false; // stop processing this record.
                 } else if (saved_mods & MOD_MASK_SHIFT) { // only SHFT down
-                    tap_code16(A(KC_SCLN)); // this should be semkey for …
+                    tap_SemKey(SK_ELPS); // semkey for …
                     return_state = false; // stop processing this record.
                 }
                 break;
 
-            case KC_QUOT:  // SHIFT = [ (linger=[|]), ALT=«, ALT+SHIFT=‹
+            case KC_DQUO:  // SHIFT = [ (linger=[|]), ALT=«, ALT+SHIFT=‹
                 clear_keyboard(); // clean record to tinker with.
                 if (saved_mods & MOD_MASK_ALT) { // ALT (only) down?
                         if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
-                            tap_code16(SQUO_SA);// this should be semkey for ‹?
-                        } else { // alt & shift?
-                            tap_code16(SQUO_A);// this should be linger on semkey for «?
+                            register_linger_key(SK_FSQL); // linger on semkey for ‹
+                        } else { // only alt?
+                            register_linger_key(SK_FDQL); // linger on semkey for «
                         }
                         return_state = false; // don't do more with this record.
 #ifndef JP_MODE_ENABLE
@@ -291,23 +291,19 @@ register_key_trap_and_return:
                 } else if (((saved_mods & MOD_MASK_SHIFT) && IS_ENGLISH_MODE)  // SHFT (only)
                            || (!saved_mods && !IS_ENGLISH_MODE)) { // or no mods & not in english
 #endif
-//                    register_linger_key(user_config.RBRC_key); // example of simple linger macro
                     register_linger_key(SQUO_S); // example of simple linger macro
                     return_state = false; // don't do more with this record.
                 } else //{ // no mods, so linger
                     goto byteshave; // CAUTION: messing w/stack frame here!!
-//                    register_linger_key(keycode); // example of simple linger macro
-//                    return_state = false; // don't do more with this record.
-//                }
                 break;
-            case KC_DQUO: // SHIFT = ], ALT=», ALT+SHIFT=›
+            case KC_QUOT: // SHIFT = ], ALT=», ALT+SHIFT=›
                 
                 clear_keyboard(); // clean record to tinker with.
                 if (saved_mods & MOD_MASK_ALT) { // ALT (only) down?
                     if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
-                        tap_code16(DQUO_SA);// this should be semkey for ›?
+                        tap_SemKey(SK_FSQR); // semkey for ›
                     } else {
-                        tap_code16(DQUO_A);// this should be linger on semkey for »?
+                        tap_SemKey(SK_FDQR); // semkey for »
                     }
                     return_state = false; // don't do more with this record.
 #ifndef JP_MODE_ENABLE
@@ -316,7 +312,6 @@ register_key_trap_and_return:
                 } else if (((saved_mods & MOD_MASK_SHIFT) && IS_ENGLISH_MODE)  // SHFT (only)
                            || (!saved_mods && !IS_ENGLISH_MODE)) { // or no mods & not in english
 #endif
-//                    register_linger_key(user_config.RBRC_key); // example of simple linger macro
                     register_linger_key(DQUO_S); // example of simple linger macro
                     return_state = false; // don't do more with this record.
                 } else { // no mods, so
@@ -464,10 +459,13 @@ storeSettings:
                 //
                 break;
 
-            case KC_DQUO:  // SHIFT = ], ALT=›, ALT+SHIFT=»
-            case KC_QUOT:  // SHIFT = [ (linger=[|]), ALT=‹, ALT+SHIFT=«
-                unregister_linger_key(); // stop lingering
-                unregister_code16(keycode); // may still need to handle this
+            case SK_FDQL:  // «
+            case SK_FSQL:  // ‹
+            case KC_BSLS:  // actual keycode for « & »
+            case KC_QUOT: // SHIFT = ], ALT=›, ALT+SHIFT=»
+            case KC_DQUO: // SHIFT = [ (linger=[|]), ALT=‹, ALT+SHIFT=«
+                unregister_linger_key(); // stop any lingering
+                //unregister_code16(keycode); // may still need to handle this
                 return_state = false; // stop processing this record.
                 break;
 

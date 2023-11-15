@@ -102,12 +102,26 @@ const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][OS_count] = {
     [SK_APPPRV - SK_KILL] = {RGUI(RSFT(KC_TAB)),A(S(KC_TAB))}, // APP switcher Prev (least recently used)
     [SK_WINNXT - SK_KILL] = {RCTL(KC_TAB),C(KC_TAB)}, // Window/tab switcher Next
     [SK_WINPRV - SK_KILL] = {RCTL(RSFT(KC_TAB)),C(S(KC_TAB))}, // Window/tab switcher Prev
-    [SK_SECT - SK_KILL] = {A(KC_5),0xE167}, // § ** SAMPLE OF GLYPH. REALLY NEED UNICODE.
-    [SK_ENYE - SK_KILL] = {A(KC_N),A(KC_N)}, // ñ/Ñ ** SAMPLE OF GLYPH. REALLY NEED UNICODE?
+        // Punctuation
+    [SK_SECT - SK_KILL] = {A(KC_5),0xE167}, // § ** need Win Compose via BCD.
+    [SK_ENYE - SK_KILL] = {A(KC_N),A(KC_N)}, // ñ/Ñ ** need Win Compose via BCD?
+    [SK_IEXC - SK_KILL] = {RALT(KC_1),RALT(KC_1)}, // ¡ Inverted exclamation mark ** need Win Compose via BCD?
+    [SK_ELPS - SK_KILL] = {A(KC_SCLN),A(KC_SCLN)}, // … ** need Win Compose via BCD?
+    [SK_PARA - SK_KILL] = {A(KC_7),A(KC_7)}, // ¶ ** need Win Compose via BCD?
+    [SK_MDSH - SK_KILL] = {S(A(KC_MINS)),S(A(KC_MINS))}, // — ** need Win Compose via BCD?
+    [SK_DCRS - SK_KILL] = {LSA(KC_7),LSA(KC_7)}, // ‡ Double Cross ** need Win Compose via BCD?
+    [SK_SCRS - SK_KILL] = {RSA(KC_5),RSA(KC_5)}, // † Single Cross ** need Win Compose via BCD?
+    [SK_BBLT - SK_KILL] = {LALT(KC_8),LALT(KC_8)}, // • Bold Bullet ** need Win Compose via BCD?
+        // Currency
+    [SK_CENT - SK_KILL] = {LALT(KC_4),LALT(KC_4)}, // ¢ ** need Win Compose via BCD?
+    [SK_EURO - SK_KILL] = {A(S(KC_2)),A(S(KC_2))}, // € ** need Win Compose via BCD?
+    [SK_BPND - SK_KILL] = {RALT(KC_3),RALT(KC_3)}, // £ ** need Win Compose via BCD?
+    [SK_JPY  - SK_KILL] = {LALT(KC_Y),LALT(KC_Y)},  // ¥ ** need Win Compose via BCD?
+        // Quotations
     [SK_SQUL - SK_KILL] = {A(KC_RBRC),A(KC_RBRC)}, // ’ ** Left single quote UNICODE?
     [SK_SQUR - SK_KILL] = {S(A(KC_RBRC)),S(A(KC_RBRC))}, // ’ ** Right single quote UNICODE?
-    [SK_SDQL - SK_KILL] = {A(KC_LBRC),A(KC_LBRC)}, // ’ ** Left double quote UNICODE?
-    [SK_SDQR - SK_KILL] = {A(S(KC_LBRC)),A(S(KC_LBRC))}, // ’ ** Right double quote UNICODE?
+    [SK_SDQL - SK_KILL] = {A(KC_LBRC),A(KC_LBRC)}, // “ ** Left double quote UNICODE?
+    [SK_SDQR - SK_KILL] = {A(S(KC_LBRC)),A(S(KC_LBRC))}, // ” ** Right double quote UNICODE?
     [SK_FDQL - SK_KILL] = {A(KC_BSLS),A(KC_BSLS)}, //  « Left double French quote UNICODE?
     [SK_FDQR - SK_KILL] = {S(A(KC_BSLS)),S(A(KC_BSLS))}, //  » Right double French quote UNICODE?
     [SK_FSQL - SK_KILL] = {S(A(KC_3)),A(KC_LBRC)}, //  ‹ Left single French quote UNICODE?
@@ -122,76 +136,14 @@ bool process_semkey(uint16_t keycode, const keyrecord_t *record) {
         saved_mods = get_mods();
         if (record->event.pressed) {
             switch (keycode) {
-/*
  //
- // demonstrator. can handle multi-keystrokes here
+ // handle multi-keystroke semkeys here
  //
-                case SK_umluatU: // Ü
-                    tap_code16(A(KC_U));
-                    tap_code16(KC_U);
-                   break;
-                case SK_umluatO: // Ö
-                    tap_code16(A(KC_U));
-                    tap_code16(KC_O);
-                    break;
-                case SK_ringU: // Ů
-                    tap_code16(A(KC_K));
-                    tap_code16(KC_U);
-                    break;
-                case SK_ringO: //
-                    tap_code16(A(KC_K));
-                    tap_code16(KC_O);
-                    break;
-                case SK_caretU: // Û
-                    tap_code16(A(KC_6));
-                    tap_code16(KC_U);
-                   break;
-                case SK_caretO: // Ô
-                    tap_code16(A(KC_6));
-                    tap_code16(KC_O);
-                    break;
-                case SK_acuteU: // Ú
-                    tap_code16(A(KC_E));
-                    tap_code16(KC_U);
-                    break;
-                case SK_acuteO: // Ó
-                    tap_code16(A(KC_E));
-                    tap_code16(KC_O);
-                    break;
-
-                case SK_acuteE: // É
-                    tap_code16(A(KC_E));
-                    tap_code16(KC_E);
-                    break;
-                case SK_macronE: // Ē
-                    tap_code16(A(KC_A));
-                    tap_code16(KC_O);
-                    break;
-                case SK_caretE: // Ê
-                    tap_code16(A(KC_6));
-                    tap_code16(KC_E);
-                    break;
-*/
-/*
-    Example of custom behaviors.
- */
                 case SK_SWRD: // Select current word
                     tap_SemKey(SK_WORDPRV);
                     register_code(KC_LSFT); // shift for select is close to universal?
                     tap_SemKey(SK_WORDNXT); // of course, not for VIM and the like,
                     unregister_code(KC_LSFT); // but we're talking OS platforms?
-                    break;
-                case SK_SCAP: // screen capture to clipboard
-                    tap_SemKey(SK_SCAP); // default probably works, but since only tap is desired, we'll tap it here.
-                    break;
-                case SK_SCLP: // selection capture to clipboard
-                    tap_SemKey(SK_SCLP);
-                    break;
-                case SK_CUT: // cut
-                    tap_SemKey(SK_CUT);
-                    break;
-                case SK_COPY:
-                    tap_SemKey(SK_COPY);
                     break;
                 case SK_ENYE: // ñ/Ñ ENYE
                     // Doing it this way until proper multi-keystroke table is implemented
@@ -223,11 +175,14 @@ bool process_semkey(uint16_t keycode, const keyrecord_t *record) {
 #ifdef JP_MODE_ENABLE
                     IS_ENGLISH_MODE = true;
 #endif
-                    tap_SemKey(SK_MHEN); // Mac/Win/iOS all different?
+                    tap_SemKey(SK_MHEN); // Mac/Win/iOS/Lux all different?
 //                    return_state = false; // stop processing this record.
                     break;
-                default: // default keydown event
+                default: // default keydown event (from the semkey table)
                     register_SemKey(keycode);
+/* Add the BCD decode for Win compose key stuff here
+ 
+*/
                     break;
             }
         } else { // The keyup event

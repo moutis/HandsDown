@@ -20,10 +20,11 @@
 const uint16_t PROGMEM HC_cfg_combo[] = {HD_RH1, HD_RH2, COMBO_END}; // keyboard settings/config layer
 #ifdef APPMENU_keys
 const uint16_t PROGMEM H_menu_combo[] = {APPMENU_keys, COMBO_END}; // AppMENU
+const uint16_t PROGMEM H_menu_nav_combo[] = {APPMENU_nav_keys, COMBO_END}; // AppMENU
 #else
 const uint16_t PROGMEM H_menu_combo[] = {HD_LB3, HD_LB1, COMBO_END}; // AppMENU // default Appmenu location
-#endif
 const uint16_t PROGMEM H_menu_nav_combo[] = {LN_LB3, LN_LB1, COMBO_END}; // AppMENU on Nav layer
+#endif
 
 // Spatially arranged on the QWERTY ZXCV locations
 //
@@ -35,7 +36,7 @@ const uint16_t PROGMEM Hent2_combo[] = {HD_ent2_keys, COMBO_END};  // hard-ENTER
 
 // SEMANTIC FUNCTIONS  ** usinp SemKeys **
 const uint16_t PROGMEM Hnew_combo[] = {HD_new_keys, COMBO_END}; // new
-const uint16_t PROGMEM Hopen_combo[] = {HD_open_keys, COMBO_END}; // openi
+const uint16_t PROGMEM Hopen_combo[] = {HD_open_keys, COMBO_END}; // open
 const uint16_t PROGMEM Hclose_combo[] = {HD_close_keys, COMBO_END}; // close
 const uint16_t PROGMEM Hquit_combo[] = {HD_quit_keys, COMBO_END}; // quit
 const uint16_t PROGMEM Hfind_combo[] = {HD_find_keys, COMBO_END}; // find selection
@@ -60,8 +61,8 @@ const uint16_t PROGMEM F_SCAP_combo[] = {HD_LT3, HD_LT2, HD_LT1, HD_LT0, COMBO_E
 
 const uint16_t PROGMEM F_CAPS_combo[] = {HD_LM3, HD_LM2, HD_RM2, HD_RM3, COMBO_END}; // CAPS LOCK (on until hit again)
 const uint16_t PROGMEM H_CAPW_combo[] = {HD_LM1, HD_LM2, HD_RM1, HD_RM2, COMBO_END}; // CAPS WORD (on until word delimiter)
-const uint16_t PROGMEM H_EISUU_combo[] = {HD_LB3, HD_LB2, HD_LB1, COMBO_END}; // KC_MHEN
-const uint16_t PROGMEM H_KANA_combo[] = {HD_RB3, HD_RB2, HD_RB1, COMBO_END}; // KC_HENK
+const uint16_t PROGMEM H_EISUU_combo[] = {HD_LM3, HD_LM2, HD_LM1, COMBO_END}; // KC_MHEN
+const uint16_t PROGMEM H_KANA_combo[] = {HD_RM3, HD_RM2, HD_RM1, COMBO_END}; // KC_HENK
 
 
 

@@ -77,8 +77,8 @@
 #define HD_LT2 HD_M
 #define HD_LT1 HD_G
 #define HD_LT0 HD_J
-#define HD_LTA OSL(L_CFG)
-#define HD_RTA TG(L_NUM)
+#define HD_LTA LT(L_CFG, KC_MUTE)
+#define HD_RTA LT(L_CFG, KC_MPLY)
 #define HD_RT0 HD_HASH
 #define HD_RT1 HD_DOT
 #define HD_RT2 HD_SLSH
@@ -108,9 +108,9 @@
 #define HD_LB1 HD_D
 #define HD_LB0 HD_V
 #define HD_LBA LT(L_NUM, KC_LBRC)
-#define HD_LBB LT(L_FUN,SK_COPY)
-#define HD_RBB LT(L_FUN,SK_PSTE)
-#define HD_RBA LT(L_NAV,KC_RBRC)
+#define HD_LBB LT(L_CFG, KC_LNG2)
+#define HD_RBB LT(L_FUN, KC_LNG1)
+#define HD_RBA LT(L_NAV, KC_RBRC)
 #define HD_RB0 HD_MINS
 #define HD_RB1 HD_U
 #define HD_RB2 HD_O
@@ -120,7 +120,7 @@
 
 //Primary Thumbs 1-3 (others are unique to the board)
 #define HD_LH5 KC_LEFT
-#define HD_LH4 LT(L_FUN,KC_MUTE)
+#define HD_LH4 KC_RGHT
 #define HD_LH3 KC_APP
 #define HD_LH2 HD_BSPC
 #define HD_LH1 HD_R
@@ -131,8 +131,8 @@
 #define HD_RH1 HD_SPC
 #define HD_RH2 HD_ENT
 #define HD_RH3 TG(L_NUM)
-#define HD_RH4 LT(L_FUN,KC_MPLY)
-#define HD_RH5 KC_DN
+#define HD_RH4 KC_UP
+#define HD_RH5 KC_DOWN
 
 #ifdef COMBO_ENABLE
 //
@@ -151,17 +151,36 @@
 // These few spatial combos may move to accommodate some mnemonic combos,
 // notably the H-digraph combos that inhabit close areas.
 //
-#define HD_tab_keys  HD_LM3, HD_LM1     // tab
-#define HD_stab_keys HD_LM3, HD_LM2, HD_LM1  // hard-ENTER/page break
+// SEMANTIC FUNCTIONS  ** uses SemKeys **
+// Spatially arranged on the QWERTY ZXCV locations
+// independent of the HD Alphas, though since some of
+// the above combos may compete for the same locations,
+// we'll define them all here.
+//
+#define HD_new_keys   HD_LM2, HD_LB2   // new
+#define HD_open_keys  HD_LM1, HD_LB1   // open
+#define HD_close_keys HD_LM3, HD_LB3   // close
+#define HD_quit_keys  HD_LB0, HD_LM0   // quit
+#define HD_find_keys  HD_LM4, HD_LM0   // find selection
+#define HD_sall_keys  HD_LB4, HD_LB1   // select all
+#define HD_swrd_keys  HD_LB4, HD_LB0   // select word
+#define HD_undo_keys  HD_LB4, HD_LB3   // undo
+#define HD_redo_keys  HD_LB4, HD_LB3, HD_LB2   // redo
+#define HD_copy_keys  HD_LB3, HD_LB2   // copy (hold for cut)
+#define HD_pste_keys  HD_LB2, HD_LB1   // paste (hold for paste-match)
+
+#define HD_tab_keys  HD_LT4, HD_LT3     // tab
+#define HD_stab_keys HD_LT4, HD_LT3, HD_LT2  // Shift-tab
 #define HD_spc_keys  HD_LM1, HD_LM0     // SPACE
 #define HD_ent_keys  HD_LB0, HD_LB1     // ENTER
 #define HD_ent2_keys HD_LB0, HD_LB1, HD_LB2 // hard-ENTER/page break
 #define APPMENU_keys  HD_LT1, HD_LT0  // APPMENU
+#define APPMENU_nav_keys  LN_LT1, LN_LT0  // APPMENU
 
 // TEXT ENTRY - off map standard alphas (also on Layer L_SYM @ Z=LT4 & Q=LT3)
 //
 #define HD_Qu_keys HD_LT3, HD_LT1 // TYPE "q" (Qu & Linger deletes u)
-#define HD_L1_keys HD_LT4, HD_LT3 // ex. TYPE "z"
+#define HD_L1_keys HD_LM3, HD_LM1 // ex. TYPE "z"
 #define HD_L1 HD_Z
 //#define HD_L2_keys HD_LM3, HD_LM1 // ex. TYPE "x"
 //#define HD_L2 HD_X
@@ -224,26 +243,6 @@
 
 #endif // EN_PRONOUNS_ALL
 #endif // EN_PRONOUNS // the entirely unnecessary pronoun combo shenanigans
-
-
-
-// SEMANTIC FUNCTIONS  ** uses SemKeys **
-// Spatially arranged on the QWERTY ZXCV locations
-// independent of the HD Alphas, though since some of
-// the above combos may compete for the same locations,
-// we'll define them all here.
-//
-#define HD_new_keys   HD_LM2, HD_LB2   // new
-#define HD_open_keys  HD_LM1, HD_LB1   // open
-#define HD_close_keys HD_LM3, HD_LB3   // close
-#define HD_quit_keys  HD_LB0, HD_LM0   // quit
-#define HD_find_keys  HD_LM4, HD_LM0   // find selection
-#define HD_sall_keys  HD_LB4, HD_LB1   // select all
-#define HD_swrd_keys  HD_LB4, HD_LB0   // select word
-#define HD_undo_keys  HD_LB4, HD_LB3   // undo
-#define HD_redo_keys  HD_LB4, HD_LB3, HD_LB2   // redo
-#define HD_copy_keys  HD_LB3, HD_LB2   // copy (hold for cut)
-#define HD_pste_keys  HD_LB2, HD_LB1   // paste (hold for paste-match)
 
 
 

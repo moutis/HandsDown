@@ -71,18 +71,30 @@ void matrix_scan_user(void) {
                         tap_code16(KC_LEFT);
                         break;
 
-                    case KC_QUOT: //
+                    case KC_QUOT: // ‘|’ single paired quotes
                         tap_code16(KC_BSPC);
                         tap_SemKey(SK_SQUL);
                         tap_SemKey(SK_SQUR);
                         tap_code16(KC_LEFT);
                         break;
-                    case KC_DQUO: //
+                    case KC_DQUO: // “|” double paired quotes
                         tap_code16(KC_BSPC);
-                        clear_keyboard();       // QMK doesn't let go of shift here?
-                        tap_SemKey(SK_SDQL);
-                        tap_SemKey(SK_SDQR);
+                        clear_keyboard();  // QMK doesn't let go of shift here?
+                        tap_SemKey(SK_SDQL); // “
+                        tap_SemKey(SK_SDQR); // ”
                         tap_code(KC_LEFT);
+                        break;
+                    case SK_FDQL: //  « | » double French quote
+                        tap_SemKey(SK_FDQR);
+                        goto pushspaceshere;
+                    case SK_FSQL: //  ‹ | › single French quote
+                        tap_SemKey(SK_FSQR);
+pushspaceshere:
+                        tap_code(KC_LEFT); // break up 2 dble spc
+                        tap_code16(KC_SPACE); // to thwart "smart" EOS.
+                        tap_code(KC_LEFT);
+                        tap_code16(KC_SPACE);
+                        //unregister_SemKey(linger_key);
                         break;
 
                     default:
