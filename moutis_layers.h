@@ -11,7 +11,8 @@
 
 
 //     Key Position Names for a 34 (-54) key split form factor
-//        Should cover Ferris through Atreus-Kyria-Ergodox
+//        Should cover ergo boards Ferris through Atreus-Kyria-Ergodox
+//        and orthos like plank and Naked48
 //     ╭─────────────────────╮                  ╭─────────────────────╮
 // LT5 │ LT4 LT3 LT2 LT1 LT0 │ LTA          RTB │ RT0 RT1 RT2 RT3 RT4 │ RT5
 // LM5 │ LM4 LM3 LM2 LM1 LM0 | LMA          RMA | RT0 RM1 RM2 RM3 RM4 │ RM5
@@ -23,25 +24,18 @@
 
 /*  L_SYM Symbols and punctuation (Some via SemKeys/unicode for platform independance)
    ╭──────────────────────────────────────────╮                  ╭──────────────────────────────────────────╮
-__ │    Z       Q       §       ¶       ‡     │                  │     ¢        $       €       £       ¥   │ __
+__ │    Z       Q       ¶       §       ‡     │                  │     ¢        $       €       £       ¥   │ __
 __ │    <       [       (       {       †     |                  |     ¡        *       =       +       /   │ __
-__ │    >       ]       )       }       •     │ TAB  __  __  ESC │     _        |       &       ^       %   │ __
-   ╰──────────────────╮  __   D_WordL D_WordR │ __           __  │  HISTPRV  HISTNXT    __    ╭─────────────╯
+__ │    >       ]       )       }       •     │ __  __   __  __  │     _        |       &       ^       %   │ __
+   ╰──────────────────╮ VolD  D_WordL D_WordR │ VolU         __  │     ª        °       ·     ╭─────────────╯
       HISTPRV HISTNXT ╰───────────────────────╯                  ╰────────────────────────────╯ ZOOMRST ZOOMOUT
 */
 
-/* L_SYM Symbols & punctuation (Much of this should be handled by SemKeys/unicode for platform independance
-    ______, KC_Z, KC_Q, SK_SECT, SK_PARA, SK_DCRS, SK_CENT, KC_DLR, SK_EURO, SK_BPND, SK_JPY, ______,
-    ______, KC_LT, KC_LBRC, KC_LPRN, KC_LCBR, SK_SCRS, SK_IEXC, RSFT_T(KC_PAST), RGUI_T(KC_PEQL), RALT_T(KC_PPLS), RCTL_T(KC_PSLS), ______,
-    ______, KC_GT, KC_RBRC, KC_RPRN, KC_RCBR, SK_BBLT, ______, ______, ______, ______, KC_UNDS, KC_PIPE, KC_AMPR, KC_CIRC, KC_PERC, ______,
-    ______, KC_VOLD, SK_DELWDL, SK_DELWDR, KC_VOLU, LALT(KC_9), LSA(KC_8), LSA(KC_9), ______, ______),
-
-*/
 #define LS_LT5 KC_TRNS
 #define LS_LT4 KC_Z
 #define LS_LT3 KC_Q
-#define LS_LT2 SK_SECT
-#define LS_LT1 SK_PARA
+#define LS_LT2 SK_PARA
+#define LS_LT1 SK_SECT
 #define LS_LT0 SK_DCRS
 #define LS_RT0 SK_CENT
 #define LS_RT1 KC_DLR
@@ -86,12 +80,12 @@ __ │    >       ]       )       }       •     │ TAB  __  __  ESC │     _
 #define LS_LH2 SK_DELWDL
 #define LS_LH1 SK_DELWDR
 #define LS_LH0 KC_VOLU
-#define LS_LHA KC_NO
+#define LS_LHA KC_VOLU
 #define LS_RHA KC_NO
-#define LS_RH0 LALT(KC_9)
-#define LS_RH1 LSA(KC_8)
-#define LS_RH2 LSA(KC_9)
-#define LS_RH3 KC_TRNS
+#define LS_RH0 KC_VOLU
+#define LS_RH1 LALT(KC_9) // ª
+#define LS_RH2 LSA(KC_8)  // °
+#define LS_RH3 LSA(KC_9) // ·
 #define LS_RH4 KC_TRNS
 #define LS_RH5 KC_TRNS
 
@@ -103,12 +97,6 @@ __ │    >       ]       )       }       •     │ TAB  __  __  ESC │     _
  RGB_VAD │ F1       F2      F3      F4      INS     │ __ __   __ __ │ ,       4       5       3       =        │ RGB_HUD
          ╰────────────────╮ __      __      __      │ __         __ │ 0       .       TG(LN)  ╭────────────────╯
               __      __  ╰─────────────────────────╯               ╰─────────────────────────╯ __       __
-*/
-/*
-    RGB_TOG, KC_F9, KC_F10, KC_F11, KC_F12, KC_F13, KC_SLSH, KC_7, KC_8, KC_9, KC_MINS, RGB_MOD,
-    RGB_VAI, LCTL_T(KC_F5), LALT_T(KC_F6), LGUI_T(KC_F7), LSFT_T(KC_F8), KC_F14, KC_COMM, RSFT_T(KC_1), RGUI_T(KC_2), RALT_T(KC_3), RCTL_T(KC_PPLS), RGB_HUI,
-    RGB_VAD, KC_F1, KC_F2, KC_F3, KC_F4, KC_INS, ______, ______, ______, ______, KC_COMM, KC_4, KC_5, KC_6, KC_EQL, RGB_HUD,
-    ______, ______, KC_SCLN, TG(L_NUM), ______, ______, KC_0, KC_DOT, ______, SK_ZOOMRST),
 */
 
 #define LF_LT5 RGB_TOG
@@ -170,21 +158,15 @@ __ │    >       ]       )       }       •     │ TAB  __  __  ESC │     _
 #define LF_RH5 KC_TRNS
 
 
-/*  L_NUM Layer (LN)
+/*  L_Nav Navigation (left) NUMPad Layer (right) (LN)
    ╭──────────────────────────────────────────╮               ╭──────────────────────────────────────────╮
-__ │ TAB      PGUP    UP      PGDN      TAB   │               │  PSLS      P7      P8      P9      PMNS  │ __
+__ │ NUM_LK   PGUP    UP      PGDN      TAB   │               │  PSLS      P7      P8      P9      PMNS  │ __
 __ │ W_LEFT   LEFT    DOWN    RGHT     W_RGHT |               |  PAST      P4      P5      P6      PPLS  │ __
 __ │ UNDO     CUT     COPY    PSTE      SPC   │ __ __   __ __ │  PCMM      P1      P2      P3      PEQL  │ __
    ╰────────────────╮  __   G_T(BSP)  C_T(ENT)│ __         __ │  P0        PDOT    __   ╭────────────────╯
         __      __  ╰─────────────────────────╯               ╰─────────────────────────╯ __       __
 */
-/*
- // L_NUM THE NUMPAD LAYER (right) with nav/editing on left (the 10-Key/Spreadsheet layer)
-    KC_NUM,     KC_PGDN, KC_UP,   KC_PGUP, KC_TAB,              KC_PSLS,    KC_P7,         KC_P8,         KC_P9,         KC_PMNS,
-    SK_WORDPRV, KC_LEFT, KC_DOWN, KC_RGHT, SK_WORDNXT,          KC_PAST,    RSFT_T(KC_P4), RGUI_T(KC_P5), RALT_T(KC_P6), RCTL_T(KC_PPLS),
-    SK_UNDO,    SK_CUT,  SK_COPY, SK_PSTE, KC_SPC, KC_ESC,  KC_ESC, KC_PCMM, KC_P1, KC_P2, KC_P3, KC_PEQL,
-        KC_TRNS, KC_TRNS, KC_TRNS, LGUI_T(KC_BSPC), LSFT_T(KC_ENT), KC_DEL, KC_C, KC_P0, KC_PDOT, KC_TRNS, KC_TRNS, KC_TRNS),
-*/
+
 #define LN_LT5 KC_TRNS
 #define LN_LT4 KC_NUM
 #define LN_LT3 KC_PGDN
@@ -243,27 +225,21 @@ __ │ UNDO     CUT     COPY    PSTE      SPC   │ __ __   __ __ │  PCMM     
 #define LN_RH4 KC_TRNS
 #define LN_RH5 KC_TRNS
 
-/*  L_NAV Layer (LV)
+/*   L_NAV THE NAVIGATION (right hand) LAYER w/ edit & mods on left
    ╭──────────────────────────────────────────╮                  ╭───────────────────────────────────────────────╮
-__ │   QUIT     CLOZ    SCAP    SCLP    FAGN  │                  │  DOCBEG     HOME    UP      PGUP    PARAPRV   │ __
+__ │   QUIT     CLOZ    SCAP    SCLP    PSTM  │                  │  DOCBEG     HOME    UP      PGUP    PARAPRV   │ KC_NUM
 __ │   LCTL     LALT    LGUI    LSFT    FIND  |                  |  WORDPRV    LEFT    DOWN    RGHT    WORDNXT   │ __
-__ │   UNDO     CUT     COPY    PSTE    PSTM  │ TAB  __  __  ESC │  DOCEND     END     DOWN    PGDN    PARANXT   │ __
+__ │   UNDO     CUT     COPY    PSTE    FAGN  │ __  __    __  __ │  DOCEND     END     DOWN    PGDN    PARANXT   │ __
    ╰──────────────────╮  __   S(MENU)   MENU  │ __           __  │  HISTPRV  HISTNXT    __    ╭──────────────────╯
       HISTPRV HISTNXT ╰───────────────────────╯                  ╰────────────────────────────╯ ZOOMRST ZOOMOUT
 */
-/*
- L_NAV THE NAVIGATION (right hand) LAYER w/ edit & mods on left
-    KC_TRNS, SK_QUIT, SK_CLOZ, SK_SCAP, SK_SCLP, SK_FAGN, SK_DOCBEG, KC_HOME, KC_UP, KC_PGUP, SK_PARAPRV, KC_NUM,
-    KC_VOLU, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, SK_FIND, SK_WORDPRV, KC_LEFT, KC_DOWN, KC_RGHT, SK_WORDNXT, KC_TRNS,
-    KC_VOLD, SK_UNDO, SK_CUT, SK_COPY, SK_PSTE, SK_PSTM, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, SK_DOCEND, KC_END, KC_DOWN, KC_PGDN, SK_PARANXT, KC_TRNS,
-    SK_ZOOMRST, KC_TRNS, S(KC_APP), KC_APP, KC_TRNS, SK_ZOOMOUT, SK_HISTPRV, SK_HISTNXT, SK_ZOOMIN, SK_ZOOMRST),
-*/
+
 #define LV_LT5 KC_TRNS
 #define LV_LT4 SK_QUIT
 #define LV_LT3 SK_CLOZ
 #define LV_LT2 SK_SCAP
 #define LV_LT1 SK_SCLP
-#define LV_LT0 SK_FAGN
+#define LV_LT0 SK_PSTM
 #define LV_RT0 SK_DOCBEG
 #define LV_RT1 KC_HOME
 #define LV_RT2 KC_UP
@@ -289,7 +265,7 @@ __ │   UNDO     CUT     COPY    PSTE    PSTM  │ TAB  __  __  ESC │  DOCEND
 #define LV_LB3 SK_CUT
 #define LV_LB2 SK_COPY
 #define LV_LB1 SK_PSTE
-#define LV_LB0 SK_PSTM
+#define LV_LB0 SK_FAGN
 #define LV_LBA KC_TRNS
 #define LV_LBB KC_TRNS
 #define LV_RBB KC_TRNS
@@ -322,6 +298,7 @@ __ │   UNDO     CUT     COPY    PSTE    PSTM  │ TAB  __  __  ESC │  DOCEND
     RGB_HUI, QK_BOOT, AG_SWAP, AG_NORM, KC_VOLD, KC_BRID, RGB_VAD, __no__, __no__, RGB_SAD, __no__, KC_MRWD, KC_MPLY, KC_MFFD, SK_ZOOMIN, RGB_HUD,
     __no__, __no__, __no__, TG(L_NUM), __no__, __no__, __no__, __no__, __no__, __no__)
 */
+
 #define LC_LT5 KC_NO
 #define LC_LT4 QK_RBT
 #define LC_LT3 CG_SWAP
