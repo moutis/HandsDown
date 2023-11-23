@@ -242,6 +242,17 @@ ReplacePriorWithL:
                     tap_code(KC_F); // "IH" yields "IF" (96x more common)
                     return_state = false; // done.
                     break;
+                case KC_J: // j'habite
+                case KC_L: // l'hôtel
+                case KC_M: // m'homme
+                case KC_N: // n'habite
+                case KC_D: // d'habitude
+                    tap_code(KC_QUOT);// eliminate 'h SFB for French
+                    break;// (can't do it for T bc Th, unless Th digraph combo is mandatory…)
+                case KC_Y: //
+                    tap_code(KC_QUOT); // YH = Y' (pull down to avoid ring-pinky scissor)
+                    return_state = false; // done.
+                    break;
 
             }
             break;
