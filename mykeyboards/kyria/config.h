@@ -21,7 +21,7 @@
 #endif
 
 #ifdef ENCODER_ENABLE
-    #define ENCODER_RESOLUTION 2 // old encoders
+    #define ENCODER_RESOLUTION 2 // old encoders =2, new encoders=4
     #define ENCODER_DIRECTION_FLIP // old encoders
 //    #define ENCODER_RESOLUTION 4 // new encoders
 #endif
