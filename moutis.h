@@ -1,15 +1,5 @@
 #pragma once
 
-//
-// which HD alpha variation are we using?
-//
-// defines all variation dependent constants/files/keycodes, etc.
-// they will be used in the respective keymap for each keyboard
-
-#include "handsdown/vb-config.h" // definitions for the Alpha layer and mnemonic combos
-#include "moutis_layers.h" // definitions for all the other layers
-
-
 #ifndef USERSPACE
     #define USERSPACE
 #endif
@@ -51,6 +41,49 @@ extern rgblight_config_t rgblight_config;
     #define RGBLIGHT_VAL_STEP 4
 #endif
 
+//
+// which HD alpha variation are we using?
+//
+// defines all variation dependent constants/files/keycodes, etc.
+// they will be used in the respective keymap for each keyboard
+
+#include "personalizedmacros.h"
+
+
+#ifdef THUMB_SHIFT
+#include "handsdown/vb-config.ts.h" // definitions for the Alpha layer and mnemonic combos
+#include "moutis_layers.ts.h" // definitions for all the other layers
+#else
+#include "handsdown/vb-config.h" // definitions for the Alpha layer and mnemonic combos
+#include "moutis_layers.h" // definitions for all the other layers
+#endif
+
+
+
+#define LINGER_TIME TAPPING_TERM * 1.2 // how long to hold before a time-depentant behavior begins
+// how long to leave a state active before resetting like APPMENU or CAPSWORD
+#define STATE_RESET_TIME LINGER_TIME * 3
+
+//#define THUMB_SHIFT // use the thumb shift variant instead of index shift
+
+
+#ifdef COMBO_HOLD
+    #undef ADAPTIVE_TERM
+    #define ADAPTIVE_TERM COMBO_HOLD * 1.35  // use COMBO_HOLD time as a standard threshold (same recation time)
+#else
+    #define ADAPTIVE_TERM (TAPPING_TERM/4) // rolling threshold
+#endif
+
+#define ADAPT_VOWEL_H // eliminate vowel SFBs (AU/UA;EO/OE) using vH instead of v'
+#define ADAPTIVE_ENABLE
+#define ADAPTIVE_TRAILER KC_3
+//#define FR_ADAPTIVES // eliminate 'h SFB for French
+
+//#define THUMB_REPEATER
+#ifdef THUMB_REPEATER
+#define HD_REPEATER_A HD_BSPC
+#define HD_REPEATER_B KC_ENT
+#endif
 
 
 #ifdef COMBO_ENABLE
@@ -94,22 +127,27 @@ enum my_layers {// must be difined before semantickeys.h
     L_FUN,      // 3 - function & number rows
     L_NUM,      // 4 - numpad (right); navpad (left)
     L_NAV,      // 5 - nav pad (right); meta keys (left)
-    L_CFG       // 6 - Media/Consumer controls; Keyboard settings
+    L_CFG,      // 6 - Media/Consumer controls; Keyboard settings
+    L_count
 };
 
 enum OS_Platform { // Used for platform support via SemKeys
     OS_Mac,     // Mac with ANSI_US_EXTENDED layout
 //    OS_iOS,     // iOS?
     OS_Win,     // Win with default English/ANSI layout?
-//    OS_Lux,     // Linux (Gnome?/KDE?)
+    OS_Lux,     // Linux (Gnome?/KDE?)
 //    OS_And,     // Android (flavors?)
     OS_count
 };
 
 #include "moutis_semantickeys.h"
 
-#define register_linger_key(kc) {((kc > (uint16_t)SK_KILL) && (kc < (uint16_t)SemKeys_COUNT)) ? register_SemKey(kc) : register_code16(kc);linger_key = kc;linger_timer = state_reset_timer = timer_read();}
+#define tap_HDkey(kc) {is_SemKey(kc) ? tap_SemKey(kc) : tap_code16(kc);}
+#define register_HDkey(kc) {is_SemKey(kc) ? register_SemKey(kc) : register_code16(kc);}
+#define unregister_HDkey(kc) {is_SemKey(kc) ? unregister_SemKey(kc) : unregister_code16(kc);}
 
-#define unregister_linger_key() {((linger_key > (uint16_t)SK_KILL) && (linger_key < (uint16_t)SemKeys_COUNT)) ? unregister_SemKey(linger_key) : unregister_code16(linger_key);linger_key = 0;}
+#define register_linger_key(kc) {register_HDkey(kc);linger_key = kc;linger_timer = timer_read();}
+#define unregister_linger_key() {unregister_HDkey(linger_key) ;linger_key = 0;}
+
 
 void matrix_scan_user_process_combo(void);

@@ -8,8 +8,6 @@
 //
 #define HD_combo_def "moutis_combo_def.c"
 
-#include "personalizedmacros.h"
-
 #ifndef At_ComboHeld
 #define At_ComboHeld ".com"
 #endif
@@ -117,6 +115,7 @@ enum my_combos {
     // Fast entry 4grams
     // since combos are a bit slower,
     // needs to be a 4gram+ or more to be worth it
+#ifdef EN_HDIGRAPH_COMBOS
     HC_Th, // treat as θ
     HC_Sh, // TYPE "sh"
     HC_Wh, // treat as digraph 'WH'
@@ -124,6 +123,7 @@ enum my_combos {
     HC_Gh, // treat as digraph 'GH'
     HC_Ph, // treat as φ
     HC_Sch, // treat as digraph 'SCH'
+#endif // EN_HDIGRAPH_COMBOS
 
 #ifdef EN_PRONOUN_COMBOS
 // Pronoun combos. KEEP these together!

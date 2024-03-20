@@ -18,11 +18,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed // keyup = not rolling = no adaptive -> return.
         && user_config.AdaptiveKeys // AdaptiveKeys is on
 #ifdef JP_MODE_ENABLE
-        && IS_ENGLISH_MODE
+        && IS_ENGLISH_MODE // Adaptives only in primary (Latin) mode
 #endif // #ifdef JP_MODE_ENABLE
-        ) { // Adaptives only in primary (Latin) mode
-        if (!process_adaptive_key(&keycode, record)) {
+        ) {
+        if (!process_adaptive_key(keycode, record)) {
             prior_keydown = timer_read(); // (re)start prior_key timing
+            preprior_keycode = prior_keycode; // look back 2 keystrokes?
             prior_keycode = keycode; // this keycode is stripped of mods+taps
             return false; // took care of that key
         }
@@ -42,7 +43,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     // Do we turn off CAPS_WORD?
-    if (caps_word_on) {
+    if (caps_word_timer) {
         if (!process_caps_word(keycode, record)) {
             return false; // took care of that key
         }
@@ -53,9 +54,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false; // took care of that key
     }
 
-    // APP_MENU gets special treatment (also needs matrix_APP_MENU)
+    // APP_MENU gets special treatment (no adaptive handling, separate timers)
 
-//    if  ((keycode & QK_BASIC_MAX) == KC_APP) {  // mimic windows app key behavior (only better?) also in scan_matrix
     if  (keycode == KC_APP) {  // mimic windows app key behavior (only better?) also in scan_matrix
         process_APP_MENU(record);
         return false; // took care of that key
@@ -67,6 +67,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
     if (record->event.pressed) {
+//        switch (((keycode >= SAFE_RANGE) && (keycode <= SemKeys_COUNT)) ? (keycode) : (keycode & QK_BASIC_MAX)) { // only handling normal, SHFT or ALT cases.
         switch (keycode) { // only handling normal, SHFT or ALT cases.
 
 /*
@@ -79,14 +80,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 */
 
             case KC_BSPC:  // make S(KC_BSPC) = KC_DEL; ALT = word_del L & R
-                if (saved_mods & MOD_MASK_SHIFT) {  // shift down with KC_BSPC? (ALT OK)
-                    key_trap = KC_DEL;  // mode monitor on to clear this on keyup
-register_key_trap_and_return:
-                    register_code16(key_trap);
-                    return_state = false; // stop processing this record.
-                    set_mods(saved_mods);  // not sure if we need this
-                    break;
-                }
+                if (!(saved_mods & MOD_MASK_SHIFT)) // only SHFT? (ALT ok)
+                    break; // N: nothing to do
+                // shift down with KC_BSPC? (ALT OK)
+                unregister_mods(MOD_MASK_SA); // get rid of shift & alt
+                key_trap = KC_DEL;  // mode monitor on to clear this on keyup
+                goto register_key_trap_and_return;
+/*
+                key_trap = SK_DEL;  // mode monitor on to clear this on keyup
+                register_semKey(key_trap);
+                return_state = false; // stop processing this record.
+                set_mods(saved_mods);  // not sure if we need this
+                break;
+*/
             case KC_MINS:  // SHIFT = +
                 if (!(saved_mods & MOD_MASK_SHIFT)) // only SHFT? (ALT ok)
                     break; // N: nothing to do
@@ -96,8 +102,12 @@ register_key_trap_and_return:
             case KC_EQL: // SHIFT = _
                 if (!(saved_mods & MOD_MASK_SHIFT)) // only SHFT? (ALT ok)
                     break; // N: nothing to do
-                key_trap = S(KC_MINS);  // enter override state
-                goto register_key_trap_and_return;
+                key_trap = KC_UNDS;  // enter override state
+register_key_trap_and_return:
+                register_code16(key_trap);
+                return_state = false; // stop processing this record.
+                set_mods(saved_mods);  // not sure if we need this
+                break;
 
             case KC_SLSH:  // SHIFT = *, ALT=\, ALT+SHIFT=⁄
                 unregister_mods(MOD_MASK_SA); // get rid of shift & alt
@@ -131,8 +141,7 @@ register_key_trap_and_return:
                 
             case KC_LPRN:  // SHIFT = { (linger=(|))
                 if (!saved_mods) {
-                    register_linger_key(keycode); // example of simple linger macro
-                    return_state = false; // don't do more with this record.
+                    goto linger_and_return; // CAUTION: messing w/stack frame here!!
                 } else if (saved_mods & MOD_MASK_SHIFT) { // shift down with KC_RPRN?
                     if (saved_mods & MOD_MASK_ALT) { // SHIFT & ALT?
                         register_linger_key(KC_LCBR); // this should be semkey for ‹/«?
@@ -294,7 +303,8 @@ register_key_trap_and_return:
                     register_linger_key(SQUO_S); // example of simple linger macro
                     return_state = false; // don't do more with this record.
                 } else //{ // no mods, so linger
-                    goto byteshave; // CAUTION: messing w/stack frame here!!
+                    register_linger_key(keycode); // example of simple linger macro
+                    return_state = false; // don't do more with this record.
                 break;
             case KC_QUOT: // SHIFT = ], ALT=», ALT+SHIFT=›
                 
@@ -315,37 +325,37 @@ register_key_trap_and_return:
                     register_linger_key(DQUO_S); // example of simple linger macro
                     return_state = false; // don't do more with this record.
                 } else { // no mods, so
-byteshave: // CAUTION: messing w/stack frame here!!
                     register_linger_key(keycode); // example of simple linger macro
                     return_state = false; // don't do more with this record.
                 }
                 break;
 
 #ifdef JP_MODE_ENABLE
-            case KC_L: // L if English, ん if Japanese mode
-                if (!IS_ENGLISH_MODE) {
-                    tap_code(KC_N);
-                    tap_code(KC_N);
-                    return_state = false; // stop processing this record.
-                }
-                break;
             case KC_C: // C if English, z if Japanese mode
                 if (!IS_ENGLISH_MODE) {
                     register_code(KC_Z);
                     return_state = false; // stop processing this record.
                 }
                 break;
-           case KC_X: // X if English, - if Japanese mode
-                if (!IS_ENGLISH_MODE) {
-                    register_code(KC_MINS);
-                    return_state = false; // stop processing this record.
-                }
-                break;
 #endif
-            case KC_J:  // optional linger
-            case KC_V:  // optional linger
+            case KC_L: // L if English, ん if Japanese mode
+            case KC_X: // X if English, - if Japanese mode
+#ifdef JP_MODE_ENABLE
+                if (!IS_ENGLISH_MODE) {
+                    switch (keycode) {
+                        case KC_L: // L if English, ん if Japanese mode
+                            tap_code(KC_N);
+                            tap_code(KC_N);
+                            return_state = false; // stop processing this record.
+                            break;
+                        case KC_X: // X if English, - if Japanese mode
+                            register_code(KC_MINS);
+                            return_state = false; // stop processing this record.
+                            break;
+                    }
+                }
+#endif
             case KC_Q:  // Qu, linger deletes U
-            case KC_Z:  // optional linger
                 if ((saved_mods & MOD_MASK_ALT)
 #ifdef JP_MODE_ENABLE
                     || !IS_ENGLISH_MODE
@@ -358,29 +368,24 @@ linger_and_return:
                 register_linger_key(keycode); // example of simple linger macro
                 return_state = false; // stop processing this record.
                 break;
-/*
-            case KC_LNG1: // Japanese
-#ifdef JP_MODE_ENABLE
-                IS_ENGLISH_MODE = false;
-#endif
-                tap_SemKey(SK_HENK); // Mac/Win/iOS all different?
+                
+            case SK_Lux: // SINCE MAC IS MY LAYOUT DEFAULT switch to linux
+                user_config.OSIndex = OS_Lux; // for Linux Semkeys
+//                process_magic(QK_MAGIC_SWAP_CTL_GUI); // tell QMK to swap ctrl/gui
+                keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = true;
                 return_state = false; // stop processing this record.
-                break;
-            case KC_LNG2: // English
-#ifdef JP_MODE_ENABLE
-                IS_ENGLISH_MODE = true;
-#endif
-                tap_SemKey(SK_MHEN); // Mac/Win/iOS all different?
-                return_state = false; // stop processing this record.
-                break;
-*/
-            case CG_SWAP: // SINCE MAC IS MY LAYOUT DEFAULT switch to windows
-                user_config.OSIndex = 1; // for Windows Semkeys
-                return_state = true; // let QMK do it's swap thing.
                 goto storeSettings;
-            case CG_NORM: // Back to default
-                user_config.OSIndex = 0; // for Mac Semkeys
-                return_state = true; // let QMK do it's swap thing.
+           case SK_Win: // SINCE MAC IS MY LAYOUT DEFAULT switch to windows
+                user_config.OSIndex = OS_Win; // for Windows Semkeys
+//                process_magic(QK_MAGIC_SWAP_CTL_GUI); // tell QMK to swap ctrl/gui
+                keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = true;
+                return_state = false; // stop processing this record.
+                goto storeSettings;
+            case SK_Mac: // Back to default
+                user_config.OSIndex = OS_Mac; // for Mac Semkeys
+//                process_magic(QK_MAGIC_UNSWAP_CTL_GUI); // tell QMK to restore ctrl/gui
+                keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = false;
+                return_state = false; // stop processing this record.
                 goto storeSettings;
             case HD_AdaptKeyToggle: // toggle AdaptiveKeys (& LingerKeys, linger combos)
 #ifdef ADAPTIVE_ENABLE
@@ -405,10 +410,28 @@ storeSettings:
                 break;
 
 #endif // KEY_OVERRIDE_ENABLE
+
+
+#ifdef RGBLIGHT_ENABLE
+            case HD_RGB_sat_up: // Sat +
+                rgblight_increase_sat(); // Sat +
+                break;
+            case HD_RGB_sat_dn: // Sat -
+                rgblight_decrease_sat(); // Sat -
+                break;
+            case HD_RGB_hue_up: // Hue +
+                rgblight_increase_hue(); // Hue +
+                break;
+            case HD_RGB_hue_dn: // Hue +
+                rgblight_decrease_hue(); // Hue -
+                break;
+#endif
+
         } // switch (keycode) {
 
 #ifdef ADAPTIVE_ENABLE
         prior_keydown = timer_read(); // (re)start prior_key timing
+        preprior_keycode = prior_keycode; // look back 2 keystrokes?
         prior_keycode = keycode; // this keycode is now stripped of mods+taps
 #endif
         
@@ -425,16 +448,15 @@ storeSettings:
                     return_state = false; // stop processing this record.
                 }
                 break;
-           case KC_X: // X if English, - if Japanese mode
+
+            case KC_X: // X if English, - if Japanese mode
                 if (!IS_ENGLISH_MODE) {
                     unregister_code(KC_MINS);
                     return_state = false; // stop processing this record.
                 }
                 break;
 #endif
-            case KC_J:  //
-            case KC_V:  //
-            case KC_Z:  //
+
             case KC_Q:  // for linger Qu (ironically, need to handle this direclty w/o the macros.)
                 unregister_code16(keycode);
                 linger_key = 0; // make sure nothing lingers
@@ -470,6 +492,14 @@ storeSettings:
                 break;
 
             case KC_BSPC:  // make S(KC_BSPC) = KC_DEL; plus word_del L & R
+/*
+                if (!key_trap) // did we override this earlier?
+                    break; // N: do normal thing
+                unregister_SemKey(key_trap); //
+                key_trap = 0;  // exit override state.
+                return_state = false; // stop processing this record.
+                break;
+*/
             case KC_MINS:  // SHIFT = +, ALT=–(n-dash), ALT+SHIFT=±
             case KC_EQL:   // ALT _
             case KC_SLSH:  // SHIFT = *, ALT=\, ALT+SHIFT=⁄

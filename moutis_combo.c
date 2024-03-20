@@ -82,6 +82,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 combo_on = combo_index; // if held, addd 'h' for "Sch" in matrix_scan_user_process_combo
                 break;
 */
+#ifdef EN_HDIGRAPH_COMBOS
             case HC_Sch: // to avoid outward roll on ring->pinky fingers moving in unison is easier
                 tap_code(KC_S); // send "S"
                 unregister_mods(MOD_MASK_SHIFT);  //
@@ -97,6 +98,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 tap_code(KC_P); // send "P" honoring caps
                 combo_on = combo_index; // if held, check in matrix_scan_user_process_combo
                 break;
+#endif // EN_HDIGRAPH_COMBOS
 
 
             case HC_ACUT:
@@ -235,7 +237,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 // so keep together 'cause we're messing with stack frames at the end!
 
             case HC_they_4gram: // "they"
-//            case HC_theyg_4gram: // "they"
                 tap_code(KC_T); // send "Y" honoring caps
                 unregister_mods(MOD_MASK_SHIFT);  //
                 send_string("hey"); // send "they" right away
@@ -275,7 +276,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
 #endif // #ifdef EN_PRONOUN_COMBOS_ALL
 
-addonsuffix: // sharing this saves about 100 bytes (10 bytes per instance)
+addonsuffix: // sharing this saves about 100 bytes on AVR (10 bytes per instance)
                 tap_code(KC_QUOT);
                 switch (combo_index) { //
                     case HC_Im:
@@ -556,7 +557,7 @@ ADD_HERE:
 #endif
             switch(combo_index) {
 // the H digraphs
-
+#ifdef EN_HDIGRAPH_COMBOS
                 case HC_Sch: // to avoid outward roll on ring->pinky fingers moving in unison is easier
                 case HC_Ch:
                 case HC_Th:
@@ -567,8 +568,7 @@ ADD_HERE:
                     unregister_mods(MOD_MASK_SHIFT);  //
                     tap_code(KC_H); // send "h" honoring CAPSLK state
                     break;
-
-// END the H digraphs
+#endif // EN_HDIGRAPH_COMBOS
 
                 case HC_FIND:  // Simple Find if not held
                     tap_SemKey(SK_FIND);
@@ -707,11 +707,9 @@ void matrix_scan_user_process_combo() {  // called from matrix_scan_user if comb
     // Checking combo_triggered above can enable sending untriggered keys
     // and thus allow for longer COMBO_TERM. (recommend < TAPPING_TERM / 2)
     // still, really fast rolls, esp if they can go both ways, are going to be
-    // a problem for this (ex er, re; io oi), so maybe best to avoid them as
-    // combos. On Hands Down, this means no combos on home row, but that's fine,
-    // because home already has modifiers, so it all works out.
-    //
-    // I've since successfully added COMBO_HOLD Home Row combos without difficulty.
+    // a problem for this (ex er, re; io oi on qwerty), so maybe best to avoid them as
+    // combos.
+    // I've successfully added COMBO_HOLD Home Row combos without difficulty.
     // To use multiple home row mods, just put them down one at a time...works great.
     //
     if (!combo_triggered) {
@@ -740,7 +738,7 @@ void matrix_scan_user_process_combo() {  // called from matrix_scan_user if comb
                     tap_SemKey(SK_PSTM);
                     break;
 
-                    
+#ifdef EN_HDIGRAPH_COMBOS
                 case HC_Sh: // if these H digragh combos are held, then send T/SION instead
                 case HC_Th: // TION = by far most common 4-gram, (then THAT/THER/WITH/MENT)
                     unregister_mods(MOD_MASK_SHIFT);
@@ -765,6 +763,8 @@ void matrix_scan_user_process_combo() {  // called from matrix_scan_user if comb
 //                case HC_Sc: //
 //                    tap_code(KC_H); // add "h" (for "Sch", since were already on these keys.)
 //                    break;
+#endif // EN_HDIGRAPH_COMBOS
+
                 case HC_AT:
                     send_string(At_ComboHeld);
                     break;

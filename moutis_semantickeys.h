@@ -29,7 +29,16 @@ enum my_keycodes {
     HD_AdaptKeyToggle = SAFE_RANGE, // Adaptive Keys Toggle on/off
     HD_L_QWERTY, // base layer switch
     HD_L_ALPHA,
-        // Semantic Keys (keystrokes handled by process_semkey() for platform independence)
+#ifdef RGBLIGHT_ENABLE  // backlight/underglow
+    HD_RGB_sat_up, // Sat +
+    HD_RGB_sat_dn, // Sat -
+    HD_RGB_hue_up, // Hue +
+    HD_RGB_hue_dn, // Hue +
+#endif
+    SK_Mac,
+    SK_Win,
+    SK_Lux,
+    // Semantic Keys (keystrokes handled by process_semkey() for platform independence)
     SK_KILL, // SK_KILL must be the first of contiguous block of SKs
     SK_HENK,  // kana (others)
     SK_MHEN, // eisuu (others)
@@ -50,6 +59,7 @@ enum my_keycodes {
     SK_FAGN, // find again
     SK_SCAP, // screen capture to clipboard
     SK_SCLP, // selection capture to clipboard
+//    SK_DEL,   // Delete char right of cursor
     SK_DELWDL, // Delete word left of cursor
     SK_DELWDR, // Delete word right of cursor
     
@@ -88,6 +98,7 @@ enum my_keycodes {
         // Quotations
     SK_SQUL, // ’ Left single quote (linger for paired)
     SK_SQUR, // ’ Right single quote
+//    SK_SDQU, // " straight double-quote character (custom so we can manipulate it.)
     SK_SDQL, // ’ Left double quote (linger for paired)
     SK_SDQR, // ’ Right double quote
     SK_FDQL, // ’ « Left double French quote (linger for paired)
@@ -132,9 +143,15 @@ enum my_keycodes {
 
 #define L_BASELAYER HD_L_QWERTY
 
+#define first_SemKey SK_KILL
+#define last_Semkey SemKeys_COUNT
+
+#define is_SemKey(sk) ((sk > (uint16_t)first_SemKey) && (sk < (uint16_t)last_Semkey))
+
 #define tap_SemKey(sk) tap_code16(SemKeys_t[sk - SK_KILL][user_config.OSIndex])
 #define register_SemKey(sk) register_code16(SemKeys_t[sk - SK_KILL][user_config.OSIndex])
 #define unregister_SemKey(sk) unregister_code16(SemKeys_t[sk - SK_KILL][user_config.OSIndex])
 
 #define linger_SemKey(sk) {register_code16(SemKeys_t[sk - SK_KILL][user_config.OSIndex]);linger_key = sk;linger_timer = state_reset_timer = timer_read();}
 #define unlinger_SemKey(sk) {unregister_code16(SemKeys_t[linger_key - SK_KILL][user_config.OSIndex]);linger_key = 0;}
+
