@@ -174,7 +174,8 @@
 #define HD_spc_keys  HD_LM1, HD_LM0     // SPACE
 #define HD_ent_keys  HD_LB0, HD_LB1     // ENTER
 #define HD_ent2_keys HD_LB0, HD_LB1, HD_LB2 // hard-ENTER/page break
-#define APPMENU_keys  HD_LB3, HD_LB1  // APPMENU
+#define APPMENU_keys  HD_LT1, HD_LT0  // APPMENU
+#define APPMENU_nav_keys  LN_LT1, LN_LT0  // APPMENU
 
 // TEXT ENTRY - off map standard alphas (also on Layer L_SYM @ Z=LT4 & Q=LT3)
 //

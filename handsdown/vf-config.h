@@ -2,11 +2,11 @@
 //
 // The Hands Down Variation dependent defs & files
 //
-#define HD_adaptive_code "handsdown/nu-adaptive.c"
-// Neu(tronium) is the basis for Hands Down Neu variations
+#define HD_adaptive_code "handsdown/vf-adaptive.c"
+//
 
 //
-// First, let's add any hold-taps to the keycodes
+// First, let's define HD alpha keycodes with any hold-taps/custom keycodes
 //
 #define HD_A RSFT_T(KC_A)
 #define HD_B KC_B
@@ -18,15 +18,15 @@
 #define HD_H RCTL_T(KC_H)
 #define HD_I RALT_T(KC_I)
 #define HD_J KC_J
-#define HD_K KC_K
+#define HD_K LT(L_NUM,KC_K)
 #define HD_L KC_L
 #define HD_M KC_M
 #define HD_N RGUI_T(KC_N)
 #define HD_O KC_O
 #define HD_P KC_P
 #define HD_Q KC_Q
-#define HD_R RCTL_T(KC_R)
-#define HD_S RALT_T(KC_S)
+#define HD_R LT(L_NAV,KC_R)
+#define HD_S RCTL_T(KC_S)
 #define HD_T RSFT_T(KC_T)
 #define HD_U KC_U
 #define HD_V KC_V
@@ -41,7 +41,7 @@
 #define HD_BSPC LT(L_FUN,KC_BSPC)
 #define HD_ENT  LT(L_NAV,KC_ENT)
 #define HD_QUOT KC_QUOT
-#define HD_DQUO KC_DQUO
+#define HD_DQUO KC_DQUO // KC_DQUO or SK_SDQU
 #define HD_SLSH KC_SLSH
 #define HD_DOT  KC_DOT
 #define HD_COMM LT(L_FUN, KC_COMM)
@@ -59,12 +59,12 @@
 //     LH5 LH4 LH3 ╰─────────╯                  ╰─────────╯ RH3 RH4 RH5
 //
 //
-//    Base (alpha) Layer  Hands Down Neu (HRMs /+ thumb mods)
+//    Base (alpha) Layer  Hands Down Vibranium-vb (HRMs /+ thumb mods)
 //      ╭─────────────────────╮                 ╭─────────────────────╮
-// esc  │  W   F   M   P   V  │ L_CFG     L_NUM │  #$  .:  '"  /*   J │ LANG2/henk
-// tab  │  R   S   N   T   B  | (             ) |  ,;   A   E   I   H │ LANG1/mhen
-//  Z   │  X   C   L   D   G  │ [ copy   pste ] │  -+   U   O   Y   K │ Q
-//      ╰───────────╮ bsp sft │ &             | │ spc  ret ╭──────────╯
+// esc  │  X   W   M   G   J  │ L_CFG     L_NUM │  #$  .:  /*  "[  '] │ LANG2/henk
+// tab  │  S   C   N   T   K  | (             ) |  ,;   A   E   I   H │ LANG1/mhen
+//  Z   │  B   P   L   D   V  │ [ copy   pste ] │  -+   U   O   Y   F │ Q
+//      ╰───────────╮ bsp  R  │ &             | │ spc  ret ╭──────────╯
 //    left rght app ╰─────────╯                 ╰──────────╯ tgLN  up  dn
 //
 // For small boards, Q (LT3) & Z (LT4) are (also) on the sym layer
@@ -72,26 +72,26 @@
 //
 
 #define HD_LT5 KC_ESC
-#define HD_LT4 HD_W
-#define HD_LT3 HD_F
+#define HD_LT4 HD_X
+#define HD_LT3 HD_W
 #define HD_LT2 HD_M
-#define HD_LT1 HD_P
-#define HD_LT0 HD_V
-#define HD_LTA OSL(L_CFG)
-#define HD_RTA TG(L_NUM)
+#define HD_LT1 HD_G
+#define HD_LT0 HD_J
+#define HD_LTA LT(L_CFG, KC_MUTE)
+#define HD_RTA LT(L_CFG, KC_MPLY)
 #define HD_RT0 HD_HASH
 #define HD_RT1 HD_DOT
-#define HD_RT2 HD_QUOT
-#define HD_RT3 HD_SLSH
-#define HD_RT4 HD_J
+#define HD_RT2 HD_SLSH
+#define HD_RT3 HD_DQUO
+#define HD_RT4 HD_QUOT
 #define HD_RT5 KC_LNG2
 
 #define HD_LM5 KC_TAB
-#define HD_LM4 HD_R
-#define HD_LM3 HD_S
+#define HD_LM4 HD_S
+#define HD_LM3 HD_C
 #define HD_LM2 HD_N
 #define HD_LM1 HD_T
-#define HD_LM0 HD_B
+#define HD_LM0 HD_K
 #define HD_LMA KC_LPRN
 #define HD_RMA KC_RPRN
 #define HD_RM0 HD_COMM
@@ -102,37 +102,37 @@
 #define HD_RM5 KC_LNG1
 
 #define HD_LB5 HD_Z
-#define HD_LB4 HD_X
-#define HD_LB3 HD_C
+#define HD_LB4 HD_F
+#define HD_LB3 HD_P
 #define HD_LB2 HD_L
 #define HD_LB1 HD_D
-#define HD_LB0 HD_G
+#define HD_LB0 HD_V
 #define HD_LBA LT(L_NUM, KC_LBRC)
-#define HD_LBB LT(L_FUN,SK_COPY)
-#define HD_RBB LT(L_FUN,SK_PSTE)
-#define HD_RBA LT(L_NAV,KC_RBRC)
+#define HD_LBB LT(L_CFG, KC_LNG2)
+#define HD_RBB LT(L_FUN, KC_LNG1)
+#define HD_RBA LT(L_NAV, KC_RBRC)
 #define HD_RB0 HD_MINS
 #define HD_RB1 HD_U
 #define HD_RB2 HD_O
 #define HD_RB3 HD_Y
-#define HD_RB4 HD_K
+#define HD_RB4 HD_B
 #define HD_RB5 HD_Q
 
 //Primary Thumbs 1-3 (others are unique to the board)
 #define HD_LH5 KC_LEFT
-#define HD_LH4 LT(L_FUN,KC_MUTE)
+#define HD_LH4 KC_RGHT
 #define HD_LH3 KC_APP
 #define HD_LH2 HD_BSPC
-#define HD_LH1 LT(L_NAV,KC_SPC)
+#define HD_LH1 HD_R
 #define HD_LH0 LT(L_CFG,KC_MUTE)
-#define HD_LHA LT(L_NAV,KC_AMPR)
-#define HD_RHA LT(L_SYM,KC_PIPE)
+#define HD_LHA LT(L_NAV,KC_LNG2)
+#define HD_RHA LT(L_SYM,KC_LNG1)
 #define HD_RH0 LT(L_CFG,KC_MPLY)
 #define HD_RH1 HD_SPC
 #define HD_RH2 HD_ENT
 #define HD_RH3 TG(L_NUM)
-#define HD_RH4 LT(L_FUN,KC_MPLY)
-#define HD_RH5 KC_NO
+#define HD_RH4 KC_UP
+#define HD_RH5 KC_DOWN
 
 #ifdef COMBO_ENABLE
 //
@@ -172,7 +172,7 @@
 #define HD_tab_keys  HD_LT4, HD_LT3     // tab
 #define HD_stab_keys HD_LT4, HD_LT3, HD_LT2  // Shift-tab
 #define HD_spc_keys  HD_LM1, HD_LM0     // SPACE
-#define HD_ent_keys  HD_LH2, HD_LH1     // ENTER
+#define HD_ent_keys  HD_LB0, HD_LB1     // ENTER
 #define HD_ent2_keys HD_LB0, HD_LB1, HD_LB2 // hard-ENTER/page break
 #define APPMENU_keys  HD_LT1, HD_LT0  // APPMENU
 #define APPMENU_nav_keys  LN_LT1, LN_LT0  // APPMENU
@@ -193,10 +193,10 @@
 //
 #define HD_Th_keys HD_LM2, HD_LM1 // TYPE "th"
 #define HD_Ch_keys HD_LM3, HD_LM2 // TYPE "ch"
-#define HD_Wh_keys HD_LT4, HD_LT3 // TYPE "wh"
+#define HD_Wh_keys HD_LT3, HD_LT2 // TYPE "wh"
 #define HD_Sh_keys HD_LM4, HD_LM3 // TYPE "sh"
-#define HD_Ph_keys HD_LT2, HD_LT1 // TYPE "ph"
-#define HD_Gh_keys HD_LB1, HD_LB0 // TYPE "gh"
+#define HD_Ph_keys HD_LB3, HD_LB1 // TYPE "ph"
+#define HD_Gh_keys HD_LT2, HD_LT1 // TYPE "gh"
 #define HD_Sch_keys HD_LM4, HD_LM3, HD_LM2 // TYPE "Sch"
 
 // Should we put all the diacritic keys here?
@@ -218,30 +218,33 @@
 #ifdef EN_PRONOUN_COMBOS_ALL // Admittedly of questionable value
 #define HD_youd_keys  HD_Y, HD_D  // TYPE "you'd" + 've
 #define HD_youll_keys HD_Y, HD_L  // TYPE "you'll" + 've
-#define HD_youre_keys HD_Y, HD_R  // TYPE "you're"
+#define HD_youre_keys HD_Y, HD_F  // TYPE "you're"
 #define HD_youve_keys HD_Y, HD_V  // TYPE "you've"
-#define HD_your_keys  HD_Y, HD_P  // TYPE "your" "P" for "possessive" case
+#define HD_your_keys  HD_Y, HD_R  // TYPE "your"
 
-#define HD_their_keys HD_T, HD_W  // TYPE "their" #6
-#define HD_they_keys  HD_T, HD_Y  // "they" #23 + 've
-#define HD_theyd_keys HD_T, HD_X  // "they'd" #23 + 've
-#define HD_theyll_keys HD_T, HD_L // "they'll" #23 + 've
-#define HD_theyre_keys HD_T, HD_QUOT // "they're"
+#define HD_their_keys HD_T, HD_B  // TYPE "their" #6 (R on same finger in Neu)
+#define HD_theyre_keys HD_T, HD_X // "they're"  (R on same finger in Neu)
+#define HD_they_keys  HD_T, HD_W  // "they" #23 + 've (near they)
+#define HD_theyll_keys HD_T, HD_M // "they'll" #23 + 've (M is easier to combo, also in We'll)
+#define HD_theyd_keys HD_T, HD_P  // "they'd" #23 + 've (no rationale for this, but no SFCombo)
 
 // deictics. Are these really necessary?
-#define HD_there_keys HD_T, HD_F  // TYPE "there" #7 + 's
+#define HD_there_keys HD_T, HD_R  // TYPE "there" #7 + 's
 #define HD_here_keys  HD_H, HD_R  // TYPE "here" #5 + 's
+
 
 #ifdef EN_W_PRONOUNS
 #define HD_where_keys HD_X, HD_R  // "where" + 's
+#define HD_were_keys  HD_X, HD_QUOT  // TYPE "we're"
 #define HD_wed_keys   HD_X, HD_G  // TYPE "we'd" + 've
 #define HD_well_keys  HD_X, HD_M  // TYPE "we'll" + 've
-#define HD_were_keys  HD_X, HD_QUOT  // TYPE "we're"
 #define HD_weve_keys  HD_X, HD_J  // TYPE "we've"
 #endif // EN_W_PRONOUNS
 
-#endif // EN_PRONOUN_keysS_ALL
-#endif // EN_PRONOUN_keysS // the entirely unnecessary pronoun combo shenanigans
+#endif // EN_PRONOUNS_ALL
+#endif // EN_PRONOUNS // the entirely unnecessary pronoun combo shenanigans
+
+
 
 #ifdef JP_MODE_ENABLE
 #ifdef JP_YOUON_COMBOS
@@ -314,5 +317,6 @@
 #endif // JP_YOUON_COMBOS_ALL // All Japanese contracted sounds
 #endif // JP_YOUON_COMBOS  // Major Japanese contracted sounds as combos
 #endif // JP_MODE_ENABLE // All Japanese mode features
+
 
 #endif // COMBO_ENABLE

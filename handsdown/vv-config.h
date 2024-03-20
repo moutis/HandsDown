@@ -2,7 +2,7 @@
 //
 // The Hands Down Variation dependent defs & files
 //
-#define HD_adaptive_code "handsdown/vb-adaptive.c"
+#define HD_adaptive_code "handsdown/vv-adaptive.c"
 //
 
 //
@@ -61,9 +61,9 @@
 //
 //    Base (alpha) Layer  Hands Down Vibranium-vv (HRMs /+ thumb mods)
 //      ╭─────────────────────╮                 ╭─────────────────────╮
-// esc  │  X   W   M   G   J  │ L_CFG     L_NUM │  #$  .:  '[  "]   B │ LANG2/henk
+// esc  │  V   W   M   G   J  │ L_CFG     L_NUM │  #$  .:  '[  "]   B │ LANG2/henk
 // tab  │  S   C   N   T   K  | (             ) |  ,;   A   E   I   H │ LANG1/mhen
-//  Z   │  V   F   L   D  /*  │ [ copy   pste ] │  -+   U   O   Y   P │ Q
+//  Z   │  X   P   L   D  /*  │ [ copy   pste ] │  -+   U   O   Y   F │ Q
 //      ╰───────────╮ bsp  R  │ &             | │ spc  ret ╭──────────╯
 //    left rght app ╰─────────╯                 ╰──────────╯ tgLN  up  dn
 //
@@ -72,7 +72,7 @@
 //
 
 #define HD_LT5 KC_ESC
-#define HD_LT4 HD_X
+#define HD_LT4 HD_V
 #define HD_LT3 HD_W
 #define HD_LT2 HD_M
 #define HD_LT1 HD_G
@@ -83,7 +83,7 @@
 #define HD_RT1 HD_DOT
 #define HD_RT2 HD_QUOT
 #define HD_RT3 HD_DQUO
-#define HD_RT4 HD_B
+#define HD_RT4 HD_
 #define HD_RT5 KC_LNG2
 
 #define HD_LM5 KC_TAB
@@ -102,7 +102,7 @@
 #define HD_RM5 KC_LNG1
 
 #define HD_LB5 HD_Z
-#define HD_LB4 HD_V
+#define HD_LB4 HD_X
 #define HD_LB3 HD_F
 #define HD_LB2 HD_L
 #define HD_LB1 HD_D
@@ -174,7 +174,8 @@
 #define HD_spc_keys  HD_LM1, HD_LM0     // SPACE
 #define HD_ent_keys  HD_LB0, HD_LB1     // ENTER
 #define HD_ent2_keys HD_LB0, HD_LB1, HD_LB2 // hard-ENTER/page break
-//#define APPMENU_keys  HD_LT1, HD_LT0  // APPMENU
+#define APPMENU_keys  HD_LT1, HD_LT0  // APPMENU
+#define APPMENU_nav_keys  LN_LT1, LN_LT0  // APPMENU
 
 // TEXT ENTRY - off map standard alphas (also on Layer L_SYM @ Z=LT4 & Q=LT3)
 //
@@ -221,10 +222,10 @@
 #define HD_youve_keys HD_Y, HD_V  // TYPE "you've"
 #define HD_your_keys  HD_Y, HD_R  // TYPE "your"
 
-#define HD_their_keys HD_T, HD_B  // TYPE "their" #6 (R on same finger in Neu)
+#define HD_their_keys HD_T, HD_V  // TYPE "their" #6 (R on same finger in Neu)
 #define HD_theyre_keys HD_T, HD_X // "they're"  (R on same finger in Neu)
-#define HD_they_keys  HD_T, HD_W  // "they" #23 + 've (near they)
-#define HD_theyll_keys HD_T, HD_M // "they'll" #23 + 've (M is easier to combo, also in We'll)
+#define HD_they_keys  HD_T, HD_Y  // "they" #23 + 've (near they)
+#define HD_theyll_keys HD_T, HD_L // "they'll" #23 + 've (M is easier to combo, also in We'll)
 #define HD_theyd_keys HD_T, HD_P  // "they'd" #23 + 've (no rationale for this, but no SFCombo)
 
 // deictics. Are these really necessary?
@@ -267,9 +268,9 @@
 #define JP_tyu_keys HD_LM1, HD_RB1 //　ちゅ
 #define JP_tye_keys HD_LM1, HD_RM2 // ちぇ
 #define JP_tyo_keys HD_LM1, HD_RB2 //　ちょ
-#define JP_pya_keys HD_LB3, HD_RM1 // ぴゃ
-#define JP_pyu_keys HD_LB3, HD_RB1 //　ぴゅ
-#define JP_pyo_keys HD_LB3, HD_RB2 //　ぴょ
+#define JP_pya_keys HD_RT3, HD_RM1 // ぴゃ
+#define JP_pyu_keys HD_RT3, HD_RB1 //　ぴゅ
+#define JP_pyo_keys HD_RT3, HD_RB2 //　ぴょ
 
 #ifdef JP_YOUON_COMBOS_ALL // All Japanese contracted sounds
 
@@ -300,9 +301,9 @@
 //#define JP_fye_keys HD_RM4, HD_RB1 //　ふぇ
 //#define JP_fyo_keys HD_RM4, HD_RB2 //　ふぉ
 
-#define JP_bya_keys HD_LB4, HD_RM1 // びゃ
-#define JP_byu_keys HD_LB4, HD_RB1 //　びゅ  conflicts with diacritic?
-#define JP_byo_keys HD_LB4, HD_RB2 //　びょ
+#define JP_bya_keys HD_RT4, HD_RM1 // びゃ
+#define JP_byu_keys HD_RT4, HD_RB1 //　びゅ  conflicts with diacritic?
+#define JP_byo_keys HD_RT4, HD_RB2 //　びょ
 #define JP_mya_keys HD_LT2, HD_RM1 // みゃ
 #define JP_myu_keys HD_LT2, HD_RB1 //　みゅ
 #define JP_myo_keys HD_LT2, HD_RB2 //　みょ
@@ -312,6 +313,6 @@
 
 #endif // JP_YOUON_COMBOS_ALL // All Japanese contracted sounds
 #endif // JP_YOUON_COMBOS  // Major Japanese contracted sounds as combos
-#endif // JP_MODE_ENABLE // All Japanese mode features
+#endif // JP_MODE_ENABLE // Japanese mode features
 
 #endif // COMBO_ENABLE
