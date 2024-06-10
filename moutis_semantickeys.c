@@ -86,6 +86,9 @@ const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][OS_count] = {
 //    [SK_DEL  - SK_KILL] = {KC_DEL,KC_DEL,KC_DEL}, // DELETE CHAR RIGHT
     [SK_DELWDL - SK_KILL] = {A(KC_BSPC),C(KC_BSPC),C(KC_BSPC)}, // DELETE WORD LEFT
     [SK_DELWDR - SK_KILL] = {A(KC_DEL),C(KC_DEL),C(KC_DEL)}, // DELETE WORD RIGHT
+    [SK_DELLNL - SK_KILL] = {G(KC_BSPC),C(KC_BSPC),C(KC_BSPC)}, // Delete line left of cursor
+    [SK_DELLNR - SK_KILL] = {G(KC_DEL),C(KC_DEL),C(KC_DEL)}, // Delete line right of cursor
+
     [SK_WORDPRV - SK_KILL] = {A(KC_LEFT),C(KC_LEFT),C(KC_LEFT)}, // WORD LEFT
     [SK_WORDNXT - SK_KILL] = {A(KC_RIGHT),C(KC_RIGHT),C(KC_RIGHT)}, // WORD RIGHT
     [SK_DOCBEG - SK_KILL] = {G(KC_UP),C(KC_HOME),C(KC_HOME)}, // Go to start of document
@@ -133,12 +136,37 @@ const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][OS_count] = {
 
 bool process_semkey(uint16_t keycode, const keyrecord_t *record) {
     // custom processing could hapen here
-    uint8_t  saved_mods;
+    uint8_t  held_mods;
     if (keycode >= SK_KILL && keycode < SemKeys_COUNT) {
-        saved_mods = get_mods();
+        held_mods = get_mods();
         if (record->event.pressed) {
             switch (keycode) {
- //
+#ifdef SK_DELLINE
+                case SK_WORDPRV: //
+                    if (!(held_mods && MOD_MASK_GUI))
+                        register_SemKey(SK_WORDPRV);
+                    else
+                        register_SemKey(SK_LINEBEG);
+                    break;
+                case SK_WORDNXT: //
+                    if (!(held_mods && MOD_MASK_GUI))
+                        register_SemKey(SK_WORDNXT);
+                    else
+                        register_SemKey(SK_LINEEND);
+                    break;
+                case SK_DELWDL: //
+                    if (!(held_mods && MOD_MASK_GUI))
+                        register_SemKey(SK_DELLNL);
+                    else
+                        register_SemKey(SK_DELLNL);
+                    break;
+                case SK_DELWDR: //
+                    if (!(held_mods && MOD_MASK_GUI))
+                        register_SemKey(SK_DELLNR);
+                    else
+                        register_SemKey(SK_DELLNR);
+                    break;
+#endif // SK_DELLINE
  // handle multi-keystroke semkeys here
  //
                 case SK_SWRD: // Select current word
@@ -156,14 +184,14 @@ bool process_semkey(uint16_t keycode, const keyrecord_t *record) {
                         ) { // if  in English mode
                         clear_keyboard(); // clean record to tinker with.
                         tap_SemKey(SK_ENYE);
-                        set_mods(saved_mods & MOD_MASK_SHIFT); // Preserve shift state
+                        set_mods(held_mods & MOD_MASK_SHIFT); // Preserve shift state
                         tap_code16(KC_N);
-                        // set_mods(saved_mods); // restore mods just in case? (not necessary?)
+                        // set_mods(held_mods); // restore mods just in case? (not necessary?)
 #ifdef JP_MODE_ENABLE
                     } else { // (if in Japanese mode, send ん)
                         tap_code16(KC_N);  //
                         tap_code16(KC_N);  //
-#endif
+#endif // JP_MODE_ENABLE
                     }
                     break;
                 case SK_HENK: // Japanese
@@ -189,6 +217,32 @@ bool process_semkey(uint16_t keycode, const keyrecord_t *record) {
             }
         } else { // The keyup event
             switch (keycode) {
+#ifdef SK_DELLINE
+                case SK_WORDPRV: //
+                    if (!(held_mods && MOD_MASK_GUI))
+                        unregister_SemKey(SK_WORDPRV);
+                    else
+                        unregister_SemKey(SK_LINEBEG);
+                    break;
+                case SK_WORDNXT: //
+                    if (!(held_mods && MOD_MASK_GUI))
+                        unregister_SemKey(SK_WORDNXT);
+                    else
+                        unregister_SemKey(SK_LINEEND);
+                    break;
+                case SK_DELWDL: //
+                    if (!(held_mods && MOD_MASK_GUI))
+                        unregister_SemKey(SK_DELLNL);
+                    else
+                        unregister_SemKey(SK_DELLNL);
+                    break;
+                case SK_DELWDR: //
+                    if (!(held_mods && MOD_MASK_GUI))
+                        unregister_SemKey(SK_DELLNR);
+                    else
+                        unregister_SemKey(SK_DELLNR);
+                    break;
+#endif // SK_DELLINE
                 default:
                     unregister_SemKey(keycode);
                     break;

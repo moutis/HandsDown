@@ -13,23 +13,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     saved_mods = get_mods(); // preserve mods
 
-#ifdef ADAPTIVE_ENABLE
-    // Should we handle an adaptive key?  (Semkey may send Adaptive?)
-    if (record->event.pressed // keyup = not rolling = no adaptive -> return.
-        && user_config.AdaptiveKeys // AdaptiveKeys is on
-#ifdef JP_MODE_ENABLE
-        && IS_ENGLISH_MODE // Adaptives only in primary (Latin) mode
-#endif // #ifdef JP_MODE_ENABLE
-        ) {
-        if (!process_adaptive_key(keycode, record)) {
-            prior_keydown = timer_read(); // (re)start prior_key timing
-            preprior_keycode = prior_keycode; // look back 2 keystrokes?
-            prior_keycode = keycode; // this keycode is stripped of mods+taps
-            return false; // took care of that key
-        }
-    }
-#endif // #ifdef ADAPTIVE_ENABLE
-    
     // Do we need to filter multi-function keys?
     switch (keycode) {
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
@@ -42,6 +25,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             keycode &= QK_BASIC_MAX; // mods & taps have been handled.
     }
 
+#ifdef ADAPT_SHIFT  // pseudo-adaptive comma-shift uses 2x ADAPTIVE_TERM, so pre-evaluated
+        if (
+            (prior_keycode == ADAPT_SHIFT) &&  // is it shift leader?
+            (timer_elapsed(prior_keydown) <= ADAPTIVE_TERM*2) &&  // within threshold?
+            ((keycode & QK_BASIC_MAX) >= KC_A) &&  // followed by any alpha?
+            ((keycode & QK_BASIC_MAX) <= KC_Z)) {
+                tap_code(KC_BSPC); // get rid of ADAPT_SHIFT
+                tap_code16(S(keycode & QK_BASIC_MAX)); // send cap letter
+                prior_keycode = preprior_keycode = prior_keydown = 0; // done.
+                return false; // so return "finished".
+        }
+#endif
+
+#ifdef ADAPTIVE_ENABLE
+    // Should we handle an adaptive key?  (Semkey may send Adaptive?)
+    if (record->event.pressed // keyup = not rolling = no adaptive -> return.
+        && user_config.AdaptiveKeys // AdaptiveKeys is on
+#ifdef JP_MODE_ENABLE
+        && IS_ENGLISH_MODE // Adaptives only in primary (Latin) mode
+#endif // #ifdef JP_MODE_ENABLE
+        ) {
+
+        if (!process_adaptive_key(keycode, record)) {
+            prior_keydown = timer_read(); // (re)start prior_key timing
+            preprior_keycode = prior_keycode; // look back 2 keystrokes?
+            prior_keycode = keycode; // this keycode is stripped of mods+taps
+            return false; // took care of that key
+        }
+    }
+#endif // #ifdef ADAPTIVE_ENABLE
+    
     // Do we turn off CAPS_WORD?
     if (caps_word_timer) {
         if (!process_caps_word(keycode, record)) {
@@ -113,7 +127,7 @@ register_key_trap_and_return:
                 unregister_mods(MOD_MASK_SA); // get rid of shift & alt
                 if (saved_mods & MOD_MASK_ALT) { // ALT down?
                     if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
-                        tap_code16(A(S(KC_1))); // Y:
+                        tap_code16(S(A(KC_1))); // Y:
                     } else {
                         tap_code16(KC_BSLS); // N: just alt, so
                     }
@@ -235,7 +249,7 @@ register_key_trap_and_return:
                     }
                     return_state = false; // stop processing this record.
                 } else if (saved_mods & MOD_MASK_SHIFT) { // only SHFT down
-                    tap_code16(A(S(KC_2))); // this should be semkey for €
+                    tap_code16(S(A(KC_2))); // this should be semkey for €
                     return_state = false; // stop processing this record.
                 }
                 break;

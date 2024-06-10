@@ -42,8 +42,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         //              Left encoder                         Right encoder
         //      Unshifted            Shifted             Unshifted              Shifted
         //       CCW, CW             CCW, CW              CCW, CW               CCW, CW
-        {{{KC_VOLD,KC_VOLU}, {KC_BRID,KC_BRIU}}, {{KC_LEFT,KC_RIGHT}, {KC_UP, KC_DOWN}}},    // L_QWERTY, 0 - QWERTY compatibility layer
-        {{{KC_VOLD,KC_VOLU}, {KC_BRID,KC_BRIU}}, {{KC_LEFT,KC_RIGHT}, {KC_UP, KC_DOWN}}},    // L_HD,  1 - Hands Down Alpha layer
+        {{{KC_VOLD,KC_VOLU}, {KC_BRID,KC_BRIU}}, {{KC_LEFT,KC_RIGHT}, {KC_PGUP, KC_PGDN}}}, // L_QWERTY, 0 - QWERTY compatibility layer
+        {{{KC_VOLD,KC_VOLU}, {KC_BRID,KC_BRIU}}, {{KC_LEFT,KC_RIGHT}, {KC_PGUP, KC_PGDN}}}, // L_HD,  1 - Hands Down Alpha layer
         {{{LS_LH5,LS_LH4},   {LS_LH4,LS_LH5}},   {{LS_RH4,LS_RH5},    {LS_RH4,LS_RH5}}},    // L_SYM, 2 - symbols, punctuation, off-map alphas
         {{{LF_LH5,LF_LH4},   {LF_LH4,LF_LH5}},   {{LF_RH4,LF_RH5},    {LF_RH4,LF_RH5}}},    // L_FUN, 3 - function & number rows
         {{{LN_LH5,LN_LH4},   {LN_LH4,LN_LH5}},   {{LN_RH4,LN_RH5},    {LN_RH4,LN_RH5}}},    // L_NUM, 4 - numpad (right); navpad (left)

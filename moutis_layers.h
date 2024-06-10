@@ -31,48 +31,64 @@ __ │    >       ]       )        }        •     │ __  __   __  __  │    
    ╰──────────────────╮ VolD   D_WordL  D_WordR │ --           __  │     ª        °       ·     ╭─────────────╯
    KC_PGDN   KC_PGUP  ╰─────────────────────────╯                  ╰────────────────────────────╯ SK_WORDPRV  SK_WORDNXT
 */
+/*  L_SYM Symbols and punctuation (Some via SemKeys/unicode for platform independance)
+   ╭────────────────────────────────────────────╮                  ╭──────────────────────────────────────────╮
+__ │    Z       Q       ¶        §        ‡     │                  │     ¢        $       €       £       ¥   │ __
+__ │    -       +       *        =        ^     |                  |     †        (       {       [       •   │ __
+__ │    <       >       &        /        |     │ __  __   __  __  │     ·        )       }       ]       °   │ __
+   ╰──────────────────╮ VolD   D_WordL  D_WordR │ --           __  │     _        ¡       ª     ╭─────────────╯
+   KC_PGDN   KC_PGUP  ╰─────────────────────────╯                  ╰────────────────────────────╯ SK_WORDPRV  SK_WORDNXT
+*/
+/*  L_SYM Symbols and punctuation (Some via SemKeys/unicode for platform independance)
+   ╭────────────────────────────────────────────╮                  ╭──────────────────────────────────────────╮
+__ │    Z       Q       ¶        §        ‡     │                  │     ¢        $       €       £       ¥   │ __
+__ │    •       [       (        {        †     |                  |     /        =       *       +       -   │ __
+__ │    ·       ]       )        }        °     │ __  __   __  __  │     ^        |       &       <       >   │ __
+   ╰──────────────────╮ VolD   D_WordL  D_WordR │ --           __  │     _        ¡       ª     ╭─────────────╯
+   KC_PGDN   KC_PGUP  ╰─────────────────────────╯                  ╰────────────────────────────╯ SK_WORDPRV  SK_WORDNXT
+*/
 
 #define LS_LT5 KC_TRNS
 #define LS_LT4 KC_Z
 #define LS_LT3 KC_Q
-#define LS_LT2 SK_PARA
-#define LS_LT1 SK_SECT
-#define LS_LT0 SK_DCRS
-#define LS_RT0 SK_CENT
-#define LS_RT1 KC_DLR
-#define LS_RT2 SK_EURO
-#define LS_RT3 SK_BPND
-#define LS_RT4 SK_JPY
+#define LS_LT2 SK_PARA // ¶
+#define LS_LT1 SK_SECT // §
+#define LS_LT0 SK_DCRS // ‡
+#define LS_RT0 SK_CENT // ¢
+#define LS_RT1 KC_DLR  // $
+#define LS_RT2 SK_EURO // €
+#define LS_RT3 SK_BPND // £
+#define LS_RT4 SK_JPY  // ¥
 #define LS_RT5 KC_TRNS
 
 #define LS_LM5 KC_TRNS
-#define LS_LM4 KC_LT
+#define LS_LM4 LALT(KC_8) // SK_BLLT? // KC_LT
 #define LS_LM3 KC_LBRC
 #define LS_LM2 KC_LPRN
 #define LS_LM1 KC_LCBR
 #define LS_LM0 SK_SCRS
-#define LS_RM0 SK_IEXC
-#define LS_RM1 RSFT_T(KC_PAST)
-#define LS_RM2 RGUI_T(KC_PEQL)
+#define LS_RM0 KC_PSLS // / // SK_IEXC
+#define LS_RM1 RSFT_T(KC_PEQL) // RSFT_T(KC_PAST)
+#define LS_RM2 RGUI_T(KC_PAST) // RGUI_T(KC_PEQL)
 #define LS_RM3 RALT_T(KC_PPLS)
-#define LS_RM4 RCTL_T(KC_PSLS)
+#define LS_RM4 RCTL_T(KC_PMNS) // RCTL_T(KC_PSLS)
 #define LS_RM5 KC_TRNS
 
 #define LS_LB5 KC_TRNS
-#define LS_LB4 KC_GT
+#define LS_LB4 LSA(KC_9) // · // KC_GT
 #define LS_LB3 KC_RBRC
 #define LS_LB2 KC_RPRN
 #define LS_LB1 KC_RCBR
-#define LS_LB0 LALT(KC_8)
+#define LS_LB0 LSA(KC_8)  // ° // LALT(KC_8) // SK_BLLT?
 #define LS_LBA KC_TRNS
 #define LS_LBB KC_TRNS
 #define LS_RBB KC_TRNS
 #define LS_RBA KC_TRNS
-#define LS_RB0 KC_UNDS
-#define LS_RB1 KC_PIPE
+#define LS_RB0 KC_CIRC // ^ // KC_UNDS
+#define LS_RB1 KC_PIPE // |
 #define LS_RB2 KC_AMPR
-#define LS_RB3 KC_CIRC
-#define LS_RB4 KC_PERC
+#define LS_RB3 KC_LT // KC_CIRC
+#define LS_RB4 KC_GT // KC_PERC
 #define LS_RB5 KC_TRNS
 
 #define LS_LH5 KC_PGDN // also left encoder CCW
@@ -80,13 +96,13 @@ __ │    >       ]       )        }        •     │ __  __   __  __  │    
 #define LS_LH3 KC_MUTE
 #define LS_LH2 SK_DELWDL
 #define LS_LH1 SK_DELWDR
-#define LS_LH0 KC_VOLD
+#define LS_LH0 KC_VOLD   // also left encoder key switch
 #define LS_LHA KC_VOLD
 #define LS_RHA KC_VOLU
-#define LS_RH0 KC_VOLU
-#define LS_RH1 LALT(KC_9) // ª
-#define LS_RH2 LSA(KC_8)  // °
-#define LS_RH3 LSA(KC_9) // ·
+#define LS_RH0 KC_VOLU   // also right encoder key switch
+#define LS_RH1 KC_UNDS // _ // LALT(KC_9) // ª
+#define LS_RH2 SK_IEXC // ¡ // LSA(KC_8)  // °
+#define LS_RH3 LALT(KC_9) // ª // LSA(KC_9) // ·
 #define LS_RH4 SK_WORDPRV // also right encoder CCW
 #define LS_RH5 SK_WORDNXT // also right encoder CW
 
@@ -148,10 +164,10 @@ __ │    >       ]       )        }        •     │ __  __   __  __  │    
 #define LF_LH3 KC_TRNS
 #define LF_LH2 KC_SCLN
 #define LF_LH1 TG(L_NUM)
-#define LF_LH0 KC_TRNS
+#define LF_LH0 KC_TRNS  // also left encoder key switch
 #define LF_LHA KC_NO
 #define LF_RHA KC_NO
-#define LF_RH0 KC_TRNS
+#define LF_RH0 KC_TRNS  // also right encoder key switch
 #define LF_RH1 KC_0
 #define LF_RH2 KC_DOT
 #define LF_RH3 KC_TRNS
@@ -211,15 +227,15 @@ __ │ UNDO     CUT     COPY    PSTE      SPC   │ __ __   __ __ │  PCMM     
 #define LN_RB4 KC_PEQL
 #define LN_RB5 KC_TRNS
 
-#define LN_LH5 KC_TRNS // also left encoder CCW
-#define LN_LH4 KC_TRNS // also left encoder CW
+#define LN_LH5 KC_VOLD // also left encoder CCW
+#define LN_LH4 KC_VOLU // also left encoder CW
 #define LN_LH3 KC_TRNS
 #define LN_LH2 LGUI_T(KC_BSPC)
 #define LN_LH1 LSFT_T(KC_ENT)
-#define LN_LH0 KC_DEL
+#define LN_LH0 SK_CLOZ // also left encoder key switch
 #define LN_LHA KC_NO
-#define LN_RHA KC_NO
-#define LN_RH0 KC_C
+#define LN_RHA TG(L_NAV)
+#define LN_RH0 KC_C // also right encoder key switch
 #define LN_RH1 KC_P0
 #define LN_RH2 KC_PDOT
 #define LN_RH3 KC_TRNS
@@ -231,13 +247,13 @@ __ │ UNDO     CUT     COPY    PSTE      SPC   │ __ __   __ __ │  PCMM     
    ╭──────────────────────────────────────────╮                  ╭───────────────────────────────────────────────╮
 __ │   QUIT     CLOZ    SCAP    SCLP    PSTM  │                  │  DOCBEG     HOME    UP      PGUP    PARAPRV   │ KC_NUM
 __ │   LCTL     LALT    LGUI    LSFT    FIND  |                  |  WORDPRV    LEFT    DOWN    RGHT    WORDNXT   │ __
-__ │   UNDO     CUT     COPY    PSTE    FAGN  │ __  __    __  __ │  DOCEND     END     DOWN    PGDN    PARANXT   │ __
-   ╰──────────────────╮  __   S(MENU)   MENU  │ __           __  │  HISTPRV  HISTNXT    __    ╭──────────────────╯
+__ │   UNDO     CUT     COPY    PSTE    FAGN  │ ESC TAB   __  __ │  DOCEND     END     DOWN    PGDN    PARANXT   │ __
+   ╰──────────────────╮  __     __     __     │ __           __  │  HISTPRV  HISTNXT    __    ╭──────────────────╯
       ZOOMRST ZOOMOUT ╰───────────────────────╯                  ╰────────────────────────────╯ HISTPRV HISTNXT
 */
 
 #define LV_LT5 KC_TRNS
-#define LV_LT4 SK_QUIT
+#define LV_LT4 KC_TAB
 #define LV_LT3 SK_CLOZ
 #define LV_LT2 SK_SCAP
 #define LV_LT1 SK_SCLP
@@ -268,10 +284,10 @@ __ │   UNDO     CUT     COPY    PSTE    FAGN  │ __  __    __  __ │  DOCEND
 #define LV_LB2 SK_COPY
 #define LV_LB1 SK_PSTE
 #define LV_LB0 SK_FAGN
-#define LV_LBA KC_TRNS
-#define LV_LBB KC_TRNS
-#define LV_RBB KC_TRNS
-#define LV_RBA KC_TRNS
+#define LV_LBA KC_ESC
+#define LV_LBB SK_SALL
+#define LV_RBB KC_TAB
+#define LV_RBA KC_ESC
 #define LV_RB0 SK_DOCEND
 #define LV_RB1 KC_END
 #define LV_RB2 KC_DOWN
@@ -281,16 +297,16 @@ __ │   UNDO     CUT     COPY    PSTE    FAGN  │ __  __    __  __ │  DOCEND
 
 #define LV_LH5 SK_ZOOMOUT // also left encoder CCW
 #define LV_LH4 SK_ZOOMIN // also left encoder CW
-#define LV_LH3 KC_APP   // *** APPMENU needs this for navigation ***
-#define LV_LH2 S(KC_APP)  // APPMENU
-#define LV_LH1 KC_APP // APPMENU
-#define LV_LH0 KC_NO
-#define LV_LHA KC_NO
-#define LV_RHA SK_ZOOMRST
-#define LV_RH0 SK_ZOOMOUT
+#define LV_LH3 KC_TRNS  // typically the app menu
+#define LV_LH2 KC_BSPC
+#define LV_LH1 KC_ENTER
+#define LV_LH0 SK_QUIT  // also left encoder key switch
+#define LV_LHA G(KC_TAB)
+#define LV_RHA TG(L_NAV)
+#define LV_RH0 SK_ZOOMRST  // also right encoder key switch
 #define LV_RH1 SK_HISTPRV
 #define LV_RH2 SK_HISTNXT
-#define LV_RH3 KC_NUM
+#define LV_RH3 TG(L_NAV)
 #define LV_RH4 SK_PARAPRV // also right encoder CCW
 #define LV_RH5 SK_PARANXT // also right encoder CW
 
@@ -352,13 +368,13 @@ __ │   UNDO     CUT     COPY    PSTE    FAGN  │ __  __    __  __ │  DOCEND
 #define LC_LH3 KC_MUTE
 #define LC_LH2 KC_VOLD
 #define LC_LH1 KC_VOLU
-#define LC_LH0 EE_CLR
+#define LC_LH0 EE_CLR  // also left encoder key switch
 #define LC_LHA SK_ZOOMIN
 #define LC_RHA SK_ZOOMOUT
-#define LC_RH0 KC_NO
+#define LC_RH0 KC_NO  // also right encoder key switch
 #define LC_RH1 KC_NO
 #define LC_RH2 KC_NO
-#define LC_RH3 KC_NO
+#define LC_RH3 TG(L_NAV)
 #define LC_RH4 KC_NO // also right encoder CCW
 #define LC_RH5 KC_NO // also right encoder CW
 

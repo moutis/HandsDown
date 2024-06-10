@@ -67,6 +67,8 @@ extern rgblight_config_t rgblight_config;
 //#define THUMB_SHIFT // use the thumb shift variant instead of index shift
 
 
+#define ADAPTIVE_ENABLE
+
 #ifdef COMBO_HOLD
     #undef ADAPTIVE_TERM
     #define ADAPTIVE_TERM COMBO_HOLD * 1.35  // use COMBO_HOLD time as a standard threshold (same recation time)
@@ -75,8 +77,8 @@ extern rgblight_config_t rgblight_config;
 #endif
 
 #define ADAPT_VOWEL_H // eliminate vowel SFBs (AU/UA;EO/OE) using vH instead of v'
-#define ADAPTIVE_ENABLE
-#define ADAPTIVE_TRAILER KC_3
+#define ADAPT_SHIFT KC_COMM // keycode to precede alpha for one-shot shift (leader)
+#define ADAPTIVE_TRAILER KC_HASH
 //#define FR_ADAPTIVES // eliminate 'h SFB for French
 
 //#define THUMB_REPEATER

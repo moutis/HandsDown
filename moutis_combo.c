@@ -32,6 +32,22 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             )
             return;
 #endif // JP_MODE_ENABLE
+
+#ifdef ADAPT_SHIFT
+        // pseudo-adaptive comma-shift uses 2x ADAPTIVE_TERM, so pre-evaluated
+        if (
+            (prior_keycode == ADAPT_SHIFT)  // is it shift leader?
+//            && ((timer_elapsed(prior_keydown) <= ADAPTIVE_TERM*2))  // within threshold?
+//            && ((combo_index >= HC_Q) && (combo_index <= HC_AE)) // followed by alpha combo?
+//            && ((combo_index >= HC_Th) && (combo_index <= HC_their_5gram)) // followed by alpha combo?
+            )
+        {
+            tap_code(KC_BSPC);          // get rid of the ADAPT_SHIFT
+            register_code16(KC_LSFT);  // This will unregister in matrix_scan_user_process_combo
+            prior_keycode = preprior_keycode = prior_keydown = 0; // turn off Adaptives.
+        }
+#endif
+
         switch(combo_index) {
             case PC_STAB ... COMBO_LENGTH:// these may have a hold delay BEFORE triggering
             case HC_AT ... HC_COLN: //
