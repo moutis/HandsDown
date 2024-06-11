@@ -139,7 +139,7 @@
 // We want to be able to define a combo by location
 // for variation independent, spatial referencing, or
 // by letter for mnemonic/phonetic referencing (variation dependent)
-// put this sort of obscures the definitions…so…
+// but this sort of obscures the definitions…so…
 //
 // BE CAREFUL to not double define a combo!
 //

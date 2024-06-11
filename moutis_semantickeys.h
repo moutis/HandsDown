@@ -62,7 +62,9 @@ enum my_keycodes {
 //    SK_DEL,   // Delete char right of cursor
     SK_DELWDL, // Delete word left of cursor
     SK_DELWDR, // Delete word right of cursor
-    
+    SK_DELLNL, // Delete line left of cursor
+    SK_DELLNR, // Delete line right of cursor
+
     SK_WORDPRV, // WORD LEFT
     SK_WORDNXT, // WORD RIGHT
     SK_DOCBEG, // Go to start of document

@@ -11,7 +11,6 @@
 //
 // These definitions based on Hands Down Neu & variations'
 // combo keycodes defined in the variation config
-// ex "handsdonu-config.h"
 //
 // Combo definitions defined spatially
 // Other variation dependent combos have predetermined
@@ -53,7 +52,6 @@ const uint16_t PROGMEM Hpste_combo[] = {HD_pste_keys, COMBO_END}; // paste (hold
 
 
 
-/* examples of text entry combos */
 const uint16_t PROGMEM H_Left_combo[] = {HD_LT3, HD_LT2, HD_LT1, COMBO_END}; // TYPE LeftComboTapE
 const uint16_t PROGMEM H_Right_combo[] = {HD_RT1, HD_RT2, HD_RT3, COMBO_END}; // some demonstrator macro placeholder
 
@@ -62,8 +60,8 @@ const uint16_t PROGMEM F_SCLP_combo[] = {HD_LT2, HD_LT1, HD_LT0, COMBO_END}; // 
 const uint16_t PROGMEM F_SCAP_combo[] = {HD_LT3, HD_LT2, HD_LT1, HD_LT0, COMBO_END}; //  SCREEN shot SELECTION to file
 
 
-const uint16_t PROGMEM F_CAPS_combo[] = {HD_LM3, HD_LM2, HD_RM2, HD_RM3, COMBO_END}; // CAPS LOCK (on until hit again)
-const uint16_t PROGMEM H_CAPW_combo[] = {HD_LM1, HD_LM2, HD_RM1, HD_RM2, COMBO_END}; // CAPS WORD (on until word delimiter)
+const uint16_t PROGMEM H_CAPW_combo[] = {HD_RB3, HD_RB4, COMBO_END}; // CAPS WORD (on until word delimiter)
+const uint16_t PROGMEM F_CAPS_combo[] = {HD_RB2, HD_RB3, HD_RB4, COMBO_END}; // CAPS LOCK (on until hit again)
 const uint16_t PROGMEM H_EISUU_combo[] = {HD_LM3, HD_LM2, HD_LM1, COMBO_END}; // KC_MHEN
 const uint16_t PROGMEM H_KANA_combo[] = {HD_RM3, HD_RM2, HD_RM1, COMBO_END}; // KC_HENK
 
@@ -99,14 +97,20 @@ const uint16_t PROGMEM Hat_combo[] = {HD_RT0, HD_RT1, COMBO_END}; // @
 const uint16_t PROGMEM Hdier_combo[] = {HD_RB1, HD_RB2, COMBO_END}; // ¨ dieresis (dead key)
 const uint16_t PROGMEM Henye_combo[] = {HD_LT4, HD_LT0, COMBO_END}; // ˜ enye (dead key) (ñ only?)
 const uint16_t PROGMEM Hacut_combo[] = {HD_RM1, HD_RM2, COMBO_END}; // ´ acute (dead key)é
-
-// for Neu/Au/Ti/Rh
 const uint16_t PROGMEM Hgrv_combo[] = {HD_RM2, HD_RM3, COMBO_END}; // ` grave (dead key)
 const uint16_t PROGMEM Hcirc_combo[] = {HD_RM1, HD_RM3, COMBO_END}; // ˆ circumflex (dead key)
 const uint16_t PROGMEM Hmacr_combo[] = {HD_RM2, HD_RM4, COMBO_END}; // - macron (dead key)
 const uint16_t PROGMEM Hring_combo[] = {HD_RM1, HD_RM4, COMBO_END}; // ˚ ring (dead key)
 const uint16_t PROGMEM Hcedi_combo[] = {HD_LM4, HD_LM2, COMBO_END}; // ¸ cedille (dead key)
 //const uint16_t PROGMEM Hoslsh_combo[] = {HD_RB2, HD_LB0, COMBO_END}; // ø/Ø or Wh
+
+// Precomposed letters with diacritics (uses expanded Semantic Keys)
+// This could be a very large numper of comboos, as many as 35 for vowels
+// áàâåäā éèêe̊ëē íìîīï óòôo̊ōü úùûůūü 
+// two handed combos with home-row [p, r, m, i, l] + vowel
+// and many more for frequently used consonants
+// two handed combos top/bottom row vowel hand?
+
 
 // TEXT ENTRY - off map standard alphas (also on Layer L_SYM @ J & G respectively)byby=
 const uint16_t PROGMEM H_Q_combo[] = {HD_Qu_keys, COMBO_END}; // TYPE "q" (Qu & Linger deletes u)

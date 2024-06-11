@@ -139,7 +139,7 @@
 // We want to be able to define a combo by location
 // for variation independent, spatial referencing, or
 // by letter for mnemonic/phonetic referencing (variation dependent)
-// put this sort of obscures the definitions…so…
+// but this sort of obscures the definitions…so…
 //
 // BE CAREFUL to not double define a combo!
 //
@@ -157,10 +157,10 @@
 // the above combos may compete for the same locations,
 // we'll define them all here.
 //
-#define HD_new_keys   HD_LM2, HD_LB2   // new
-#define HD_open_keys  HD_LM1, HD_LB1   // open
-#define HD_close_keys HD_LM3, HD_LB3   // close
-#define HD_quit_keys  HD_LB0, HD_LM0   // quit
+#define HD_new_keys   HD_LB0, HD_LM0   // new -- Since cmd/ctrl is on middle
+#define HD_open_keys  HD_RB0, HD_RM0   // open -- these must be 2 handed, so combo
+#define HD_close_keys HD_RT0, HD_RM0   // close -- not strictly necessary?
+#define HD_quit_keys  HD_LT0, HD_LM0   // quit -- because q is on symbol layer
 #define HD_find_keys  HD_LM4, HD_LM0   // find selection
 #define HD_sall_keys  HD_LB4, HD_LB1   // select all
 #define HD_swrd_keys  HD_LB4, HD_LB0   // select word
@@ -218,12 +218,12 @@
 #ifdef EN_PRONOUN_COMBOS_ALL // Admittedly of questionable value
 #define HD_youd_keys  HD_Y, HD_D  // TYPE "you'd" + 've
 #define HD_youll_keys HD_Y, HD_L  // TYPE "you'll" + 've
-#define HD_youre_keys HD_Y, HD_F  // TYPE "you're"
+#define HD_youre_keys HD_Y, HD_B  // TYPE "you're"
 #define HD_youve_keys HD_Y, HD_V  // TYPE "you've"
 #define HD_your_keys  HD_Y, HD_R  // TYPE "your"
 
-#define HD_their_keys HD_T, HD_B  // TYPE "their" #6 (R on same finger in Neu)
-#define HD_theyre_keys HD_T, HD_X // "they're"  (R on same finger in Neu)
+#define HD_their_keys HD_T, HD_X  // TYPE "their" #6 (R on same finger in Neu)
+#define HD_theyre_keys HD_T, HD_B // "they're"  (R on same finger in Neu)
 #define HD_they_keys  HD_T, HD_W  // "they" #23 + 've (near they)
 #define HD_theyll_keys HD_T, HD_M // "they'll" #23 + 've (M is easier to combo, also in We'll)
 #define HD_theyd_keys HD_T, HD_P  // "they'd" #23 + 've (no rationale for this, but no SFCombo)
@@ -231,7 +231,6 @@
 // deictics. Are these really necessary?
 #define HD_there_keys HD_T, HD_R  // TYPE "there" #7 + 's
 #define HD_here_keys  HD_H, HD_R  // TYPE "here" #5 + 's
-
 
 #ifdef EN_W_PRONOUNS
 #define HD_where_keys HD_X, HD_R  // "where" + 's
@@ -275,7 +274,7 @@
 #define JP_pyu_keys HD_LB3, HD_RB1 //　ぴゅ
 #define JP_pyo_keys HD_LB3, HD_RB2 //　ぴょ
 
-#ifdef JP_YOUON_COMBOS_ALL // All Japanese contracted sounds
+#ifdef JP_YOUON_COMBOS_ALL // All Japanese (in-use) contracted sounds
 
 #define JP_gya_keys HD_LT1, HD_RM1 // ぎゃ
 #define JP_gyu_keys HD_LT1, HD_RB1 //　ぎゅ
@@ -299,7 +298,7 @@
 //#define JP_hya_keys HD_RM4, HD_RM1 // ひゃ conflicts with diacritic
 #define JP_hyu_keys HD_RM4, HD_RB1 //　ひゅ
 #define JP_hyo_keys HD_RM4, HD_RB2 //　ひょ
-//#define JP_fya_keys HD_RM4, HD_RM1 // ふぁ unnecessary?
+//#define JP_fya_keys HD_RM4, HD_RM1 // ふぁ unnecessary? フェ！
 //#define JP_fyu_keys HD_RM4, HD_RB1 //　ふぃ
 //#define JP_fye_keys HD_RM4, HD_RB1 //　ふぇ
 //#define JP_fyo_keys HD_RM4, HD_RB2 //　ふぉ

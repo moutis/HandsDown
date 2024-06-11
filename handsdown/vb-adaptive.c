@@ -29,8 +29,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 
 //        switch (((keycode >= SAFE_RANGE) && (keycode <= SemKeys_COUNT)) ? (keycode) : (keycode & QK_BASIC_MAX)) { // only handling normal, SHFT or ALT cases.
 
-    switch (keycode & QK_BASIC_MAX) { // process ignoring multi-function keys & shift state?
-
+    switch (keycode) { // process ignoring multi-function keys & shift state?
 /*
 // Left hand adaptives (most are single-handed neighbor fingers, bc speed, dexterity limits)
 */
@@ -71,10 +70,12 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     tap_code(KC_L);  // pull up "L" (PL is 15x more common than PM)
                     return_state = false; // done.
                     break;
+/*
                 case KC_B: // to avoid the scissor on BM
                     tap_code(KC_M);
                     return_state = false; // done.
                     break;
+*/
                 case KC_L:
                     if (preprior_keycode == KC_P) { // PLD = PWD?
                         tap_code(KC_BSPC);
@@ -220,29 +221,39 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     tap_code(KC_D); // eliminate SFB on index
                     return_state = false; // done.
                     break;
+                case KC_N: // avoid SFB (NL is 10x more common than NW)
+                    tap_code(KC_L);
+                    return_state = false; // done.
+                    break;
             }
             break;
 
-        case KC_K: // remedy ring-index split by shifting fingering
-            if (prior_keycode == KC_T) { // TK = CK (>282x)
-                    tap_code(KC_BSPC);
+            // remedy ring-index split by shifting fingering
+            // Since the hand is already displaced to reach the inner column,
+            // pull the L over with alternate fingering to avoid the stretch.
+        case KC_K:
+            switch (prior_keycode) {
+                case KC_T: // TK = CK (CK is 252x more common than TK))
+                    tap_code(KC_BSPC); // replace T
                     tap_code(KC_C);
-                    break;
+                    break; // Send K normally
+                case KC_D:
+                case KC_G:
+                    tap_code(KC_BSPC); // replace D/G
+                    tap_code(KC_L);
+                    break; // Send K normally
             }
-            // falling through here intentionally here. V&K are treated same.
+            break;
         case KC_V: // remedy inner column split by shifting fingering
             switch (prior_keycode) {
-                case KC_D: // TV/DV/GV = LV ()
+//                case KC_D: // TV/DV/GV = LV ()
+//                case KC_G: //
+
                 case KC_T: // TK/DK/GK = LK ()
-                case KC_G: //
                     tap_code(KC_BSPC);
                     tap_code(KC_L);
                     break; // and let current keycode send normally
-                case KC_B: //
-                    tap_code(KC_M);
-                    return_state = false; // done.
-                    break; // and let current keycode send normally
-           }
+            }
             break;
 
 /*
@@ -263,6 +274,10 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     break;
                 case KC_G: // "GX" is 778x more frequent than "GT"
                     tap_code(KC_T); // eliminate GT SFB.
+                    return_state = false; // done.
+                    break;
+                case KC_N: // avoid SFB (NL is 23x more common than NX)
+                    tap_code(KC_L);
                     return_state = false; // done.
                     break;
             }
@@ -343,10 +358,16 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     return_state = false; // done.
                     break;
 #endif
-                case KC_I: // avoid row skip on outward pinky roll
-                    tap_code(KC_F); // "IH" yields "IF" (96x more common)
+                case KC_I: // IF = IY (eliminate SFB on ring finger)
+                    tap_code(KC_Y); // (inverted IH->IF = IF->IY)
                     return_state = false; // done.
                     break;
+/*
+                case KC_I: // avoid row skip on outward pinky roll
+                    tap_code(KC_Y); // "IH" yields "IF" (96x more common)
+                    return_state = false; // done.
+                    break;
+*/
                 case KC_Y: // (y'all)
                     return_state = false; // done.
 #ifdef FR_ADAPTIVES // eliminate 'h SFB for French
@@ -365,7 +386,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
             break;
 
         case KC_F:
-            switch (prior_keycode) {
+            switch (prior_keycode) { // IF is much more common than IY, so optimizing
                 case KC_Y: // YF = YI (eliminate SFB on ring finger)
                     tap_code(KC_I); // (YI is 37x more common)
                     return_state = false; // done.
