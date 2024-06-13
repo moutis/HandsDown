@@ -172,11 +172,17 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
             }
             break;
 #else
-        case KC_N: // N becomes H (for H-Digraph rolls)
+        case KC_N: // not many things can roll into N
             switch (prior_keycode) {
                 case KC_T: // "TION" is 58x more common than "TN"
                     send_string("ion");
                     return_state = false; // done.
+                    break;
+//                case KC_C: // cn = ln (CN 5x more common)
+                case KC_X: // xn = ln (LN 101x more common)
+                    tap_code(KC_BSPC);
+                    tap_code(KC_L);
+                    return_state = true; // let the N happen.
             }
             break;
 #endif
