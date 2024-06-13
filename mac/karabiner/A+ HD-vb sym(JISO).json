@@ -1,0 +1,637 @@
+{
+    "title": "A HD-vb sym(JISO)",
+    "rules": [
+
+        {
+            "description": "Hands Down-vb sym(JISO)",
+            "manipulators": [
+
+
+                {
+                    "from": {"simultaneous": [
+                        {"key_code": "d"},
+                        {"key_code": "f"},
+                        {"key_code": "g"}],
+                        "modifiers":{"optional":["caps_lock"]}},
+                    "to": [{"key_code": "japanese_eisuu"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"simultaneous": [
+                        {"key_code": "k"},
+                        {"key_code": "l"},
+                        {"key_code": "semicolon"}],
+                        "modifiers":{"optional":["caps_lock"]}},
+                    "to": [{"key_code": "japanese_kana"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "description" : "eisuu ->bspc",
+                    "from": {"key_code": "japanese_eisuu","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "delete_or_backspace"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "description" : "space ->r",
+                    "from": {"key_code": "spacebar","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "r"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "description" : "kana ->spc",
+                    "from": {"key_code": "japanese_kana","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "spacebar"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "description" : "r-cmd ->enter",
+                    "from": {"key_code": "right_command","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "return_or_enter"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "description" : "delete_or_backspace -> del_fwd",
+                    "from": {"key_code": "delete_or_backspace","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "delete_forward"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "description" : "bspc/del",
+                    "from": {"key_code": "right_command","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "return_or_enter"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+
+
+                {
+                     "description" : "I combo",
+                     "from": {"simultaneous": [{"key_code": "semicolon"},{"key_code": "quote"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "i", "modifiers": "left_shift"},{"key_code": "spacebar", "repeat":false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+
+                {
+                     "description" : "SCH combo",
+                     "from": {"simultaneous": [{"key_code": "a"},{"key_code": "s"},{"key_code": "d"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "s"},{"key_code": "c"},{"key_code": "h", "repeat":false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+
+
+                {
+                     "description" : "Z on 'CT' combo",
+                     "from": {"simultaneous": [{"key_code": "d"},{"key_code": "g"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "z"}],
+                     "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "Qu on 'WG' combo",
+                     "from": {"simultaneous": [{"key_code": "e"},{"key_code": "t"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "q"},{"key_code": "u"}],
+                     "to_if_held_down": [{"key_code": "delete_or_backspace"}],
+                     "parameters": {"basic.to_if_held_down_threshold_milliseconds": 250},
+                     "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "th",
+                     "from": {"simultaneous": [{"key_code": "f"},{"key_code": "g"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "t"},{"key_code": "h", "repeat":false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "sh",
+                     "from": {"simultaneous": [{"key_code": "s"},{"key_code": "d"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "s"},{"key_code": "h", "repeat":false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "ch",
+                     "from": {"simultaneous": [{"key_code": "d"},{"key_code": "f"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "c"},{"key_code": "h", "repeat":false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "wh",
+                     "from": {"simultaneous": [{"key_code": "e"},{"key_code": "r"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "w"},{"key_code": "h", "repeat":false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "ph",
+                     "from": {"simultaneous": [{"key_code": "x"},{"key_code": "v"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "p"},{"key_code": "h", "repeat":false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "gh",
+                     "from": {"simultaneous": [{"key_code": "r"},{"key_code": "t"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "g"},{"key_code": "h", "repeat":false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+
+
+
+                {
+                     "description" : "´/é acute",
+                     "from": {"simultaneous": [{"key_code": "k"},{"key_code": "l"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "e", "modifiers":"left_option"}],
+                     "to_if_held_down": [{"key_code": "e", "repeat":false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "`/è grave",
+                     "from": {"simultaneous": [{"key_code": "l"},{"key_code": "semicolon"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "grave_accent_and_tilde", "modifiers":"left_option"}],
+                     "to_if_held_down": [{"key_code": "e", "repeat":false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "ˆ/ê circumflex",
+                     "from": {"simultaneous": [{"key_code": "k"},{"key_code": "semicolon"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "6", "modifiers":"left_option"}],
+                     "to_if_held_down": [{"key_code": "e", "repeat":false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "¯/ō macron",
+                     "from": {"simultaneous": [{"key_code": "l"},{"key_code": "quote"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "a", "modifiers":"left_option"}],
+                     "to_if_held_down": [{"key_code": "o", "repeat":false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "˚/å ring",
+                     "from": {"simultaneous": [{"key_code": "k"},{"key_code": "quote"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "k", "modifiers":"left_option"}],
+                     "to_if_held_down": [{"key_code": "a", "repeat":false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "¨/ü umlaut",
+                     "from": {"simultaneous": [{"key_code": "comma"},{"key_code": "period"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "u", "modifiers":"left_option"}],
+                     "to_if_held_down": [{"key_code": "u", "repeat":false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                
+                {
+                     "description" : "– n-dash",
+                     "from": {"simultaneous": [{"key_code": "m"},{"key_code": "comma"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "hyphen", "modifiers":"left_option"}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "– m-dash",
+                     "from": {"simultaneous": [{"key_code": "m"},{"key_code": "period"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "hyphen", "modifiers":["left_option","left_shift"]}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "_ underscore",
+                     "from": {"simultaneous": [{"key_code": "comma"},{"key_code": "slash"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "hyphen", "modifiers":["left_shift"]}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "~ tilde",
+                     "from": {"simultaneous": [{"key_code": "m"},{"key_code": "international1"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "grave_accent_and_tilde", "modifiers":"left_shift"}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "= equal",
+                     "from": {"simultaneous": [{"key_code": "period"},{"key_code": "slash"}],"modifiers":{"optional":["any"]}},
+                     "to_if_alone": [{"key_code": "equal_sign"}],
+                     "to_if_held_down": [{"key_code": "5", "modifiers":"left_shift", "repeat":false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+
+
+
+
+                {
+                     "description" : "@",
+                     "from": {"simultaneous": [{"key_code": "u"},{"key_code": "i"}],"modifiers":{"optional":["any"]}},
+                     "to_if_alone": [{"key_code": "2", "modifiers": "left_shift"}],
+                     "to_if_held_down": [
+                         {"key_code": "a"},{"key_code": "l"},{"key_code": "a"},{"key_code": "n"},{"key_code": "period"},
+                         {"key_code": "r"},{"key_code": "e"},{"key_code": "i"},{"key_code": "s"},{"key_code": "e"},{"key_code": "r"},
+                         {"key_code": "period"},{"key_code": "c"},{"key_code": "o"},{"key_code": "m"}
+                     ],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "#",
+                     "from": {"simultaneous": [{"key_code": "u"},{"key_code": "i"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "3", "modifiers": "left_shift"}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "!",
+                     "from": {"simultaneous": [{"key_code": "i"},{"key_code": "o"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "1", "modifiers": "left_shift"}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "?",
+                     "from": {"simultaneous": [{"key_code": "o"},{"key_code": "p"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "slash", "modifiers": "left_shift"}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : ";",
+                     "from": {"simultaneous": [{"key_code": "j"},{"key_code": "k"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "semicolon"}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : ":",
+                     "from": {"simultaneous": [{"key_code": "i"},{"key_code": "p"}],"modifiers":{"optional":["any"]}},
+                     "to_if_alone": [{"key_code": "semicolon", "modifiers": "left_shift"}],
+                     "to_if_held_down": [{"modifiers": "left_option","key_code": "semicolon","repeat": false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "Double quote",
+                     "from": {"simultaneous": [{"key_code": "p"},{"key_code": "open_bracket"}],"modifiers":{"optional":["any"]}},
+                     "to_if_alone": [{"key_code": "quote", "modifiers": "left_shift"}],
+                     "to_if_held_down": [{"modifiers": "left_option","key_code": "open_bracket"},{"modifiers": ["left_option","left_shift"], "key_code": "open_bracket"},{"key_code": "left_arrow","repeat": false}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                     "description" : "grave",
+                     "from": {"simultaneous": [{"key_code": "p"},{"key_code": "open_bracket"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "grave_accent_and_tilde"}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+
+
+
+
+
+
+                {
+                     "description" : "ESC on CT combo",
+                     "from": {"simultaneous": [{"key_code": "s"},{"key_code": "g"}],"modifiers":{"optional":["any"]}},
+                     "to": [{"key_code": "escape"}],
+                     "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                     "type": "basic"
+                 },
+                {
+                    "description" : "Tab",
+                    "from": {"simultaneous": [{"key_code": "w"},{"key_code": "e"}]},
+                    "to": [{"key_code": "tab","repeat": true}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "description" : "Select All",
+                    "from": {"simultaneous": [{"key_code": "z"},{"key_code": "v"}]},
+                    "to": [{"modifiers": "command","key_code": "a","repeat": false}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "description" : "UNDO",
+                    "from": {"simultaneous": [{"key_code": "z"},{"key_code": "x"}]},
+                    "to": [{"modifiers": "command","key_code": "z","repeat": true}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "description": "COPY/ [hold] cut",
+                    "from": {"simultaneous": [{"key_code": "x"},{"key_code": "c"}]},
+                    "to_if_held_down": [{"modifiers": "command","key_code": "x","repeat": false}],
+                    "to_if_alone": [{"modifiers": "command","key_code": "c","repeat":false}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "description": "CUT",
+                    "from": {"simultaneous": [{"key_code": "z"},{"key_code": "c"}]},
+                    "to_if_held_down": [{"modifiers": "command","key_code": "x","repeat":false}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "description": "PASTE",
+                    "from": {"simultaneous": [{"key_code": "c"},{"key_code": "v"}]},
+                    "to": [{"modifiers": "command","key_code": "v","repeat":true}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "description": "PASTE match",
+                    "from": {"simultaneous": [{"key_code": "x"},{"key_code": "v"}]},
+                    "to_if_held_down": [{"modifiers": ["command","shift"],"key_code": "v","repeat": true}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+
+
+
+
+                {
+                    "from": {"key_code": "q","modifiers": {"optional": ["any"]}},
+                    "to_if_alone": [{"key_code": "q"}],
+                    "to_if_held_down": [{"key_code": "q"}, {"key_code": "u", "modifiers": "left_shift", "repeat": false}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "w","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "x"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "e","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "w"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "r","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "m"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "t","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "g"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "y","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "j"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "u","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "3", "modifiers": ["left_shift"]}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "i","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "period"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "o","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "slash"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "p","modifiers": {"optional": ["any"]}},
+                    "to_if_alone": [{"key_code": "quote", "modifiers": "left_shift", "repeat":false}],
+                    "to_if_held_down": [{"key_code": "open_bracket", "modifiers": "left_option"},{"key_code": "open_bracket", "modifiers": ["left_option","left_shift"]},{"key_code": "left_arrow","repeat": false}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "open_bracket","modifiers": {"optional": ["any"]}},
+                    "to_if_alone": [{"key_code": "quote"}],
+                    "to_if_held_down": [{"key_code": "close_bracket", "modifiers": "left_option"},{"key_code": "close_bracket", "modifiers": ["left_option","left_shift"]},{"key_code": "left_arrow","repeat": false}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "close_bracket","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "semicolon", "modifiers": "left_shift", "repeat":false}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+
+
+
+                {
+                    "from": {"key_code": "a","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "z"}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "s","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "left_option","lazy": true}],
+                    "to_if_held_down": [{"key_code": "left_control"}],
+                    "to_if_alone": [{"key_code": "s"}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "d","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "left_command","lazy": true}],
+                    "to_if_held_down": [{"key_code": "left_option"}],
+                    "to_if_alone": [{"key_code": "c"}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "f","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "left_shift","lazy": true}],
+                    "to_if_held_down": [{"key_code": "left_command"}],
+                    "to_if_alone": [{"key_code": "n"}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "g","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "left_shift","lazy": true}],
+                    "to_if_held_down": [{"key_code": "left_shift"}],
+                    "to_if_alone": [{"key_code": "t"}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "h","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "k"}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+
+
+
+                {
+                    "from": {"key_code": "j","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "comma"}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "k","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "right_shift","lazy": true}],
+                    "to_if_held_down": [{"key_code": "right_shift"}],
+                    "to_if_alone": [{"key_code": "a"}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "l","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "right_command","lazy": true}],
+                    "to_if_held_down": [{"key_code": "right_command"}],
+                    "to_if_alone": [{"key_code": "e"}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "semicolon","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "right_option","lazy": true}],
+                    "to_if_held_down": [{"key_code": "right_option"}],
+                    "to_if_alone": [{"key_code": "i"}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "quote","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "right_control","lazy": true}],
+                    "to_if_held_down": [{"key_code": "right_control"}],
+                    "to_if_alone": [{"key_code": "h"}],
+                    "conditions": [{"type": "device_if","identifiers": [{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "backslash","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "semicolon"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+
+                
+                
+                {
+                    "from": {"key_code": "z","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "b"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "x","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "p"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "c","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "l"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "v","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "d"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "b","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "v"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "n","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "delete_or_backspace"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "m","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "hyphen"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "comma","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "u"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "period","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "o"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "slash","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "y"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "international1","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "f"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+
+
+                {
+                    "from": {"key_code": "hyphen","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "equal_sign"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "equal_sign","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "open_bracket"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                },
+                {
+                    "from": {"key_code": "international3","modifiers": {"optional": ["any"]}},
+                    "to": [{"key_code": "close_bracket"}],
+                    "conditions": [{"type": "device_if","identifiers":[{"is_built_in_keyboard": true}]}],
+                    "type": "basic"
+                }
+
+
+
+
+            ]
+        }
+
+    ]
+}
