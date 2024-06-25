@@ -28,7 +28,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef ADAPT_SHIFT  // pseudo-adaptive comma-shift uses 2x ADAPTIVE_TERM, so pre-evaluated
         if (
             (prior_keycode == ADAPT_SHIFT) &&  // is it shift leader?
-            (timer_elapsed(prior_keydown) <= ADAPTIVE_TERM*2) &&  // within threshold?
+            (timer_elapsed(prior_keydown) <= ADAPTIVE_TERM * 32) &&  // use huge threshold?
             ((keycode & QK_BASIC_MAX) >= KC_A) &&  // followed by any alpha?
             ((keycode & QK_BASIC_MAX) <= KC_Z)) {
                 tap_code(KC_BSPC); // get rid of ADAPT_SHIFT

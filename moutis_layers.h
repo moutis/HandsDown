@@ -300,7 +300,7 @@ __ │   UNDO     CUT     COPY    PSTE    FAGN  │ ESC TAB   __  __ │  DOCEND
 #define LV_LH3 KC_TRNS  // typically the app menu
 #define LV_LH2 KC_BSPC
 #define LV_LH1 KC_ENTER
-#define LV_LH0 SK_QUIT  // also left encoder key switch
+#define LV_LH0 SK_ZOOMRST  // also left encoder key switch
 #define LV_LHA G(KC_TAB)
 #define LV_RHA TG(L_NAV)
 #define LV_RH0 SK_ZOOMRST  // also right encoder key switch

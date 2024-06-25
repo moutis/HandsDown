@@ -77,9 +77,10 @@ extern rgblight_config_t rgblight_config;
 #endif
 
 #define ADAPT_VOWEL_H // eliminate vowel SFBs (AU/UA;EO/OE) using vH instead of v'
-#define ADAPT_SHIFT KC_COMM // keycode to precede alpha for one-shot shift (leader)
-#define ADAPTIVE_TRAILER KC_HASH
 //#define FR_ADAPTIVES // eliminate 'h SFB for French
+//#define DE_ADAPTIVES // alternate AU SFB treatment for German
+#define ADAPTIVE_TRAILER KC_HASH // Like QMK Leader Key, but trails, and adaptive
+#define ADAPT_SHIFT KC_COMM // keycode to precede alpha for one-shot shift (leader)
 
 //#define THUMB_REPEATER
 #ifdef THUMB_REPEATER
