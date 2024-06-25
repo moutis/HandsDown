@@ -172,7 +172,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
             }
             break;
 #else
-        case KC_N: // not many things can roll into N
+        case KC_N: // N becomes H (for H-Digraph rolls)
             switch (prior_keycode) {
                 case KC_T: // "TION" is 58x more common than "TN"
                     send_string("ion");
@@ -183,6 +183,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     tap_code(KC_BSPC);
                     tap_code(KC_L);
                     return_state = true; // let the N happen.
+                    break;
             }
             break;
 #endif
@@ -347,10 +348,12 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
         case KC_H: // H precedes a vowel much more often than it follows (thanks, Ancient Greek!)
             switch (prior_keycode) { // maybe OK? What about xxR? resulting in a SFB on thumb?
 #ifdef ADAPT_VOWEL_H
-                case KC_A: // AE is a fraction less common, but I find the EAE trill harder than EAH.
-                    tap_code(KC_U); // "AH" yields "AU" (8x more common)
+#ifndef DE_ADAPTIVES // AU is really common it German (and influences EN/FR)
+                case KC_A: // AE is a fraction less common (8x), but the EAE trill may be harder than EAH.
+                    tap_code(KC_U); // "AH" yields "AU" (7x more common)
                     return_state = false; // done.
                     break;
+#endif // DE_ADAPTIVES
                 case KC_U:
                     tap_code(KC_A); // "UH" yields "UA" (126x more common)
                     return_state = false; // done.
@@ -363,7 +366,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     tap_code(KC_E); // "OH" yields "OE" (almost 1:1, but eliminates an SFB?)
                     return_state = false; // done.
                     break;
-#endif
+#endif // ADAPT_VOWEL_H
                 case KC_I: // IF = IY (eliminate SFB on ring finger)
                     tap_code(KC_Y); // (inverted IH->IF = IF->IY)
                     return_state = false; // done.
@@ -377,20 +380,29 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                 case KC_Y: // (y'all)
                     return_state = false; // done.
 #ifdef FR_ADAPTIVES // eliminate 'h SFB for French
-                case KC_J: // j'habite
-                case KC_L: // l'hôtel
-                case KC_N: // n'habite
-                case KC_D: // d'habitude
+                case KC_J: // ex. j'habite
+                case KC_L: // ex. l'hôtel
+                case KC_N: // ex. n'habite
+                case KC_D: // ex. d'habitude
 #ifdef EN_HDIGRAPH_COMBOS
                 case KC_T: // t'habitude can't do this (bc Th) unless Th digraph combo is used…
-#endif
-#endif
-                    tap_code(KC_QUOT); // YH => Y' (pull down to avoid ring-pinky T-B scissor)
+#endif // EN_HDIGRAPH_COMBOS
+#endif // FR_ADAPTIVES
+                    tap_code(KC_QUOT); // YH => Y' (pull down to reduce ring-pinky T-B scissor)
                     break;
 
             }
             break;
-
+#ifdef DE_ADAPTIVES // AU is really common it German (and influences EN/FR)
+        case KC_I:
+            switch (prior_keycode) {
+                case KC_A: // "AI" yields "AU" (8x more common)
+                    tap_code(KC_U);
+                    return_state = false; // done.
+                    break;
+            }
+            break;
+#endif // DE_ADAPTIVES
         case KC_F:
             switch (prior_keycode) { // IF is much more common than IY, so optimizing
                 case KC_Y: // YF = YI (eliminate SFB on ring finger)
@@ -405,19 +417,19 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
         case HD_REPEATER_A: // Make a repeat key of the secondary thumb key on both sides
         case HD_REPEATER_B: // for most common double letters (inherently SFBs)
             switch (prior_keycode) {
-                case KC_A ... KC_SLASH: // should any alpha can be repeated?
+                case KC_A ... KC_SLASH: // should any alpha be repeated?
 /* double-letter frequencies from Peter Norvig's data <https://norvig.com/mayzner.html>
                 case KC_L: // 0.577%
                 case KC_S: // 0.405%
                 case KC_E: // 0.378%
                 case KC_O: // 0.210%
-                case KC_T: // 0.171%
+                case KC_T: // 0.171% // Hands Down Gold
                 case KC_F: // 0.146%
                 case KC_P: // 0.137%
-                case KC_R: // 0.121%
+                case KC_R: // 0.121% // Hands Down Titanium/Rhodium/Vibranium
                 case KC_M: // 0.096%
                 case KC_C: // 0.083%
-                case KC_N: // 0.073%
+                case KC_N: // 0.073% // Hands Down Silver
                 case KC_D: // 0.043%
                 case KC_G: // 0.025%
                 case KC_I: // 0.023%
@@ -426,13 +438,13 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                 case KC_Z: // 0.003%
                 case KC_X: // 0.003%
                 case KC_U: // 0.001%
-                case KC_H: // 0.001%
+                case KC_H: // 0.001%  // Hands Down Bronze
 */
                     tap_code(prior_keycode); // eliminate SFB on double
                     return_state = false; // done.
             }
             break;
-#endif
+#endif // THUMB_REPEATER
 #ifdef ADAPTIVE_TRAILER
 #include "adaptive_trailer.c"
 #endif // ADAPTIVE_TRAILER
