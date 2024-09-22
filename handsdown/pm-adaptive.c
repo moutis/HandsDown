@@ -2,7 +2,7 @@
  Adaptive Keys
  Called from early within process_record_user
  
- Tailored for HD Promethium (pr)
+ Tailored for HD Promethium (pm)
  
  NOTE: assumed dual-function keys (MOD_TAP, LAYER_TAP) have already been handled AND
     FILTERED OUT! The combos handler will have already taken out combo candidates,

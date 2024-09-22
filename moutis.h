@@ -54,7 +54,7 @@ extern rgblight_config_t rgblight_config;
 #include "handsdown/vx-config.ts.h" // definitions for the Alpha layer and mnemonic combos
 #include "moutis_layers.ts.h" // definitions for all the other layers
 #else
-#include "handsdown/pr-config.h" // definitions for the Alpha layer and mnemonic combos
+#include "handsdown/pm-config.h" // definitions for the Alpha layer and mnemonic combos
 #include "moutis_layers.h" // definitions for all the other layers
 #endif
 
