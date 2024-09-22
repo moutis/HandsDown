@@ -2,7 +2,7 @@
 //
 // The Hands Down Variation dependent defs & files
 //
-#define HD_adaptive_code "handsdown/vb-adaptive.c"
+#define HD_adaptive_code "handsdown/pr-adaptive.c"
 //
 
 //
@@ -10,24 +10,24 @@
 //
 #define HD_A RSFT_T(KC_A)
 #define HD_B KC_B
-#define HD_C RALT_T(KC_C)
+#define HD_C RCTL_T(KC_C)
 #define HD_D KC_D
 #define HD_E RGUI_T(KC_E)
-#define HD_F KC_F
+#define HD_F LT(L_FUN, KC_F)
 #define HD_G KC_G
-#define HD_H RCTL_T(KC_H)
+#define HD_H RSFT_T(KC_H)
 #define HD_I RALT_T(KC_I)
 #define HD_J KC_J
 #define HD_K LT(L_NUM,KC_K)
 #define HD_L KC_L
 #define HD_M KC_M
-#define HD_N RGUI_T(KC_N)
+#define HD_N RALT_T(KC_N)
 #define HD_O KC_O
 #define HD_P KC_P
 #define HD_Q KC_Q
 #define HD_R LT(L_NAV,KC_R)
 #define HD_S RCTL_T(KC_S)
-#define HD_T RSFT_T(KC_T)
+#define HD_T RGUI_T(KC_T)
 #define HD_U KC_U
 #define HD_V KC_V
 #define HD_W KC_W
@@ -41,10 +41,11 @@
 #define HD_BSPC LT(L_FUN,KC_BSPC)
 #define HD_ENT  LT(L_NAV,KC_ENT)
 #define HD_QUOT KC_QUOT
-#define HD_DQUO KC_DQUO // KC_DQUO or SK_SDQU
+#define HD_DQUO KC_DQUO // linger for “” via SK_SDQU
 #define HD_SLSH KC_SLSH
 #define HD_DOT  KC_DOT
-#define HD_COMM LT(L_FUN, KC_COMM)
+#define HD_ASTR KC_ASTR
+#define HD_COMM KC_COMM
 
 // Now let's place these HD keycodes on the keymap
 // for variation independent spatial referencing by key position
@@ -59,11 +60,16 @@
 //     LH5 LH4 LH3 ╰─────────╯                  ╰─────────╯ RH3 RH4 RH5
 //
 //
-//    Base (alpha) Layer  Hands Down Vibranium-vb (HRMs /+ thumb mods)
+//    Base (alpha) Layer  Hands Down Promethium (HRMs /+ thumb mods)
+//      this is "inverted" top-bottom from canonical Promethium, as
+//      I prefer "bottom heavy" layouts.  If you prefer top heavy,
+//      be sure to invert all rows, as the rolling/scissoring characteristics
+//      that make Promethium what it is depend on the same-row neighbors
+//  ※ arguably, the inner column is less sensitive to this.
 //      ╭─────────────────────╮                 ╭─────────────────────╮
-// esc  │  X   W   M   G   J  │ L_CFG     L_NUM │  #$  .:  /*  "[  '] │ LANG2/henk
-// tab  │  S   C   N   T   K  | (             ) |  ,;   A   E   I   H │ LANG1/mhen
-//  Z   │  B   P   L   D   V  │ [ copy   pste ] │  -+   U   O   Y   F │ Q
+// esc  │  V   W   G   M   J  │ L_CFG     L_NUM │  #$  .:  /*  "[  '] │ LANG2/henk
+// tab  │  N   S   T   H   K  | (             ) |  ,;   A   E   I   C │ LANG1/mhen
+//  Z   │  B   F   L   D   X  │ [ copy   pste ] │  -+   U   O   Y   P │ Q
 //      ╰───────────╮ bsp  R  │ &             | │ spc  ret ╭──────────╯
 //    left rght app ╰─────────╯                 ╰──────────╯ tgLN  up  dn
 //
@@ -72,10 +78,10 @@
 //
 
 #define HD_LT5 KC_ESC
-#define HD_LT4 HD_X
+#define HD_LT4 HD_V
 #define HD_LT3 HD_W
-#define HD_LT2 HD_M
-#define HD_LT1 HD_G
+#define HD_LT2 HD_G
+#define HD_LT1 HD_M
 #define HD_LT0 HD_J
 #define HD_LTA LT(L_CFG, KC_MUTE)
 #define HD_RTA LT(L_CFG, KC_MPLY)
@@ -88,9 +94,9 @@
 
 #define HD_LM5 KC_TAB
 #define HD_LM4 HD_S
-#define HD_LM3 HD_C
-#define HD_LM2 HD_N
-#define HD_LM1 HD_T
+#define HD_LM3 HD_N
+#define HD_LM2 HD_T
+#define HD_LM1 HD_H
 #define HD_LM0 HD_K
 #define HD_LMA KC_LPRN
 #define HD_RMA KC_RPRN
@@ -98,15 +104,15 @@
 #define HD_RM1 HD_A
 #define HD_RM2 HD_E
 #define HD_RM3 HD_I
-#define HD_RM4 HD_H
+#define HD_RM4 HD_C
 #define HD_RM5 KC_LNG1
 
 #define HD_LB5 HD_Z
 #define HD_LB4 HD_B
-#define HD_LB3 HD_P
-#define HD_LB2 HD_L
-#define HD_LB1 HD_D
-#define HD_LB0 HD_V
+#define HD_LB3 HD_F
+#define HD_LB2 HD_D
+#define HD_LB1 HD_L
+#define HD_LB0 HD_X
 #define HD_LBA C(S(KC_3)) // speech to text (mac)
 #define HD_LBB LT(L_CFG, KC_LNG2)
 #define HD_RBB LT(L_FUN, KC_LNG1)
@@ -115,7 +121,7 @@
 #define HD_RB1 HD_U
 #define HD_RB2 HD_O
 #define HD_RB3 HD_Y
-#define HD_RB4 HD_F
+#define HD_RB4 HD_P
 #define HD_RB5 HD_Q
 
 //Primary Thumbs 1-3 (others are unique to the board)
@@ -134,7 +140,6 @@
 #define HD_RH4 KC_LEFT
 #define HD_RH5 KC_RGHT
 
-#ifdef COMBO_ENABLE
 //
 // We want to be able to define a combo by location
 // for variation independent, spatial referencing, or
@@ -157,6 +162,8 @@
 // the above combos may compete for the same locations,
 // we'll define them all here.
 //
+#ifdef COMBO_ENABLE
+
 #define HD_new_keys   HD_LB0, HD_LM0   // new -- Since cmd/ctrl is on middle
 #define HD_open_keys  HD_RB0, HD_RM0   // open -- these must be 2 handed, so combo
 #define HD_close_keys HD_RT0, HD_RM0   // close -- not strictly necessary?
@@ -188,14 +195,25 @@
 //#define HD_L3 HD_J
 
 //
-// H digraph combos
+// H digraph combos -- strictly optional! In fact,
+// Promethium was designed to maximize H digraph rolling,
+// and thereby reduce demand for the combos.
 // try to make these use the lead letter and a neighbor.
+// (listed here in order of frequency as per Mayzner: https://norvig.com/mayzner.html)
 //
 #define HD_Th_keys HD_LM2, HD_LM1 // TYPE "th"
-#define HD_Ch_keys HD_LM3, HD_LM2 // TYPE "ch"
+#ifndef EN_PRONOUN_COMBOS
+#define HD_Ch_keys HD_RM3, HD_RM4 // TYPE "ch" // same as "I" HD_Icap_keys
+#else
+#define HD_Ch_keys HD_LM3, HD_LM2 // TYPE "ch" // so keep as in Vibranium
+#endif
 #define HD_Wh_keys HD_LT3, HD_LT2 // TYPE "wh"
 #define HD_Sh_keys HD_LM4, HD_LM3 // TYPE "sh"
-#define HD_Ph_keys HD_LB3, HD_LB1 // TYPE "ph"
+#ifndef EN_PRONOUN_COMBOS
+#define HD_Ph_keys HD_RB3, HD_RB4 // TYPE "ph" // default position
+#else
+#define HD_Ph_keys HD_LB3, HD_LB1 // TYPE "ph"  // keep as in Vibranium
+#endif
 #define HD_Gh_keys HD_LT2, HD_LT1 // TYPE "gh"
 #define HD_Sch_keys HD_LM4, HD_LM3, HD_LM2 // TYPE "Sch"
 
@@ -209,7 +227,7 @@
 // the entirely unnecessary pronoun combo shenanigans
 
 // PRONOUNS Fast 4-7grams
-#define HD_Icap_keys  HD_I, HD_H  // TYPE "I"
+#define HD_Icap_keys  HD_I, HD_C  // TYPE "I"
 #define HD_Id_keys    HD_I, HD_D  // TYPE "I'd"+"'ve "
 #define HD_Ill_keys   HD_I, HD_L  // TYPE "I'll"+"'ve "
 #define HD_Im_keys    HD_I, HD_M  // TYPE "I'm "
@@ -222,22 +240,22 @@
 #define HD_youve_keys HD_Y, HD_V  // TYPE "you've"
 #define HD_your_keys  HD_Y, HD_R  // TYPE "your"
 
-#define HD_their_keys HD_T, HD_X  // TYPE "their" #6 (R on same finger in Neu)
+#define HD_their_keys HD_T, HD_R  // TYPE "their" #6 (R on same finger in Neu)
 #define HD_theyre_keys HD_T, HD_B // "they're"  (R on same finger in Neu)
 #define HD_they_keys  HD_T, HD_W  // "they" #23 + 've (near they)
 #define HD_theyll_keys HD_T, HD_M // "they'll" #23 + 've (M is easier to combo, also in We'll)
-#define HD_theyd_keys HD_T, HD_P  // "they'd" #23 + 've (no rationale for this, but no SFCombo)
+#define HD_theyd_keys HD_T, HD_F  // "they'd" #23 + 've (no rationale for this, but no SFCombo)
 
 // deictics. Are these really necessary?
-#define HD_there_keys HD_T, HD_R  // TYPE "there" #7 + 's
-#define HD_here_keys  HD_H, HD_R  // TYPE "here" #5 + 's
+#define HD_there_keys HD_T, HD_F  // TYPE "there" #7 + 's
+#define HD_here_keys  HD_H, HD_F  // TYPE "here" #5 + 's
 
 #ifdef EN_W_PRONOUNS
-#define HD_where_keys HD_X, HD_R  // "where" + 's
-#define HD_were_keys  HD_X, HD_QUOT  // TYPE "we're"
-#define HD_wed_keys   HD_X, HD_G  // TYPE "we'd" + 've
-#define HD_well_keys  HD_X, HD_M  // TYPE "we'll" + 've
-#define HD_weve_keys  HD_X, HD_J  // TYPE "we've"
+#define HD_where_keys HD_V, HD_R  // "where" + 's
+#define HD_were_keys  HD_V, HD_QUOT  // TYPE "we're"
+#define HD_wed_keys   HD_V, HD_G  // TYPE "we'd" + 've
+#define HD_well_keys  HD_V, HD_M  // TYPE "we'll" + 've
+#define HD_weve_keys  HD_V, HD_J  // TYPE "we've"
 #endif // EN_W_PRONOUNS
 
 #endif // EN_PRONOUNS_ALL

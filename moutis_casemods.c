@@ -1,4 +1,5 @@
-/* Copyright 2021 Andrew Rae ajrae.nv@gmail.com @andrewjrae
+/* Based on Andrew Rae's implementation
+ * Copyright 2021 Andrew Rae ajrae.nv@gmail.com @andrewjrae
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

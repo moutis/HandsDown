@@ -2,7 +2,7 @@
 //
 // The Hands Down Variation dependent defs & files
 //
-#define HD_adaptive_code "handsdown/vb-adaptive.c"
+#define HD_adaptive_code "handsdown/vx-adaptive.c"
 //
 
 //
@@ -13,7 +13,7 @@
 #define HD_C RALT_T(KC_C)
 #define HD_D KC_D
 #define HD_E RGUI_T(KC_E)
-#define HD_F KC_F
+#define HD_F LT(L_FUN, KC_F)
 #define HD_G KC_G
 #define HD_H RCTL_T(KC_H)
 #define HD_I RALT_T(KC_I)
@@ -41,10 +41,11 @@
 #define HD_BSPC LT(L_FUN,KC_BSPC)
 #define HD_ENT  LT(L_NAV,KC_ENT)
 #define HD_QUOT KC_QUOT
-#define HD_DQUO KC_DQUO // KC_DQUO or SK_SDQU
+#define HD_DQUO KC_DQUO // linger for “” via SK_SDQU
 #define HD_SLSH KC_SLSH
 #define HD_DOT  KC_DOT
-#define HD_COMM LT(L_FUN, KC_COMM)
+#define HD_ASTR KC_ASTR
+#define HD_COMM KC_COMM
 
 // Now let's place these HD keycodes on the keymap
 // for variation independent spatial referencing by key position
@@ -59,11 +60,11 @@
 //     LH5 LH4 LH3 ╰─────────╯                  ╰─────────╯ RH3 RH4 RH5
 //
 //
-//    Base (alpha) Layer  Hands Down Vibranium-vb (HRMs /+ thumb mods)
+//    Base (alpha) Layer  Hands Down Vibranium-vx (HRMs /+ thumb mods)
 //      ╭─────────────────────╮                 ╭─────────────────────╮
-// esc  │  X   W   M   G   J  │ L_CFG     L_NUM │  #$  .:  /*  "[  '] │ LANG2/henk
-// tab  │  S   C   N   T   K  | (             ) |  ,;   A   E   I   H │ LANG1/mhen
-//  Z   │  B   P   L   D   V  │ [ copy   pste ] │  -+   U   O   Y   F │ Q
+// esc  │  V   W   M   G   J  │ L_CFG     L_NUM │  #$  .:  /*  "[  '] │ LANG2/henk
+// tab  │  S   C   N   T   B  | (             ) |  ,;   A   E   I   H │ LANG1/mhen
+//  Z   │  X   P   L   D   K  │ [ copy   pste ] │  -+   U   O   Y   F │ Q
 //      ╰───────────╮ bsp  R  │ &             | │ spc  ret ╭──────────╯
 //    left rght app ╰─────────╯                 ╰──────────╯ tgLN  up  dn
 //
@@ -72,7 +73,7 @@
 //
 
 #define HD_LT5 KC_ESC
-#define HD_LT4 HD_X
+#define HD_LT4 HD_V
 #define HD_LT3 HD_W
 #define HD_LT2 HD_M
 #define HD_LT1 HD_G
@@ -102,11 +103,11 @@
 #define HD_RM5 KC_LNG1
 
 #define HD_LB5 HD_Z
-#define HD_LB4 HD_B
+#define HD_LB4 HD_X
 #define HD_LB3 HD_P
 #define HD_LB2 HD_L
 #define HD_LB1 HD_D
-#define HD_LB0 HD_V
+#define HD_LB0 HD_B
 #define HD_LBA C(S(KC_3)) // speech to text (mac)
 #define HD_LBB LT(L_CFG, KC_LNG2)
 #define HD_RBB LT(L_FUN, KC_LNG1)
@@ -218,12 +219,12 @@
 #ifdef EN_PRONOUN_COMBOS_ALL // Admittedly of questionable value
 #define HD_youd_keys  HD_Y, HD_D  // TYPE "you'd" + 've
 #define HD_youll_keys HD_Y, HD_L  // TYPE "you'll" + 've
-#define HD_youre_keys HD_Y, HD_B  // TYPE "you're"
+#define HD_youre_keys HD_Y, HD_X  // TYPE "you're"
 #define HD_youve_keys HD_Y, HD_V  // TYPE "you've"
-#define HD_your_keys  HD_Y, HD_R  // TYPE "your"
+#define HD_your_keys  HD_Y, HD_P  // TYPE "your"
 
-#define HD_their_keys HD_T, HD_X  // TYPE "their" #6 (R on same finger in Neu)
-#define HD_theyre_keys HD_T, HD_B // "they're"  (R on same finger in Neu)
+#define HD_their_keys HD_T, HD_P  // TYPE "their" #6 (R on same finger in Neu)
+#define HD_theyre_keys HD_T, HD_X // "they're"  (R on same finger in Neu)
 #define HD_they_keys  HD_T, HD_W  // "they" #23 + 've (near they)
 #define HD_theyll_keys HD_T, HD_M // "they'll" #23 + 've (M is easier to combo, also in We'll)
 #define HD_theyd_keys HD_T, HD_P  // "they'd" #23 + 've (no rationale for this, but no SFCombo)
@@ -233,11 +234,11 @@
 #define HD_here_keys  HD_H, HD_R  // TYPE "here" #5 + 's
 
 #ifdef EN_W_PRONOUNS
-#define HD_where_keys HD_X, HD_R  // "where" + 's
-#define HD_were_keys  HD_X, HD_QUOT  // TYPE "we're"
-#define HD_wed_keys   HD_X, HD_G  // TYPE "we'd" + 've
-#define HD_well_keys  HD_X, HD_M  // TYPE "we'll" + 've
-#define HD_weve_keys  HD_X, HD_J  // TYPE "we've"
+#define HD_where_keys HD_V, HD_R  // "where" + 's
+#define HD_were_keys  HD_V, HD_QUOT  // TYPE "we're"
+#define HD_wed_keys   HD_V, HD_G  // TYPE "we'd" + 've
+#define HD_well_keys  HD_V, HD_M  // TYPE "we'll" + 've
+#define HD_weve_keys  HD_V, HD_J  // TYPE "we've"
 #endif // EN_W_PRONOUNS
 
 #endif // EN_PRONOUNS_ALL

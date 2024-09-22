@@ -25,24 +25,8 @@
 
 /*  L_SYM Symbols and punctuation (Some via SemKeys/unicode for platform independance)
    ╭────────────────────────────────────────────╮                  ╭──────────────────────────────────────────╮
-__ │    Z       Q       ¶        §        ‡     │                  │     ¢        $       €       £       ¥   │ __
-__ │    <       [       (        {        †     |                  |     ¡        *       =       +       /   │ __
-__ │    >       ]       )        }        •     │ __  __   __  __  │     _        |       &       ^       %   │ __
-   ╰──────────────────╮ VolD   D_WordL  D_WordR │ --           __  │     ª        °       ·     ╭─────────────╯
-   KC_PGDN   KC_PGUP  ╰─────────────────────────╯                  ╰────────────────────────────╯ SK_WORDPRV  SK_WORDNXT
-*/
-/*  L_SYM Symbols and punctuation (Some via SemKeys/unicode for platform independance)
-   ╭────────────────────────────────────────────╮                  ╭──────────────────────────────────────────╮
-__ │    Z       Q       ¶        §        ‡     │                  │     ¢        $       €       £       ¥   │ __
-__ │    -       +       *        =        ^     |                  |     †        (       {       [       •   │ __
-__ │    <       >       &        /        |     │ __  __   __  __  │     ·        )       }       ]       °   │ __
-   ╰──────────────────╮ VolD   D_WordL  D_WordR │ --           __  │     _        ¡       ª     ╭─────────────╯
-   KC_PGDN   KC_PGUP  ╰─────────────────────────╯                  ╰────────────────────────────╯ SK_WORDPRV  SK_WORDNXT
-*/
-/*  L_SYM Symbols and punctuation (Some via SemKeys/unicode for platform independance)
-   ╭────────────────────────────────────────────╮                  ╭──────────────────────────────────────────╮
-__ │    Z       Q       ¶        §        ‡     │                  │     ¢        $       €       £       ¥   │ __
-__ │    •       [       (        {        †     |                  |     /        =       *       +       -   │ __
+__ │    Z       Q       ¶        †        ‡     │                  │     ¢        $       €       £       ¥   │ __
+__ │    §       [       (        {        •     |                  |     /        =       *       +       -   │ __
 __ │    ·       ]       )        }        °     │ __  __   __  __  │     ^        |       &       <       >   │ __
    ╰──────────────────╮ VolD   D_WordL  D_WordR │ --           __  │     _        ¡       ª     ╭─────────────╯
    KC_PGDN   KC_PGUP  ╰─────────────────────────╯                  ╰────────────────────────────╯ SK_WORDPRV  SK_WORDNXT
@@ -52,7 +36,7 @@ __ │    ·       ]       )        }        °     │ __  __   __  __  │    
 #define LS_LT4 KC_Z
 #define LS_LT3 KC_Q
 #define LS_LT2 SK_PARA // ¶
-#define LS_LT1 SK_SECT // §
+#define LS_LT1 SK_SCRS // †
 #define LS_LT0 SK_DCRS // ‡
 #define LS_RT0 SK_CENT // ¢
 #define LS_RT1 KC_DLR  // $
@@ -62,11 +46,11 @@ __ │    ·       ]       )        }        °     │ __  __   __  __  │    
 #define LS_RT5 KC_TRNS
 
 #define LS_LM5 KC_TRNS
-#define LS_LM4 LALT(KC_8) // SK_BLLT? // KC_LT
+#define LS_LM4 SK_SECT // §
 #define LS_LM3 KC_LBRC
 #define LS_LM2 KC_LPRN
 #define LS_LM1 KC_LCBR
-#define LS_LM0 SK_SCRS
+#define LS_LM0 LALT(KC_8) // SK_BLLT?
 #define LS_RM0 KC_PSLS // / // SK_IEXC
 #define LS_RM1 RSFT_T(KC_PEQL) // RSFT_T(KC_PAST)
 #define LS_RM2 RGUI_T(KC_PAST) // RGUI_T(KC_PEQL)

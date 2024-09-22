@@ -45,6 +45,9 @@ void matrix_scan_user(void) {
                 case KC_Q: // already "Q" has been sent; if lingered, add "u"
                     tap_code(KC_U);
                     break;
+                case KC_COMM: //
+                    tap_code(KC_SPACE);
+                    break;
 
                 case KC_LPRN: //
                     tap_code16(KC_RPRN);
@@ -79,10 +82,10 @@ void matrix_scan_user(void) {
                     break;
                 case SK_FDQL: //  « | » double French quote
                     tap_SemKey(SK_FDQR);
-                    goto pushspaceshere;
+                    goto goto_pushspaceshere;
                 case SK_FSQL: //  ‹ | › single French quote
                     tap_SemKey(SK_FSQR);
-pushspaceshere:
+goto_pushspaceshere:
                     tap_code(KC_LEFT); // break up 2 dble spc
                     tap_code16(KC_SPACE); // to thwart "smart" EOS.
                     tap_code(KC_LEFT);

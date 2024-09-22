@@ -60,7 +60,7 @@ const uint16_t PROGMEM F_SCLP_combo[] = {HD_LT2, HD_LT1, HD_LT0, COMBO_END}; // 
 const uint16_t PROGMEM F_SCAP_combo[] = {HD_LT3, HD_LT2, HD_LT1, HD_LT0, COMBO_END}; //  SCREEN shot SELECTION to file
 
 
-const uint16_t PROGMEM H_CAPW_combo[] = {HD_RB3, HD_RB4, COMBO_END}; // CAPS WORD (on until word delimiter)
+const uint16_t PROGMEM H_CAPW_combo[] = {HD_RB1, HD_RB4, COMBO_END}; // CAPS WORD (on until word delimiter)
 const uint16_t PROGMEM F_CAPS_combo[] = {HD_RB2, HD_RB3, HD_RB4, COMBO_END}; // CAPS LOCK (on until hit again)
 const uint16_t PROGMEM H_EISUU_combo[] = {HD_LM3, HD_LM2, HD_LM1, COMBO_END}; // KC_MHEN
 const uint16_t PROGMEM H_KANA_combo[] = {HD_RM3, HD_RM2, HD_RM1, COMBO_END}; // KC_HENK
@@ -76,7 +76,7 @@ const uint16_t PROGMEM H_KANA_combo[] = {HD_RM3, HD_RM2, HD_RM1, COMBO_END}; // 
 const uint16_t PROGMEM F_ESC_combo[] = {HD_LM4, HD_LM1, COMBO_END}; // ESCape
 const uint16_t PROGMEM Hndsh_combo[] = {HD_RB0, HD_RB1, COMBO_END}; // – n dash
 const uint16_t PROGMEM Hmdsh_combo[] = {HD_RB0, HD_RB2, COMBO_END}; // — m dash
-const uint16_t PROGMEM Htild_combo[] = {HD_RB1, HD_RB4, COMBO_END}; // ~ tilde (not the deadkey for eñye)
+const uint16_t PROGMEM Htild_combo[] = {HD_RB0, HD_RB3, COMBO_END}; // ~ tilde (not the deadkey for eñye)
 const uint16_t PROGMEM Hunds_combo[] = {HD_RB1, HD_RB3, COMBO_END}; // _ underscore
 const uint16_t PROGMEM Hequal_combo[] = {HD_RB2, HD_RB3, COMBO_END}; // = equal (hold for %)
 //const uint16_t PROGMEM Hpercent_combo[] = {HD_RB3, HD_RB4, COMBO_END}; // % percent
@@ -136,41 +136,76 @@ const uint16_t PROGMEM HAE_lig_combo[] = {HD_AE_lig_keys, COMBO_END}; // Æ
 
 // Fast 4grams
 
-#ifdef EN_PRONOUN_COMBOS // the entirely unnecessary pronoun combo shenanigans
-
 // PRONOUNS Fast 4-7grams
+#ifdef HD_Icap_keys
 const uint16_t PROGMEM H_Icap_combo[] = {HD_Icap_keys, COMBO_END}; // TYPE "I"
+#endif
+#ifdef HD_Id_keys
 const uint16_t PROGMEM H_Id_combo[] = {HD_Id_keys, COMBO_END}; // TYPE "I'd"+"'ve "
+#endif
+#ifdef HD_Ill_keys
 const uint16_t PROGMEM H_Ill_combo[] = {HD_Ill_keys, COMBO_END}; // TYPE "I'll"+"'ve "
+#endif
+#ifdef HD_Im_keys
 const uint16_t PROGMEM H_Im_combo[] = {HD_Im_keys, COMBO_END}; // TYPE "I'm "
+#endif
+#ifdef HD_Iv_keys
 const uint16_t PROGMEM H_Iv_combo[] = {HD_Iv_keys, COMBO_END}; // TYPE "I've "
+#endif
 
-#ifdef EN_PRONOUN_COMBOS_ALL
+#ifdef HD_youd_keys
 const uint16_t PROGMEM H_youd_combo[] = {HD_youd_keys, COMBO_END}; // TYPE "you'd" + 've
+#endif
+#ifdef HD_youll_keys
 const uint16_t PROGMEM H_youll_combo[] = {HD_youll_keys, COMBO_END}; // TYPE "you'll" + 've
+#endif
+#ifdef HD_youre_keys
 const uint16_t PROGMEM H_youre_combo[] = {HD_youre_keys, COMBO_END}; // TYPE "you're"
+#endif
+#ifdef HD_youve_keys
 const uint16_t PROGMEM H_youve_combo[] = {HD_youve_keys, COMBO_END}; // TYPE "you've"
+#endif
+#ifdef HD_your_keys
 const uint16_t PROGMEM H_your_combo[] = {HD_your_keys, COMBO_END}; // TYPE "your" "P" for "possessive" case
+#endif
+#ifdef HD_their_keys
 const uint16_t PROGMEM H_their_combo[] = {HD_their_keys, COMBO_END}; // TYPE "their" #6
+#endif
+#ifdef HD_they_keys
 const uint16_t PROGMEM H_they_combo[] = {HD_they_keys, COMBO_END}; // "they" #23 + 've
+#endif
+#ifdef HD_theyd_keys
 const uint16_t PROGMEM H_theyd_combo[] = {HD_theyd_keys, COMBO_END}; // "they'd" #23 + 've
+#endif
+#ifdef HD_theyll_keys
 const uint16_t PROGMEM H_theyll_combo[] = {HD_theyll_keys, COMBO_END}; // "they'll" #23 + 've
+#endif
+#ifdef HD_theyre_keys
 const uint16_t PROGMEM H_theyre_combo[] = {HD_theyre_keys, COMBO_END}; // "they're"
+#endif
 
+#ifdef HD_there_keys
 const uint16_t PROGMEM H_there_combo[] = {HD_there_keys, COMBO_END}; // TYPE "there" #7 + 's
+#endif
+#ifdef HD_here_keys
 const uint16_t PROGMEM H_here_combo[] = {HD_here_keys, COMBO_END}; // TYPE "here" #5 + 's
+#endif
 
-#ifdef EN_W_PRONOUNS
+#ifdef HD_where_keys
 const uint16_t PROGMEM H_where_combo[] = {HD_where_keys, COMBO_END}; // "where" + 's
+#endif
+#ifdef HD_were_keys
 const uint16_t PROGMEM H_were_combo[] = {HD_were_keys, COMBO_END}; // TYPE "we're"
+#endif
+#ifdef HD_wed_keys
 const uint16_t PROGMEM H_wed_combo[] = {HD_wed_keys, COMBO_END}; // TYPE "we'd" + 've
+#endif
+#ifdef HD_well_keys
 const uint16_t PROGMEM H_well_combo[] = {HD_well_keys, COMBO_END}; // TYPE "we'll" + 've
+#endif
+#ifdef HD_weve_keys
 const uint16_t PROGMEM H_weve_combo[] = {HD_weve_keys, COMBO_END}; // TYPE "we've"
-#endif // EN_W_PRONOUNS
-
-#endif // EN_PRONOUN_COMBOS_ALL
-
-#endif // EN_PRONOUN_COMBOS // the entirely unnecessary pronoun combo shenanigans
+#endif
 
 // TWO HANDS
 
@@ -434,57 +469,127 @@ combo_t key_combos[] = {
 
 // Fast entry 4grams
 
-#ifdef EN_PRONOUN_COMBOS
 // PRONOUNS Fast entry 4-7gram PRONOUNS (an English quirk)
+ #ifdef HD_Icap_keys
     [HC_I] = COMBO_ACTION(H_Icap_combo),// TYPE "I"+"'ve "
+#endif
+#ifdef HD_Id_keys
     [HC_Id] = COMBO_ACTION(H_Id_combo),// TYPE "I'd "
+#endif
+#ifdef HD_Ill_keys
     [HC_Ill] = COMBO_ACTION(H_Ill_combo),// TYPE "I'll "
+#endif
+#ifdef HD_Im_keys
     [HC_Im] = COMBO_ACTION(H_Im_combo),// TYPE "I'm  "
+#endif
+#ifdef HD_Iv_keys
     [HC_Iv] = COMBO_ACTION(H_Iv_combo),// TYPE "I've  "
+#endif
 
-#ifdef EN_PRONOUN_COMBOS_ALL
-#ifdef EN_W_PRONOUNS
+#ifdef HD_wed_keys
     [HC_wed_4gram] = COMBO_ACTION(H_wed_combo),// TYPE "we'd"
+#endif
+#ifdef HD_well_keys
     [HC_well_5gram] = COMBO_ACTION(H_well_combo),// TYPE "we'll"
+#endif
+#ifdef HD_were_keys
     [HC_were_5gram] = COMBO_ACTION(H_were_combo),// TYPE "we're"
+#endif
+#ifdef HD_weve_keys
     [HC_weve_5gram] = COMBO_ACTION(H_weve_combo),// TYPE "we've"
+#endif
+#ifdef HD_where_keys
     [HC_where_5gram] = COMBO_ACTION(H_where_combo), // TYPE "where"
-#endif // EN_W_PRONOUNS
-    [HC_youd_5gram] = COMBO_ACTION(H_youd_combo),// TYPE "you'd"
+#endif
+
+#ifdef HD_youd_keys
+   [HC_youd_5gram] = COMBO_ACTION(H_youd_combo),// TYPE "you'd"
+#endif
+#ifdef HD_youll_keys
     [HC_youll_6gram] = COMBO_ACTION(H_youll_combo),// TYPE "you'll"
+#endif
+#ifdef HD_youre_keys
     [HC_youre_6gram] = COMBO_ACTION(H_youre_combo),// TYPE "you're"
+#endif
+#ifdef HD_youve_keys
     [HC_youve_6gram] = COMBO_ACTION(H_youve_combo),// TYPE "you've"
+#endif
+#ifdef HD_your_keys
     [HC_your_4gram] = COMBO_ACTION(H_your_combo),// TYPE "your"
+#endif
+#ifdef HD_they_keys
     [HC_they_4gram] = COMBO_ACTION(H_they_combo), // TYPE "they" #23
+#endif
+#ifdef HD_their_keys
     [HC_their_5gram] = COMBO_ACTION(H_their_combo), // TYPE "their" #6
+#endif
+#ifdef HD_theyre_keys
     [HC_theyre_7gram] = COMBO_ACTION(H_theyre_combo), // TYPE "they're"
+#endif
 
+#ifdef HD_there_keys
     [HC_there_5gram] = COMBO_ACTION(H_there_combo), // TYPE "there" #7
+#endif
+#ifdef HD_here_keys
     [HC_here_4gram] = COMBO_ACTION(H_here_combo), // TYPE "here" #9
-
-#endif // EN_PRONOUN_COMBOS_ALL
-#endif // EN_PRONOUN_COMBOS
-
-    [HC_TYPE_LEFTCOMBO] = COMBO_ACTION(H_Left_combo), // a personally useful 5-8gram!
-    [HC_TYPE_RIGHTCOMBO] = COMBO_ACTION(H_Right_combo), // a demonstrator, how long autotypes can be!
+#endif
     
+#ifdef HD_Left_keys
+    [HC_TYPE_LEFTCOMBO] = COMBO_ACTION(H_Left_combo), // a personally useful 5-8gram!
+#endif
+#ifdef HD_Right_keys
+   [HC_TYPE_RIGHTCOMBO] = COMBO_ACTION(H_Right_combo), // a demonstrator, how long autotypes can be!
+#endif
+
+#ifdef HD_spc_keys
     [HC_SPC] = COMBO(Hspc_combo, KC_SPC), // SPACE
+#endif
+#ifdef HD_ent_keys
     [HC_ENT] = COMBO(Hent_combo, KC_ENT), // ENTER
+#endif
+#ifdef HD_ent2_keys
     [HC_ENT2] = COMBO(Hent2_combo, SK_HENT), // hard-ENTER
+#endif
 
 /* These all use SemKeys, even as simple combos (handled by process_semkey from process_record_user) */
+#ifdef HD_new_keys
     [HC_NEW] = COMBO(Hnew_combo, SK_NEW),
+#endif
+#ifdef HD_open_keys
     [HC_OPEN] = COMBO(Hopen_combo, SK_OPEN),
-    [HC_CLOZ] = COMBO(Hclose_combo, SK_CLOZ),
-    [HC_QUIT] = COMBO(Hquit_combo, SK_QUIT),
+#endif
+#ifdef HD_close_keys
+   [HC_CLOZ] = COMBO(Hclose_combo, SK_CLOZ),
+#endif
+#ifdef HD_quit_keys
+   [HC_QUIT] = COMBO(Hquit_combo, SK_QUIT),
+#endif
+#ifdef HD_find_keys
     [HC_FIND] = COMBO_ACTION(Hfind_combo),
+#endif
+#ifdef HD_sall_keys
     [HC_SALL] = COMBO(Hsall_combo, SK_SALL),
+#endif
+#ifdef HD_swrd_keys
     [HC_SWRD] = COMBO(Hswrd_combo, SK_SWRD),
+#endif
+#ifdef HD_undo_keys
     [HC_UNDO] = COMBO(Hundo_combo, SK_UNDO),
+#endif
+#ifdef HD_redo_keys
     [HC_REDO] = COMBO(Hredo_combo, SK_REDO),
-//    [HC_CUT] = COMBO(Hcut_combo, SK_CUT), // also hold copy (no longer used?)
+#endif
+#ifdef HD_cut_keys
+    [HC_CUT] = COMBO(Hcut_combo, SK_CUT), // also hold copy (no longer used?)
+#endif
+#ifdef HD_copy_keys
     [HC_COPY] = COMBO_ACTION(Hcopy_combo), // using hold for cut
-//    [HC_PSTM] = COMBO(Hpstm_combo, SK_PSTM),  // also hold paste (no longer used?)
+#endif
+#ifdef HD_pstm_keys
+    [HC_PSTM] = COMBO(Hpstm_combo, SK_PSTM),  // also hold paste (no longer used?)
+#endif
+#ifdef HD_pste_keys
     [HC_PSTE] = COMBO_ACTION(Hpste_combo) // using hold for paste-match
-    
+#endif
+
 };

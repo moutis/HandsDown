@@ -26,16 +26,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
 #ifdef ADAPT_SHIFT  // pseudo-adaptive comma-shift uses 2x ADAPTIVE_TERM, so pre-evaluated
-        if (
-            (prior_keycode == ADAPT_SHIFT) &&  // is it shift leader?
-            (timer_elapsed(prior_keydown) <= ADAPTIVE_TERM * 32) &&  // use huge threshold?
-            ((keycode & QK_BASIC_MAX) >= KC_A) &&  // followed by any alpha?
-            ((keycode & QK_BASIC_MAX) <= KC_Z)) {
-                tap_code(KC_BSPC); // get rid of ADAPT_SHIFT
-                tap_code16(S(keycode & QK_BASIC_MAX)); // send cap letter
-                prior_keycode = preprior_keycode = prior_keydown = 0; // done.
-                return false; // so return "finished".
+    if (
+        (prior_keycode == ADAPT_SHIFT) &&  // is it shift leader?
+        !caps_word_timer && // not already doing a caps_word?
+        (timer_elapsed(prior_keydown) <= ADAPTIVE_TERM * 32) &&  // use huge threshold?
+        ((keycode & QK_BASIC_MAX) >= KC_A) &&  // followed by any alpha?
+        ((keycode & QK_BASIC_MAX) <= KC_Z)) {
+            tap_code(KC_BSPC); // get rid of ADAPT_SHIFT
+            tap_code16(S(keycode & QK_BASIC_MAX)); // send cap letter
+            prior_keycode = preprior_keycode = prior_keydown = linger_key = 0; // done.
+            return false; // so return "finished".
         }
+
 #endif
 
 #ifdef ADAPTIVE_ENABLE
@@ -99,25 +101,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // shift down with KC_BSPC? (ALT OK)
                 unregister_mods(MOD_MASK_SA); // get rid of shift & alt
                 key_trap = KC_DEL;  // mode monitor on to clear this on keyup
-                goto register_key_trap_and_return;
-/*
-                key_trap = SK_DEL;  // mode monitor on to clear this on keyup
-                register_semKey(key_trap);
-                return_state = false; // stop processing this record.
-                set_mods(saved_mods);  // not sure if we need this
-                break;
-*/
+                goto goto_register_key_trap_and_return;
             case KC_MINS:  // SHIFT = +
                 if (!(saved_mods & MOD_MASK_SHIFT)) // only SHFT? (ALT ok)
                     break; // N: nothing to do
                 key_trap = KC_PLUS;  //  enter override state
-                goto register_key_trap_and_return;
+                goto goto_register_key_trap_and_return;
 
             case KC_EQL: // SHIFT = _
                 if (!(saved_mods & MOD_MASK_SHIFT)) // only SHFT? (ALT ok)
                     break; // N: nothing to do
                 key_trap = KC_UNDS;  // enter override state
-register_key_trap_and_return:
+goto_register_key_trap_and_return: // ##Warning
                 register_code16(key_trap);
                 return_state = false; // stop processing this record.
                 set_mods(saved_mods);  // not sure if we need this
@@ -134,7 +129,7 @@ register_key_trap_and_return:
                     return_state = false; // don't do more with this record.
                 } else if (saved_mods & MOD_MASK_SHIFT) { // only SHFT?
                     key_trap = KC_ASTR;  // enter override state
-                    goto register_key_trap_and_return;
+                    goto goto_register_key_trap_and_return;
                 }
                 break;
 
@@ -149,13 +144,13 @@ register_key_trap_and_return:
                     return_state = false; // stop processing this record.
                 } else if (saved_mods & MOD_MASK_SHIFT) { // only SHFT down
                     key_trap = KC_DLR;  // enter override state
-                    goto register_key_trap_and_return;
+                    goto goto_register_key_trap_and_return;
                 }
                 break;
                 
             case KC_LPRN:  // SHIFT = { (linger=(|))
                 if (!saved_mods) {
-                    goto linger_and_return; // CAUTION: messing w/stack frame here!!
+                    goto goto_linger_and_return; // CAUTION: messing w/stack frame here!!
                 } else if (saved_mods & MOD_MASK_SHIFT) { // shift down with KC_RPRN?
                     if (saved_mods & MOD_MASK_ALT) { // SHIFT & ALT?
                         register_linger_key(KC_LCBR); // this should be semkey for ‹/«?
@@ -189,15 +184,15 @@ register_key_trap_and_return:
 
             case KC_LT:  //  linger=<|>
                 if (!saved_mods)
-                    goto linger_and_return; // CAUTION: messing w/stack frame here!!
+                    goto goto_linger_and_return; // CAUTION: messing w/stack frame here!!
                 if (saved_mods & MOD_MASK_SHIFT) { // SHFT down? (ALT ok)
                     tap_code16(A(KC_COMM)); // ≤ convert to SemKey
                     return_state = false; // stop processing this record.
                 }
                 break;
-            case KC_GT:  // SHIFT = ≥,
+            case KC_GT:  // SHIFT = ≥
                 if (saved_mods & MOD_MASK_SHIFT) { // SHFT down? (ALT ok)
-                    tap_code16(A(KC_DOT)); // convert to SemKey
+                    tap_code16(A(KC_DOT)); // ≥ convert to SemKey
                     return_state = false; // stop processing this record.
                 }
                 break;
@@ -205,14 +200,17 @@ register_key_trap_and_return:
             case KC_LBRC:  // linger=[|]
             case KC_LCBR:   // linger={|}
                 if (!saved_mods)
-                    goto linger_and_return; // CAUTION: messing w/stack frame here!!
+                    goto goto_linger_and_return; // CAUTION: messing w/stack frame here!!
                 break;
 
-            case KC_COMM:  // SHIFT = ;, ALT=_
+            case KC_SPC:  //
+                linger_key = 0;
+                break;
+            case KC_COMM:  // SHIFT = ;, ALT=_; linger = ", "
                 unregister_mods(MOD_MASK_SA); // get rid of shift & alt
                 if (saved_mods & MOD_MASK_ALT) { // ALT down?
                     if (saved_mods & MOD_MASK_SHIFT) { // SFT too?
-                        tap_code16(A(KC_BSLS)); // convert to SemKey
+                        tap_code16(A(KC_BSLS)); // "⁄" (convert to SemKey)
                     } else {
                         tap_code16(KC_UNDS);
                     }
@@ -221,8 +219,9 @@ register_key_trap_and_return:
                     tap_code16(KC_SCLN); // just semicolon
                     return_state = false; // stop processing this record.
                 }
+                register_linger_key(KC_COMM); // linger to add space
+                return_state = false; // stop processing this record.
                 break;
-
             case KC_DOT:  // SHIFT = :, ALT=…, ALT+SHIFT= \ backslash
                 unregister_mods(MOD_MASK_SA); // get rid of shift & alt
                 if (saved_mods & MOD_MASK_ALT) { // ALT down?
@@ -377,7 +376,7 @@ register_key_trap_and_return:
                     ) // can this linger?
                     break; // N: do default thing
 #ifndef KEY_OVERRIDE_ENABLE
-linger_and_return:
+goto_linger_and_return: // ##Warning
 #endif
                 register_linger_key(keycode); // example of simple linger macro
                 return_state = false; // stop processing this record.
@@ -485,15 +484,16 @@ storeSettings:
     so for now I roll my own here.
 */
 
+            case KC_COMM:  //  Comma
             case KC_LT:    //  < (linger=<|>)
             case KC_LPRN:  //  ( (linger=(|))
             case KC_LBRC:  //  [ (linger=[|])
             case KC_LCBR:  //  { (linger={|})
                 //if (!saved_mods) { //
-                    unregister_linger_key(); // stop lingering
-                    return_state = false; // stop processing this record.
+//                    unregister_linger_key(); // stop lingering
+//                    return_state = false; // stop processing this record.
                 //
-                break;
+//                break;
 
             case SK_FDQL:  // «
             case SK_FSQL:  // ‹

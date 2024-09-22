@@ -51,10 +51,10 @@ extern rgblight_config_t rgblight_config;
 
 
 #ifdef THUMB_SHIFT
-#include "handsdown/vb-config.ts.h" // definitions for the Alpha layer and mnemonic combos
+#include "handsdown/vx-config.ts.h" // definitions for the Alpha layer and mnemonic combos
 #include "moutis_layers.ts.h" // definitions for all the other layers
 #else
-#include "handsdown/vb-config.h" // definitions for the Alpha layer and mnemonic combos
+#include "handsdown/pr-config.h" // definitions for the Alpha layer and mnemonic combos
 #include "moutis_layers.h" // definitions for all the other layers
 #endif
 
@@ -69,6 +69,13 @@ extern rgblight_config_t rgblight_config;
 
 #define ADAPTIVE_ENABLE
 
+#define ADAPT_VOWEL_H // eliminate vowel SFBs (AU/UA;EO/OE) using vH instead of v'
+#define ADAPT_AE_AU // Use AE->AU (instead of AH->AU)
+//#define FR_ADAPTIVES // eliminate 'h SFB for French
+//#define DE_ADAPTIVES // alternate AU SFB treatment for German (forces ADAPT_AE_AU)
+#define ADAPTIVE_TRAILER KC_HASH // Like QMK Leader Key, but trails, and adaptive
+#define ADAPT_SHIFT KC_COMM // keycode to precede alpha for one-shot shift (leader)
+
 #ifdef COMBO_HOLD
     #undef ADAPTIVE_TERM
     #define ADAPTIVE_TERM COMBO_HOLD * 1.35  // use COMBO_HOLD time as a standard threshold (same recation time)
@@ -76,11 +83,6 @@ extern rgblight_config_t rgblight_config;
     #define ADAPTIVE_TERM (TAPPING_TERM/4) // rolling threshold
 #endif
 
-#define ADAPT_VOWEL_H // eliminate vowel SFBs (AU/UA;EO/OE) using vH instead of v'
-//#define FR_ADAPTIVES // eliminate 'h SFB for French
-//#define DE_ADAPTIVES // alternate AU SFB treatment for German
-#define ADAPTIVE_TRAILER KC_HASH // Like QMK Leader Key, but trails, and adaptive
-#define ADAPT_SHIFT KC_COMM // keycode to precede alpha for one-shot shift (leader)
 
 //#define THUMB_REPEATER
 #ifdef THUMB_REPEATER

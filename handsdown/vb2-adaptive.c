@@ -217,28 +217,60 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 // right hand adaptives
 */
             
-          case KC_QUOT:
-              switch (prior_keycode) {
-                  case KC_DOT:
-                      send_string("edu");
-                      return_state = false; // done.
-                      break;
-                  case KC_SLSH:
-                      tap_code(KC_BSPC);
-                      send_string(".org");
-                      return_state = false; // done.
-                      break;
-              }
-              break;
-            case KC_SLSH:
-                switch (prior_keycode) {
-                    case KC_DOT:
-                        send_string("com");
-                        return_state = false; // done.
-                        break;
-      
-                }
-                break;
+        case KC_QUOT:
+            switch (prior_keycode) {
+                case KC_DOT:
+                    send_string("org");
+                    return_state = false; // done.
+                    break;
+                case KC_SLSH:
+                    tap_code(KC_BSPC);
+                    send_string(".org");
+                    return_state = false; // done.
+                    break;
+#ifndef ADAPT_VOWEL_H
+                case KC_A: //
+                    tap_code(KC_U); // "A'" yields "AU"
+                    return_state = false; // done.
+                    break;
+                case KC_U:
+                    tap_code(KC_A); // "U'" yields "UA"
+                    return_state = false; // done.
+                    break;
+                case KC_E:
+                    tap_code(KC_O); // "E'" yields "EO"
+                    return_state = false; // done.
+                    break;
+                case KC_O:
+                    tap_code(KC_E); // "O'" yields "OE"
+                    return_state = false; // done.
+                    break;
+/*#else // regain v-H rolls (kludgy? unnecessary?)
+                case KC_A:
+                case KC_U:
+                case KC_E:
+                case KC_O:
+                case KC_I:
+                    tap_code(KC_H); // "IH" yields "IF" (96x more common)
+                    return_state = false; // done.
+*/
+#endif
+            }
+            break;
+      case KC_SLSH:
+          switch (prior_keycode) {
+              case KC_DOT:
+                  send_string("com");
+                  return_state = false; // done.
+          }
+          break;
+      case KC_DQUO:
+          switch (prior_keycode) {
+              case KC_DOT:
+                  send_string("edu");
+                  return_state = false; // done.
+          }
+          break;
 
         case KC_H: // H precedes a vowel much more often than it follows (thanks, Ancient Greek!)
             switch (prior_keycode) { // maybe OK? What about xxR? resulting in a SFB on thumb?
