@@ -33,14 +33,6 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 /*
 // Left hand adaptives (most are single-handed neighbor fingers, bc speed, dexterity limits)
 */
-        case KC_B:
-            switch (prior_keycode) {
-                case KC_F: // avoid SFB/
-                    tap_code(KC_BSPC);
-                    tap_code(KC_S);
-                    break;
-            }
-            break;
         case KC_D:
             switch (prior_keycode) { //
                 case KC_B:
@@ -53,14 +45,9 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
             break;
         case KC_F:
             switch (prior_keycode) {
-                case KC_B: // avoid SFB/
-                    tap_code(KC_S);
+                case KC_P: // Eliminate PS scissor (worse on less staggered boards)
+                    tap_code(KC_S); // PF=PS (PS 36x more common)
                     return_state = false; // done.
-                    break;
-                case KC_D: // avoid SFB/
-                    tap_code(KC_G);
-                    return_state = false; // done.
-                    break;
             }
             break;
         case KC_G:
@@ -139,14 +126,14 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
         case KC_M: // M becomes L (pull up "L" to same row)
             switch (prior_keycode) {
                 case KC_G: // eliminate scissor (GL is 5x more common than GM)
-                case KC_C: // step for upper column pref (CL is 7.6x more common than CM)
+                case KC_V: // eliminate VL scissor ()
                     tap_code(KC_L);
                     return_state = false; // done.
                     break;
-                case KC_W: // WM = LM (LM 20x more common)
+                case KC_W:
                     switch (preprior_keycode) {
-                        case KC_M:
-                            tap_code(KC_L);
+                        case KC_M: // eliminate 2r/2c scissor
+                            tap_code(KC_L); // WM = LM (LM 20x more common)
                             return_state = false; // done.
                             break;
                         default:
@@ -157,6 +144,14 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                    }
             }
             break;
+        case KC_P:
+            switch (prior_keycode) {
+                case KC_F: // eliminate SP scissor
+                    tap_code(KC_BSPC); // remove F
+                    tap_code(KC_S);  // FP=SP (SP 860x more common)
+                    break; // Send P normally
+            }
+            break;
 
         case KC_V:
             switch (prior_keycode) {
@@ -164,13 +159,9 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     tap_code(KC_T); // eliminate GT SFB.
                     return_state = false; // done.
                     break;
-                case KC_J: // eliminate LV scissor.
+                case KC_M: // eliminate LV scissor.
                     tap_code(KC_BSPC); // replace M
                     tap_code(KC_L); // "LV" is 119x more frequent than "MV"
-                    break;
-                case KC_M: // pull up B (W becomes B after M to set up "mp"+l)
-                    tap_code(KC_B); // pull up B from bottom row.
-                    return_state = false; // done.
                     break;
             }
             break;
@@ -181,8 +172,9 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     tap_code(KC_D); // GW = GD (3.8x more common)
                     return_state = false; // done.
                     break;
-                case KC_M: // eliminate scissor
-                    tap_code(KC_N); // MW = MN (14x more common)
+                case KC_M: // eliminate SFB/scissor
+//                    tap_code(KC_N); // MW = MN (14x more common) (if F is on bottom)
+                    tap_code(KC_P); // MW = MF (if P is on bottom)
                     return_state = false; // done.
                     break;
             }
@@ -194,12 +186,19 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 // right hand adaptives
 */
             
-        case KC_Y:
+        case KC_E:
             switch (prior_keycode) {
-                case KC_P: // eliminate scissor "PY" yields "PI" (9x more common)
-                    tap_code(KC_I);
+                case KC_A: // "AE" yields "AU" (8x more common)
+                    tap_code(KC_U);
                     return_state = false; // done.
-                    break;
+            }
+            break;
+        case KC_B:
+            switch (prior_keycode) {
+                case KC_Y: // avoid ring->pinky scissor
+                    tap_code(KC_BSPC);
+                    tap_code(KC_I);
+                    break; // process the B normally
             }
             break;
 
