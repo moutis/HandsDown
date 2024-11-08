@@ -26,18 +26,21 @@
 #undef LOCKING_RESYNC_ENABLE
 
 #define TAPPING_TOGGLE 2
-
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
 #define TAPPING_TERM 170 // Mod TAP VS HOLD timing in milliseconds
 #endif
 
 // Pick good defaults for enabling homerow modifiers
-#define TAP_CODE_DELAY 10
-#define TAP_HOLD_CAPS_DELAY 10
+//#define HOLD_ON_OTHER_KEY_PRESS
 #define PERMISSIVE_HOLD
-
 //#define IGNORE_MOD_TAP_INTERRUPT
+
+#ifdef TAP_CODE_DELAY
+#undef TAP_CODE_DELAY
+#endif
+#define TAP_CODE_DELAY 20 // time between register/unregister (some keycodes go missing/out of sequence)
+#define TAP_HOLD_CAPS_DELAY 180 // for Mac
 
 #ifdef COMBO_ENABLE
     #ifdef COMBO_COUNT

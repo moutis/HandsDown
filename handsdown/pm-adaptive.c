@@ -9,6 +9,20 @@
     which have a shorter keydown threshhold (COMBO_TERM).
  
  */
+//    Base (alpha) Layer  Hands Down Promethium (HRMs /+ thumb mods)
+//      this is canonical Promethium, "inverted" (top-bottom), as
+//      I prefer "bottom heavy" layouts.  If you prefer top heavy,
+//      be sure to invert all rows, as the rolling/scissoring characteristics
+//      that make Promethium what it is depend on the same-row neighbors
+//  ※ arguably, the inner column is less sensitive to this.
+//            ╭─────────────────────╮                 ╭─────────────────────╮
+// LANG1/mhen │  V   W   G   M   J  │ L_CFG     L_NUM │  #$  .:  /*  "[  '] │ LANG2/henk
+//    esc     │  S   N   T   H   K  | (             ) |  ,;   A   E   I   C │ Z
+//    tab     │  F   P   D   L   X  │ [ copy   pste ] │  -+   U   O   Y   B │ Q(u)
+//            ╰───────────╮ bsp  R  │ &             | │ spc  ret ╭──────────╯
+//          left rght app ╰─────────╯                 ╰──────────╯ tgLN  up  dn
+//
+// For small boards, Q (LT3) & Z (LT4) are (also) on the sym layer
 
 
 bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
@@ -30,6 +44,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 //        switch (((keycode >= SAFE_RANGE) && (keycode <= SemKeys_COUNT)) ? (keycode) : (keycode & QK_BASIC_MAX)) { // only handling normal, SHFT or ALT cases.
 
     switch (keycode) { // process ignoring multi-function keys & shift state?
+
 /*
 // Left hand adaptives (most are single-handed neighbor fingers, bc speed, dexterity limits)
 */
@@ -84,7 +99,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
             break;
         case KC_J:
             switch (prior_keycode) {
-                case KC_G: // "GTH" is an awkward trigram/skipgram
+                case KC_G: // 99.7% of GT are followed by H
                     send_string("th"); // for "length"
                     return_state = false; // done.
                     break;
@@ -186,13 +201,6 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 // right hand adaptives
 */
             
-        case KC_E:
-            switch (prior_keycode) {
-                case KC_A: // "AE" yields "AU" (8x more common)
-                    tap_code(KC_U);
-                    return_state = false; // done.
-            }
-            break;
         case KC_B:
             switch (prior_keycode) {
                 case KC_Y: // avoid ring->pinky scissor
@@ -201,56 +209,20 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     break; // process the B normally
             }
             break;
+// PM doesn't use the common vowel block, so…
+//#include "adapt_h.c" // the common vowel block adaptives (esp. for AU SFB)
 
-        case KC_QUOT:
-              switch (prior_keycode) {
-                  case KC_DOT:
-                      send_string("org");
-                      return_state = false; // done.
-                      break;
-              }
-              break;
-        case KC_SLSH:
+        case KC_E:
             switch (prior_keycode) {
-                case KC_DOT:
-                    send_string("com");
+                case KC_A: // "AE" yields "AU" (8x more common) keeping it on home row
+                    tap_code(KC_U);
                     return_state = false; // done.
-            }
-            break;
-        case KC_DQUO:
-            switch (prior_keycode) {
-                case KC_DOT:
-                    send_string("edu");
-                    return_state = false; // done.
-                    break;
-                case KC_SLSH: // /" => ?
-                    tap_code(KC_BSPC);
-                    tap_code16(KC_QUES);
-                    return_state = false; // done.
-            }
-            break;
-        case KC_COMM:
-            switch (prior_keycode) {
-                case KC_COMM: // double comma = CAPS_WORD.
-                    tap_code(KC_BSPC);
-                    toggle_caps_word();
-                    return_state = false; // done.
-                    break;
-            }
-            break;
-        case KC_DOT:
-            switch (prior_keycode) {
-                case KC_SLSH: // /. => !
-                    tap_code(KC_BSPC);
-                    tap_code16(KC_EXLM);
-                    return_state = false; // done.
-                    break;
             }
             break;
 
-#ifdef ADAPTIVE_TRAILER
-#include "adaptive_trailer.c"
-#endif // ADAPTIVE_TRAILER
+#if defined (HD_MAGIC) || defined (HD_MAGIC_A) || defined (HD_MAGIC_B)
+#include "adapt_magic.c" // the common adaptive "magic" key
+#endif //
 
     }
     if (return_state)  // no adaptive processed, cancel state and pass it on.

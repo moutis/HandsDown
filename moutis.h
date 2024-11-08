@@ -49,45 +49,52 @@ extern rgblight_config_t rgblight_config;
 
 #include "personalizedmacros.h"
 
-
-#ifdef THUMB_SHIFT
-#include "handsdown/vx-config.ts.h" // definitions for the Alpha layer and mnemonic combos
-#include "moutis_layers.ts.h" // definitions for all the other layers
-#else
-#include "handsdown/pm-config.h" // definitions for the Alpha layer and mnemonic combos
-#include "moutis_layers.h" // definitions for all the other layers
-#endif
-
-
+//
+// which HD alpha variation are we using?
+//
+// nu = neu (no thumb alpha)
+// au = gold (T on thumb)
+// mi = mithril (R on thumb)
+// pm = promethium (R on thumb)
+// rh = rhodium (R on thumb)
+// vb = vibranium (R on thumb, b in lower left, f on right)
+// vf = vibranium (R on thumb f in lower left, b on right)
+// vv = vibranium (R on thumb v in lower left, f on right)
+// vx = vibranium (R on thumb x in lower left, f on right)
+//
+#define HD vb
+//
+// HD_CONFIG defines all variation dependent constants/files/keycodes, etc.
+// that will be used in the respective keymap for each keyboard
+//
+//#define HD_CONFIG
+//
+#include "handsdown/vb-config.h" // definitions for the Alpha layer and mnemonic combos
+//
+// definitions for all the other layers not dependent on the alpha layout.
+#include "moutis_layers.h"
 
 #define LINGER_TIME TAPPING_TERM * 1.2 // how long to hold before a time-depentant behavior begins
 // how long to leave a state active before resetting like APPMENU or CAPSWORD
 #define STATE_RESET_TIME LINGER_TIME * 3
 
-//#define THUMB_SHIFT // use the thumb shift variant instead of index shift
 
-
+// Adaptive (or MAGIC) keys are like a QMK Leader Key, but after (Adaptive Trailer)
 #define ADAPTIVE_ENABLE
-
-#define ADAPT_VOWEL_H // eliminate vowel SFBs (AU/UA;EO/OE) using vH instead of v'
-#define ADAPT_AE_AU // Use AE->AU (instead of AH->AU)
-//#define FR_ADAPTIVES // eliminate 'h SFB for French
-//#define DE_ADAPTIVES // alternate AU SFB treatment for German (forces ADAPT_AE_AU)
-#define ADAPTIVE_TRAILER KC_HASH // Like QMK Leader Key, but trails, and adaptive
 #define ADAPT_SHIFT KC_COMM // keycode to precede alpha for one-shot shift (leader)
+#define ADAPT_H // eliminate SFBs AU/UA;EO/OE;LN;MN;NN using H (instead of ')
+#define ADAPT_AE_AU // Use AE->AU (instead of AH->AU, AH is somewhat common)
+//#define FR_ADAPTIVES // eliminate 'h SFB for French
+//#define DE_ADAPTIVES // alternate AU SFB treatment for German (same as ADAPT_AE_AU)
+#define HD_MAGIC HD_HASH // generic MAGIC_KEY (I use for text macros)
+//#define HD_MAGIC_A KC_ENT // MAGIC_KEY dependent on alpha (vowel hand?)
+#define HD_MAGIC_B KC_BSPC // MAGIC_KEY dependent on alpha (consonant hand?)
 
 #ifdef COMBO_HOLD
     #undef ADAPTIVE_TERM
     #define ADAPTIVE_TERM COMBO_HOLD * 1.35  // use COMBO_HOLD time as a standard threshold (same recation time)
 #else
     #define ADAPTIVE_TERM (TAPPING_TERM/4) // rolling threshold
-#endif
-
-
-//#define THUMB_REPEATER
-#ifdef THUMB_REPEATER
-#define HD_REPEATER_A HD_BSPC
-#define HD_REPEATER_B KC_ENT
 #endif
 
 
@@ -140,7 +147,7 @@ enum OS_Platform { // Used for platform support via SemKeys
     OS_Mac,     // Mac with ANSI_US_EXTENDED layout
 //    OS_iOS,     // iOS?
     OS_Win,     // Win with default English/ANSI layout?
-    OS_Lux,     // Linux (Gnome?/KDE?)
+    OS_Lux,     // Linux (Gnome?/KDE?/Boox?)
 //    OS_And,     // Android (flavors?)
     OS_count
 };

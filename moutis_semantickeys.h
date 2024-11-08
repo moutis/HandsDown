@@ -59,6 +59,7 @@ enum my_keycodes {
     SK_FAGN, // find again
     SK_SCAP, // screen capture to clipboard
     SK_SCLP, // selection capture to clipboard
+    SK_SRCH, // platform search (siri/cortana, etc.)
 //    SK_DEL,   // Delete char right of cursor
     SK_DELWDL, // Delete word left of cursor
     SK_DELWDR, // Delete word right of cursor

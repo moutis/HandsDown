@@ -195,22 +195,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 tap_code16(A(KC_O)); // this should use semkeys
                 break;
 */
-            case HC_NDSH:
-                register_code16(A(KC_MINS));  // should be a semkey
-                break;
-            case HC_MDSH:
-                 register_code16(A(S(KC_MINS))); // should be a semkey
-                break;
-            case HC_UNDS:
-#ifdef JP_MODE_ENABLE
-#ifdef JP_YOUON_COMBOS_ALL
-                // case jp_byu:  // びゅ
-               if (!IS_ENGLISH_MODE) // in Japanese mode?
-                   send_string("byu");  // Y: so びゅ
-                else
-#endif // JP_YOUON_COMBOS_ALL
-#endif // JP_MODE_ENABLE
-                    tap_code16(S(KC_MINS)); // _ underscore (semkey this?)
+            case HC_NDSH: // delay action until key-up (outside of delay block)
+//                register_code16(A(KC_MINS));  // should be a semkey
+                combo_on = combo_index; // hold to replace with m-dash
                 break;
 
 #ifdef EN_PRONOUN_COMBOS // the entirely unnecessary pronoun combo shenanigans
@@ -554,7 +541,7 @@ ADD_HERE:
         } // end switch (combo_index)
         if (combo_on) linger_timer = timer_read(); // start timing for linger process
         // should GUARD this with return instead
-    } else { // end if (pressed) so this is the key up switch, hold threshold not met.
+    } else { // end if (pressed) so this is the key up switch, hold threshold NOT met.
 #ifdef OLED_DRIVER_ENABLE
         oled_set_cursor(0,combo_OLED_row);
         oled_write_P(PSTR("                     "), false);
@@ -604,6 +591,9 @@ ADD_HERE:
                     break;
                 case HC_COLN:
                     tap_code16(KC_COLN); //
+                    break;
+                case HC_NDSH: // Send N-Dash if not held.
+                    tap_code16(A(KC_MINS));  // this should use semkeys
                     break;
 
                 case PC_DASH:
@@ -689,7 +679,6 @@ ADD_HERE:
                     break;
                 case HC_EQL: //
                     tap_code16(KC_EQL); // Not held, so…
-                    linger_key = 0;
                     break;
 
             }  // end switch(combo_index) {
@@ -697,13 +686,6 @@ ADD_HERE:
         // Key up, threshold met, so we'll WRAP-UP the combo action if neccessary.
         // unregister_code for repeating keys, etc. that weren't handled in matrix_scan_user
             switch(combo_index) {
-                case HC_NDSH:
-                    unregister_code16(A(KC_MINS));  // this should use semkeys
-                    break;
-                case HC_MDSH:
-                    unregister_code16(A(S(KC_MINS)));  // this should use semkeys
-                    break;
-
             }  // end switch(combo_index) {
         } // else if (threshold met)
         combo_on = combo_triggered = false;
@@ -784,8 +766,8 @@ void matrix_scan_user_process_combo() {  // called from matrix_scan_user if comb
                 case HC_AT:
                     send_string(At_ComboHeld);
                     break;
-                case HC_COLN:
-                    tap_code16(A(KC_SCLN)); // held, so … (this could use semkeys)
+                case HC_COLN: // held, so …
+                    tap_code16(A(KC_SCLN)); // (this could use semkeys)
                     break;
                 case HC_OE:
                 case HC_Q:
@@ -793,6 +775,9 @@ void matrix_scan_user_process_combo() {  // called from matrix_scan_user if comb
                     break;
                 case HC_EQL:
                     tap_code16(KC_PERC); // Held, so send % (instead of =)
+                    break;
+                case HC_NDSH: // Held, so send M-Dash (instead of N-Dash).
+                    tap_code16(A(S(KC_MINS)));  // this should use semkeys
                     break;
 
                 case PC_STAB:

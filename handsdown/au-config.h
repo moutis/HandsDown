@@ -66,7 +66,7 @@
 //  Z   │  X   F   L   C   W  │ [ copy   pste ] │  -+   U   O   Y   K │ Q
 //      ╰───────────╮ bsp  T  │ &             | │ spc  ret ╭──────────╯
 //    left rght app ╰─────────╯                 ╰──────────╯ tgLN  up  dn
-//
+
 // For small boards, Q (LT3) & Z (LT4) are (also) on the sym layer
 // and accessible combos (defined below)
 //
@@ -172,8 +172,8 @@
 #define HD_tab_keys  HD_LT4, HD_LT3     // tab
 #define HD_stab_keys HD_LT4, HD_LT3, HD_LT2  // Shift-tab
 #define HD_spc_keys  HD_LM1, HD_LM0     // SPACE
-#define HD_ent_keys  HD_LB0, HD_LB1     // ENTER
-#define HD_ent2_keys HD_LB0, HD_LB1, HD_LB2 // hard-ENTER/page break
+#define HD_ent_keys  HD_LM4, HD_LM3     // ENTER
+#define HD_ent2_keys HD_LB4, HD_LB3, HD_LB2 // hard-ENTER/page break
 #define APPMENU_keys  HD_LT1, HD_LT0  // APPMENU
 #define APPMENU_nav_keys  LN_LT1, LN_LT0  // APPMENU
 
@@ -193,11 +193,11 @@
 //
 #define HD_Th_keys HD_LM2, HD_LM1 // TYPE "th"
 #define HD_Ch_keys HD_LM3, HD_LM1 // TYPE "ch"
-#define HD_Wh_keys HD_LT4, HD_LT3 // TYPE "wh"
+#define HD_Wh_keys HD_LB0, HD_LB1 // TYPE "wh"
 #define HD_Sh_keys HD_LM3, HD_LM2 // TYPE "sh"
 #define HD_Ph_keys HD_LT1, HD_LT2 // TYPE "ph"
 #define HD_Gh_keys HD_LT3, HD_LT2 // TYPE "gh"
-#define HD_Sch_keys HD_LM4, HD_LM3, HD_LM2 // TYPE "Sch"
+#define HD_Sch_keys HD_LM4, HD_LM3, HD_LM1 // TYPE "Sch"
 
 // Should we put all the diacritic keys here?
 // or get keep them all in the common area (if they all share

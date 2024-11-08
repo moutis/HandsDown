@@ -59,11 +59,11 @@
 //     LH5 LH4 LH3 ╰─────────╯                  ╰─────────╯ RH3 RH4 RH5
 //
 //
-//    Base (alpha) Layer  Hands Down Vibranium-vv (HRMs /+ thumb mods)
+//    Base (alpha) Layer  Hands Down Vibranium-Vv (HRMs /+ thumb mods)
 //      ╭─────────────────────╮                 ╭─────────────────────╮
 // esc  │  V   W   M   G   J  │ L_CFG     L_NUM │  #$  .:  '[  "]   B │ LANG2/henk
 // tab  │  S   C   N   T   K  | (             ) |  ,;   A   E   I   H │ LANG1/mhen
-//  Z   │  X   P   L   D  /*  │ [ copy   pste ] │  -+   U   O   Y   F │ Q
+//  Z   │  X   F   L   D  /*  │ [ copy   pste ] │  -+   U   O   Y   P │ Q
 //      ╰───────────╮ bsp  R  │ &             | │ spc  ret ╭──────────╯
 //    left rght app ╰─────────╯                 ╰──────────╯ tgLN  up  dn
 //
@@ -83,7 +83,7 @@
 #define HD_RT1 HD_DOT
 #define HD_RT2 HD_QUOT
 #define HD_RT3 HD_DQUO
-#define HD_RT4 HD_
+#define HD_RT4 HD_B
 #define HD_RT5 KC_LNG2
 
 #define HD_LM5 KC_TAB

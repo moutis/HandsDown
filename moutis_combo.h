@@ -55,8 +55,7 @@ enum my_combos {
     HC_EXLM, // !
     HC_SCLN, // ;
     HC_UNDS, // _ underscore
-    HC_NDSH, // – N-dash
-    HC_MDSH, // — M-dash
+    HC_NDSH, // – N-dash (M-dash if held)
     HC_TILD, // ~ tilde
     HC_TIC, // ` tic (not a dead key)
     HC_ACUT, // ´ acute
@@ -111,7 +110,7 @@ enum my_combos {
     PC_TAB, // <tab> on num
 
     HC_AT, // @
-    HC_COLN, // :
+    HC_COLN, // : (… if held)
     // Fast entry 4grams
     // since combos are a bit slower,
     // needs to be a 4gram+ or more to be worth it
@@ -208,7 +207,7 @@ enum my_combos {
     jp_hyu,  // ひゅ
     jp_hyo,  // ひょ
     jp_bya,  // びゃ
-    jp_byu,  // びゅ // potential conflict
+    jp_byu,  // びゅ
     jp_byo,  // びょ
     jp_mya,  // みゃ
     jp_myu,  // みゅ
@@ -263,15 +262,16 @@ enum my_combos {
     FC_KILL, // Force quit
     FC_SCAP, // Screen Capture Selection
     FC_SCLP, // Screen Capture Selection to clipboard
+    FC_SRCH, // Platform search (siri/cortana/–uses semkey)
 
     HC_ENT,
-    HC_ENT2, // hard enter (cmd/ctrl-enter)
+    HC_ENT2, // hard enter (cmd/ctrl-enter–uses semkey)
     HC_SPC,
     HC_NEW,
     HC_OPEN,
     HC_CLOZ,
     HC_QUIT,
-    HC_FIND, // Find the selection
+    HC_FIND, // Find the selection (in app/doc)
     HC_SWRD, // select current word
     HC_SALL, // select all
 

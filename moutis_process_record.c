@@ -29,7 +29,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (
         (prior_keycode == ADAPT_SHIFT) &&  // is it shift leader?
         !caps_word_timer && // not already doing a caps_word?
-        (timer_elapsed(prior_keydown) <= ADAPTIVE_TERM * 32) &&  // use huge threshold?
+        (timer_elapsed(prior_keydown) <= ADAPTIVE_TERM * 4) &&  // use large threshold?
         ((keycode & QK_BASIC_MAX) >= KC_A) &&  // followed by any alpha?
         ((keycode & QK_BASIC_MAX) <= KC_Z)) {
             tap_code(KC_BSPC); // get rid of ADAPT_SHIFT

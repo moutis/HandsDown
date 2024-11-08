@@ -14,9 +14,9 @@ TAP_DANCE_ENABLE = no
 
 AUTO_SHIFT_ENABLE = no  # requires 1936 bytes!
 
-EXTRAKEY_ENABLE = yes    # Audio control and System control
-COMBO_ENABLE = yes       # chording
-LTO_ENABLE = yes
+EXTRAKEY_ENABLE = yes   # Audio control and System control
+COMBO_ENABLE = yes      # chording
+LTO_ENABLE = yes		# optimize at link time
 EXTRAFLAGS += -flto
 
 SRC += moutis.c

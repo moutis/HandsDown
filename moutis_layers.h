@@ -160,20 +160,21 @@ __ │    ·       ]       )        }        °     │ __  __   __  __  │    
 
 
 /*  L_NUM Navigation (left) NUMPad Layer (right) (LN)
-   ╭──────────────────────────────────────────╮               ╭──────────────────────────────────────────╮
-__ │ NUM_LK   PGUP    UP      PGDN      TAB   │               │  PSLS      P7      P8      P9      PMNS  │ __
-__ │ W_LEFT   LEFT    DOWN    RGHT     W_RGHT |               |  PAST      P4      P5      P6      PPLS  │ __
-__ │ UNDO     CUT     COPY    PSTE      SPC   │ __ __   __ __ │  PCMM      P1      P2      P3      PEQL  │ __
-   ╰────────────────╮  __   G_T(BSP)  C_T(ENT)│ __         __ │  P0        PDOT    __   ╭────────────────╯
-        __      __  ╰─────────────────────────╯               ╰─────────────────────────╯ __       __
+ //                                        Nav & NumPad (standard)
+ //╭─────────────────────────────────────────────╮ ╭────────────────────────────────────────╮
+ //|   Top  |  HOME  |   UP   |  PG_UP |   ¶up   | |    /   |   7   |   8   |   9   |   -   |
+ //|  Lword |  LEFT  |  DOWN  |   RGT  |  Rword  | |    *   |  S/4  |  G/5  |  A/6  |  C/+  |
+ //|   Bot  |   END  |   SPC  |  PG_DN |   ¶dn   | |    ,   |   1   |   2   |   3   |   =   |
+ //╰─────────────────╮   tog  |  BSPC  |KP_ENTER | |    0   |   .   |  tog  ╭───────────────╯
+ //                  ╰───────────────────────────╯ ╰────────────────────────╯
 */
 
 #define LN_LT5 KC_TRNS
-#define LN_LT4 KC_NUM
-#define LN_LT3 KC_PGDN
+#define LN_LT4 SK_DOCBEG
+#define LN_LT3 KC_HOME
 #define LN_LT2 KC_UP
 #define LN_LT1 KC_PGUP
-#define LN_LT0 KC_TAB
+#define LN_LT0 SK_PARAPRV
 #define LN_RT0 KC_PSLS
 #define LN_RT1 KC_P7
 #define LN_RT2 KC_P8
@@ -195,11 +196,11 @@ __ │ UNDO     CUT     COPY    PSTE      SPC   │ __ __   __ __ │  PCMM     
 #define LN_RM5 KC_TRNS
 
 #define LN_LB5 KC_TRNS
-#define LN_LB4 SK_UNDO
-#define LN_LB3 SK_CUT
-#define LN_LB2 SK_COPY
-#define LN_LB1 SK_PSTE
-#define LN_LB0 KC_SPC
+#define LN_LB4 SK_DOCEND
+#define LN_LB3 KC_END
+#define LN_LB2 KC_SPC
+#define LN_LB1 KC_PGDN
+#define LN_LB0 SK_PARANXT
 #define LN_LBA KC_ESC
 #define LN_LBB KC_TRNS
 #define LN_RBB KC_TRNS
@@ -213,16 +214,16 @@ __ │ UNDO     CUT     COPY    PSTE      SPC   │ __ __   __ __ │  PCMM     
 
 #define LN_LH5 KC_VOLD // also left encoder CCW
 #define LN_LH4 KC_VOLU // also left encoder CW
-#define LN_LH3 KC_TRNS
+#define LN_LH3 TG(L_NAV)
 #define LN_LH2 LGUI_T(KC_BSPC)
 #define LN_LH1 LSFT_T(KC_ENT)
 #define LN_LH0 SK_CLOZ // also left encoder key switch
 #define LN_LHA KC_NO
-#define LN_RHA TG(L_NAV)
+#define LN_RHA KC_NO
 #define LN_RH0 KC_C // also right encoder key switch
 #define LN_RH1 KC_P0
 #define LN_RH2 KC_PDOT
-#define LN_RH3 KC_TRNS
+#define LN_RH3 TG(L_NUM)
 #define LN_RH4 SK_HISTPRV // also left encoder CCW
 #define LN_RH5 SK_HISTNXT // also right encoder CW
 
@@ -290,7 +291,7 @@ __ │   UNDO     CUT     COPY    PSTE    FAGN  │ ESC TAB   __  __ │  DOCEND
 #define LV_RH0 SK_ZOOMRST  // also right encoder key switch
 #define LV_RH1 SK_HISTPRV
 #define LV_RH2 SK_HISTNXT
-#define LV_RH3 TG(L_NAV)
+#define LV_RH3 TG(L_NUM)
 #define LV_RH4 SK_PARAPRV // also right encoder CCW
 #define LV_RH5 SK_PARANXT // also right encoder CW
 

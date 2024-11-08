@@ -59,11 +59,11 @@
 //     LH5 LH4 LH3 ╰─────────╯                  ╰─────────╯ RH3 RH4 RH5
 //
 //
-//    Base (alpha) Layer  Hands Down Vibranium-vb (HRMs /+ thumb mods)
+//    Base (alpha) Layer  Hands Down Vibranium-vf (HRMs /+ thumb mods)
 //      ╭─────────────────────╮                 ╭─────────────────────╮
 // esc  │  X   W   M   G   J  │ L_CFG     L_NUM │  #$  .:  /*  "[  '] │ LANG2/henk
 // tab  │  S   C   N   T   K  | (             ) |  ,;   A   E   I   H │ LANG1/mhen
-//  Z   │  B   P   L   D   V  │ [ copy   pste ] │  -+   U   O   Y   F │ Q
+//  Z   │  F   P   L   D   V  │ [ copy   pste ] │  -+   U   O   Y   B │ Q
 //      ╰───────────╮ bsp  R  │ &             | │ spc  ret ╭──────────╯
 //    left rght app ╰─────────╯                 ╰──────────╯ tgLN  up  dn
 //
@@ -157,10 +157,10 @@
 // the above combos may compete for the same locations,
 // we'll define them all here.
 //
-#define HD_new_keys   HD_LM2, HD_LB2   // new
-#define HD_open_keys  HD_LM1, HD_LB1   // open
-#define HD_close_keys HD_LM3, HD_LB3   // close
-#define HD_quit_keys  HD_LB0, HD_LM0   // quit
+#define HD_new_keys   HD_LB0, HD_LM0   // new -- Since cmd/ctrl is on middle
+#define HD_open_keys  HD_RB0, HD_RM0   // open -- these must be 2 handed, so combo
+#define HD_close_keys HD_RT0, HD_RM0   // close -- not strictly necessary?
+#define HD_quit_keys  HD_LT0, HD_LM0   // quit -- because q is on symbol layer
 #define HD_find_keys  HD_LM4, HD_LM0   // find selection
 #define HD_sall_keys  HD_LB4, HD_LB1   // select all
 #define HD_swrd_keys  HD_LB4, HD_LB0   // select word
@@ -304,9 +304,9 @@
 //#define JP_fye_keys HD_RM4, HD_RB1 //　ふぇ
 //#define JP_fyo_keys HD_RM4, HD_RB2 //　ふぉ
 
-#define JP_bya_keys HD_LB4, HD_RM1 // びゃ
-#define JP_byu_keys HD_LB4, HD_RB1 //　びゅ  conflicts with diacritic?
-#define JP_byo_keys HD_LB4, HD_RB2 //　びょ
+#define JP_bya_keys HD_RB4, HD_RM1 // びゃ
+#define JP_byu_keys HD_RB4, HD_RB1 //　びゅ  conflicts with diacritic?
+#define JP_byo_keys HD_RB4, HD_RB2 //　びょ
 #define JP_mya_keys HD_LT2, HD_RM1 // みゃ
 #define JP_myu_keys HD_LT2, HD_RB1 //　みゅ
 #define JP_myo_keys HD_LT2, HD_RB2 //　みょ

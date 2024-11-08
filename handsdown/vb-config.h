@@ -59,7 +59,7 @@
 //     LH5 LH4 LH3 ╰─────────╯                  ╰─────────╯ RH3 RH4 RH5
 //
 //
-//    Base (alpha) Layer  Hands Down Vibranium-vb (HRMs /+ thumb mods)
+//    Base (alpha) Layer  Hands Down Vibranium-vb (HRMs)
 //      ╭─────────────────────╮                 ╭─────────────────────╮
 // esc  │  X   W   M   G   J  │ L_CFG     L_NUM │  #$  .:  /*  "[  '] │ LANG2/henk
 // tab  │  S   C   N   T   K  | (             ) |  ,;   A   E   I   H │ LANG1/mhen
@@ -169,12 +169,12 @@
 #define HD_copy_keys  HD_LB3, HD_LB2   // copy (hold for cut)
 #define HD_pste_keys  HD_LB2, HD_LB1   // paste (hold for paste-match)
 
-#define HD_tab_keys  HD_LT4, HD_LT3     // tab
-#define HD_stab_keys HD_LT4, HD_LT3, HD_LT2  // Shift-tab
-#define HD_spc_keys  HD_LM1, HD_LM0     // SPACE
-#define HD_ent_keys  HD_LB0, HD_LB1     // ENTER
-#define HD_ent2_keys HD_LB0, HD_LB1, HD_LB2 // hard-ENTER/page break
-#define APPMENU_keys  HD_LT1, HD_LT0  // APPMENU on alpha layer
+#define HD_tab_keys   HD_LT4, HD_LT3    // tab
+#define HD_stab_keys  HD_LT4, HD_LT3, HD_LT2  // Shift-tab
+#define HD_spc_keys   HD_LM1, HD_LM0    // SPACE
+#define HD_ent_keys   HD_LB0, HD_LB1    // ENTER
+#define HD_ent2_keys  HD_LB0, HD_LB1, HD_LB2 // hard-ENTER/page break
+#define APPMENU_keys  HD_LT1, HD_LT0    // APPMENU on alpha layer
 #define APPMENU_nav_keys  LV_LT1, LV_LT0  // APPMENU on Nav layer
 
 // TEXT ENTRY - off map standard alphas (also on Layer L_SYM @ Z=LT4 & Q=LT3)
@@ -304,7 +304,7 @@
 //#define JP_fyo_keys HD_RM4, HD_RB2 //　ふぉ
 
 #define JP_bya_keys HD_LB4, HD_RM1 // びゃ
-#define JP_byu_keys HD_LB4, HD_RB1 //　びゅ  conflicts with diacritic?
+#define JP_byu_keys HD_LB4, HD_RB1 //　びゅ
 #define JP_byo_keys HD_LB4, HD_RB2 //　びょ
 #define JP_mya_keys HD_LT2, HD_RM1 // みゃ
 #define JP_myu_keys HD_LT2, HD_RB1 //　みゅ

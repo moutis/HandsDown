@@ -1,30 +1,28 @@
 /*
  Adaptive Keys
- Called from within process_record_user
- 
+ Called from early within process_record_user
+
  Tailored for HD Gold (au)
  
  NOTE: assumed dual-function keys (MOD_TAP, LAYER_TAP) have already been handled AND
     FILTERED OUT! The combos handler will have already taken out combo candidates,
     which have a shorter keydown threshhold (COMBO_TERM).
  
- All the goto shenanigans should be resolved after complete migration to STM/RP controllersr
- (not totally possible, as many of my boards have embedded AVR mcus)
-
  */
-//              Hands Down Gold
-// ╭─────────────────────╮ ╭─────────────────────╮
-// │  J   G   M   P   V  │ │  #$  .:  /*  "[  '] │
-// │  R   S   N   D   B  | |  ,;   A   E   I   H │
-// │  X   F   L   C   W  │ │  -+   U   O   Y   K │
-// ╰───────────╮ BSP  T  │ │ SPC  RET ╭──────────╯
-//             ╰─────────╯ ╰──────────╯
-// Q (LT3) & Z (LT4) are on the punc layer
+//    Base (alpha) Layer  Hands Down Gold (HRMs /+ thumb mods)
+//      ╭─────────────────────╮                 ╭─────────────────────╮
+// esc  │  J   G   M   P   V  │ L_CFG     L_NUM │  #$  .:  /*  "[  '] │ LANG2/henk
+// tab  │  R   S   N   D   B  | (             ) |  ,;   A   E   I   H │ LANG1/mhen
+//  Z   │  X   F   L   C   W  │ [ copy   pste ] │  -+   U   O   Y   K │ Q
+//      ╰───────────╮ bsp  T  │ &             | │ spc  ret ╭──────────╯
+//    left rght app ╰─────────╯                 ╰──────────╯ tgLN  up  dn
+
+// For small boards, Q (LT3) & Z (LT4) are (also) on the sym layer
 
 
 bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
     bool return_state = true; // assume we don't do anything.
-
+    
     // Are we in an adaptive context? (adaptive on is assumed).
     if (timer_elapsed(prior_keydown) > ADAPTIVE_TERM) { // outside adaptive threshhold
         prior_keycode = preprior_keycode = prior_keydown = 0; // turn off Adaptives.
@@ -38,11 +36,34 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
         unregister_mods(MOD_MASK_SHIFT);  //CAPS_WORD/LOCK won't be affected.
     } // may want more granular control than this…
 
-    switch (keycode & QK_BASIC_MAX) { // process ignoring multi-function keys
+//        switch (((keycode >= SAFE_RANGE) && (keycode <= SemKeys_COUNT)) ? (keycode) : (keycode & QK_BASIC_MAX)) { // only handling normal, SHFT or ALT cases.
+
+    switch (keycode) { // process ignoring multi-function keys & shift state?
 
 /*
 // Left hand adaptives (most are single-handed neighbor fingers, bc speed, dexterity limits)
 */
+        case KC_B:  // avoid the index-middle split
+            switch (prior_keycode) {
+                case KC_P: // pull up M over
+                    tap_code(KC_BSPC);
+                    tap_code(KC_M);
+                    break;
+                case KC_D: // pull L over
+                    tap_code(KC_L);  // pull up "L"
+                    return_state = false; // done.
+                    break;
+            }
+            break;
+        case KC_D: //
+            switch (prior_keycode) { //
+                case KC_B:
+                    tap_code(KC_L);  // pull up "L"
+                    return_state = false; // done.
+                    break;
+            }
+            break;
+            
         case KC_M: // M becomes L (pull up "L" to same row)
             switch (prior_keycode) {
                 case KC_P: // pull up "L" (PL is 15x more common than PM)
@@ -56,29 +77,6 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     break;
             }
             break;
-
-        case KC_B:  // avoid the index-middle split
-            switch (prior_keycode) {
-                case KC_P: // pull up M over
-                    tap_code(KC_M);
-                    return_state = false; // done.
-                case KC_D: // pull L over
-                    tap_code(KC_L);  // pull up "L"
-                    return_state = false; // done.
-                    break;
-                break;
-           }
-            break;
-
-        case KC_D: //
-            switch (prior_keycode) { //
-                case KC_B:
-                    tap_code(KC_L);  // pull up "L"
-                    return_state = false; // done.
-                    break;
-            }
-            break;
-            
         case KC_P:
             switch (prior_keycode) {
                 case KC_G: // avoid the LP scissor
@@ -96,7 +94,6 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     break;
             }
             break;
-
         case KC_X: //
             switch (prior_keycode) { //
                 case KC_C: // CD is 70x more common than CX
@@ -111,83 +108,6 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 /*
 // right hand adaptives
 */
-        case KC_QUOT:
-            switch (prior_keycode) {
-                case KC_DOT:
-                    send_string("org");
-                    return_state = false; // done.
-                    break;
-                case KC_SLSH:
-                    tap_code(KC_BSPC);
-                    send_string(".org");
-                    return_state = false; // done.
-                    break;
-#ifndef ADAPT_VOWEL_H
-                case KC_A: //
-                    tap_code(KC_U); // "A'" yields "AU"
-                    return_state = false; // done.
-                    break;
-                case KC_U:
-                    tap_code(KC_A); // "U'" yields "UA"
-                    return_state = false; // done.
-                    break;
-                case KC_E:
-                    tap_code(KC_O); // "E'" yields "EO"
-                    return_state = false; // done.
-                    break;
-                case KC_O:
-                    tap_code(KC_E); // "O'" yields "OE"
-                    return_state = false; // done.
-                    break;
-/*#else // regain v-H rolls (kludgy? unnecessary?)
-                case KC_A:
-                case KC_U:
-                case KC_E:
-                case KC_O:
-                case KC_I:
-                    tap_code(KC_H); // "IH" yields "IF" (96x more common)
-                    return_state = false; // done.
-*/
-#endif
-            }
-            break;
-      case KC_SLSH:
-          switch (prior_keycode) {
-              case KC_DOT:
-                  send_string("com");
-                  return_state = false; // done.
-          }
-          break;
-      case KC_DQUO:
-          switch (prior_keycode) {
-              case KC_DOT:
-                  send_string("edu");
-                  return_state = false; // done.
-          }
-          break;
-
-        case KC_H: // How often are we likely to hit BS so quickly after?
-            switch (prior_keycode) { // maybe OK? What about xxR? resulting in a SFB on thumb?
-                case KC_A: // AE is a fraction less common, but I find the EAE trill harder than EAH.
-                    tap_code(KC_U); // "AH" yields "AU" (8x more common)
-                    return_state = false; // done.
-                    break;
-                case KC_E:
-                    tap_code(KC_O); // "EH" yields "EO" (1.75:1)
-                    return_state = false; // done.
-                    break;
-                case KC_O:
-                    tap_code(KC_E); // "OH" yields "OE" (almost 1:1, but eliminates an SFB?)
-                    return_state = false; // done.
-                    break;
-                case KC_U:
-                    tap_code(KC_A); // "UH" yields "UA" (126x more common)
-                    return_state = false; // done.
-                    break;
-
-            }
-            break;
-
         case KC_K:
             switch (prior_keycode) {
                 case KC_Y:  // eliminate SFB on ring finger
@@ -196,52 +116,12 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     break;
             }
             break;
-            
-        case KC_U:
-            switch (prior_keycode) {
-                case KC_K: // make KU send Qu
-                    tap_code(KC_BSPC);
-                    tap_code(KC_Q);
-                    break;
-            }
-            break;
 
+#include "adapt_h.c" // the common vowel block adaptives (esp. for AU SFB)
 
-#ifdef THUMB_REPEATER
-        case HD_REPEATER_A: // Make a repeat key of the secondary thumb key on both sides
-        case HD_REPEATER_B: // for most common double letters (inherently SFBs)
-            switch (prior_keycode) {
-                case KC_A ... KC_SLASH: // Any alpha can be repeated?
-/* double-letter frequencies from Peter Norvig's data <https://norvig.com/mayzner.html>
-                case KC_L: // 0.577%
-                case KC_S: // 0.405%
-                case KC_E: // 0.378%
-                case KC_O: // 0.210%
-                case KC_T: // 0.171%
-                case KC_F: // 0.146%
-                case KC_P: // 0.137%
-                case KC_R: // 0.121%
-                case KC_M: // 0.096%
-                case KC_C: // 0.083%
-                case KC_N: // 0.073%
-                case KC_D: // 0.043%
-                case KC_G: // 0.025%
-                case KC_I: // 0.023%
-                case KC_B: // 0.011%
-                case KC_A: // 0.003%
-                case KC_Z: // 0.003%
-                case KC_X: // 0.003%
-                case KC_U: // 0.001%
-                case KC_H: // 0.001%
-*/
-                    tap_code(prior_keycode); // eliminate SFB on double
-                    return_state = false; // done.
-            }
-            break;
-#endif
-#ifdef ADAPTIVE_TRAILER
-#include "adaptive_trailer.c"
-#endif // ADAPTIVE_TRAILER
+#if defined (HD_MAGIC) || defined (HD_MAGIC_A) || defined (HD_MAGIC_B)
+#include "adapt_magic.c" // the common adaptive "magic" key
+#endif //
 
     }
     if (return_state) { // no adaptive processed, cancel state and pass it on.
