@@ -34,8 +34,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         ((keycode & QK_BASIC_MAX) <= KC_Z)) {
             tap_code(KC_BSPC); // get rid of ADAPT_SHIFT
             tap_code16(S(keycode & QK_BASIC_MAX)); // send cap letter
-            prior_keycode = preprior_keycode = prior_keydown = linger_key = 0; // done.
-            return false; // so return "finished".
+            preprior_keycode = prior_keydown = linger_key = 0; // reset other states.
+            goto AdaptCont; // continue with capped letter as next adaptive leader
         }
 
 #endif
@@ -50,9 +50,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         ) {
 
         if (!process_adaptive_key(keycode, record)) {
-            prior_keydown = timer_read(); // (re)start prior_key timing
             preprior_keycode = prior_keycode; // look back 2 keystrokes?
+AdaptCont:  // still space constrained on AVR MCUs. This saves 12 bytes.
             prior_keycode = keycode; // this keycode is stripped of mods+taps
+            prior_keydown = timer_read(); // (re)start prior_key timing
             return false; // took care of that key
         }
     }

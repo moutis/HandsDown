@@ -132,6 +132,8 @@ const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][OS_count] = {
     [SK_FDQR - SK_KILL] = {S(A(KC_BSLS)),S(A(KC_BSLS)),S(A(KC_BSLS))}, //  » Right double French quote UNICODE?
     [SK_FSQL - SK_KILL] = {S(A(KC_3)),A(KC_LBRC),A(KC_LBRC)}, //  ‹ Left single French quote UNICODE?
     [SK_FSQR - SK_KILL] = {S(A(KC_4)),A(S(KC_LBRC)),A(S(KC_LBRC))}, //  › Right single French quote UNICODE?
+    [SK_DKT8 - SK_KILL] = {C(S(KC_3)),G(KC_H),G(KC_H)}, // Dictate speech to text
+    [SK_AIVC - SK_KILL] = {C(S(KC_4)),G(KC_C),G(KC_H)}, // AI voice control (mac Siri/Win Cortana)
 
 };
 

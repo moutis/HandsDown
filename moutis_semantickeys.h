@@ -101,13 +101,15 @@ enum my_keycodes {
         // Quotations
     SK_SQUL, // ’ Left single quote (linger for paired)
     SK_SQUR, // ’ Right single quote
-//    SK_SDQU, // " straight double-quote character (custom so we can manipulate it.)
-    SK_SDQL, // ’ Left double quote (linger for paired)
-    SK_SDQR, // ’ Right double quote
-    SK_FDQL, // ’ « Left double French quote (linger for paired)
-    SK_FDQR, // ’ » Right double French quote
-    SK_FSQL, // ’ ‹ Left single French quote (linger for paired)
-    SK_FSQR, // ’ › Right single French quote
+//    SK_SDQU, // " straight double-quote character (custom so we can manipulate it?)
+    SK_SDQL, // “ Left double quote (linger for paired)
+    SK_SDQR, // ” Right double quote
+    SK_FDQL, // « Left double French quote (linger for paired)
+    SK_FDQR, // » Right double French quote
+    SK_FSQL, // ‹ Left single French quote (linger for paired)
+    SK_FSQR, // › Right single French quote
+    SK_DKT8, // speech to text
+    SK_AIVC, // AI voice control (mac Siri/Win cortana)
     SemKeys_COUNT, // end of SemKeys
 
 

@@ -17,6 +17,7 @@
 // positions for 34 key boards
 
 const uint16_t PROGMEM HC_cfg_combo[] = {HD_RH1, HD_RH2, COMBO_END}; // keyboard settings/config layer
+const uint16_t PROGMEM HC_cfg_combo2[] = {HD_LH1, HD_LH2, COMBO_END}; // keyboard settings/config layer
 #ifdef APPMENU_keys
 const uint16_t PROGMEM H_menu_combo[] = {APPMENU_keys, COMBO_END}; // AppMENU
 #else
@@ -313,6 +314,7 @@ const uint16_t PROGMEM PPLMN_combo[] = {RSFT_T(KC_P4), RCTL_T(KC_PPLS), COMBO_EN
 combo_t key_combos[] = {
     // These simple combos trigger on press, repeat. HC_cfg_combo
     [HC_CFG] = COMBO(HC_cfg_combo, MO(L_CFG)), // keyboard/media settings/config layer
+    [HC_CFG2] = COMBO(HC_cfg_combo2, MO(L_CFG)), // keyboard/media settings/config layer
     [HC_APP] = COMBO(H_menu_combo, KC_APP), // app menu
     [HC_APPNAV] = COMBO(H_menu_nav_combo, KC_APP), // app menu
     [HC_SCLN] = COMBO(Hscln_combo, KC_SCLN), // ;

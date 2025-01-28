@@ -40,6 +40,7 @@
 enum my_combos {
     FC_ESC, // ESCape SIMPLE COMBO must be first (used as FALSE for combo_on)
     HC_CFG,  // The keyboard and media config/settings layer
+    HC_CFG2,  // The keyboard and media config/settings layer
     HC_APP,
     HC_APPNAV, // App menu on Nav layer
     HC_CAPW, // CAPS WORD for all others
