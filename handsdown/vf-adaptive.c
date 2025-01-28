@@ -258,7 +258,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     return_state = false; // done.
                     break;
                 case KC_M:  // eliminate MF scissor.
-                    tap_code(KC_F); // "MF" is x more frequent than "MX"
+                    tap_code(KC_N); // "MN" is 248x more frequent than "MX"
                     return_state = false; // done.
                     break;
                case KC_W:  // eliminate WS scissor.
@@ -276,7 +276,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
             switch (prior_keycode) {
                 case KC_Y: // avoid ring->pinky scissor
                     tap_code(KC_BSPC);
-                    tap_code(KC_I);
+                    tap_code(KC_I); // IB is 21x more common than YB
                     break; // process the B normally
             }
             break;

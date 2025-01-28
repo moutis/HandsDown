@@ -30,6 +30,11 @@
                    tap_code(KC_E); // "OH" yields "OE" (almost 1:1, but eliminates an SFB?)
                    return_state = false; // done.
                    break;
+               case KC_Y:
+                   tap_code(KC_I); // "YH" basically never occurs, so turn this SFB into a step
+                   return_state = false; // done.
+                   break;
+
 #ifndef FR_ADAPTIVES
 // these are possible, but rather uncommon
                case KC_L: // LH->LN (4.43    202207313)
@@ -42,10 +47,10 @@
                    return_state = false; // done.
                    break;
 #else // FR_ADAPTIVES // eliminate 'h SFB for French
+               case KC_D: // ex. d'habitude
                case KC_J: // ex. j'habite
                case KC_L: // ex. l'hôtel
                case KC_N: // ex. n'habite
-               case KC_D: // ex. d'habitude
 #ifdef EN_HDIGRAPH_COMBOS
                case KC_T: // t'habitude can't do this (bc Th) unless Th digraph combo is used…
 #endif // EN_HDIGRAPH_COMBOS

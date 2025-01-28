@@ -113,10 +113,10 @@
 #define HD_LB2 HD_D
 #define HD_LB1 HD_L
 #define HD_LB0 HD_X
-#define HD_LBA C(S(KC_3)) // speech to text (mac)
-#define HD_LBB LT(L_CFG, KC_LNG2)
-#define HD_RBB LT(L_FUN, KC_LNG1)
-#define HD_RBA C(S(KC_4)) // voice control (mac siri)
+#define HD_LBA SK_DKT8 // Dictate (speech to text)
+#define HD_LBB SK_FIND // find
+#define HD_RBB SK_FAGN // find again
+#define HD_RBA SK_AIVC // AI voice control (Siri/Cortana)
 #define HD_RB0 HD_MINS
 #define HD_RB1 HD_U
 #define HD_RB2 HD_O
@@ -131,8 +131,8 @@
 #define HD_LH2 HD_BSPC
 #define HD_LH1 HD_R
 #define HD_LH0 LT(L_CFG,KC_MUTE)
-#define HD_LHA SK_FIND // find
-#define HD_RHA SK_FAGN // find again
+#define HD_LHA SK_DKT8 // Dictate (speech to text)
+#define HD_RHA SK_AIVC // AI voice control (Siri/Cortana)
 #define HD_RH0 LT(L_CFG,KC_MPLY)
 #define HD_RH1 HD_SPC
 #define HD_RH2 HD_ENT
