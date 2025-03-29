@@ -93,19 +93,19 @@ __ │    ·       ]       )        }        °     │ __  __   __  __  │    
 
 /* L_FUN LAYER K-key row (left) and Num row (right)
          ╭──────────────────────────────────────────╮               ╭──────────────────────────────────────────╮
- RGB_TOG │ F9       F10     F11     F12     F13     │               │ /       7       8       9       -        │ RGB_MOD
- RGB_VAI │ C_T(F5)  A_T(F6) G_T(F7) S_T(L8) F14     |               | *       S_T(1)  G_T(2)  A_T(3)  C_T(+)   │ RGB_HUI
- RGB_VAD │ F1       F2      F3      F4      INS     │ __ __   __ __ │ ,       4       5       3       =        │ RGB_HUD
-         ╰────────────────╮ __      __      __      │ __         __ │ 0       .       TG(LN)  ╭────────────────╯
+ RGB_TOG │ F13      F7      F8      F9      F10     │               │ /       7       8       9       -        │ RGB_MOD
+ RGB_VAI │ C_T(F14) A_T(F1) G_T(F2) S_T(F3) F11     |               | *       S_T(1)  G_T(2)  A_T(3)  C_T(+)   │ RGB_HUI
+ RGB_VAD │ F15      F4      F5      F6      F12     │ __ __   __ __ │ ,       4       5       6       =        │ RGB_HUD
+         ╰────────────────╮ __      __      INS     │ __         __ │ 0       .       TG(LN)  ╭────────────────╯
               __      __  ╰─────────────────────────╯               ╰─────────────────────────╯ __       __
 */
 
 #define LF_LT5 RGB_TOG
-#define LF_LT4 KC_F9
-#define LF_LT3 KC_F10
-#define LF_LT2 KC_F11
-#define LF_LT1 KC_F12
-#define LF_LT0 KC_F13
+#define LF_LT4 KC_F13
+#define LF_LT3 KC_F7
+#define LF_LT2 KC_F8
+#define LF_LT1 KC_F9
+#define LF_LT0 KC_F10
 #define LF_RT0 KC_SLSH
 #define LF_RT1 KC_7
 #define LF_RT2 KC_8
@@ -114,11 +114,11 @@ __ │    ·       ]       )        }        °     │ __  __   __  __  │    
 #define LF_RT5 RGB_MOD
 
 #define LF_LM5 RGB_VAI
-#define LF_LM4 LCTL_T(KC_F5)
-#define LF_LM3 LALT_T(KC_F6)
-#define LF_LM2 LGUI_T(KC_F7)
-#define LF_LM1 LSFT_T(KC_F8)
-#define LF_LM0 KC_F14
+#define LF_LM4 LCTL_T(KC_F14)
+#define LF_LM3 LALT_T(KC_F1)
+#define LF_LM2 LGUI_T(KC_F2)
+#define LF_LM1 LSFT_T(KC_F3)
+#define LF_LM0 KC_F11
 #define LF_RM0 KC_ASTR
 #define LF_RM1 RSFT_T(KC_1)
 #define LF_RM2 RGUI_T(KC_2)
@@ -127,11 +127,11 @@ __ │    ·       ]       )        }        °     │ __  __   __  __  │    
 #define LF_RM5 RGB_HUI
 
 #define LF_LB5 RGB_VAD
-#define LF_LB4 KC_F1
-#define LF_LB3 KC_F2
-#define LF_LB2 KC_F3
-#define LF_LB1 KC_F4
-#define LF_LB0 KC_INS
+#define LF_LB4 KC_F15
+#define LF_LB3 KC_F4
+#define LF_LB2 KC_F5
+#define LF_LB1 KC_F3
+#define LF_LB0 KC_F12
 #define LF_LBA KC_TRNS
 #define LF_LBB KC_TRNS
 #define LF_RBB KC_TRNS
@@ -148,7 +148,7 @@ __ │    ·       ]       )        }        °     │ __  __   __  __  │    
 #define LF_LH3 KC_TRNS
 #define LF_LH2 KC_SCLN
 #define LF_LH1 TG(L_NUM)
-#define LF_LH0 KC_TRNS  // also left encoder hat switch
+#define LF_LH0 KC_INS  // also left encoder hat switch
 #define LF_LHA KC_NO
 #define LF_RHA KC_NO
 #define LF_RH0 KC_TRNS  // also right encoder hat switch

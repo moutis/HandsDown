@@ -52,24 +52,29 @@ extern rgblight_config_t rgblight_config;
 //
 // which HD alpha variation are we using?
 //
-// nu = neu (no thumb alpha)
-// au = gold (T on thumb)
-// mi = mithril (R on thumb)
-// pm = promethium (R on thumb)
-// rh = rhodium (R on thumb)
-// vf = vibranium (R on thumb, f in lower left, b on right) - "canonical"
-// vv = vibranium (R on thumb, v in lower left, f on right) - lowest SFB
-// vx = vibranium (R on thumb, x in lower left, f on right) - same
-// vb = vibranium (R on thumb, b in lower left, f on right) - more rolling w/adaptives
 //
-#define HD vf
+// nu = neu (no thumb alpha)    * does not use thumb
+// au = gold (T on thumb)       * most inward rolling
+// bz = bronze (H on thumb)     * lightest thumb use w/H-digraph combos
+// cr = chromium (C on thumb)   * RSNT typically doesn't use H-digraph combos
+// cs = cesium (C on thumb)     * lowest scissors, – lowest thumb w/o H-digraph combos
+// pm = promethium (R on thumb) * typically doesn't use H-digraph combos
+// rh = rhodium (R on thumb)    * typically doesn't use H-digraph combos
+// vf = vibranium (R on thumb, f in lower left, b on right) - "canonical"
+// vv = vibranium (R on thumb, v in lower left, f on right) - lowest SFBs
+// vx = vibranium (R on thumb, x in lower left, f on right) - better pinky balancing
+// vb = vibranium (R on thumb, b in lower left, f on right) - more rolling w/adaptives
+// mi = mithril (R on thumb)
+// xr = weird test-bed (R on thumb)
+
+#define HD_CONFIG "handsdown/vf-config.h"
+
 //
 // HD_CONFIG defines all variation dependent constants/files/keycodes, etc.
 // that will be used in the respective keymap for each keyboard
 //
-//#define HD_CONFIG
 //
-#include "handsdown/vf-config.h" // definitions for the Alpha layer and mnemonic combos
+#include HD_CONFIG // definitions for the Alpha layer and mnemonic combos
 //
 // definitions for all the other layers not dependent on the alpha layout.
 #include "moutis_layers.h"

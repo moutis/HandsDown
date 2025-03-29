@@ -2,13 +2,9 @@
 //
 // The Hands Down Variation dependent defs & files
 //
-#define HD_adaptive_code "handsdown/vf-adaptive.c"
+#define HD_adaptive_code "handsdown/rx-adaptive.c"
 //
-// https://cyanophage.github.io/playground.html?layout=xwmgj%3B.%2F%3D%27zscntk%2Caeihqfpldv-uoyb%5Cr&mode=ergo&lan=english
-// HD uses the following effort map: 5,4,2,2,2,7,7,2,2,2,4,5,5,1,0,0,0,5,5,0,0,0,1,5,7,3,2,1,1,6,6,1,1,2,3,7
-// if you prefer top-heavy layouts, just invert the layout and the effort grid.
-// Inverting may increase the reach between a thumb alpha and an related bigram.
-// If you have long fingers, this may be perferable to having a cramped hand posture.
+
 //
 // First, let's define HD alpha keycodes with any hold-taps/custom keycodes
 //
@@ -39,10 +35,10 @@
 #define HD_Y KC_Y
 #define HD_Z KC_Z
 
-#define HD_MINS KC_MINS
+#define HD_MINS LT(L_FUN,KC_MINS)
 #define HD_HASH KC_HASH
 #define HD_SPC  LT(L_SYM,KC_SPC)
-#define HD_BSPC LT(L_FUN,KC_BSPC)
+#define HD_BSPC KC_BSPC
 #define HD_ENT  LT(L_NAV,KC_ENT)
 #define HD_QUOT KC_QUOT
 #define HD_DQUO KC_DQUO // KC_DQUO or SK_SDQU
@@ -63,12 +59,12 @@
 //     LH5 LH4 LH3 ╰─────────╯                  ╰─────────╯ RH3 RH4 RH5
 //
 //
-//    Base (alpha) Layer  Hands Down Vibranium-vf (HRMs /+ thumb mods)
+//    Base (alpha) Layer  Hands Down Vibranium-rx (HRMs /+ thumb mods)
 //      ╭─────────────────────╮                 ╭─────────────────────╮
 // esc  │  X   W   M   G   J  │ L_CFG     L_NUM │  #$  .:  /*  "[  '] │ LANG2/henk
 // tab  │  S   C   N   T   K  | (             ) |  ,;   A   E   I   H │ LANG1/mhen
-//  Z   │  F   P   L   D   V  │ [ copy   pste ] │  -+   U   O   Y   B │ Q
-//      ╰───────────╮ bsp  R  │ &             | │ spc  ret ╭──────────╯
+//  Q   │  F   P   L   D   V  │ [ copy   pste ] │ bsp   U   O   Y   B │ Z
+//      ╰───────────╮ -/+   R │ &             | │ spc  ret ╭──────────╯
 //    left rght app ╰─────────╯                 ╰──────────╯ tgLN  up  dn
 //
 // For small boards, Q (LT3) & Z (LT4) are (also) on the sym layer
@@ -105,7 +101,7 @@
 #define HD_RM4 HD_H
 #define HD_RM5 KC_LNG1
 
-#define HD_LB5 HD_Z
+#define HD_LB5 HD_Q
 #define HD_LB4 HD_F
 #define HD_LB3 HD_P
 #define HD_LB2 HD_L
@@ -115,18 +111,18 @@
 #define HD_LBB SK_FIND // find
 #define HD_RBB SK_FAGN // find again
 #define HD_RBA SK_AIVC // AI voice control (Siri/Cortana)
-#define HD_RB0 HD_MINS
+#define HD_RB0 HD_BSPC
 #define HD_RB1 HD_U
 #define HD_RB2 HD_O
 #define HD_RB3 HD_Y
 #define HD_RB4 HD_B
-#define HD_RB5 HD_Q
+#define HD_RB5 HD_Z
 
 //Primary Thumbs 1-3 (others are unique to the board)
 #define HD_LH5 KC_LEFT
 #define HD_LH4 KC_RGHT
 #define HD_LH3 KC_APP
-#define HD_LH2 HD_BSPC
+#define HD_LH2 HD_MINS
 #define HD_LH1 HD_R
 #define HD_LH0 LT(L_CFG,KC_MUTE)
 #define HD_LHA SK_DKT8 // Dictate (speech to text)

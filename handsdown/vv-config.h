@@ -4,6 +4,11 @@
 //
 #define HD_adaptive_code "handsdown/vv-adaptive.c"
 //
+// https://cyanophage.github.io/playground.html?layout=xwmgj%3B.%27%3Dbzscntk%2Caeihqvfld%2F-uoyp%5Cr&mode=ergo&lan=english
+// HD uses the following effort map: 5,4,2,2,2,7,7,2,2,2,4,5,5,1,0,0,0,5,5,0,0,0,1,5,7,3,2,1,1,6,6,1,1,2,3,7
+// if you prefer top-heavy layouts, just invert the layout and the effort grid.
+// Inverting may increase the reach between a thumb alpha and an related bigram.
+// If you have long fingers, this may be perferable to having a cramped hand posture.
 
 //
 // First, let's define HD alpha keycodes with any hold-taps/custom keycodes
@@ -61,9 +66,9 @@
 //
 //    Base (alpha) Layer  Hands Down Vibranium-Vv (HRMs /+ thumb mods)
 //      ╭─────────────────────╮                 ╭─────────────────────╮
-// esc  │  V   W   M   G   J  │ L_CFG     L_NUM │  #$  .:  '[  "]   B │ LANG2/henk
+// esc  │  X   W   M   G   J  │ L_CFG     L_NUM │  #$  .:  '[  "]   B │ LANG2/henk
 // tab  │  S   C   N   T   K  | (             ) |  ,;   A   E   I   H │ LANG1/mhen
-//  Z   │  X   F   L   D  /*  │ [ copy   pste ] │  -+   U   O   Y   P │ Q
+//  Z   │  V   F   L   D  /*  │ [ copy   pste ] │  -+   U   O   Y   P │ Q
 //      ╰───────────╮ bsp  R  │ &             | │ spc  ret ╭──────────╯
 //    left rght app ╰─────────╯                 ╰──────────╯ tgLN  up  dn
 //

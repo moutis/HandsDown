@@ -749,7 +749,7 @@ void matrix_scan_user_process_combo() {  // called from matrix_scan_user if comb
                     break;
                 case HC_Sch: //
                     tap_code(KC_H); // send "h"
-                    tap_code(KC_O); // add "o" // o is the most common after sch
+                    tap_code(KC_W); // add "w" // eliminate SFB schw
                     break;
                 case HC_Ch: //
                 case HC_Wh: //
