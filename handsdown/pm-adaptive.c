@@ -50,12 +50,9 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 */
         case KC_D:
             switch (prior_keycode) { //
-                case KC_B:
-                    if (preprior_keycode == KC_P) { // roll PLD = PWD? (no side effects?)
-                        tap_code(KC_BSPC);
-                        tap_code(KC_W); // replace the L with W
+                case KC_P:  // roll PD = PWD? (no side effects?)
+                        tap_code(KC_W);
                         break; // process the D normally
-                    }
             }
             break;
         case KC_F:
@@ -132,7 +129,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                 case KC_P:
                 case KC_B: //
                 case KC_S: //
-                    tap_code(KC_L);  // pull up "L" (PL is 15x more common than PM)
+                    tap_code(KC_L);  //
                     return_state = false; // done.
                     break;
             }
@@ -165,6 +162,10 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     tap_code(KC_BSPC); // remove F
                     tap_code(KC_S);  // FP=SP (SP 860x more common)
                     break; // Send P normally
+                case KC_P: // eliminate DG sfb
+                    tap_code(KC_G);  //
+                    return_state = false; // done.
+                    break; // 
             }
             break;
 

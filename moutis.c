@@ -28,6 +28,8 @@ bool mods_held = false;  // need to remember how we entered the appmenu state
 #ifdef JP_MODE_ENABLE
 bool IS_ENGLISH_MODE = true;
 #endif
+uint16_t L_quote = KC_DQUO; // default " (「 in Japanese mode)
+uint16_t R_quote = KC_QUOT; // default '　(」in Japanese mode)
 
 #ifdef RGBLIGHT_ENABLE
 int RGB_current_mode;

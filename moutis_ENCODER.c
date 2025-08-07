@@ -42,12 +42,12 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         //              Left encoder                         Right encoder
         //      Unshifted            Shifted             Unshifted              Shifted
         //       CCW, CW             CCW, CW              CCW, CW               CCW, CW
-        {{{KC_VOLD,KC_VOLU}, {KC_BRID,KC_BRIU}}, {{KC_LEFT,KC_RIGHT}, {KC_PGUP, KC_PGDN}}}, // L_QWERTY, 0 - QWERTY compatibility layer
-        {{{KC_VOLD,KC_VOLU}, {KC_BRID,KC_BRIU}}, {{KC_LEFT,KC_RIGHT}, {KC_PGUP, KC_PGDN}}}, // L_HD,  1 - Hands Down Alpha layer
+        {{{KC_VOLD,KC_VOLU}, {KC_BRID,KC_BRIU}}, {{KC_PGUP, KC_PGDN}, {KC_LEFT,KC_RIGHT}}}, // L_QWERTY, 0 - QWERTY compatibility layer
+        {{{KC_VOLD,KC_VOLU}, {KC_BRID,KC_BRIU}}, {{KC_PGUP, KC_PGDN}, {KC_LEFT,KC_RIGHT}}}, // L_HD,  1 - Hands Down Alpha layer
         {{{LS_LH5,LS_LH4},   {LS_LH4,LS_LH5}},   {{LS_RH4,LS_RH5},    {LS_RH4,  LS_RH5}}},  // L_SYM, 2 - symbols, punctuation, off-map alphas
         {{{LF_LH5,LF_LH4},   {LF_LH4,LF_LH5}},   {{LF_RH4,LF_RH5},    {LF_RH4,  LF_RH5}}},  // L_FUN, 3 - function & number rows
         {{{LN_LH5,LN_LH4},   {LN_LH4,LN_LH5}},   {{LN_RH4,LN_RH5},    {LN_RH4,  LN_RH5}}},  // L_NUM, 4 - numpad (right); navpad (left)
-        {{{LV_LH5,LV_LH4},   {LV_LH4,LV_LH5}},   {{LV_RH4,LV_RH5},    {KC_MFFD, KC_MRWD}}}, // L_NAV, 5 - nav pad (right); meta keys (left)
+        {{{LV_LH5,LV_LH4},   {LV_LH4,LV_LH5}},   {{KC_MFFD, KC_MRWD}, {LV_RH4,LV_RH5}}}, // L_NAV, 5 - nav pad (right); meta keys (left)
         {{{LC_LH5,LC_LH4},   {LC_LH4,LC_LH5}},   {{LC_RH5,LC_RH4},    {LC_RH4,  LC_RH5}}}   // L_CFG  6 - Media/Consumer controls; Keyboard settings
     };
     unregister_mods(MOD_MASK_SHIFT); // lift Shift, but leave all others (preserves capslock..)

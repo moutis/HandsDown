@@ -55,6 +55,7 @@ extern rgblight_config_t rgblight_config;
 //
 // nu = neu (no thumb alpha)    * does not use thumb
 // au = gold (T on thumb)       * most inward rolling
+// ag = silver (L on thumb)       * LOW sfbs, but high repeat on thumb
 // bz = bronze (H on thumb)     * lightest thumb use w/H-digraph combos
 // cr = chromium (C on thumb)   * RSNT typically doesn't use H-digraph combos
 // cs = cesium (C on thumb)     * lowest scissors, – lowest thumb w/o H-digraph combos
@@ -121,8 +122,13 @@ extern rgblight_config_t rgblight_config;
 // Perhaps simply redefining these in the xx-config.h
 // to override these defs would be the right approach?
 //
-#define DQUO_S  KC_RBRC // ] (via Double quote shifted)
-#define SQUO_S  KC_LBRC // [ (via Single quote shifted)
+#define DQUO_S  KC_GT // >
+#define DQUO_A  A(S(KC_BSLS)) // »
+#define DQUO_SA A(S(KC_4)) // ›
+#define SQUO_S  KC_LT // <
+#define SQUO_A  A(KC_BSLS) // «
+#define SQUO_SA A(S(KC_3)) // ‹
+
 #define JRQU KC_RBRC //  「 (via " in Japanese mode)
 #define JLQU KC_LBRC //  」 (via ' in Japanese mode)
 
@@ -133,7 +139,7 @@ typedef union {
         uint8_t OSIndex; // index of platforms (0=mac, 1=win, 2=lux)? // used by semantickeys
         bool AdaptiveKeys; // Adaptive Keys On? (and advanced combos)
     };
-} user_config_t;
+} user_config_t; // used for persistent memory of settings (only 16 bytes avail on AVR?)
 
 
 // enum my_layers for layout layers
@@ -152,7 +158,9 @@ enum OS_Platform { // Used for platform support via SemKeys
     OS_Mac,     // Mac with ANSI_US_EXTENDED layout
 //    OS_iOS,     // iOS?
     OS_Win,     // Win with default English/ANSI layout?
-    OS_Lux,     // Linux (Gnome?/KDE?/Boox?)
+#ifdef INCLUDE_SK_Lux
+    OS_Lux,     // Linux (Gnome?/KDE?/Boox Android?)
+#endif
 //    OS_And,     // Android (flavors?)
     OS_count
 };

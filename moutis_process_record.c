@@ -314,7 +314,7 @@ goto_register_key_trap_and_return: // ##Warning
                 } else if (((saved_mods & MOD_MASK_SHIFT) && IS_ENGLISH_MODE)  // SHFT (only)
                            || (!saved_mods && !IS_ENGLISH_MODE)) { // or no mods & not in english
 #endif
-                    register_linger_key(SQUO_S); // example of simple linger macro
+                    register_linger_key(L_quote); // example of simple linger macro
                     return_state = false; // don't do more with this record.
                 } else //{ // no mods, so linger
                     register_linger_key(keycode); // example of simple linger macro
@@ -336,7 +336,7 @@ goto_register_key_trap_and_return: // ##Warning
                 } else if (((saved_mods & MOD_MASK_SHIFT) && IS_ENGLISH_MODE)  // SHFT (only)
                            || (!saved_mods && !IS_ENGLISH_MODE)) { // or no mods & not in english
 #endif
-                    register_linger_key(DQUO_S); // example of simple linger macro
+                    register_linger_key(R_quote); // example of simple linger macro
                     return_state = false; // don't do more with this record.
                 } else { // no mods, so
                     register_linger_key(keycode); // example of simple linger macro
@@ -383,12 +383,14 @@ goto_linger_and_return: // ##Warning
                 return_state = false; // stop processing this record.
                 break;
                 
+#ifdef INCLUDE_SK_Lux
             case SK_Lux: // SINCE MAC IS MY LAYOUT DEFAULT switch to linux
                 user_config.OSIndex = OS_Lux; // for Linux Semkeys
 //                process_magic(QK_MAGIC_SWAP_CTL_GUI); // tell QMK to swap ctrl/gui
                 keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = true;
                 return_state = false; // stop processing this record.
                 goto storeSettings;
+#endif
            case SK_Win: // SINCE MAC IS MY LAYOUT DEFAULT switch to windows
                 user_config.OSIndex = OS_Win; // for Windows Semkeys
 //                process_magic(QK_MAGIC_SWAP_CTL_GUI); // tell QMK to swap ctrl/gui

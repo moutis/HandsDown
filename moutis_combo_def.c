@@ -3,7 +3,7 @@
 //     Key Position Names for a 34 (-54) key split form factor
 //        Should cover Ferris through Atreus-Kyria-Ergodox
 //     ╭─────────────────────╮                  ╭─────────────────────╮
-// LT5 │ LT4 LT3 LT2 LT1 LT0 │ LTA          RTB │ RT0 RT1 RT2 RT3 RT4 │ RT5
+// LT5 │ LT4 LT3 LT2 LT1 LT0 │ LTA          RTA │ RT0 RT1 RT2 RT3 RT4 │ RT5
 // LM5 │ LM4 LM3 LM2 LM1 LM0 | LMA          RMA | RT0 RM1 RM2 RM3 RM4 │ RM5
 // LB5 │ LB4 LB3 LB2 LB1 LB0 │ LBA LBB  RBB RBA │ RB0 RB1 RB2 RB3 RB4 │ RB5
 //     ╰───────────╮ LH2 LH1 │ LH0 LHA  RHA RH0 │ RH1 RH2 ╭───────────╯
@@ -47,8 +47,8 @@ const uint16_t PROGMEM Hsall_combo[] = {HD_sall_keys, COMBO_END}; // select all
 const uint16_t PROGMEM Hswrd_combo[] = {HD_swrd_keys, COMBO_END}; // select word
 const uint16_t PROGMEM Hundo_combo[] = {HD_undo_keys, COMBO_END}; // undo
 const uint16_t PROGMEM Hredo_combo[] = {HD_redo_keys, COMBO_END}; // redo
-const uint16_t PROGMEM Hcopy_combo[] = {HD_copy_keys, COMBO_END}; // copy (hold for cut)
-const uint16_t PROGMEM Hpste_combo[] = {HD_pste_keys, COMBO_END}; // paste (hold for paste-match)
+const uint16_t PROGMEM Hcopy_combo[] = {HD_copy_keys, COMBO_END}; // copy (linger/linger for cut)
+const uint16_t PROGMEM Hpste_combo[] = {HD_pste_keys, COMBO_END}; // paste (linger/hold for paste-match)
 
 
 

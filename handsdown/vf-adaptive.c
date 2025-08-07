@@ -39,7 +39,6 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 //        switch (((keycode >= SAFE_RANGE) && (keycode <= SemKeys_COUNT)) ? (keycode) : (keycode & QK_BASIC_MAX)) { // only handling normal, SHFT or ALT cases.
 
     switch (keycode) { // process ignoring multi-function keys & shift state?
-
 /*
 // Left hand adaptives (most are single-handed neighbor fingers, bc speed, dexterity limits)
 */
@@ -68,8 +67,8 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
             break;
         case KC_F:
             switch (prior_keycode) {
-                case KC_D: // eliminate DT SFB
-                    tap_code(KC_T);
+                case KC_D: // eliminate DV SFB
+                    tap_code(KC_V);  // DF = DV (DV is 5.8x more common than DF)
                     return_state = false; // done.
                     break;
                 case KC_P: // avoid row step (PS is 36x more common than PF)
@@ -221,8 +220,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
         case KC_V: // remedy inner column split by shifting fingering
             switch (prior_keycode) {
 
-                case KC_T: // TK/DK/GK = LK ()
-                case KC_G: //
+                case KC_T: // DK = LK
                     tap_code(KC_BSPC);
                     tap_code(KC_L);
                     break; // and let current keycode send normally
@@ -240,19 +238,28 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                         return_state = false; // done.
                         break;
                     } // drop through!
-                case KC_W: // WW doesn't exist, so to permit PP after M...
                 case KC_X: // pull up P (W becomes P after X to set up "xp"+l)
                     tap_code(KC_P); // pull up P from bottom row.
                     return_state = false; // done.
                     break;
+#ifdef RP2040 // hitting AVR limits
                 case KC_N: // avoid SFB (NL is 10x more common than NW)
                     tap_code(KC_L);
                     return_state = false; // done.
                     break;
+#endif
             }
             break;
         case KC_X:
             switch (prior_keycode) {
+                case KC_B:  // eliminate BH SFB. (transliterated languages)
+                     tap_code(KC_H); // "BH" is 37x more frequent than "BX" in English.
+                     return_state = false; // done.
+                     break;
+                case KC_D:  // eliminate DV SFB.
+                     tap_code(KC_J); // "DJ" is 103x more frequent than "DX"
+                     return_state = false; // done.
+                     break;
                 case KC_G: // eliminate GT SFB.
                     tap_code(KC_T); // "GT" is 778x more frequent than "GX"
                     return_state = false; // done.
@@ -261,17 +268,17 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     tap_code(KC_L); // "ML" is 129x more frequent than "MX"
                     return_state = false; // done.
                     break;
-               case KC_W:  // eliminate WS scissor.
-                    tap_code(KC_S); //
-                    return_state = false; // done.
-                    break;
+                case KC_W:  // eliminate WS scissor.
+                     tap_code(KC_S);  // "WS" is 6566x more frequent than "WX" in English.
+                     return_state = false; // done.
+                     break;
             }
             break;
 
 /*
 // right hand adaptives
 */
-            
+        /*
         case KC_B:
             switch (prior_keycode) {
                 case KC_Y: // avoid ring->pinky scissor
@@ -280,7 +287,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     break; // process the B normally
             }
             break;
-
+         */
 #include "adapt_h.c" // the common vowel block adaptives (esp. for AU SFB)
 
 #if defined (HD_MAGIC) || defined (HD_MAGIC_A) || defined (HD_MAGIC_B)

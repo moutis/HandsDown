@@ -205,6 +205,14 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     break;
             }
             break;
+        case KC_V:
+            switch (prior_keycode) {
+                case KC_F: // avoid row step (91x more frequent)
+                    tap_code(KC_S);
+                    return_state = false; // done.
+                    break;
+            }
+            break;
         case KC_W: // W becomes P (pull up "P" to same row)
             switch (prior_keycode) {
                 case KC_X: // pull up P (W becomes P after X to set up "xp"+l)
@@ -218,26 +226,18 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     break;
             }
             break;
-        case KC_V:
-            switch (prior_keycode) {
-                case KC_F: // avoid row step (91x more frequent)
-                    tap_code(KC_S);
-                    return_state = false; // done.
-                    break;
-            }
-            break;
         case KC_X:
             switch (prior_keycode) {
-                case KC_W: // eliminate scissor (2818x gain)
-                    tap_code(KC_L);
+                case KC_G: // "GX" is 778x more frequent than "GT"
+                    tap_code(KC_T); // eliminate GT SFB.
                     return_state = false; // done.
                     break;
                 case KC_M: // eliminate scissor (107x gain)
                     tap_code(KC_F); // pull up F from bottom row.
                     return_state = false; // done.
                     break;
-                case KC_G: // "GX" is 778x more frequent than "GT"
-                    tap_code(KC_T); // eliminate GT SFB.
+                case KC_W: // eliminate scissor (2818x gain)
+                    tap_code(KC_L);
                     return_state = false; // done.
                     break;
             }
