@@ -21,50 +21,32 @@
  and possibly facilitate editor support (vim/emacs)?
   -- complete
  
- Now more than 70 Semantic Keys are enabled. Most populated on the Keymaps either directly, or through combos or Adaptive Keys.
- Much thanks to b-dod (u/for help the completing phase 3 for WinCompose entry
+ Now more than 70 Semantic Keys are enabled. Most populated on the Keymaps either directly,
+ or through combos or Adaptive Keys.
+
+ Many extended commands & symbols can be executed or entered with identical keystrokes on the keyboard,
+ without needing unicode support enabled on the host.
+
+ Much thanks to Bryson Dodwell (b-dod on github,  u/praedatore)
+ for help completing phase 3 for WinCompose entry:
  https://github.com/b-dod/zsa-firmware/b-dod/moutis_semantickeys.c
 
  Phase 4:
  In use in most Hands Down variations in this repo. Next step would be
  to use it in Hands Down Polyglot for PanEuropean multi-platform layout
   -- research proposal in the works.
+
+
+
+ SemKeys_t table below is a uint16 keycode, unless MSB is high, then it
+ is BCD of the 4·3·2 digit Windows/DOS character codes for AltGr compose.
+
+  based on the table at:
+  https://en.wikipedia.org/wiki/Table_of_keyboard_shortcuts
+  and
+  https://www.alt-codes.net
+  tested on my own machines, seems to work fine.
  
- */
-
-
-//
-// SemKey table is a uint16 keycode, unless MSB is high, then it
-// is BCD of the 3 digit Windows/DOS character codes
-//
-/*
-void tap_SemKey(uint16_t semkeycode) {
-
-    if (semkeycode && 0x8000 ) { // highest bit set = Windows AltGR code
-        clear_keyboard(); // must have clean buffer.
-        register_code(KC_RALT);
-        if (semkeycode && 0xE000 ) // need to send 4 digits
-            tap_code(KC_0); // send 4th to last digit (always 0)
-        if (semkeycode && 0xC000 ) // need to send 3 more digits
-            tap_code((uint16_t)(((semkeycode>>8) && 0x000F) + KC_0)); // send 3rd to last digit
-        if (semkeycode && 0xA000 ) // need to send 2 more digits
-            tap_code((uint16_t)(((semkeycode>>4) && 0x000F) + KC_0)); // send 2nd to last digit
-        tap_code((uint16_t)((semkeycode && 0x000F) + KC_0)); // send last digit
-        unregister_code(KC_RALT);
-    } else {
-        tap_code16(semkeycode); // Just send the keycode as-is
-    }
-}
-*/
-    
-    
-/*
- * based on the table at:
- * https://en.wikipedia.org/wiki/Table_of_keyboard_shortcuts
- * and
- * https://www.alt-codes.net
- * tested on my own machines, seems to work fine.
- *
 */
 
 const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][OS_count] = {
@@ -116,15 +98,15 @@ const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][OS_count] = {
     [SK_WINNXT - SK_KILL] = {C(KC_TAB),C(KC_TAB)},          // Window/tab switcher Next
     [SK_WINPRV - SK_KILL] = {C(S(KC_TAB)),C(S(KC_TAB))},    // Window/tab switcher Prev
         // Punctuation & typography
-    [SK_SECT - SK_KILL] = {A(KC_5),0x8167},                 // § ** need Win Compose via BCD.
+    [SK_NDSH - SK_KILL] = {S(A(KC_MINS)),0x8150},           // — N-Dash ** need Win Compose via BCD?
+    [SK_MDSH - SK_KILL] = {S(A(KC_MINS)),0x8151},           // — M-Dash ** need Win Compose via BCD?
     [SK_ELPS - SK_KILL] = {A(KC_SCLN),0x8133},              // … ** need Win Compose via BCD?
-    [SK_PARA - SK_KILL] = {A(KC_7),0x8182},                 // ¶ ** need Win Compose via BCD?
-    [SK_NDSH - SK_KILL] = {S(A(KC_MINS)),0x8150},           // — ** need Win Compose via BCD?
-    [SK_MDSH - SK_KILL] = {S(A(KC_MINS)),0x8151},           // — ** need Win Compose via BCD?
-    [SK_DCRS - SK_KILL] = {LSA(KC_7),0x8135},               // ‡ Double Cross ** need Win Compose via BCD?
     [SK_SCRS - SK_KILL] = {RSA(KC_5),0x8134},               // † Single Cross ** need Win Compose via BCD?
-    [SK_SBLT - SK_KILL] = {A(S(KC_9)),0x8183},              // · Small Bullet ** need Win Compose via BCD?
+    [SK_DCRS - SK_KILL] = {LSA(KC_7),0x8135},               // ‡ Double Cross ** need Win Compose via BCD?
     [SK_BBLT - SK_KILL] = {A(KC_8),0x8149},                 // • Bold Bullet ** need Win Compose via BCD?
+    [SK_SBLT - SK_KILL] = {A(S(KC_9)),0x8183},              // · Small Bullet ** need Win Compose via BCD?
+    [SK_PARA - SK_KILL] = {A(KC_7),0x8182},                 // ¶ ** need Win Compose via BCD?
+    [SK_SECT - SK_KILL] = {A(KC_5),0x8167},                 // § ** need Win Compose via BCD.
         // Number & Math symbols
     [SK_DEGR - SK_KILL] = {S(A(KC_8)),0x8176},              // ° DEGREE
     [SK_GTEQ - SK_KILL] = {A(KC_DOT),0x4242},               // ≥ Greater Than or Equal to
@@ -134,8 +116,8 @@ const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][OS_count] = {
     [SK_APXEQ - SK_KILL] = {LALT(KC_X),0x4247},             // ≈ APPROX Equal to
     [SK_OMEGA - SK_KILL] = {LALT(KC_Z),0x4234},             // Ω OMEGA
         // Currency
-    [SK_CENT - SK_KILL] = {LALT(KC_4),0x8162},              // ¢ ** need Win Compose via BCD?
     [SK_EURO - SK_KILL] = {A(S(KC_2)),0x8128},              // € ** need Win Compose via BCD?
+    [SK_CENT - SK_KILL] = {LALT(KC_4),0x8162},              // ¢ ** need Win Compose via BCD?
     [SK_BPND - SK_KILL] = {A(KC_3),0x8163},                 // £ ** need Win Compose via BCD?
     [SK_JPY  - SK_KILL] = {A(KC_Y),0x8165},                 // ¥ ** need Win Compose via BCD?
         // Quotations

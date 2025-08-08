@@ -87,15 +87,15 @@ enum my_keycodes {
     SK_WINNXT,  // Window/tab switcher Next
     SK_WINPRV,  // Window/tab switcher Prev
         // Punctuation & typography
-    SK_SECT,    // § Section symbol
-    SK_ELPS,    // … Elipsis
-    SK_PARA,    // ¶ Paragraph symbol
     SK_NDSH,    // — N-Dash
     SK_MDSH,    // — M-Dash
-    SK_DCRS,    // ‡ Double Cross
+    SK_ELPS,    // … Elipsis
     SK_SCRS,    // † Single Cross
-    SK_SBLT,    // · Small Bullet
+    SK_DCRS,    // ‡ Double Cross
     SK_BBLT,    // • Bold Bullet
+    SK_SBLT,    // · Small Bullet
+    SK_PARA,    // ¶ Paragraph symbol
+    SK_SECT,    // § Section symbol
         // Number & Math symbols
     SK_DEGR,    // ° DEGREE
     SK_GTEQ,    // ≥ Greater Than or Equal to
@@ -105,8 +105,8 @@ enum my_keycodes {
     SK_APXEQ,   // ≈ APPROX Equal to
     SK_OMEGA,   // Ω OMEGA
         // Currency
-    SK_CENT,    // ¢
     SK_EURO,    // €
+    SK_CENT,    // ¢
     SK_BPND,    // £
     SK_JPY,     // ¥
         // Quotations
