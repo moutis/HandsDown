@@ -314,14 +314,14 @@ goto_register_key_trap_and_return: // ##Warning
                 } else if (((saved_mods & MOD_MASK_SHIFT) && IS_ENGLISH_MODE)  // SHFT (only)
                            || (!saved_mods && !IS_ENGLISH_MODE)) { // or no mods & not in english
 #endif
-                    register_linger_key(L_quote); // example of simple linger macro
+                    register_linger_key(KC_LT); // example of simple linger macro
                     return_state = false; // don't do more with this record.
                 } else //{ // no mods, so linger
-                    register_linger_key(keycode); // example of simple linger macro
+                    register_linger_key(L_quote); // example of simple linger macro
                     return_state = false; // don't do more with this record.
                 break;
-            case KC_QUOT: // SHIFT = ], ALT=», ALT+SHIFT=›
                 
+            case KC_QUOT: // SHIFT = ], ALT=», ALT+SHIFT=›
                 clear_keyboard(); // clean record to tinker with.
                 if (saved_mods & MOD_MASK_ALT) { // ALT (only) down?
                     if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
@@ -336,7 +336,7 @@ goto_register_key_trap_and_return: // ##Warning
                 } else if (((saved_mods & MOD_MASK_SHIFT) && IS_ENGLISH_MODE)  // SHFT (only)
                            || (!saved_mods && !IS_ENGLISH_MODE)) { // or no mods & not in english
 #endif
-                    register_linger_key(R_quote); // example of simple linger macro
+                    tap_code16(KC_GT); // example of simple linger macro
                     return_state = false; // don't do more with this record.
                 } else { // no mods, so
                     register_linger_key(keycode); // example of simple linger macro
@@ -383,8 +383,8 @@ goto_linger_and_return: // ##Warning
                 return_state = false; // stop processing this record.
                 break;
                 
-#ifdef INCLUDE_SK_Lux
-            case SK_Lux: // SINCE MAC IS MY LAYOUT DEFAULT switch to linux
+            case SK_Lux: // switch to linux (or Win if not defined)
+#ifdef INCLUDE_HD_Lux
                 user_config.OSIndex = OS_Lux; // for Linux Semkeys
 //                process_magic(QK_MAGIC_SWAP_CTL_GUI); // tell QMK to swap ctrl/gui
                 keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = true;

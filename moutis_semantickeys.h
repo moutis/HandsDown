@@ -24,7 +24,12 @@
  
  */
 
-
+/*
+ * Semantic key code is just extended range QMK keycodes
+ *
+ * First of the extended range codes are those I use
+ * internally to control keyboard settings.
+ */
 enum my_keycodes {
     HD_AdaptKeyToggle = SAFE_RANGE, // Adaptive Keys Toggle on/off
     HD_L_QWERTY, // base layer switch
@@ -36,9 +41,13 @@ enum my_keycodes {
     HD_RGB_hue_dn, // Hue +
 #endif
         // Semantic Keys (keystrokes handled by process_semkey() for platform independence)
+        // these are "semantic" keys that don't leave the keyboard
+        // so they don't need to be translated for the host.
     SK_Mac,     //  mac (using ABC-Extended keyboard)
     SK_Win,     //  windows (using US-Intl keyboard)
     SK_Lux,     //  linux
+        // the rest of these semantic keys do need to be translated.
+        // everything from SK_KILL on has SemKeys_t table entry.
         // System-wide controls
     SK_KILL,    // SK_KILL must be the first of contiguous block of SKs
     SK_HENK,    // kana (others)
@@ -68,7 +77,7 @@ enum my_keycodes {
     SK_DELWDR,  // Delete word right of cursor
     SK_DELLNL,  // Delete line left of cursor
     SK_DELLNR,  // Delete line right of cursor
-    // extended navigation
+        // extended navigation
     SK_WORDPRV, // WORD LEFT
     SK_WORDNXT, // WORD RIGHT
     SK_DOCBEG,  // Go to start of document
@@ -151,19 +160,22 @@ enum my_keycodes {
     HD_umacr,
     HD_uacut,
     HD_ucrcm,
-    HD_ugrav
+    HD_ugrav,
 */
-    SemKeys_COUNT, // end of SemKeys
+    SK_end, // end of SemKeys
 
 };
 
 #define L_BASELAYER HD_L_QWERTY
 
-#define first_SemKey SK_KILL
-#define last_Semkey SemKeys_COUNT
+#define SK_beg SK_KILL
+#define SK_count (SK_end - SK_beg)
+#define SK_idx(sk) (sk - SK_beg)
 
-#define is_SemKey(sk) ((sk > (uint16_t)first_SemKey) && (sk < (uint16_t)last_Semkey))
+#define is_SemKey(sk) ((sk >= (uint16_t)(SK_beg)) && (sk < (uint16_t)SK_end))
 
-#define linger_SemKey(sk) {register_code16(SemKeys_t[sk - SK_KILL][user_config.OSIndex]);linger_key = sk;linger_timer = state_reset_timer = timer_read();}
-#define unlinger_SemKey(sk) {unregister_code16(SemKeys_t[linger_key - SK_KILL][user_config.OSIndex]);linger_key = 0;}
+#define get_SemKeyCode(sk) (SemKeys_t[SK_idx(sk)][user_config.OSIndex])
+
+#define linger_SemKey(sk) {register_code16(get_SemKeyCode(sk));linger_key = sk;linger_timer = state_reset_timer = timer_read();}
+#define unlinger_SemKey(sk) {unregister_code16(get_SemKeyCode(linger_key));linger_key = 0;}
 

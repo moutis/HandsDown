@@ -49,90 +49,91 @@
  
 */
 
-const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][OS_count] = {
+const uint16_t SemKeys_t[SK_count][OS_count] = {
 // Mac, Win, (Phase 3, add others if necessary, expand to multi-key?)
         // System-wide controls
-    [SK_KILL - SK_KILL] = {G(A(KC_ESC)),C(A(KC_DEL))},      // Force quit / ctrl-alt-del
-    [SK_HENK - SK_KILL] = {KC_LNG1, C(S(KC_1))},            // 変換/かな
-    [SK_MHEN - SK_KILL] = {KC_LNG2, C(S(KC_0))},            // 無変換/英数
-    [SK_DKT8 - SK_KILL] = {C(S(KC_3)),G(KC_H)},             // Dictate speech to text
-    [SK_AIVC - SK_KILL] = {C(S(KC_4)),G(KC_C)},             // AI voice control (mac Siri/Win Cortana)
+
+    [SK_idx(SK_KILL)] = {LAG(KC_ESC),LCA(KC_DEL)},        // Force quit / ctrl-alt-del
+    [SK_idx(SK_HENK)] = {KC_LNG1, C(S(KC_1))},            // 変換/かな
+    [SK_idx(SK_MHEN)] = {KC_LNG2, C(S(KC_0))},            // 無変換/英数
+    [SK_idx(SK_DKT8)] = {C(S(KC_3)),G(KC_H)},             // Dictate speech to text
+    [SK_idx(SK_AIVC)] = {C(S(KC_4)),G(KC_C)},             // AI voice control (mac Siri/Win Cortana)
         // extended characters/ editing commands
-    [SK_HENT - SK_KILL] = {G(KC_ENT),C(KC_ENT)},            // Hard ENTER
-    [SK_UNDO - SK_KILL] = {G(KC_Z),C(KC_Z)},                // undo
-    [SK_REDO - SK_KILL] = {G(S(KC_Z)),C(S(KC_Z))},          // Redo
-    [SK_CUT  - SK_KILL] = {G(KC_X),C(KC_X)},                // cut
-    [SK_COPY - SK_KILL] = {G(KC_C),C(KC_C)},                // copy
-    [SK_PSTE - SK_KILL] = {G(KC_V),C(KC_V)},                // paste
-    [SK_PSTM - SK_KILL] = {G(S(A(KC_V))),C(S(A(KC_V)))},    // paste_match
-    [SK_SALL - SK_KILL] = {G(KC_A),C(KC_A)},                // select all
-    [SK_CLOZ - SK_KILL] = {G(KC_W),C(KC_W)},                // close
-    [SK_QUIT - SK_KILL] = {G(KC_Q),C(KC_Q)},                // quit
-    [SK_NEW - SK_KILL] = {G(KC_N),C(KC_N)},                 // new
-    [SK_OPEN - SK_KILL] = {G(KC_O),C(KC_O)},                // open
-    [SK_FIND - SK_KILL] = {G(KC_F),C(KC_F)},                // find
-    [SK_FAGN - SK_KILL] = {G(KC_G),C(KC_G)},                // find again
-    [SK_SCAP - SK_KILL] = {S(G(KC_4)),KC_PSCR},             // Screen Capture
-    [SK_SCLP - SK_KILL] = {C(S(G(KC_4))),A(KC_PSCR)},       // Selection Capture
-    [SK_SRCH - SK_KILL] = {G(KC_SPC),G(KC_S)},              // platform search (siri/cortana, etc.)
-    [SK_DELWDL - SK_KILL] = {A(KC_BSPC),C(KC_BSPC)},        // DELETE WORD LEFT
-    [SK_DELWDR - SK_KILL] = {A(KC_DEL),C(KC_DEL)},          // DELETE WORD RIGHT
-    [SK_DELLNL - SK_KILL] = {G(KC_BSPC),C(KC_BSPC)},        // Delete line left of cursor
-    [SK_DELLNR - SK_KILL] = {G(KC_DEL),C(KC_DEL)},          // Delete line right of cursor
+    [SK_idx(SK_HENT)] = {G(KC_ENT),C(KC_ENT)},            // Hard ENTER
+    [SK_idx(SK_UNDO)] = {G(KC_Z),C(KC_Z)},                // undo
+    [SK_idx(SK_REDO)] = {G(S(KC_Z)),C(S(KC_Z))},          // Redo
+    [SK_idx(SK_CUT )] = {G(KC_X),C(KC_X)},                // cut
+    [SK_idx(SK_COPY)] = {G(KC_C),C(KC_C)},                // copy
+    [SK_idx(SK_PSTE)] = {G(KC_V),C(KC_V)},                // paste
+    [SK_idx(SK_PSTM)] = {G(S(A(KC_V))),C(S(A(KC_V)))},    // paste_match
+    [SK_idx(SK_SALL)] = {G(KC_A),C(KC_A)},                // select all
+    [SK_idx(SK_CLOZ)] = {G(KC_W),C(KC_W)},                // close
+    [SK_idx(SK_QUIT)] = {G(KC_Q),C(KC_Q)},                // quit
+    [SK_idx(SK_NEW)]  = {G(KC_N),C(KC_N)},                  // new
+    [SK_idx(SK_OPEN)] = {G(KC_O),C(KC_O)},                // open
+    [SK_idx(SK_FIND)] = {G(KC_F),C(KC_F)},                // find
+    [SK_idx(SK_FAGN)] = {G(KC_G),C(KC_G)},                // find again
+    [SK_idx(SK_SCAP)] = {LSG(KC_4),KC_PSCR},              // Screen Capture
+    [SK_idx(SK_SCLP)] = {C(S(G(KC_4))),A(KC_PSCR)},       // Selection Capture
+    [SK_idx(SK_SRCH)] = {G(KC_SPC),G(KC_S)},              // platform search (siri/cortana, etc.)
+    [SK_idx(SK_DELWDL)] = {A(KC_BSPC),C(KC_BSPC)},        // DELETE WORD LEFT
+    [SK_idx(SK_DELWDR)] = {A(KC_DEL),C(KC_DEL)},          // DELETE WORD RIGHT
+    [SK_idx(SK_DELLNL)] = {G(KC_BSPC),C(KC_BSPC)},        // Delete line left of cursor
+    [SK_idx(SK_DELLNR)] = {G(KC_DEL),C(KC_DEL)},          // Delete line right of cursor
         // extended navigation
-    [SK_WORDPRV - SK_KILL] = {A(KC_LEFT),C(KC_LEFT)},       // WORD LEFT
-    [SK_WORDNXT - SK_KILL] = {A(KC_RIGHT),C(KC_RIGHT)},     // WORD RIGHT
-    [SK_DOCBEG - SK_KILL] = {G(KC_UP),C(KC_HOME)},          // Go to start of document
-    [SK_DOCEND - SK_KILL] = {G(KC_DOWN),C(KC_END)},         // Go to end of document
-    [SK_LINEBEG - SK_KILL] = {G(KC_DOWN),C(KC_END)},        // Go to beg of line
-    [SK_LINEEND - SK_KILL] = {G(KC_DOWN),C(KC_END)},        // Go to end of line
-    [SK_PARAPRV - SK_KILL] = {A(KC_UP),C(KC_UP)},           // Go to previous paragraph
-    [SK_PARANXT - SK_KILL] = {A(KC_DOWN),C(KC_DOWN)},       // Go to next paragraph
-    [SK_HISTPRV - SK_KILL] = {G(KC_LBRC),A(KC_LEFT)},       // BROWSER BACK
-    [SK_HISTNXT - SK_KILL] = {G(KC_RBRC),A(KC_RIGHT)},      // BROWSER FWD
-    [SK_ZOOMIN - SK_KILL] = {G(KC_EQL),C(KC_EQL)},          // ZOOM IN
-    [SK_ZOOMOUT - SK_KILL] = {G(KC_MINS),C(KC_MINS)},       // ZOOM OUT
-    [SK_ZOOMRST - SK_KILL] = {G(KC_0),C(KC_0)},             // ZOOM RESET
-    [SK_APPNXT - SK_KILL] = {G(KC_TAB),A(KC_TAB)},          // APP switcher Next (last used)
-    [SK_APPPRV - SK_KILL] = {G(RSFT(KC_TAB)),A(S(KC_TAB))}, // APP switcher Prev (least recently used)
-    [SK_WINNXT - SK_KILL] = {C(KC_TAB),C(KC_TAB)},          // Window/tab switcher Next
-    [SK_WINPRV - SK_KILL] = {C(S(KC_TAB)),C(S(KC_TAB))},    // Window/tab switcher Prev
+    [SK_idx(SK_WORDPRV)] = {A(KC_LEFT),C(KC_LEFT)},       // WORD LEFT
+    [SK_idx(SK_WORDNXT)] = {A(KC_RIGHT),C(KC_RIGHT)},     // WORD RIGHT
+    [SK_idx(SK_DOCBEG)] = {G(KC_UP),C(KC_HOME)},          // Go to start of document
+    [SK_idx(SK_DOCEND)] = {G(KC_DOWN),C(KC_END)},         // Go to end of document
+    [SK_idx(SK_LINEBEG)] = {G(KC_DOWN),C(KC_END)},        // Go to beg of line
+    [SK_idx(SK_LINEEND)] = {G(KC_DOWN),C(KC_END)},        // Go to end of line
+    [SK_idx(SK_PARAPRV)] = {A(KC_UP),C(KC_UP)},           // Go to previous paragraph
+    [SK_idx(SK_PARANXT)] = {A(KC_DOWN),C(KC_DOWN)},       // Go to next paragraph
+    [SK_idx(SK_HISTPRV)] = {G(KC_LBRC),A(KC_LEFT)},       // BROWSER BACK
+    [SK_idx(SK_HISTNXT)] = {G(KC_RBRC),A(KC_RIGHT)},      // BROWSER FWD
+    [SK_idx(SK_ZOOMIN)] = {G(KC_EQL),C(KC_EQL)},          // ZOOM IN
+    [SK_idx(SK_ZOOMOUT)] = {G(KC_MINS),C(KC_MINS)},       // ZOOM OUT
+    [SK_idx(SK_ZOOMRST)] = {G(KC_0),C(KC_0)},             // ZOOM RESET
+    [SK_idx(SK_APPNXT)] = {G(KC_TAB),A(KC_TAB)},          // APP switcher Next (last used)
+    [SK_idx(SK_APPPRV)] = {RSG(KC_TAB),LSA(KC_TAB)},      // APP switcher Prev (least recently used)
+    [SK_idx(SK_WINNXT)] = {C(KC_TAB),C(KC_TAB)},          // Window/tab switcher Next
+    [SK_idx(SK_WINPRV)] = {C(S(KC_TAB)),C(S(KC_TAB))},    // Window/tab switcher Prev
         // Punctuation & typography
-    [SK_NDSH - SK_KILL] = {S(A(KC_MINS)),0x8150},           // — N-Dash ** need Win Compose via BCD?
-    [SK_MDSH - SK_KILL] = {S(A(KC_MINS)),0x8151},           // — M-Dash ** need Win Compose via BCD?
-    [SK_ELPS - SK_KILL] = {A(KC_SCLN),0x8133},              // … ** need Win Compose via BCD?
-    [SK_SCRS - SK_KILL] = {RSA(KC_5),0x8134},               // † Single Cross ** need Win Compose via BCD?
-    [SK_DCRS - SK_KILL] = {LSA(KC_7),0x8135},               // ‡ Double Cross ** need Win Compose via BCD?
-    [SK_BBLT - SK_KILL] = {A(KC_8),0x8149},                 // • Bold Bullet ** need Win Compose via BCD?
-    [SK_SBLT - SK_KILL] = {A(S(KC_9)),0x8183},              // · Small Bullet ** need Win Compose via BCD?
-    [SK_PARA - SK_KILL] = {A(KC_7),0x8182},                 // ¶ ** need Win Compose via BCD?
-    [SK_SECT - SK_KILL] = {A(KC_5),0x8167},                 // § ** need Win Compose via BCD.
+    [SK_idx(SK_NDSH)] = {LSA(KC_MINS),0x8150},            // — N-Dash ** need Win Compose via BCD?
+    [SK_idx(SK_MDSH)] = {LSA(KC_MINS),0x8151},            // — M-Dash ** need Win Compose via BCD?
+    [SK_idx(SK_ELPS)] = {A(KC_SCLN),0x8133},              // … ** need Win Compose via BCD?
+    [SK_idx(SK_SCRS)] = {LSA(KC_5),0x8134},               // † Single Cross ** need Win Compose via BCD?
+    [SK_idx(SK_DCRS)] = {LSA(KC_7),0x8135},               // ‡ Double Cross ** need Win Compose via BCD?
+    [SK_idx(SK_BBLT)] = {A(KC_8),0x8149},                 // • Bold Bullet ** need Win Compose via BCD?
+    [SK_idx(SK_SBLT)] = {LSA(KC_9),0x8183},               // · Small Bullet ** need Win Compose via BCD?
+    [SK_idx(SK_PARA)] = {A(KC_7),0x8182},                 // ¶ ** need Win Compose via BCD?
+    [SK_idx(SK_SECT)] = {A(KC_5),0x8167},                 // § ** need Win Compose via BCD.
         // Number & Math symbols
-    [SK_DEGR - SK_KILL] = {S(A(KC_8)),0x8176},              // ° DEGREE
-    [SK_GTEQ - SK_KILL] = {A(KC_DOT),0x4242},               // ≥ Greater Than or Equal to
-    [SK_LTEQ - SK_KILL] = {A(KC_COMM),0x4243},              // ≤ Less Than or Equal to
-    [SK_PLMN - SK_KILL] = {A(S(KC_EQL)),0x8177},            // ± Plus/Minus
-    [SK_NOTEQ - SK_KILL] = {LALT(KC_EQL),ALGR(KC_EQL)},     // ≠ NOT Equal to ** need Win Compose via ?????
-    [SK_APXEQ - SK_KILL] = {LALT(KC_X),0x4247},             // ≈ APPROX Equal to
-    [SK_OMEGA - SK_KILL] = {LALT(KC_Z),0x4234},             // Ω OMEGA
+    [SK_idx(SK_DEGR)] = {LSA(KC_8),0x8176},               // ° DEGREE
+    [SK_idx(SK_GTEQ)] = {A(KC_DOT),0x4242},               // ≥ Greater Than or Equal to
+    [SK_idx(SK_LTEQ)] = {A(KC_COMM),0x4243},              // ≤ Less Than or Equal to
+    [SK_idx(SK_PLMN)] = {LSA(KC_EQL),0x8177},             // ± Plus/Minus
+    [SK_idx(SK_NOTEQ)] = {A(KC_EQL),ALGR(KC_EQL)},        // ≠ NOT Equal to ** need Win Compose via ?????
+    [SK_idx(SK_APXEQ)] = {A(KC_X),0x4247},                // ≈ APPROX Equal to
+    [SK_idx(SK_OMEGA)] = {A(KC_Z),0x4234},                // Ω OMEGA
         // Currency
-    [SK_EURO - SK_KILL] = {A(S(KC_2)),0x8128},              // € ** need Win Compose via BCD?
-    [SK_CENT - SK_KILL] = {LALT(KC_4),0x8162},              // ¢ ** need Win Compose via BCD?
-    [SK_BPND - SK_KILL] = {A(KC_3),0x8163},                 // £ ** need Win Compose via BCD?
-    [SK_JPY  - SK_KILL] = {A(KC_Y),0x8165},                 // ¥ ** need Win Compose via BCD?
+    [SK_idx(SK_EURO)] = {LSA(KC_2),0x8128},               // € ** need Win Compose via BCD?
+    [SK_idx(SK_CENT)] = {A(KC_4),0x8162},                 // ¢ ** need Win Compose via BCD?
+    [SK_idx(SK_BPND)] = {A(KC_3),0x8163},                 // £ ** need Win Compose via BCD?
+    [SK_idx(SK_JPY )] = {A(KC_Y),0x8165},                 // ¥ ** need Win Compose via BCD?
         // Quotations
-    [SK_SQUL - SK_KILL] = {A(KC_RBRC),0x8145},              // ’ ** Left single quote UNICODE?
-    [SK_SQUR - SK_KILL] = {S(A(KC_RBRC)),0x8146},           // ’ ** Right single quote UNICODE?
-    [SK_SDQL - SK_KILL] = {A(KC_LBRC),0x8147},              // “ ** Left double quote UNICODE?
-    [SK_SDQR - SK_KILL] = {A(S(KC_LBRC)),0x8148},           // ” ** Right double quote UNICODE?
-    [SK_FDQL - SK_KILL] = {A(KC_BSLS),0x8171},              // « Left double French quote UNICODE?
-    [SK_FDQR - SK_KILL] = {S(A(KC_BSLS)),0x8187},           // » Right double French quote UNICODE?
-    [SK_FSQL - SK_KILL] = {S(A(KC_3)),0x8139},              // ‹ Left single French quote UNICODE?
-    [SK_FSQR - SK_KILL] = {S(A(KC_4)),0x8155},              // › Right single French quote UNICODE?
-    [SK_IQUE - SK_KILL] = {S(A(KC_SLASH)),0x8191},          // ¿ Spanish inverted Question Mark
-    [SK_IEXC - SK_KILL] = {A(KC_1),0x8161},                 // ¡ Spanish inverted Exclamation Mark
+    [SK_idx(SK_SQUL)] = {A(KC_RBRC),0x8145},              // ’ ** Left single quote UNICODE?
+    [SK_idx(SK_SQUR)] = {LSA(KC_RBRC),0x8146},            // ’ ** Right single quote UNICODE?
+    [SK_idx(SK_SDQL)] = {A(KC_LBRC),0x8147},              // “ ** Left double quote UNICODE?
+    [SK_idx(SK_SDQR)] = {LSA(KC_LBRC),0x8148},            // ” ** Right double quote UNICODE?
+    [SK_idx(SK_FDQL)] = {A(KC_BSLS),0x8171},              // « Left double French quote UNICODE?
+    [SK_idx(SK_FDQR)] = {LSA(KC_BSLS),0x8187},            // » Right double French quote UNICODE?
+    [SK_idx(SK_FSQL)] = {LSA(KC_3),0x8139},               // ‹ Left single French quote UNICODE?
+    [SK_idx(SK_FSQR)] = {LSA(KC_4),0x8155},               // › Right single French quote UNICODE?
+    [SK_idx(SK_IQUE)] = {LSA(KC_SLASH),0x8191},           // ¿ Spanish inverted Question Mark
+    [SK_idx(SK_IEXC)] = {A(KC_1),0x8161},                 // ¡ Spanish inverted Exclamation Mark
         // Composed letters with diacritics
-    [SK_ENYE - SK_KILL] = {A(KC_N),ALGR(KC_N)},             // ñ/Ñ ** need Win Compose via BCD?
+    [SK_idx(SK_ENYE)] = {A(KC_N),ALGR(KC_N)}             // ñ/Ñ ** need Win Compose via BCD?
 /* Eventually… all these should be handled as SemKeys as well?
     HD_aumlt,
     HD_amacr,
@@ -166,22 +167,22 @@ const uint16_t SemKeys_t[SemKeys_COUNT - SK_KILL][OS_count] = {
 */
 
 };
-void send_alt_code(uint16_t semkeycode) {
+void send_alt_code(uint16_t sk) {
 
-    if (semkeycode & 0x8000) {
+    if (sk & 0x8000) {
     // Always start with numpad 0 if semkeycode starts with 0x8
     tap_code(KC_P0);
     }
 
     // Extract & send digits using keypad keys
-    tap_code((semkeycode >> 8) & 0x0F ? KC_P0 - ((10 - (semkeycode >> 8)) & 0x0F) : KC_P0);
-    tap_code((semkeycode >> 4) & 0x0F ? KC_P0 - ((10 - (semkeycode >> 4)) & 0x0F) : KC_P0);
-    tap_code((semkeycode >> 0) & 0x0F ? KC_P0 - ((10 - (semkeycode >> 0)) & 0x0F) : KC_P0);
+    tap_code((sk >> 8) & 0x0F ? KC_P0 - ((10 - (sk >> 8)) & 0x0F) : KC_P0);
+    tap_code((sk >> 4) & 0x0F ? KC_P0 - ((10 - (sk >> 4)) & 0x0F) : KC_P0);
+    tap_code((sk >> 0) & 0x0F ? KC_P0 - ((10 - (sk >> 0)) & 0x0F) : KC_P0);
 
 };
 
 void tap_SemKey(uint16_t sk) {
-    uint16_t semkeycode = SemKeys_t[sk - SK_KILL][user_config.OSIndex];
+    uint16_t semkeycode = get_SemKeyCode(sk);
 
     if ((semkeycode & 0x8000) || (semkeycode & 0x4000)) {
         clear_keyboard();           // must have clean buffer.
@@ -197,7 +198,8 @@ void tap_SemKey(uint16_t sk) {
 };
 
 void register_SemKey(uint16_t sk) {
-    uint16_t semkeycode = SemKeys_t[sk - SK_KILL][user_config.OSIndex];
+    uint16_t semkeycode = get_SemKeyCode(sk);
+    
     if ((semkeycode & 0x8000) || (semkeycode & 0x4000)) {
         clear_keyboard();           // must have clean buffer.
         register_code(KC_LALT);     // hold Left Alt
@@ -212,7 +214,8 @@ void register_SemKey(uint16_t sk) {
 };
 
 void unregister_SemKey(uint16_t sk) {
-    uint16_t semkeycode = SemKeys_t[sk - SK_KILL][user_config.OSIndex];
+    uint16_t semkeycode = get_SemKeyCode(sk);
+    
     if ((semkeycode & 0x8000) || (semkeycode & 0x4000)) {
         // Release Alt to finish Unicode input
         unregister_code(KC_LALT);
@@ -224,7 +227,7 @@ void unregister_SemKey(uint16_t sk) {
 bool process_semkey(uint16_t keycode, const keyrecord_t *record) {
     // custom processing could hapen here
     uint8_t  held_mods;
-    if (keycode < SK_KILL || keycode >= SemKeys_COUNT)
+    if (!(is_SemKey(keycode)))
         return true; // nothing to do. continue processing this record
     
     held_mods = get_mods();
