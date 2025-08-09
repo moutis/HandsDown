@@ -99,41 +99,43 @@ const uint16_t SemKeys_t[SK_count][OS_count] = {
     [SK_idx(SK_WINNXT)] = {C(KC_TAB),C(KC_TAB)},          // Window/tab switcher Next
     [SK_idx(SK_WINPRV)] = {C(S(KC_TAB)),C(S(KC_TAB))},    // Window/tab switcher Prev
         // Punctuation & typography
-    [SK_idx(SK_NDSH)] = {LSA(KC_MINS),0x8150},            // — N-Dash ** need Win Compose via BCD?
-    [SK_idx(SK_MDSH)] = {LSA(KC_MINS),0x8151},            // — M-Dash ** need Win Compose via BCD?
-    [SK_idx(SK_ELPS)] = {A(KC_SCLN),0x8133},              // … ** need Win Compose via BCD?
-    [SK_idx(SK_SCRS)] = {LSA(KC_5),0x8134},               // † Single Cross ** need Win Compose via BCD?
-    [SK_idx(SK_DCRS)] = {LSA(KC_7),0x8135},               // ‡ Double Cross ** need Win Compose via BCD?
-    [SK_idx(SK_BBLT)] = {A(KC_8),0x8149},                 // • Bold Bullet ** need Win Compose via BCD?
-    [SK_idx(SK_SBLT)] = {LSA(KC_9),0x8183},               // · Small Bullet ** need Win Compose via BCD?
-    [SK_idx(SK_PARA)] = {A(KC_7),0x8182},                 // ¶ ** need Win Compose via BCD?
-    [SK_idx(SK_SECT)] = {A(KC_5),0x8167},                 // § ** need Win Compose via BCD.
+    [SK_idx(SK_NDSH)] = {LSA(KC_MINS),0x8150},            // — N-Dash 
+    [SK_idx(SK_MDSH)] = {LSA(KC_MINS),0x8151},            // — M-Dash 
+    [SK_idx(SK_ELPS)] = {A(KC_SCLN),0x8133},              // … 
+    [SK_idx(SK_SCRS)] = {LSA(KC_5),0x8134},               // † Single Cross 
+    [SK_idx(SK_DCRS)] = {LSA(KC_7),0x8135},               // ‡ Double Cross 
+    [SK_idx(SK_BBLT)] = {A(KC_8),0x8149},                 // • Bold Bullet 
+    [SK_idx(SK_SBLT)] = {LSA(KC_9),0x8183},               // · Small Bullet 
+    [SK_idx(SK_PARA)] = {A(KC_7),0x8182},                 // ¶ 
+    [SK_idx(SK_SECT)] = {A(KC_5),0x8167},                 // §
         // Number & Math symbols
     [SK_idx(SK_DEGR)] = {LSA(KC_8),0x8176},               // ° DEGREE
     [SK_idx(SK_GTEQ)] = {A(KC_DOT),0x4242},               // ≥ Greater Than or Equal to
     [SK_idx(SK_LTEQ)] = {A(KC_COMM),0x4243},              // ≤ Less Than or Equal to
     [SK_idx(SK_PLMN)] = {LSA(KC_EQL),0x8177},             // ± Plus/Minus
-    [SK_idx(SK_NOTEQ)] = {A(KC_EQL),ALGR(KC_EQL)},        // ≠ NOT Equal to ** need Win Compose via ?????
+    [SK_idx(SK_DIV) ] = {A(KC_SLSH),0x4246},              // ÷ Divide
+    [SK_idx(SK_NOTEQ)] = {A(KC_EQL),ALGR(KC_EQL)},        // ≠ NOT Equal to
     [SK_idx(SK_APXEQ)] = {A(KC_X),0x4247},                // ≈ APPROX Equal to
     [SK_idx(SK_OMEGA)] = {A(KC_Z),0x4234},                // Ω OMEGA
         // Currency
-    [SK_idx(SK_EURO)] = {LSA(KC_2),0x8128},               // € ** need Win Compose via BCD?
-    [SK_idx(SK_CENT)] = {A(KC_4),0x8162},                 // ¢ ** need Win Compose via BCD?
-    [SK_idx(SK_BPND)] = {A(KC_3),0x8163},                 // £ ** need Win Compose via BCD?
-    [SK_idx(SK_JPY )] = {A(KC_Y),0x8165},                 // ¥ ** need Win Compose via BCD?
+    [SK_idx(SK_EURO)] = {LSA(KC_2),0x8128},               // € 
+    [SK_idx(SK_CENT)] = {A(KC_4),0x8162},                 // ¢ 
+    [SK_idx(SK_BPND)] = {A(KC_3),0x8163},                 // £ 
+    [SK_idx(SK_JPY )] = {A(KC_Y),0x8165},                 // ¥
+    [SK_idx(SK_No  )] = {LSA(KC_SCLN),0x8470},            // № ordinal number symbol *wrong alt code*
         // Quotations
-    [SK_idx(SK_SQUL)] = {A(KC_RBRC),0x8145},              // ’ ** Left single quote UNICODE?
-    [SK_idx(SK_SQUR)] = {LSA(KC_RBRC),0x8146},            // ’ ** Right single quote UNICODE?
-    [SK_idx(SK_SDQL)] = {A(KC_LBRC),0x8147},              // “ ** Left double quote UNICODE?
-    [SK_idx(SK_SDQR)] = {LSA(KC_LBRC),0x8148},            // ” ** Right double quote UNICODE?
-    [SK_idx(SK_FDQL)] = {A(KC_BSLS),0x8171},              // « Left double French quote UNICODE?
-    [SK_idx(SK_FDQR)] = {LSA(KC_BSLS),0x8187},            // » Right double French quote UNICODE?
-    [SK_idx(SK_FSQL)] = {LSA(KC_3),0x8139},               // ‹ Left single French quote UNICODE?
-    [SK_idx(SK_FSQR)] = {LSA(KC_4),0x8155},               // › Right single French quote UNICODE?
+    [SK_idx(SK_SQUL)] = {A(KC_RBRC),0x8145},              // ’ ** Left single quote 
+    [SK_idx(SK_SQUR)] = {LSA(KC_RBRC),0x8146},            // ’ ** Right single quote 
+    [SK_idx(SK_SDQL)] = {A(KC_LBRC),0x8147},              // “ ** Left double quote 
+    [SK_idx(SK_SDQR)] = {LSA(KC_LBRC),0x8148},            // ” ** Right double quote 
+    [SK_idx(SK_FDQL)] = {A(KC_BSLS),0x8171},              // « Left double French quote 
+    [SK_idx(SK_FDQR)] = {LSA(KC_BSLS),0x8187},            // » Right double French quote 
+    [SK_idx(SK_FSQL)] = {LSA(KC_3),0x8139},               // ‹ Left single French quote 
+    [SK_idx(SK_FSQR)] = {LSA(KC_4),0x8155},               // › Right single French quote 
     [SK_idx(SK_IQUE)] = {LSA(KC_SLASH),0x8191},           // ¿ Spanish inverted Question Mark
     [SK_idx(SK_IEXC)] = {A(KC_1),0x8161},                 // ¡ Spanish inverted Exclamation Mark
         // Composed letters with diacritics
-    [SK_idx(SK_ENYE)] = {A(KC_N),ALGR(KC_N)}             // ñ/Ñ ** need Win Compose via BCD?
+    [SK_idx(SK_ENYE)] = {A(KC_N),ALGR(KC_N)}             // ñ/Ñ 
 /* Eventually… all these should be handled as SemKeys as well?
     HD_aumlt,
     HD_amacr,

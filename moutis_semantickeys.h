@@ -110,6 +110,7 @@ enum my_keycodes {
     SK_GTEQ,    // ≥ Greater Than or Equal to
     SK_LTEQ,    // ≤ Less Than or Equal to
     SK_PLMN,    // ± Plus/Minus
+    SK_DIV,     // ÷ Divide symbol
     SK_NOTEQ,   // ≠ NOT Equal to
     SK_APXEQ,   // ≈ APPROX Equal to
     SK_OMEGA,   // Ω OMEGA
@@ -118,6 +119,7 @@ enum my_keycodes {
     SK_CENT,    // ¢
     SK_BPND,    // £
     SK_JPY,     // ¥
+    SK_No,      // № ordinal number symbol
         // Quotations
     SK_SQUL,    // ’ Left single quote (linger for paired)
     SK_SQUR,    // ’ Right single quote

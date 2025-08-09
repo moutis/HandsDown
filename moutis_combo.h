@@ -42,7 +42,9 @@ enum my_combos {
     HC_CFG,  // The keyboard and media config/settings layer
     HC_CFG2,  // The keyboard and media config/settings layer
     HC_APP,
-    HC_APPNAV, // App menu on Nav layer
+    HC_APPNAV, // App menu w/ Nav layer
+    HC_HDl_num, // TOGGLE nav / numpad layer
+    HC_LNl_num, // TOGGLE nav / numpad layer
     HC_CAPW, // CAPS WORD for all others
     FC_CAPS, // CAPS LOCK (others)
     FC_LANG2, // eisuu/mhen (others)
@@ -230,7 +232,7 @@ enum my_combos {
     // may repeat as appropriate. (tap_code vs register_code)
     //
     PC_STAB,  // Shift-<tab>
-    PC_TGNM, // TOGGLE NUMLCK on numpad layer
+    PC_TGNM, // TOGGLE NUMLCK (on numpad layer)
     PC_DASH, // – on number layer (keypad)
     PC_TILD, // ˜
     PC_ELIP, // …

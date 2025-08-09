@@ -28,6 +28,8 @@ const uint16_t PROGMEM H_menu_nav_combo[] = {APPMENU_nav_keys, COMBO_END}; // Ap
 #else
 const uint16_t PROGMEM H_menu_nav_combo[] = {LV_LT1, LV_LT0, COMBO_END}; // AppMENU on Nav layer
 #endif
+const uint16_t PROGMEM H_HDl_num_combo[] = {HD_LH1, HD_RH1, COMBO_END}; // Toggle num layer
+const uint16_t PROGMEM H_LNl_num_combo[] = {LN_LH1, LN_RH1, COMBO_END}; // Toggle num layer
 
 // Spatially arranged on the QWERTY ZXCV locations
 //
@@ -317,6 +319,8 @@ combo_t key_combos[] = {
     [HC_CFG2] = COMBO(HC_cfg_combo2, MO(L_CFG)), // keyboard/media settings/config layer
     [HC_APP] = COMBO(H_menu_combo, KC_APP), // app menu
     [HC_APPNAV] = COMBO(H_menu_nav_combo, KC_APP), // app menu
+    [HC_HDl_num] = COMBO(H_HDl_num_combo, TG(L_NUM)), // toggle num layer
+    [HC_LNl_num] = COMBO(H_LNl_num_combo, TG(L_NUM)), // toggle num layer
     [HC_SCLN] = COMBO(Hscln_combo, KC_SCLN), // ;
     [HC_COLN] = COMBO_ACTION(Hcoln_combo), // :  (hold for elipsis)
     [HC_UNDS] = COMBO(Hunds_combo, S(KC_UNDS)), // _ underscore

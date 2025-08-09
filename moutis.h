@@ -147,9 +147,9 @@ enum my_layers {// must be difined before semantickeys.h
     L_QWERTY,   // 0 - QWERTY compatibility layer
     L_HD,       // 1 - Hands Down Alpha layer
     L_SYM,      // 2 - symbols, punctuation, off-map alphas
-    L_FUN,      // 3 - function & number rows
-    L_NUM,      // 4 - numpad (right); navpad (left)
-    L_NAV,      // 5 - nav pad (right); meta keys (left)
+    L_FUN,      // 3 - function (left) & number rows (right)
+    L_NUM,      // 4 - navpad (left) & numpad (right)
+    L_NAV,      // 5 - meta keys (left) & nav pad (right)
     L_CFG,      // 6 - Media/Consumer controls; Keyboard settings
     L_count
 };
