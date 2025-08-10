@@ -46,7 +46,8 @@ void matrix_scan_user(void) {
                     tap_code(KC_U);
                     break;
                 case KC_COMM: //
-                    tap_code(KC_SPACE);
+                    tap_code(KC_BSPC);
+                    register_code(KC_CAPS);
                     break;
 
                 case KC_LPRN: //

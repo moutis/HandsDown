@@ -10,7 +10,7 @@
  Phase 1: simple 1:1 keystroke mapping
    complete.
  
- Phase 2: Requires w/Sevanteri's early combos.
+ Phase 2: Requires w/Sevanteri's early combos. (>QMK 14.0)
  Integrate all combo and keymap processing so they both queue
  SemKeys to be handled in process_record_user, reducing the code
  and simplifying maintenance.
@@ -25,7 +25,7 @@
  */
 
 /*
- * Semantic key code is just extended range QMK keycodes
+ * Semantic key codes are just extended range QMK keycodes
  *
  * First of the extended range codes are those I use
  * internally to control keyboard settings.
@@ -50,8 +50,8 @@ enum my_keycodes {
         // everything from SK_KILL on has SemKeys_t table entry.
         // System-wide controls
     SK_KILL,    // SK_KILL must be the first of contiguous block of SKs
-    SK_HENK,    // kana (others)
-    SK_MHEN,    // eisuu (others)
+    SK_HENK,    // kana
+    SK_MHEN,    // eisuu
     SK_DKT8,    // speech to text
     SK_AIVC,    // AI voice control (mac Siri/Win cortana)
         // extended characters/ editing commands
@@ -106,6 +106,7 @@ enum my_keycodes {
     SK_PARA,    // ¶ Paragraph symbol
     SK_SECT,    // § Section symbol
         // Number & Math symbols
+    SK_PERM,    // ‰ Per Mille
     SK_DEGR,    // ° DEGREE
     SK_GTEQ,    // ≥ Greater Than or Equal to
     SK_LTEQ,    // ≤ Less Than or Equal to

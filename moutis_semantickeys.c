@@ -109,6 +109,7 @@ const uint16_t SemKeys_t[SK_count][OS_count] = {
     [SK_idx(SK_PARA)] = {A(KC_7),0x8182},                 // ¶ 
     [SK_idx(SK_SECT)] = {A(KC_5),0x8167},                 // §
         // Number & Math symbols
+    [SK_idx(SK_PERM)] = {LSA(KC_R),0x8137},               // ‰ Per Mille
     [SK_idx(SK_DEGR)] = {LSA(KC_8),0x8176},               // ° DEGREE
     [SK_idx(SK_GTEQ)] = {A(KC_DOT),0x4242},               // ≥ Greater Than or Equal to
     [SK_idx(SK_LTEQ)] = {A(KC_COMM),0x4243},              // ≤ Less Than or Equal to

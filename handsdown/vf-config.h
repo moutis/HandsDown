@@ -48,7 +48,7 @@
 #define HD_DQUO KC_DQUO // KC_DQUO or SK_SDQU
 #define HD_SLSH KC_SLSH
 #define HD_DOT  KC_DOT
-#define HD_COMM LT(L_FUN, KC_COMM)
+#define HD_COMM KC_COMM
 
 // Now let's place these HD keycodes on the keymap
 // for variation independent spatial referencing by key position
