@@ -10,6 +10,43 @@
     #include "split_util.h"
 #endif
 
+typedef union {
+    uint32_t raw;
+    struct {
+        uint8_t OSIndex; // index of platforms (0=mac, 1=win, 2=lux)? // used by semantickeys
+        bool AdaptiveKeys; // Adaptive Keys On? (and advanced combos)
+    };
+} user_config_t; // used for persistent memory of settings (only 16 bytes avail on AVR?)
+
+
+// enum my_layers for layout layers
+enum my_layers {// must be difined before semantickeys.h
+//    L_QWERTY,   // QWERTY compatibility layer
+    L_HD,       // Hands Down Alpha layer
+    L_SYM,      // symbols, punctuation, off-map alphas
+    L_FUN,      // function (left) & number rows (right)
+    L_NUM,      // navpad (left) & numpad (right)
+    L_NAV,      // meta keys (left) & nav pad (right)
+    L_CFG,      // Media/Consumer controls; Keyboard settings
+    L_count
+};
+#ifdef L_QWERTY
+#define L_BASELAYER HD_L_QWERTY
+#else
+#define L_BASELAYER HD_L_ALPHA
+#endif
+
+enum OS_Platform { // Used for platform support via SemKeys
+    OS_Mac,     // Mac with ANSI_US_EXTENDED layout
+//    OS_iOS,     // iOS?
+    OS_Win,     // Win with default English/ANSI layout?
+#ifdef INCLUDE_SK_Lux
+    OS_Lux,     // Linux (Gnome?/KDE?/Boox Android?)
+#endif
+//    OS_And,     // Android (flavors?)
+    OS_count
+};
+
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
@@ -40,6 +77,8 @@ extern rgblight_config_t rgblight_config;
     #endif
     #define RGBLIGHT_VAL_STEP 4
 #endif
+
+#include "moutis_semantickeys.h"
 
 //
 // which HD alpha variation are we using?
@@ -76,8 +115,10 @@ extern rgblight_config_t rgblight_config;
 //
 //
 #include HD_CONFIG // definitions for the Alpha layer and mnemonic combos
+
 //
 // definitions for all the other layers not dependent on the alpha layout.
+//
 #include "moutis_layers.h"
 
 #define LINGER_TIME TAPPING_TERM * 1.2 // how long to hold before a time-depentant behavior begins
@@ -131,41 +172,6 @@ extern rgblight_config_t rgblight_config;
 
 #define JRQU KC_RBRC //  「 (via " in Japanese mode)
 #define JLQU KC_LBRC //  」 (via ' in Japanese mode)
-
-
-typedef union {
-    uint32_t raw;
-    struct {
-        uint8_t OSIndex; // index of platforms (0=mac, 1=win, 2=lux)? // used by semantickeys
-        bool AdaptiveKeys; // Adaptive Keys On? (and advanced combos)
-    };
-} user_config_t; // used for persistent memory of settings (only 16 bytes avail on AVR?)
-
-
-// enum my_layers for layout layers
-enum my_layers {// must be difined before semantickeys.h
-//    L_QWERTY,   // 0 - QWERTY compatibility layer
-    L_HD,       // 1 - Hands Down Alpha layer
-    L_SYM,      // 2 - symbols, punctuation, off-map alphas
-    L_FUN,      // 3 - function (left) & number rows (right)
-    L_NUM,      // 4 - navpad (left) & numpad (right)
-    L_NAV,      // 5 - meta keys (left) & nav pad (right)
-    L_CFG,      // 6 - Media/Consumer controls; Keyboard settings
-    L_count
-};
-
-enum OS_Platform { // Used for platform support via SemKeys
-    OS_Mac,     // Mac with ANSI_US_EXTENDED layout
-//    OS_iOS,     // iOS?
-    OS_Win,     // Win with default English/ANSI layout?
-#ifdef INCLUDE_SK_Lux
-    OS_Lux,     // Linux (Gnome?/KDE?/Boox Android?)
-#endif
-//    OS_And,     // Android (flavors?)
-    OS_count
-};
-
-#include "moutis_semantickeys.h"
 
 #define tap_HDkey(kc) {is_SemKey(kc) ? tap_SemKey(kc) : tap_code16(kc);}
 #define register_HDkey(kc) {is_SemKey(kc) ? register_SemKey(kc) : register_code16(kc);}

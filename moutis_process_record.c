@@ -318,10 +318,10 @@ goto_register_key_trap_and_return: // ##Warning
                 } else if (((saved_mods & MOD_MASK_SHIFT) && IS_ENGLISH_MODE)  // SHFT (only)
                            || (!saved_mods && !IS_ENGLISH_MODE)) { // or no mods & not in english
 #endif
-                    register_linger_key(KC_LT); // example of simple linger macro
+                    register_linger_key(KC_LT); // simple linger
                     return_state = false; // don't do more with this record.
                 } else //{ // no mods, so linger
-                    register_linger_key(L_quote); // example of simple linger macro
+                    register_linger_key(L_quote); // simple linger
                     return_state = false; // don't do more with this record.
                 break;
 
@@ -340,10 +340,10 @@ goto_register_key_trap_and_return: // ##Warning
                 } else if (((saved_mods & MOD_MASK_SHIFT) && IS_ENGLISH_MODE)  // SHFT (only)
                            || (!saved_mods && !IS_ENGLISH_MODE)) { // or no mods & not in english
 #endif
-                    tap_code16(KC_GT); // example of simple linger macro
+                    tap_code16(KC_GT); // simple linger
                     return_state = false; // don't do more with this record.
                 } else { // no mods, so
-                    register_linger_key(keycode); // example of simple linger macro
+                    register_linger_key(keycode); // simple linger
                     return_state = false; // don't do more with this record.
                 }
                 break;
@@ -383,7 +383,7 @@ goto_register_key_trap_and_return: // ##Warning
 #ifndef KEY_OVERRIDE_ENABLE
 goto_linger_and_return: // ##Warning
 #endif
-                register_linger_key(keycode); // example of simple linger macro
+                register_linger_key(keycode); //
                 return_state = false; // stop processing this record.
                 break;
                 
@@ -499,13 +499,15 @@ storeSettings:
             case KC_LPRN:  //  ( (linger=(|))
             case KC_LBRC:  //  [ (linger=[|])
             case KC_LCBR:  //  { (linger={|})
-            case SK_FDQL:  // «
-            case SK_FSQL:  // ‹
             case KC_BSLS:  // actual keycode for « & »
             case KC_QUOT: // SHIFT = ], ALT=›, ALT+SHIFT=»
             case KC_DQUO: // SHIFT = [ (linger=[|]), ALT=‹, ALT+SHIFT=«
+                // still need to do this as a keycode may have been
+                // sent with mods that we didn't explicitly handle…
+                unregister_code16(keycode);
+            case SK_FDQL:  // «
+            case SK_FSQL:  // ‹
                 unregister_linger_key(); // stop any lingering
-                //unregister_code16(keycode); // may still need to handle this
                 return_state = false; // stop processing this record.
                 break;
 

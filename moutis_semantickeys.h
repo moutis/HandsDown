@@ -172,20 +172,15 @@ enum my_keycodes {
 
 };
 
-#ifdef L_QWERTY
-#define L_BASELAYER HD_L_QWERTY
-#else
-#define L_BASELAYER HD_L_ALPHA
-#endif
 
 #define SK_beg SK_KILL
 #define SK_count (SK_end - SK_beg)
-#define SK_idx(sk) (sk - SK_beg)
+#define SK_ndx(sk) (sk - SK_beg)
 
 #define is_SemKey(sk) ((sk >= (uint16_t)(SK_beg)) && (sk < (uint16_t)SK_end))
 
-#define get_SemKeyCode(sk) (SemKeys_t[SK_idx(sk)][user_config.OSIndex])
+#define get_SemKeyCode(sk) (SemKeys_t[SK_ndx(sk)][user_config.OSIndex])
 
-#define linger_SemKey(sk) {register_code16(get_SemKeyCode(sk));linger_key = sk;linger_timer = state_reset_timer = timer_read();}
-#define unlinger_SemKey(sk) {unregister_code16(get_SemKeyCode(linger_key));linger_key = 0;}
+#define linger_SemKey(sk) {register_SemKey(sk);linger_key = sk;linger_timer = state_reset_timer = timer_read();}
+#define unlinger_SemKey(sk) {unregister_SemKey(linger_key);linger_key = 0;}
 

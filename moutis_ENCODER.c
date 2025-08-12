@@ -37,11 +37,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
     //
     // all other encoder actions are in this table, most of these defined in the meta keymap file moutis_layers.h
-    // Currently using the keyboards bottom left and rightmost key defs, outside thumb keys,
+    // Currently using the keyboard's bottom left and rightmost key defs, outside thumb keys,
     // for L/R encoder actions. (I prefer Kyria/Elora's under palm locations, so none of my keyboards
     // that have encoders have these outside thumb row edge keys as well.
-    // I still want those functions, so placing them on these outside thumb keys or encoders
-    // tends to keep them in similar locations (i.e. Planck/Preonic, Naked 48/60).
+    // I still want those functions, so placing them on these outside thumb keys tends
+    // to keep them in similar locations on encoderless boards (i.e. Naked 48/60, Planck/Preonic).
     // Any keycode works here: normal QMK and my HD extended keycodes, including SemKeys
     //
     static  uint16_t HD_enc[L_count][2][2][2] = {
@@ -49,12 +49,12 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         //               Left encoder                              Right encoder
         //      Unshifted            Shifted             Unshifted              Shifted
         //       CCW, CW             CCW, CW              CCW, CW               CCW, CW
-        {{{KC_VOLD,KC_VOLU}, {KC_BRID,KC_BRIU}}, {{KC_PGUP, KC_PGDN}, {KC_LEFT,KC_RIGHT}}}, // L_HD,  1 - Hands Down Alpha layer
-        {{{LS_LH5,LS_LH4},   {LS_LH4,LS_LH5}},   {{LS_RH4,LS_RH5},    {LS_RH4,  LS_RH5}}},  // L_SYM, 2 - symbols, punctuation, off-map alphas
-        {{{LF_LH5,LF_LH4},   {LF_LH4,LF_LH5}},   {{LF_RH4,LF_RH5},    {LF_RH4,  LF_RH5}}},  // L_FUN, 3 - function & number rows
-        {{{LN_LH5,LN_LH4},   {LN_LH4,LN_LH5}},   {{LN_RH4,LN_RH5},    {LN_RH4,  LN_RH5}}},  // L_NUM, 4 - numpad (right); navpad (left)
-        {{{LV_LH5,LV_LH4},   {LV_LH4,LV_LH5}},   {{KC_MFFD, KC_MRWD}, {LV_RH4,LV_RH5}}}, // L_NAV, 5 - nav pad (right); meta keys (left)
-        {{{LC_LH5,LC_LH4},   {LC_LH4,LC_LH5}},   {{LC_RH5,LC_RH4},    {LC_RH4,  LC_RH5}}}   // L_CFG  6 - Media/Consumer controls; Keyboard settings
+        {{{KC_VOLD,KC_VOLU}, {KC_BRID,KC_BRIU}}, {{KC_PGUP, KC_PGDN}, {KC_LEFT,KC_RIGHT}}}, // L_HD,  - Hands Down Alpha layer
+        {{{LS_LH5,LS_LH4},   {LS_LH4,LS_LH5}},   {{LS_RH4,LS_RH5},    {LS_RH4,  LS_RH5}}},  // L_SYM, - symbols, punctuation, off-map alphas
+        {{{LF_LH5,LF_LH4},   {LF_LH4,LF_LH5}},   {{LF_RH4,LF_RH5},    {LF_RH4,  LF_RH5}}},  // L_FUN, - function & number rows
+        {{{LN_LH5,LN_LH4},   {LN_LH4,LN_LH5}},   {{LN_RH4,LN_RH5},    {LN_RH4,  LN_RH5}}},  // L_NUM, - numpad (right); navpad (left)
+        {{{LV_LH5,LV_LH4},   {LV_LH4,LV_LH5}},   {{KC_MFFD, KC_MRWD}, {LV_RH4,LV_RH5}}},    // L_NAV, - nav pad (right); meta keys (left)
+        {{{LC_LH5,LC_LH4},   {LC_LH4,LC_LH5}},   {{LC_RH5,LC_RH4},    {LC_RH4,  LC_RH5}}}   // L_CFG  - Media/Consumer controls; Keyboard settings
     };
     unregister_mods(MOD_MASK_SHIFT); // lift Shift, but leave all others (preserves capslock..)
         // look up the keycode to send for this layer, encoder, shift state, direction

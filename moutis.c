@@ -12,18 +12,21 @@
 user_config_t user_config;
 uint8_t  saved_mods = 0; // to pass state between process_record_user and matrix_scan_user
 uint16_t record_keycode = 0; // the keykcode we poke at in process_record
+// key_trap is used to intercept keycodes to do KEY_OVERRIDE stuff in userspace.
+// since QMK's KEY_OVERRIDE can't integrate Semantic Keys or lingers.
 uint16_t key_trap = 0; // the actual keycode registered (need to unregister)
-#ifdef ADAPTIVE_ENABLE
-uint16_t preprior_keycode = KC_NO;
-uint16_t prior_keycode = KC_NO;
-uint16_t prior_keydown = 0; // timer of keydown for adaptive threshhold.
-#endif
 
 uint16_t linger_key = 0;  // keycode for linger actions (ex. "Qu")
 uint32_t linger_timer = 0; // time to hold a key before something else happens.
 uint32_t appmenu_timer = 0;  // time to leave appmenu active before shutting it down automatically.
 bool appmenu_on = false;  // appmenu triggered (after holding key)
 bool mods_held = false;  // need to remember how we entered the appmenu state
+
+#ifdef ADAPTIVE_ENABLE
+uint16_t preprior_keycode = KC_NO;
+uint16_t prior_keycode = KC_NO;
+uint16_t prior_keydown = 0; // timer of keydown for adaptive threshhold.
+#endif
 
 #ifdef JP_MODE_ENABLE
 bool IS_ENGLISH_MODE = true;
@@ -35,10 +38,8 @@ uint16_t R_quote = KC_QUOT; // default '　(」in Japanese mode)
 int RGB_current_mode;
 #endif
 
-
-uint8_t  combo_on = 0;           // for combo actions to hold before triggering
+uint8_t  combo_on = 0;           // for combo actions that hold BEFORE triggering
 bool  combo_triggered = false;   // for one-shot-combo-actions
-
 
 layer_state_t layer_state_set_user(layer_state_t layer_state) {
 
@@ -46,8 +47,8 @@ layer_state_t layer_state_set_user(layer_state_t layer_state) {
  Someday, when OLED is important again, rewrite to
  display Host Keyboard Layer Status using a table of layer names
 */
-    
-    
+
+
 #ifdef OLED_DRIVER_ENABLE
     oled_set_cursor(0, 0);
     oled_write_P (layer_name[get_highest_layer(layer_state)]);
@@ -95,6 +96,8 @@ void keyboard_post_init_user(void) {
     // Read the user config from EEPROM to facilitate
     // appropriate platform support
 
+//    user_config.raw = 0; // reset
+//    eeconfig_update_user(user_config.raw); // write the setings to EEPROM
     /*
     user_config.OSIndex use 0 for Mac; 1 for Win
      */
