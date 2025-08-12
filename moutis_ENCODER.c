@@ -33,12 +33,16 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
 
 #ifndef no_enctbl
-    static  uint16_t HD_enc[L_count][2][2][2] = { // [layer][L/R encoder][N/Y shift][ccw, cw] * uint16_t = 112 bytes
-        // all other encoder actions in this table, most of these defined in the meta keymap file moutis_layers.h
-        // currently using the keyboards bottom left and rightmost key defs for L/R encoder actions, as none
-        // of my keyboards have both these edge keys and encoders.
-        // ALL QMK keycodes work here, and HD extended keycodes, including SemKeys
-        //
+    // all other encoder actions in this table, most of these defined in the meta keymap file moutis_layers.h
+    // currently using the keyboards bottom left and rightmost key defs, outside thumb keys,
+    // for L/R encoder actions. (I prefer Kyria/Elora's under palm locations, so none of my keyboards
+    // that have encoders have these  outside thumb row edge keys as well.
+    // I still want those functions, so placing them on these outside thumb keys or encoders
+    // tends to keep them in similar locations (i.e. Planck/Preonic, Naked 48/60).
+    // Any keycode works here: normal QMK and my HD extended keycodes, including SemKeys
+    //
+    static  uint16_t HD_enc[L_count][2][2][2] = {
+        // [layer][L/R encoder][N/Y shift][ccw, cw] * uint16_t = 112 bytes (16 bytes/layer)
         //              Left encoder                         Right encoder
         //      Unshifted            Shifted             Unshifted              Shifted
         //       CCW, CW             CCW, CW              CCW, CW               CCW, CW

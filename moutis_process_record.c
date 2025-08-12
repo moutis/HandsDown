@@ -116,14 +116,14 @@ AdaptCont:  // still space constrained on AVR MCUs. This saves 12 bytes.
 goto_register_key_trap_and_return: // ##Warning
                 register_code16(key_trap);
                 return_state = false; // stop processing this record.
-                set_mods(saved_mods);  // not sure if we need this
+                //set_mods(saved_mods);  // not sure if we need this
                 break;
 
             case KC_SLSH:  // SHIFT = *, ALT=\, ALT+SHIFT=⁄
                 unregister_mods(MOD_MASK_SA); // get rid of shift & alt
                 if (saved_mods & MOD_MASK_ALT) { // ALT down?
                     if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
-                        tap_code16(S(A(KC_1))); // Y:
+                        tap_SemKey(SK_FRAC); // Y: ⁄ Solidus
                     } else {
                         tap_code16(KC_BSLS); // N: just alt, so
                     }
@@ -138,9 +138,9 @@ goto_register_key_trap_and_return: // ##Warning
                 unregister_mods(MOD_MASK_SA); // get rid of shift & alt
                 if (saved_mods & MOD_MASK_ALT) { // ALT down?
                    if (saved_mods & MOD_MASK_SHIFT) { // SFT too?
-                        tap_code16(A(KC_4)); // convert to SemKey ¢
+                       tap_SemKey(SK_CENT); // convert to SemKey ¢
                     } else {
-                        tap_code16(S(A(KC_SCLN)));
+                        tap_SemKey(SK_No); // №
                     }
                     return_state = false; // stop processing this record.
                 } else if (saved_mods & MOD_MASK_SHIFT) { // only SHFT down
@@ -216,7 +216,7 @@ goto_register_key_trap_and_return: // ##Warning
                 }
                 if (saved_mods & MOD_MASK_ALT) { // ALT down?
                     if (saved_mods & MOD_MASK_SHIFT) { // SFT too?
-                        tap_code16(A(KC_BSLS)); // "⁄" (convert to SemKey)
+                        tap_SemKey(SK_PLMN); // "±"
                     } else {
                         tap_code16(KC_UNDS);
                     }
@@ -232,9 +232,9 @@ goto_register_key_trap_and_return: // ##Warning
                 unregister_mods(MOD_MASK_SA); // get rid of shift & alt
                 if (saved_mods & MOD_MASK_ALT) { // ALT down?
                     if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
-                        tap_code16(KC_BSLS);
+                        tap_SemKey(SK_NOTEQ); // "≠"
                     } else {
-                        tap_SemKey(SK_ELPS);  // … 
+                        tap_SemKey(SK_ELPS);  // …
                     }
                     return_state = false; // stop processing this record.
                 } else if (saved_mods & MOD_MASK_SHIFT) { // only SHFT down?
@@ -264,7 +264,7 @@ goto_register_key_trap_and_return: // ##Warning
                     if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
                         tap_SemKey(SK_JPY); // ¥
                     } else {
-                        tap_code16(S(A(KC_SLSH))); // this should be semkey for ¿
+                        tap_SemKey(SK_IQUE); // for ¿
                     }
                     return_state = false; // stop processing this record.
                 } else if (saved_mods & MOD_MASK_SHIFT) { // only SHFT down
@@ -292,7 +292,7 @@ goto_register_key_trap_and_return: // ##Warning
                 unregister_mods(MOD_MASK_SA); // get rid of shift & alt
                 if (saved_mods & MOD_MASK_ALT) { // ALT down?
                     if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
-                        tap_code16(SK_PERM); //   ‰
+                        tap_SemKey(SK_PERM); //   ‰
                     } else {
                         tap_code16(KC_PERC); //   %
                     }

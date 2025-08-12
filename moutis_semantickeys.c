@@ -115,6 +115,7 @@ const uint16_t SemKeys_t[SK_count][OS_count] = {
     [SK_idx(SK_LTEQ)] = {A(KC_COMM),0x4243},              // ≤ Less Than or Equal to
     [SK_idx(SK_PLMN)] = {LSA(KC_EQL),0x8177},             // ± Plus/Minus
     [SK_idx(SK_DIV) ] = {A(KC_SLSH),0x4246},              // ÷ Divide
+    [SK_idx(SK_FRAC)] = {LSA(KC_1),0x4246},               // ⁄ Fraction "Solidus" symbol
     [SK_idx(SK_NOTEQ)] = {A(KC_EQL),ALGR(KC_EQL)},        // ≠ NOT Equal to
     [SK_idx(SK_APXEQ)] = {A(KC_X),0x4247},                // ≈ APPROX Equal to
     [SK_idx(SK_OMEGA)] = {A(KC_Z),0x4234},                // Ω OMEGA

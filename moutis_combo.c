@@ -122,7 +122,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 combo_on = combo_index; // may add "e" in matrix_scan_user_process_combo
                 break;
             case HC_GRV:
-//                tap_code16(A(KC_NUBS)); // this should use semkeys
                 tap_code16(A(KC_GRAVE)); // this should use semkeys
                 combo_on = combo_index; // may add "e" in matrix_scan_user_process_combo
                 break;
@@ -593,7 +592,7 @@ ADD_HERE:
                     tap_code16(KC_COLN); //
                     break;
                 case HC_NDSH: // Send N-Dash if not held.
-                    tap_code16(A(KC_MINS));  // this should use semkeys
+                    tap_SemKey(SK_NDSH);  // – N dash
                     break;
 
                 case PC_DASH:

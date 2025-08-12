@@ -112,6 +112,7 @@ enum my_keycodes {
     SK_LTEQ,    // ≤ Less Than or Equal to
     SK_PLMN,    // ± Plus/Minus
     SK_DIV,     // ÷ Divide symbol
+    SK_FRAC,    // ⁄ Fraction "Solidus" symbol
     SK_NOTEQ,   // ≠ NOT Equal to
     SK_APXEQ,   // ≈ APPROX Equal to
     SK_OMEGA,   // Ω OMEGA
