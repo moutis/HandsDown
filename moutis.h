@@ -144,7 +144,7 @@ typedef union {
 
 // enum my_layers for layout layers
 enum my_layers {// must be difined before semantickeys.h
-    L_QWERTY,   // 0 - QWERTY compatibility layer
+//    L_QWERTY,   // 0 - QWERTY compatibility layer
     L_HD,       // 1 - Hands Down Alpha layer
     L_SYM,      // 2 - symbols, punctuation, off-map alphas
     L_FUN,      // 3 - function (left) & number rows (right)

@@ -16,19 +16,13 @@
 //             ╰─────────╯ ╰─────────╯
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
- /*
+#ifdef L_QWERTY
     [L_QWERTY] = LAYOUT_split_3x5_2(
     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                       KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,
     RCTL_T(KC_A), RALT_T(KC_S), RGUI_T(KC_D), RSFT_T(KC_F), LT(L_NUMPAD,KC_G), LT(L_FN_NUM,KC_H), RSFT_T(KC_J), RGUI_T(KC_K), RALT_T(KC_L), RCTL_T(KC_SCLN),
     KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                       KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH,
                 LT(L_FN_NUM,KC_BSPC), LT(L_NAV,KC_DEL), LT(L_PUNCT,KC_SPC), LT(L_NAV,KC_ENT)),
-*/
-    [L_QWERTY] = LAYOUT_split_3x5_2( // Actually MITHRIL
-    KC_W,   KC_P,   KC_G,   KC_D,   KC_J,                       KC_HASH, KC_DOT, KC_SLSH, KC_X, KC_QUOT,
-    RCTL_T(KC_C), RALT_T(KC_N), RGUI_T(KC_S), RSFT_T(KC_T),     LT(L_NUM,KC_K), LT(L_NUM,KC_COMM), RSFT_T(KC_I), RGUI_T(KC_E), RALT_T(KC_L), RCTL_T(KC_A),
-    KC_Y,   KC_B,   KC_F,   KC_M,   KC_V,                       KC_MINS, KC_U,  KC_O,   KC_H,   KC_DQUO,
-                                        HD_LH2, HD_LH1,     HD_RH1, HD_RH2),
-
+#endif
     [L_HD] = LAYOUT_split_3x5_2(
     HD_LT4, HD_LT3, HD_LT2, HD_LT1, HD_LT0,                     HD_RT0, HD_RT1, HD_RT2, HD_RT3, HD_RT4,
     HD_LM4, HD_LM3, HD_LM2, HD_LM1, HD_LM0,                     HD_RM0, HD_RM1, HD_RM2, HD_RM3, HD_RM4,

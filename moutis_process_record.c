@@ -413,7 +413,9 @@ goto_linger_and_return: // ##Warning
 #endif
                 return_state = false; // stop processing this record.
                 goto storeSettings;
+#ifdef L_QWERTY
             case HD_L_QWERTY: // are we changing default layers?
+#endif
 #ifdef ADAPTIVE_ENABLE
                 user_config.AdaptiveKeys = false; // no adaptive keys on QWERTY
 #endif

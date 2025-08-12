@@ -32,7 +32,9 @@
  */
 enum my_keycodes {
     HD_AdaptKeyToggle = SAFE_RANGE, // Adaptive Keys Toggle on/off
+#ifdef L_QWERTY
     HD_L_QWERTY, // base layer switch
+#endif
     HD_L_ALPHA,
 #ifdef RGBLIGHT_ENABLE  // backlight/underglow
     HD_RGB_sat_up, // Sat +
@@ -170,7 +172,11 @@ enum my_keycodes {
 
 };
 
+#ifdef L_QWERTY
 #define L_BASELAYER HD_L_QWERTY
+#else
+#define L_BASELAYER HD_L_ALPHA
+#endif
 
 #define SK_beg SK_KILL
 #define SK_count (SK_end - SK_beg)

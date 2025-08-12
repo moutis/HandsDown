@@ -20,13 +20,13 @@
  */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
+#ifdef L_QWERTY
     [L_QWERTY] = LAYOUT(
     SK_COPY, KC_Q,  KC_W,   KC_E,   KC_R,   KC_T,                                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LNG2,
     SK_PSTE, RCTL_T(KC_A), RALT_T(KC_S), RGUI_T(KC_D), RSFT_T(KC_F), LT(L_NUM,KC_G), LT(L_FUN,KC_H), RSFT_T(KC_J), RGUI_T(KC_K), RALT_T(KC_L), RCTL_T(KC_SCLN), KC_LNG1,
     KC_AMPR, KC_Z, KC_X,    KC_C,   KC_V,   KC_B,   HD_LBA, HD_LBB, HD_RBB, HD_RBA, KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH, KC_EQL,
         LT(L_FUN,KC_MUTE), KC_APP, LT(L_FUN,KC_BSPC), LT(L_NAV,KC_DEL), HD_LHA, HD_RHA, LT(L_SYM,KC_SPC), LT(L_NAV,KC_ENT), LT(L_FUN,KC_TAB), LT(L_FUN,KC_MPLY)),
-
+#endif
     [L_HD] = LAYOUT(
     HD_LT5, HD_LT4, HD_LT3, HD_LT2, HD_LT1, HD_LT0,                                 HD_RT0, HD_RT1, HD_RT2, HD_RT3, HD_RT4, HD_RT5,
     HD_LM5, HD_LM4, HD_LM3, HD_LM2, HD_LM1, HD_LM0,                                 HD_RM0, HD_RM1, HD_RM2, HD_RM3, HD_RM4, HD_RM5,

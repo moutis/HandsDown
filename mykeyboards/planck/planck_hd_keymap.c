@@ -7,7 +7,6 @@
 #define ____ KC_TRNS
 #define _no_ KC_NO
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty Salicylic Acid's Naked 48 is logically a Planck layout
  * ,-----------------------------------------.             ,-----------------------------------------.
  * |   Q  |   W  |   E  |   R  |   T  | mute |             | play |   Y  |   U  |   I  |   O  |   P  |
@@ -19,12 +18,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *        | Down |  Up  | APP  | Bksp | Del  |LANG1 |LANG2 |  spc |  Ent |      | Left |Right |
  *        `-----------------------------------------------------------------------------------'
  */
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+#ifdef L_QWERTY
 [L_QWERTY] = LAYOUT(
     KC_Q, KC_W, KC_E, KC_R, KC_T, LT(L_MEDIA_KBD,KC_MUTE), LT(L_MEDIA_KBD,KC_MPLY), KC_Y, KC_U, KC_I, KC_O, KC_P,
     RCTL_T(KC_A), RALT_T(KC_S), RGUI_T(KC_D), RSFT_T(KC_F), LT(L_NUMPAD,KC_G), LT(L_NUMPAD,KC_TAB), KC_QUOT, LT(L_FN_NUM,KC_H), RSFT_T(KC_J), RGUI_T(KC_K), RALT_T(KC_L), RCTL_T(KC_SCLN),
     KC_Z, KC_X, KC_C, KC_V, KC_B, TT(L_NUMPAD), TT(L_NAV), KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH,
     KC_DOWN, KC_UP, KC_APP, LT(L_FN_NUM,KC_BSPC), LT(L_NAV,KC_DEL), LT(L_FN_NUM,SK_MHEN), LT(L_FN_NUM,SK_HENK), LT(L_PUNCT,KC_SPC), LT(L_NAV,KC_ENT), LT(L_NUMPAD,KC_TAB), KC_LEFT, KC_RGHT),
-
+#endif
 [L_HDALPHA] = LAYOUT(
     HD_LT4, HD_LT3, HD_LT2, HD_LT1, HD_LT0, LT(L_MEDIA_KBD,KC_MUTE),    LT(L_MEDIA_KBD,KC_MPLY), HD_RT0, HD_RT1, HD_RT2, HD_RT3, HD_RT4,
     HD_LM4, HD_LM3, HD_LM2, HD_LM1, HD_LM0, LT(L_NUMPAD,KC_TAB),        TT(L_NAV), HD_RM0, HD_RM1, HD_RM2, HD_RM3, HD_RM4,
