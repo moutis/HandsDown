@@ -195,7 +195,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 break;
 */
             case HC_NDSH: // delay action until key-up (outside of delay block)
-//                register_code16(A(KC_MINS));  // should be a semkey
+//                register_SemKey(SK_NDSH);  // should be a semkey
                 combo_on = combo_index; // hold to replace with m-dash
                 break;
 
@@ -776,7 +776,7 @@ void matrix_scan_user_process_combo() {  // called from matrix_scan_user if comb
                     tap_code16(KC_PERC); // Held, so send % (instead of =)
                     break;
                 case HC_NDSH: // Held, so send M-Dash (instead of N-Dash).
-                    tap_code16(SK_MDSH);  // M-Dash
+                    tap_SemKey(SK_MDSH);  // M-Dash
                     break;
 
                 case PC_STAB:

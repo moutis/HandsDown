@@ -39,18 +39,18 @@ const uint16_t PROGMEM Hspc_combo[] = {HD_spc_keys, COMBO_END};    // SPACE
 const uint16_t PROGMEM Hent_combo[] = {HD_ent_keys, COMBO_END};    // ENTER
 const uint16_t PROGMEM Hent2_combo[] = {HD_ent2_keys, COMBO_END};  // hard-ENTER/page break
 
-// SEMANTIC FUNCTIONS  ** usinp SemKeys **
-const uint16_t PROGMEM Hnew_combo[] = {HD_new_keys, COMBO_END}; // new
-const uint16_t PROGMEM Hopen_combo[] = {HD_open_keys, COMBO_END}; // open
+// SEMANTIC FUNCTIONS  ** using SemKeys **
+const uint16_t PROGMEM Hnew_combo[] = {HD_new_keys, COMBO_END};     // new
+const uint16_t PROGMEM Hopen_combo[] = {HD_open_keys, COMBO_END};   // open
 const uint16_t PROGMEM Hclose_combo[] = {HD_close_keys, COMBO_END}; // close
-const uint16_t PROGMEM Hquit_combo[] = {HD_quit_keys, COMBO_END}; // quit
-const uint16_t PROGMEM Hfind_combo[] = {HD_find_keys, COMBO_END}; // find selection
-const uint16_t PROGMEM Hsall_combo[] = {HD_sall_keys, COMBO_END}; // select all
-const uint16_t PROGMEM Hswrd_combo[] = {HD_swrd_keys, COMBO_END}; // select word
-const uint16_t PROGMEM Hundo_combo[] = {HD_undo_keys, COMBO_END}; // undo
-const uint16_t PROGMEM Hredo_combo[] = {HD_redo_keys, COMBO_END}; // redo
-const uint16_t PROGMEM Hcopy_combo[] = {HD_copy_keys, COMBO_END}; // copy (linger/linger for cut)
-const uint16_t PROGMEM Hpste_combo[] = {HD_pste_keys, COMBO_END}; // paste (linger/hold for paste-match)
+const uint16_t PROGMEM Hquit_combo[] = {HD_quit_keys, COMBO_END};   // quit
+const uint16_t PROGMEM Hfind_combo[] = {HD_find_keys, COMBO_END};   // find selection
+const uint16_t PROGMEM Hsall_combo[] = {HD_sall_keys, COMBO_END};   // select all
+const uint16_t PROGMEM Hswrd_combo[] = {HD_swrd_keys, COMBO_END};   // select word
+const uint16_t PROGMEM Hundo_combo[] = {HD_undo_keys, COMBO_END};   // undo
+const uint16_t PROGMEM Hredo_combo[] = {HD_redo_keys, COMBO_END};   // redo
+const uint16_t PROGMEM Hcopy_combo[] = {HD_copy_keys, COMBO_END};   // copy (linger/linger for cut)
+const uint16_t PROGMEM Hpste_combo[] = {HD_pste_keys, COMBO_END};   // paste (linger/hold for paste-match)
 
 
 
