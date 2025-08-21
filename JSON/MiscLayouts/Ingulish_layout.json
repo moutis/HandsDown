@@ -164,21 +164,21 @@
             "numpad": -1
         },
         {
-            "primary": 39,
-            "shift": 34,
+            "primary": 99,
+            "shift": 67,
             "finger": 2,
             "id": 16,
-            "altGr": 61,
-            "shiftAltGr": 43,
+            "altGr": 113,
+            "shiftAltGr": 81,
             "numpad": -1
         },
         {
-            "primary": 99,
-            "shift": 67,
+            "primary": 39,
+            "shift": 34,
             "finger": 3,
             "id": 17,
-            "altGr": 113,
-            "shiftAltGr": 81,
+            "altGr": 61,
+            "shiftAltGr": 43,
             "numpad": -1
         },
         {
@@ -227,21 +227,21 @@
             "numpad": -1
         },
         {
-            "primary": 104,
-            "shift": 72,
+            "primary": 44,
+            "shift": 60,
             "finger": 7,
             "id": 23,
-            "altGr": 102,
-            "shiftAltGr": 70,
+            "altGr": 63,
+            "shiftAltGr": 33,
             "numpad": -1
         },
         {
-            "primary": 103,
-            "shift": 71,
+            "primary": 42,
+            "shift": 47,
             "finger": 8,
             "id": 24,
-            "altGr": 107,
-            "shiftAltGr": 75,
+            "altGr": 53,
+            "shiftAltGr": 64,
             "numpad": -1
         },
         {
@@ -317,12 +317,12 @@
             "numpad": -1
         },
         {
-            "primary": 42,
-            "shift": 47,
+            "primary": 103,
+            "shift": 71,
             "finger": 4,
             "id": 33,
-            "altGr": 53,
-            "shiftAltGr": 64,
+            "altGr": 107,
+            "shiftAltGr": 75,
             "numpad": -1
         },
         {
@@ -389,12 +389,12 @@
             "numpad": -1
         },
         {
-            "primary": 44,
-            "shift": 60,
+            "primary": 104,
+            "shift": 72,
             "finger": 1,
             "id": 41,
-            "altGr": 63,
-            "shiftAltGr": 33,
+            "altGr": 102,
+            "shiftAltGr": 70,
             "numpad": -1
         },
         {
