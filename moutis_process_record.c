@@ -8,8 +8,9 @@
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     bool return_state = true;
-    uint8_t  saved_mods;
-    
+#ifdef MYMODMORPH // use the table for modmorph instead of this mess
+    uint8_t  saved_mods, i;
+#endif
 
     saved_mods = get_mods(); // preserve mods
 
@@ -37,7 +38,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             preprior_keycode = prior_keydown = linger_key = 0; // reset other states.
             goto AdaptCont; // continue with capped letter as next adaptive leader
         }
-
 #endif
 
 #ifdef ADAPTIVE_ENABLE
@@ -92,63 +92,91 @@ AdaptCont:  // still space constrained on AVR MCUs. This saves 12 bytes.
  */
 #ifndef KEY_OVERRIDE_ENABLE
 /*
-    QMK KEY_OVERRIDE can't integrate semkeys or linger keys,
+    QMK KEY_OVERRIDE is much more robust, but
+    doesn't handle semkeys or lingers,
     so for now I roll my own here.
 */
 
+#ifndef MYMODMORPH // not using the table for modmorph.
+            case KC_SPC:  //
+                linger_key = 0;
+                break;
             case KC_BSPC:  // make S(KC_BSPC) = KC_DEL; ALT = word_del L & R
-                if (!(saved_mods & MOD_MASK_SHIFT)) // only SHFT? (ALT ok)
+                if (!(saved_mods & MOD_MASK_SHIFT)) // no SHFT?
                     break; // N: nothing to do
-                // shift down with KC_BSPC? (ALT OK)
                 unregister_mods(MOD_MASK_SA); // get rid of shift & alt
                 key_trap = KC_DEL;  // mode monitor on to clear this on keyup
-                goto goto_register_key_trap_and_return;
+goto_register_key_trap_and_return: // ##Warning
+                register_code16(key_trap);
+                return_state = false; // no nore to do.
+                set_mods(saved_mods);  // not sure if we need this
+                break;
             case KC_MINS:  // SHIFT = +
                 if (!(saved_mods & MOD_MASK_SHIFT)) // only SHFT? (ALT ok)
                     break; // N: nothing to do
                 key_trap = KC_PLUS;  //  enter override state
                 goto goto_register_key_trap_and_return;
-
-            case KC_EQL: // SHIFT = _
-                if (!(saved_mods & MOD_MASK_SHIFT)) // only SHFT? (ALT ok)
-                    break; // N: nothing to do
-                key_trap = KC_UNDS;  // enter override state
-goto_register_key_trap_and_return: // ##Warning
-                register_code16(key_trap);
-                return_state = false; // stop processing this record.
-                //set_mods(saved_mods);  // not sure if we need this
+            case KC_EQL: // SHIFT =
+                if (saved_mods & MOD_MASK_SHIFT) {// SHFT ?
+                    if (saved_mods & MOD_MASK_ALT) { // ALT too?
+                        tap_SemKey(SK_APXEQ); // ≈ APPROX Equal to
+                    } else { // just alt
+                        tap_SemKey(SK_NOTEQ); // Y: ≠ NOT Equal to
+                    }
+                    return_state = false; // no nore to do.
+                } else if (saved_mods & MOD_MASK_ALT) { // only ALT?
+                    tap_SemKey(SK_PERM);  // ‰ Per Mille
+                    return_state = false; // no nore to do.
+                }
                 break;
-
             case KC_SLSH:  // SHIFT = *, ALT=\, ALT+SHIFT=⁄
-                unregister_mods(MOD_MASK_SA); // get rid of shift & alt
-                if (saved_mods & MOD_MASK_ALT) { // ALT down?
-                    if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
-                        tap_SemKey(SK_FRAC); // Y: ⁄ Solidus
+                if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
+                    if (saved_mods & MOD_MASK_ALT) { // ALT down?
+                        tap_SemKey(SK_FRAC);  // ⁄ Solidus
                     } else {
-                        tap_code16(KC_BSLS); // N: just alt, so
+                        tap_code16(KC_ASTR);  // *
                     }
                     return_state = false; // don't do more with this record.
-                } else if (saved_mods & MOD_MASK_SHIFT) { // only SHFT?
-                    key_trap = KC_ASTR;  // enter override state
+                } else if (saved_mods & MOD_MASK_ALT) { // only ALT?
+                    unregister_mods(MOD_MASK_SA); // get rid of shift & alt
+                    tap_code16(KC_BSLS); // backslash
                     goto goto_register_key_trap_and_return;
+                }
+                break;
+            case KC_HASH:  // SHIFT = $ ALT=‹ SHIFT_ALT = ›
+                if (saved_mods & MOD_MASK_SHIFT) { // SFT ?
+                    if (saved_mods & MOD_MASK_ALT) { // ALT too?
+                        tap_SemKey(SK_No);  // №
+                    } else {
+                        tap_code16(KC_DLR);  // $
+                    }
+                    return_state = false; // stop processing this record.
+                } else if (saved_mods & MOD_MASK_ALT) { // only ALT down
+                    tap_SemKey(SK_CENT); // convert to SemKey ¢
+                    return_state = false; // stop processing this record.
+                }
+                break;
+            case KC_LT:  //  linger=<|>
+                if (!saved_mods)
+                    goto goto_linger_and_return; // CAUTION: messing w/stack frame here!!
+                if (saved_mods & MOD_MASK_SHIFT) { // SHFT down? (ALT ok)
+                    tap_SemKey(SK_LTEQ);  // ≤
+                    return_state = false; // done.
+                }
+                break;
+            case KC_GT:  // SHIFT = ≥
+                if (saved_mods & MOD_MASK_SHIFT) { // SHFT down? (ALT ok)
+                    tap_SemKey(SK_GTEQ); // ≥
+                    return_state = false; // done.
                 }
                 break;
 
-            case KC_HASH:  // SHIFT = $ ALT=‹ SHIFT_ALT = ›
-                unregister_mods(MOD_MASK_SA); // get rid of shift & alt
-                if (saved_mods & MOD_MASK_ALT) { // ALT down?
-                   if (saved_mods & MOD_MASK_SHIFT) { // SFT too?
-                       tap_SemKey(SK_CENT); // convert to SemKey ¢
-                    } else {
-                        tap_SemKey(SK_No); // №
-                    }
-                    return_state = false; // stop processing this record.
-                } else if (saved_mods & MOD_MASK_SHIFT) { // only SHFT down
-                    key_trap = KC_DLR;  // enter override state
-                    goto goto_register_key_trap_and_return;
-                }
+            case KC_LBRC:  // linger=[|]
+            case KC_LCBR:  // linger={|}
+                if (!saved_mods)
+                    goto goto_linger_and_return; // CAUTION: messing w/stack frame here!!
                 break;
-                
+
             case KC_LPRN:  // SHIFT = { (linger=(|))
                 if (!saved_mods) {
                     goto goto_linger_and_return; // CAUTION: messing w/stack frame here!!
@@ -166,7 +194,6 @@ goto_register_key_trap_and_return: // ##Warning
                     return_state = false; // stop processing this record.
                 }
                 break;
-
             case KC_RPRN:  // send } FOR Shift )
                 if (saved_mods & MOD_MASK_SHIFT) { // SHFT down?
                     if (saved_mods & MOD_MASK_ALT) { // ALT also?
@@ -183,68 +210,7 @@ goto_register_key_trap_and_return: // ##Warning
                 }
                 break;
 
-            case KC_LT:  //  linger=<|>
-                if (!saved_mods)
-                    goto goto_linger_and_return; // CAUTION: messing w/stack frame here!!
-                if (saved_mods & MOD_MASK_SHIFT) { // SHFT down? (ALT ok)
-                    tap_SemKey(SK_LTEQ); // ≤
-                    return_state = false; // stop processing this record.
-                }
-                break;
-            case KC_GT:  // SHIFT = ≥
-                if (saved_mods & MOD_MASK_SHIFT) { // SHFT down? (ALT ok)
-                    tap_SemKey(SK_GTEQ); // ≥
-                    return_state = false; // stop processing this record.
-                }
-                break;
-
-            case KC_LBRC:  // linger=[|]
-            case KC_LCBR:   // linger={|}
-                if (!saved_mods)
-                    goto goto_linger_and_return; // CAUTION: messing w/stack frame here!!
-                break;
-
-            case KC_SPC:  //
-                linger_key = 0;
-                break;
-            case KC_COMM:  // SHIFT = ;, ALT=_; linger = ", "
-                unregister_mods(MOD_MASK_SA); // get rid of shift & alt
-                if (!saved_mods) {
-                    register_linger_key(KC_COMM); // linger to add space
-                    return_state = false; // stop processing this record.
-                    break;
-                }
-                if (saved_mods & MOD_MASK_ALT) { // ALT down?
-                    if (saved_mods & MOD_MASK_SHIFT) { // SFT too?
-                        tap_SemKey(SK_PLMN); // "±"
-                    } else {
-                        tap_code16(KC_UNDS);
-                    }
-                    return_state = false; // stop processing this record.
-                    break;
-                }
-                if (saved_mods & MOD_MASK_SHIFT) { // only SHFT down
-                    tap_code16(KC_SCLN); // just semicolon
-                    return_state = false; // stop processing this record.
-                }
-                break;
-            case KC_DOT:  // SHIFT = :, ALT=…, ALT+SHIFT= \ backslash
-                unregister_mods(MOD_MASK_SA); // get rid of shift & alt
-                if (saved_mods & MOD_MASK_ALT) { // ALT down?
-                    if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
-                        tap_SemKey(SK_NOTEQ); // "≠"
-                    } else {
-                        tap_SemKey(SK_ELPS);  // …
-                    }
-                    return_state = false; // stop processing this record.
-                } else if (saved_mods & MOD_MASK_SHIFT) { // only SHFT down?
-                    tap_code16(KC_COLN);
-                    return_state = false; // stop processing this record.
-                }
-                break;
-
             case KC_EXLM: // SHFT ! = ¡
-                unregister_mods(MOD_MASK_SA); // get rid of shift & alt
                 if (saved_mods & MOD_MASK_ALT) { // ALT down?
                     if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
                         tap_SemKey(SK_No); // №
@@ -257,9 +223,7 @@ goto_register_key_trap_and_return: // ##Warning
                     return_state = false; // stop processing this record.
                 }
                 break;
-
-            case KC_QUES: // ALT ? = ¿ (should be SemKey?)
-                unregister_mods(MOD_MASK_SA); // get rid of shift & alt
+            case KC_QUES: // ALT ? = ¿
                 if (saved_mods & MOD_MASK_ALT) { // ALT down?
                     if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
                         tap_SemKey(SK_JPY); // ¥
@@ -272,106 +236,166 @@ goto_register_key_trap_and_return: // ##Warning
                     return_state = false; // stop processing this record.
                 }
                 break;
-
-            case KC_SCLN:  // SHIFT = , ALT=_,
-                unregister_mods(MOD_MASK_SA); // get rid of shift & alt
-                if (saved_mods & MOD_MASK_ALT) { // ALT down?
-                    if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
-                        tap_SemKey(SK_SECT); // §
+            case KC_COLN:  // SHIFT = …
+                if (saved_mods & MOD_MASK_SHIFT) { // SHFT ?
+                    if (saved_mods & MOD_MASK_ALT) { // ALT too?
+                        tap_SemKey(SK_PERM); //   ‰
                     } else {
-                        tap_SemKey(SK_PARA); //  ¶
+                        tap_SemKey(SK_ELPS); // …
                     }
                     return_state = false; // stop processing this record.
-                } else if (saved_mods & MOD_MASK_SHIFT) { // only SHFT down
+                } else if (saved_mods & MOD_MASK_ALT) { // only ALT down
+                    unregister_mods(MOD_MASK_SA); // get rid of shift & alt
+                    tap_code16(KC_PERC); //   %
+                    return_state = false; // stop processing this record.
+                }
+                break;
+            case KC_SCLN:  // SHIFT = , ALT=_,
+                if (saved_mods & MOD_MASK_SHIFT) { // SHFT ?
+                    if (saved_mods & MOD_MASK_ALT) { // ALT too?
+                        tap_SemKey(SK_PARA); //  ¶
+                    } else {
+                        tap_SemKey(SK_SECT); //  §
+                    }
+                    return_state = false; // stop processing this record.
+                } else if (saved_mods & MOD_MASK_ALT) { // only ALT down
                     tap_SemKey(SK_MDSH); //  — M-Dash
                     return_state = false; // stop processing this record.
                 }
                 break;
-
-            case KC_COLN:  // SHIFT = …
-                unregister_mods(MOD_MASK_SA); // get rid of shift & alt
-                if (saved_mods & MOD_MASK_ALT) { // ALT down?
-                    if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
-                        tap_SemKey(SK_PERM); //   ‰
+            case KC_DOT:  // SHIFT = :, ALT=…, ALT+SHIFT= \ backslash
+                if (saved_mods & MOD_MASK_SHIFT) { // SHFT?
+                    if (saved_mods & MOD_MASK_ALT) { // ALT too?
+                        tap_SemKey(SK_NOTEQ); // "≠"
                     } else {
-                        tap_code16(KC_PERC); //   %
+                        tap_code16(KC_COLN);
                     }
                     return_state = false; // stop processing this record.
-                } else if (saved_mods & MOD_MASK_SHIFT) { // only SHFT down
-                    tap_SemKey(SK_ELPS); // …
+                } else if (saved_mods & MOD_MASK_ALT) { // only ALT down?
+                    tap_SemKey(SK_ELPS);  // …
                     return_state = false; // stop processing this record.
                 }
                 break;
-
-            case KC_DQUO:  // SHIFT = [ (linger=[|]), ALT=«, ALT+SHIFT=‹
-                clear_keyboard(); // clean record to tinker with.
-                if (saved_mods & MOD_MASK_ALT) { // ALT (only) down?
-                        if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
-                            register_linger_key(SK_FSQL); // linger for ‹
-                        } else { // only alt?
-                            register_linger_key(SK_FDQL); // linger for «
-                        }
-                        return_state = false; // don't do more with this record.
-#ifndef JP_MODE_ENABLE
-                } else if (saved_mods & MOD_MASK_SHIFT) { // SHFT (only)?
-#else
-                } else if (((saved_mods & MOD_MASK_SHIFT) && IS_ENGLISH_MODE)  // SHFT (only)
-                           || (!saved_mods && !IS_ENGLISH_MODE)) { // or no mods & not in english
-#endif
-                    register_linger_key(KC_LT); // simple linger
-                    return_state = false; // don't do more with this record.
-                } else //{ // no mods, so linger
-                    register_linger_key(L_quote); // simple linger
-                    return_state = false; // don't do more with this record.
+            case KC_COMM:  // SHIFT = ;, ALT=_; linger = ", "
+                if (!saved_mods) {
+                    register_linger_key(KC_COMM); // linger for CapsLk
+                    return_state = false; // stop processing this record.
+                    break;
+                }
+                if (saved_mods & MOD_MASK_SHIFT) { // SFT ?
+                    unregister_mods(MOD_MASK_SA); // get rid of shift & alt
+                    if (saved_mods & MOD_MASK_ALT) { // ALT too?
+                        tap_SemKey(SK_OMEGA);
+                    } else {
+                        tap_code16(KC_SCLN); // just semicolon
+                    }
+                    return_state = false; // stop processing this record.
+                } else if (saved_mods & MOD_MASK_ALT) { // only ALT down
+                    tap_SemKey(SK_DIV); // "÷"
+                    return_state = false; // stop processing this record.
+                }
                 break;
-
             case KC_QUOT: // SHIFT = ], ALT=», ALT+SHIFT=›
-                clear_keyboard(); // clean record to tinker with.
-                if (saved_mods & MOD_MASK_ALT) { // ALT (only) down?
-                    if (saved_mods & MOD_MASK_SHIFT) { // SHFT too?
+                if (!saved_mods) {
+                    tap_code16(R_quote); // send ' (or 」in Japanese mode)
+                    return_state = false; // done with this record.
+                    break;
+                }
+                if (saved_mods & MOD_MASK_SHIFT) { // SHFT?
+                    if (saved_mods & MOD_MASK_ALT) { // ALT too?
                         tap_SemKey(SK_FSQR); //  ›
-                    } else {
-                        tap_SemKey(SK_FDQR); //  »
+                        return_state = false; // done with this record.
+                    } else {  //SHFT ONLY
+                        tap_code16(KC_GT);
+                        return_state = false; // done with this record.
                     }
-                    return_state = false; // don't do more with this record.
-#ifndef JP_MODE_ENABLE
-                } else if (saved_mods & MOD_MASK_SHIFT) { // SHFT (only)?
-#else
-                } else if (((saved_mods & MOD_MASK_SHIFT) && IS_ENGLISH_MODE)  // SHFT (only)
-                           || (!saved_mods && !IS_ENGLISH_MODE)) { // or no mods & not in english
-#endif
-                    tap_code16(KC_GT); // simple linger
-                    return_state = false; // don't do more with this record.
-                } else { // no mods, so
-                    register_linger_key(keycode); // simple linger
-                    return_state = false; // don't do more with this record.
+                } else if (saved_mods & MOD_MASK_ALT) { // ALT only?
+                    tap_SemKey(SK_FDQR); //  »
+                    return_state = false; // done with this record.
                 }
                 break;
+            case KC_DQUO:  // SHIFT = [ (linger=[|]), ALT=«, ALT+SHIFT=‹
+                if (!saved_mods) {
+                    register_linger_key(L_quote); // send " (or 「 in Japanese mode)
+                    return_state = false; // done with this record.
+                    break;
+                }
+                if (saved_mods & MOD_MASK_SHIFT) { // SHFT?
+                    unregister_mods(MOD_MASK_SA); // get rid of shift & alt
+                    if (saved_mods & MOD_MASK_ALT) { // ALT too?
+                        register_linger_key(SK_FSQL); // linger for ‹ | ›
+                        return_state = false; // done with this record.
+                    } else {  //SHFT ONLY
+                        register_linger_key(KC_LT); // linger for <|>
+                        return_state = false; // done with this record.
+                    }
+                } else if (saved_mods & MOD_MASK_ALT) { // ALT only?
+                    unregister_mods(MOD_MASK_SA); // get rid of shift & alt
+                    register_linger_key(SK_FDQL); // linger for « | »
+                    return_state = false; // done with this record.
+                }
+                break;
+#endif // #ifndef MYMODMORPH
+
+#ifdef MYMODMORPH
+            case KC_EQL: // SHIFT =
+            case KC_SLSH:  // SHIFT = *, ALT=\, ALT+SHIFT=⁄
+            case KC_HASH:  // SHIFT = $ ALT=‹ SHIFT_ALT = ›
+            case KC_LPRN:  // SHIFT = { (linger=(|))
+            case KC_RPRN:  // send } FOR Shift )
+            case KC_DOT:
+            case KC_COMM:
+            case KC_QUOT:
+            case KC_DQUO:
+            case KC_SCLN:
+            case KC_COLN:  // SHIFT = …
+            case KC_QUES: // ALT ? = ¿
+            case KC_EXLM: // SHFT ! = ¡
+                for (i = 0; i < mm_count; i++) {
+                    if (ModMorph[i].plain == keycode) {
+                        if (!saved_mods) {
+                            (ModMorph[i].linger ? (register_linger_key(ModMorph[i].plain)) : tap_HDkey(ModMorph[i].plain)); // send plain keycode
+                            break;
+                        }
+                        unregister_mods(MOD_MASK_SA); // get rid of shift & alt
+                        if (saved_mods & MOD_MASK_SHIFT) { // SHFT?
+                            if (saved_mods & MOD_MASK_ALT) { // ALT too?
+                                (ModMorph[i].linger ? (register_linger_key(ModMorph[i].altshift)) : tap_HDkey(ModMorph[i].altshift)); //
+                                break;
+                            } else { // SHFT (only)?
+                                (ModMorph[i].linger ? (register_linger_key(ModMorph[i].shift)) : tap_HDkey(ModMorph[i].shift)); //
+                                break;
+                            }
+                        } else { // ALT only?
+                            (ModMorph[i].linger ? (register_linger_key(ModMorph[i].alt)) : tap_HDkey(ModMorph[i].alt)); //
+                            break;
+                        }
+                    }
+                }
+                return_state = false; // done with this record.
+                break;
+#endif // # MYMODMORPH
 
 #ifdef JP_MODE_ENABLE
             case KC_C: // C if English, z if Japanese mode
                 if (!IS_ENGLISH_MODE) {
                     register_code(KC_Z);
-                    return_state = false; // stop processing this record.
+                    return_state = false; // done.
                 }
                 break;
-#endif
             case KC_L: // L if English, ん if Japanese mode
-            case KC_X: // X if English, - if Japanese mode
-#ifdef JP_MODE_ENABLE
                 if (!IS_ENGLISH_MODE) {
-                    switch (keycode) {
-                        case KC_L: // L if English, ん if Japanese mode
-                            tap_code(KC_N);
-                            tap_code(KC_N);
-                            return_state = false; // stop processing this record.
-                            break;
-                        case KC_X: // X if English, - if Japanese mode
-                            register_code(KC_MINS);
-                            return_state = false; // stop processing this record.
-                            break;
-                    }
+                    tap_code(KC_N);
+                    tap_code(KC_N);
+                    return_state = false; // done.
                 }
+                break;
+            case KC_X: // X if English, - if Japanese mode
+                if (!IS_ENGLISH_MODE) {
+                    tap_code(KC_MINS);
+                    return_state = false; // done.
+                }
+                break;
 #endif
             case KC_Q:  // Qu, linger deletes U
                 if ((saved_mods & MOD_MASK_ALT)
@@ -500,8 +524,10 @@ storeSettings:
             case KC_LBRC:  //  [ (linger=[|])
             case KC_LCBR:  //  { (linger={|})
             case KC_BSLS:  // actual keycode for « & »
-            case KC_QUOT: // SHIFT = ], ALT=›, ALT+SHIFT=»
-            case KC_DQUO: // SHIFT = [ (linger=[|]), ALT=‹, ALT+SHIFT=«
+            case KC_QUOT:  // SHIFT = ], ALT=›, ALT+SHIFT=»
+            case KC_DQUO:  // SHIFT = [ (linger=[|]), ALT=‹, ALT+SHIFT=«
+            case KC_COLN:
+            case KC_SCLN:
                 // still need to do this as a keycode may have been
                 // sent with mods that we didn't explicitly handle…
                 unregister_code16(keycode);
@@ -512,14 +538,6 @@ storeSettings:
                 break;
 
             case KC_BSPC:  // make S(KC_BSPC) = KC_DEL; plus word_del L & R
-/*
-                if (!key_trap) // did we override this earlier?
-                    break; // N: do normal thing
-                unregister_SemKey(key_trap); //
-                key_trap = 0;  // exit override state.
-                return_state = false; // stop processing this record.
-                break;
-*/
             case KC_MINS:  // SHIFT = +, ALT=–(n-dash), ALT+SHIFT=±
             case KC_EQL:   // ALT _
             case KC_SLSH:  // SHIFT = *, ALT=\, ALT+SHIFT=⁄

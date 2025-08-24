@@ -18,6 +18,14 @@ typedef union {
     };
 } user_config_t; // used for persistent memory of settings (only 16 bytes avail on AVR?)
 
+typedef struct {
+    bool linger;
+    uint32_t plain;
+    uint32_t shift;
+    uint32_t alt;
+    uint32_t altshift;
+} modmorph_t;
+
 
 // enum my_layers for layout layers
 enum my_layers {// must be difined before semantickeys.h
@@ -170,15 +178,15 @@ extern rgblight_config_t rgblight_config;
 #define SQUO_A  A(KC_BSLS) // «
 #define SQUO_SA A(S(KC_3)) // ‹
 
-#define JRQU KC_RBRC //  「 (via " in Japanese mode)
-#define JLQU KC_LBRC //  」 (via ' in Japanese mode)
+#define JLQU KC_LBRC //  「 (via " in Japanese mode)
+#define JRQU KC_RBRC //  」 (via ' in Japanese mode)
 
-#define tap_HDkey(kc) {is_SemKey(kc) ? tap_SemKey(kc) : tap_code16(kc);}
-#define register_HDkey(kc) {is_SemKey(kc) ? register_SemKey(kc) : register_code16(kc);}
-#define unregister_HDkey(kc) {is_SemKey(kc) ? unregister_SemKey(kc) : unregister_code16(kc);}
+#define tap_HDkey(kc) ({is_SemKey(kc) ? tap_SemKey(kc) : tap_code16(kc);})
+#define register_HDkey(kc) ({is_SemKey(kc) ? register_SemKey(kc) : register_code16(kc);})
+#define unregister_HDkey(kc) ({is_SemKey(kc) ? unregister_SemKey(kc) : unregister_code16(kc);})
 
-#define register_linger_key(kc) {register_HDkey(kc);linger_key = kc;linger_timer = timer_read();}
-#define unregister_linger_key() {unregister_HDkey(linger_key) ;linger_key = 0;}
+#define register_linger_key(kc) ({register_HDkey(kc);linger_key = kc;linger_timer = timer_read();})
+#define unregister_linger_key() ({unregister_HDkey(linger_key) ;linger_key = 0;})
 
 
 void matrix_scan_user_process_combo(void);
