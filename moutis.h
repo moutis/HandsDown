@@ -84,7 +84,7 @@ extern rgblight_config_t rgblight_config;
         #undef RGBLIGHT_VAL_STEP
     #endif
     #define RGBLIGHT_VAL_STEP 4
-#endif
+#endif // RGBLIGHT_ENABLE
 
 #include "moutis_semantickeys.h"
 
@@ -96,33 +96,22 @@ extern rgblight_config_t rgblight_config;
 
 #include "personalizedmacros.h"
 
-//
-// which HD alpha variation are we using?
-//
-//
-// nu = neu (no thumb alpha)    * does not use thumb
-// au = gold (T on thumb)       * most inward rolling
-// ag = silver (L on thumb)       * LOW sfbs, but high repeat on thumb
-// bz = bronze (H on thumb)     * lightest thumb use w/H-digraph combos
-// cr = chromium (C on thumb)   * RSNT typically doesn't use H-digraph combos
-// cs = cesium (C on thumb)     * lowest scissors, – lowest thumb w/o H-digraph combos
-// pm = promethium (R on thumb) * typically doesn't use H-digraph combos
-// rh = rhodium (R on thumb)    * typically doesn't use H-digraph combos
-// vf = vibranium (R on thumb, f in lower left, b on right) - "canonical"
-// vv = vibranium (R on thumb, v in lower left, f on right) - lowest SFBs
-// vx = vibranium (R on thumb, x in lower left, f on right) - better pinky balancing
-// vb = vibranium (R on thumb, b in lower left, f on right) - more rolling w/adaptives
-// mi = mithril (R on thumb)
-// xr = weird test-bed (R on thumb)
+/*
+ * which HD alpha variation are we using?
+ *
+ * Just select the 2+ letter code from handsdown.h to select layout.
+ *
+ */
 
-#define HD_CONFIG "handsdown/vf-config.h"
+#define HD_LAYOUT vfj               // HD variation 2+ letter code from handsdown.h
+#include "layouts/hd/handsdown.h"   // load header now for HD common defs
 
 //
-// HD_CONFIG defines all variation dependent constants/files/keycodes, etc.
+// HD_config_file defines all variation dependent constants/files/keycodes, etc.
 // that will be used in the respective keymap for each keyboard
 //
 //
-#include HD_CONFIG // definitions for the Alpha layer and mnemonic combos
+#include HD_config_file // definitions for the Alpha layer and mnemonic combos
 
 //
 // definitions for all the other layers not dependent on the alpha layout.
@@ -137,13 +126,18 @@ extern rgblight_config_t rgblight_config;
 // Adaptive (or MAGIC) keys are like a QMK Leader Key, but after (Adaptive Trailer)
 #define ADAPTIVE_ENABLE
 #define ADAPT_SHIFT KC_COMM // keycode to precede alpha for one-shot shift (leader)
-#define ADAPT_H // eliminate SFBs AU/UA;EO/OE;LN;MN;NN using H (instead of ')
-#define ADAPT_AE_AU // Use AE->AU (instead of AH->AU, AH is somewhat common)
+//#define ADAPT_H // eliminate SFBs AU/UA;EO/OE;LN;MN;NN using H
+#define ADAPT_J // eliminate SFBs AU/UA;EO/OE;LN;MN;NN using J
+//#define ADAPT_AE_AU // Use AE->AU (instead of AH->AU, AH is somewhat common)
 //#define FR_ADAPTIVES // eliminate 'h SFB for French
 //#define DE_ADAPTIVES // alternate AU SFB treatment for German (same as ADAPT_AE_AU)
 #define HD_MAGIC HD_HASH // generic MAGIC_KEY (I use for text macros)
+
+// 
 //#define HD_MAGIC_A KC_ENT // MAGIC_KEY dependent on alpha (vowel hand?)
-#define HD_MAGIC_B KC_BSPC // MAGIC_KEY dependent on alpha (consonant hand?)
+//#define HD_MAGIC_B KC_BSPC // MAGIC_KEY dependent on alpha (consonant hand?)
+
+
 
 #ifdef COMBO_HOLD
     #undef ADAPTIVE_TERM
@@ -187,6 +181,5 @@ extern rgblight_config_t rgblight_config;
 
 #define register_linger_key(kc) ({register_HDkey(kc);linger_key = kc;linger_timer = timer_read();})
 #define unregister_linger_key() ({unregister_HDkey(linger_key) ;linger_key = 0;})
-
 
 void matrix_scan_user_process_combo(void);

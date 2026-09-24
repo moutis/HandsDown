@@ -314,8 +314,13 @@ __ │   UNDO     CUT     COPY    PSTE    FAGN  │ __  __    __  __ │  DOCEND
  
 #define LC_LM5 RGB_VAI
 #define LC_LM4 HD_AdaptKeyToggle
+//#ifdef L_QWERTY
 #define LC_LM3 HD_L_QWERTY
 #define LC_LM2 HD_L_ALPHA
+//#else  // Only one base alpha, so no switch base layer
+//#define LC_LM3 KC_NO
+//#define LC_LM2 KC_NO
+//#endif
 #define LC_LM1 KC_VOLU
 #define LC_LM0 KC_BRIU
 #define LC_RM0 KC_NO

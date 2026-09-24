@@ -36,6 +36,7 @@
 #define RightComboHeldJ "migikombochouosi"
 #endif
 
+#define HC_L1_KC KC_Z
 
 enum my_combos {
     FC_ESC, // ESCape SIMPLE COMBO must be first (used as FALSE for combo_on)
@@ -45,6 +46,8 @@ enum my_combos {
     HC_APPNAV, // App menu w/ Nav layer
     HC_HDl_num, // TOGGLE nav / numpad layer
     HC_LNl_num, // TOGGLE nav / numpad layer
+    HC_HDl_fun, // Toggle fun/num-optimized layer
+    HC_LNl_fun, // Toggle fun/num-optimized layer
     HC_CAPW, // CAPS WORD for all others
     FC_CAPS, // CAPS LOCK (others)
     FC_LANG2, // eisuu/mhen (others)
@@ -59,7 +62,7 @@ enum my_combos {
     HC_SCLN, // ;
     HC_UNDS, // _ underscore
     HC_NDSH, // – N-dash (M-dash if held)
-    HC_TILD, // ~ tilde
+    HC_TILD, // ~ standalone tilde (not a dead key)  (conflicts w/jp_byu:  びゅ)
     HC_TIC, // ` tic (not a dead key)
     HC_ACUT, // ´ acute
     HC_GRV, // ` grave (dead key)
@@ -68,7 +71,7 @@ enum my_combos {
     HC_DIER, // ¨ dieresis
     HC_RING, // ˚ ring
     HC_CEDILLE, // ¸ cedille
-    HC_ENYE, // ñ/Ñ enye
+    HC_ENYE, // ñ/Ñ enye (the deadkey for ˜, with n added if held)
 //    HC_OSLSH, // ø/Ø
 
     HC_Q, // Q is not on the map
@@ -76,11 +79,9 @@ enum my_combos {
 //    HC_L2, // ex. x not on the map (remappable)?
 //    HC_L3, // ex. j not on the map (remappable)?
 
-    
-
     HC_OE, // Œ
     HC_AE, // Æ
-/*
+/* These are now all dervived from the diacritic+vowel (& hold)
     HC_1E, // É acute
     HC_2E, // È grave
     HC_3E, // Ê circumflex
@@ -98,8 +99,6 @@ enum my_combos {
     HC_OF, // Ó
  */
 
-
-    
     //
     // ACTION COMBOS (ie, not simple combos as above)
     //
@@ -144,6 +143,9 @@ enum my_combos {
     HC_where_5gram, // TYPE "where"
 #endif // EN_W_PRONOUNS
 
+#ifdef HD_you_keys
+    HC_you_3gram,
+#endif
     HC_youd_5gram,
     HC_youll_6gram,
     HC_youre_6gram,
@@ -169,6 +171,15 @@ enum my_combos {
 
 #ifdef JP_MODE_ENABLE  // Japanese mode switching
 #ifdef JP_YOUON_COMBOS  // Japanese contracted sounds as combos
+#ifdef JP_ya_keys
+    jp_ya,  // ゃ
+#endif
+#ifdef JP_yu_keys
+    jp_yu,  // ゅ
+#endif
+#ifdef JP_yo_keys
+    jp_yo,  // ょ
+#endif
     jp_kya,  // きゃ
     jp_kyu,  // きゅ
     jp_kyo,  // きょ
@@ -209,9 +220,15 @@ enum my_combos {
 //    jp_hya,  // ひゃ // conflicts with diacritic combo, handled individually
     jp_hyu,  // ひゅ
     jp_hyo,  // ひょ
+#ifdef JP_bya_keys
     jp_bya,  // びゃ
+#endif
+#ifdef JP_byu_keys
     jp_byu,  // びゅ
+#endif
+#ifdef JP_byo_keys
     jp_byo,  // びょ
+#endif
     jp_mya,  // みゃ
     jp_myu,  // みゅ
     jp_myo,  // みょ

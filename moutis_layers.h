@@ -24,11 +24,10 @@
 // RH5, RH4 are also Right encoder CCW, CW
 
 /*  L_SYM Symbols and punctuation (Some via SemKeys/unicode for platform independance)
- *  left paired symbols are "linger keys" via hold taps. Tap for left, hold for pair with insertion point between
    ╭────────────────────────────────────────────╮                  ╭──────────────────────────────────────────╮
 __ │    Z       Q       ¶        †        ‡     │                  │     ¢        $       €       £       ¥   │ __
-__ │    §       [       (        {        •     |                  |     /        =       *       +       -   │ __
-__ │    °      ]       )        }         ·     │ __  __   __  __  │     ^        |       &       <       >   │ __
+__ │    §       {       (        [        •     |                  |     /        =       *       +       -   │ __
+__ │    °       }       )        ]        ·     │ __  __   __  __  │     ^        |       &       <       >   │ __
    ╰──────────────────╮ VolD   D_WordL  D_WordR │ --           __  │     _        ¡       ¿     ╭─────────────╯
    KC_PGDN   KC_PGUP  ╰─────────────────────────╯                  ╰────────────────────────────╯ SK_WORDPRV  SK_WORDNXT
 */
@@ -48,9 +47,9 @@ __ │    °      ]       )        }         ·     │ __  __   __  __  │    
 
 #define LS_LM5 KC_TRNS
 #define LS_LM4 SK_SECT // §
-#define LS_LM3 KC_LBRC
+#define LS_LM3 KC_LCBR
 #define LS_LM2 KC_LPRN
-#define LS_LM1 KC_LCBR
+#define LS_LM1 KC_LBRC
 #define LS_LM0 SK_BBLT // SK_BLLT?
 #define LS_RM0 KC_PSLS // /
 #define LS_RM1 RSFT_T(KC_PEQL) // RSFT_T(KC_PAST)
@@ -61,15 +60,15 @@ __ │    °      ]       )        }         ·     │ __  __   __  __  │    
 
 #define LS_LB5 KC_TRNS
 #define LS_LB4 SK_DEGR // °
-#define LS_LB3 KC_RBRC
+#define LS_LB3 KC_RCBR
 #define LS_LB2 KC_RPRN
-#define LS_LB1 KC_RCBR
+#define LS_LB1 KC_RBRC
 #define LS_LB0 SK_SBLT  // ·
 #define LS_LBA KC_TRNS
 #define LS_LBB KC_TRNS
 #define LS_RBB KC_TRNS
 #define LS_RBA KC_TRNS
-#define LS_RB0 KC_CIRC // ^ // KC_UNDS
+#define LS_RB0 KC_CIRC // ^
 #define LS_RB1 KC_PIPE // |
 #define LS_RB2 KC_AMPR
 #define LS_RB3 KC_LT // KC_CIRC
@@ -144,8 +143,8 @@ __ │    °      ]       )        }         ·     │ __  __   __  __  │    
 #define LF_RB4 KC_EQL
 #define LF_RB5 RGB_HUD
 
-#define LF_LH5 KC_F23 // also left encoder CCW
-#define LF_LH4 KC_F24 // also left encoder CW
+#define LF_LH5 KC_TRNS // also left encoder CCW
+#define LF_LH4 KC_TRNS // also left encoder CW
 #define LF_LH3 KC_TRNS
 #define LF_LH2 KC_SCLN
 #define LF_LH1 TG(L_NUM)
@@ -321,12 +320,12 @@ __ │   UNDO     CUT     COPY    PSTE    FAGN  │ ESC TAB   __  __ │  DOCEND
  
 #define LC_LM5 RGB_VAI
 #define LC_LM4 HD_AdaptKeyToggle
-#ifdef HD_L_QWERTY
+#ifdef L_QWERTY
 #define LC_LM3 HD_L_QWERTY
 #define LC_LM2 HD_L_ALPHA
 #else  // Only one base alpha, so no switch base layer
-#define LC_LM3 KC_NO
-#define LC_LM2 KC_NO
+#define LC_LM3 HD_L_ALPHA
+#define LC_LM2 HD_L_ALPHA
 #endif
 #define LC_LM1 KC_VOLU
 #define LC_LM0 KC_BRIU

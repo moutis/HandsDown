@@ -3,7 +3,7 @@
 //     Key Position Names for a 34 (-54) key split form factor
 //        Should cover Ferris through Atreus-Kyria-Ergodox
 //     ╭─────────────────────╮                  ╭─────────────────────╮
-// LT5 │ LT4 LT3 LT2 LT1 LT0 │ LTA          RTA │ RT0 RT1 RT2 RT3 RT4 │ RT5
+// LT5 │ LT4 LT3 LT2 LT1 LT0 │ LTA          RTB │ RT0 RT1 RT2 RT3 RT4 │ RT5
 // LM5 │ LM4 LM3 LM2 LM1 LM0 | LMA          RMA | RT0 RM1 RM2 RM3 RM4 │ RM5
 // LB5 │ LB4 LB3 LB2 LB1 LB0 │ LBA LBB  RBB RBA │ RB0 RB1 RB2 RB3 RB4 │ RB5
 //     ╰───────────╮ LH2 LH1 │ LH0 LHA  RHA RH0 │ RH1 RH2 ╭───────────╯
@@ -28,8 +28,12 @@ const uint16_t PROGMEM H_menu_nav_combo[] = {APPMENU_nav_keys, COMBO_END}; // Ap
 #else
 const uint16_t PROGMEM H_menu_nav_combo[] = {LV_LT1, LV_LT0, COMBO_END}; // AppMENU on Nav layer
 #endif
-const uint16_t PROGMEM H_HDl_num_combo[] = {HD_LH1, HD_RH1, COMBO_END}; // Toggle num layer
-const uint16_t PROGMEM H_LNl_num_combo[] = {LN_LH1, LN_RH1, COMBO_END}; // Toggle num layer
+const uint16_t PROGMEM H_HDl_num_combo[] = {HD_LM4, HD_LH1, COMBO_END}; // Toggle nav/num layer
+const uint16_t PROGMEM H_LNl_num_combo[] = {LN_LM4, LN_LH1, COMBO_END}; // Toggle nav/num layer
+
+const uint16_t PROGMEM H_HDl_fun_combo[] = {HD_RM4, HD_RH1, COMBO_END}; // Toggle fun/num-optimized layer
+const uint16_t PROGMEM H_LNl_fun_combo[] = {LF_RM4, LF_RH1, COMBO_END}; // Toggle fun/num-optimized layer
+
 
 // Spatially arranged on the QWERTY ZXCV locations
 //
@@ -79,7 +83,7 @@ const uint16_t PROGMEM H_KANA_combo[] = {HD_RM3, HD_RM2, HD_RM1, COMBO_END}; // 
 //
 const uint16_t PROGMEM F_ESC_combo[] = {HD_LM4, HD_LM1, COMBO_END}; // ESCape
 const uint16_t PROGMEM Hndsh_combo[] = {HD_RB0, HD_RB1, COMBO_END}; // – n dash (hold for m-dash)
-const uint16_t PROGMEM Htild_combo[] = {HD_RB0, HD_RB3, COMBO_END}; // ~ tilde (not the deadkey for eñye)
+const uint16_t PROGMEM Htild_combo[] = {HD_RB0, HD_RB2, COMBO_END}; // ~ stand alone tilde (not the deadkey for eñye)
 const uint16_t PROGMEM Hunds_combo[] = {HD_RB1, HD_RB3, COMBO_END}; // _ underscore
 const uint16_t PROGMEM Hequal_combo[] = {HD_RB2, HD_RB3, COMBO_END}; // = equal (hold for %)
 
@@ -97,7 +101,7 @@ const uint16_t PROGMEM Hat_combo[] = {HD_RT0, HD_RT1, COMBO_END}; // @
 
 // spatially arranged diacritics
 const uint16_t PROGMEM Hdier_combo[] = {HD_RB1, HD_RB2, COMBO_END}; // ¨ dieresis (dead key)
-const uint16_t PROGMEM Henye_combo[] = {HD_LT4, HD_LT0, COMBO_END}; // ˜ enye (dead key) (ñ only?)
+const uint16_t PROGMEM Henye_combo[] = {HD_LT4, HD_LT0, COMBO_END}; // ˜ enye (dead key) (ñ & vowels ãẽĩõũ)
 const uint16_t PROGMEM Hacut_combo[] = {HD_RM1, HD_RM2, COMBO_END}; // ´ acute (dead key)é
 const uint16_t PROGMEM Hgrv_combo[] = {HD_RM2, HD_RM3, COMBO_END}; // ` grave (dead key)
 const uint16_t PROGMEM Hcirc_combo[] = {HD_RM1, HD_RM3, COMBO_END}; // ˆ circumflex (dead key)
@@ -155,6 +159,9 @@ const uint16_t PROGMEM H_Im_combo[] = {HD_Im_keys, COMBO_END}; // TYPE "I'm "
 const uint16_t PROGMEM H_Iv_combo[] = {HD_Iv_keys, COMBO_END}; // TYPE "I've "
 #endif
 
+#ifdef HD_you_keys
+const uint16_t PROGMEM H_you_combo[] = {HD_you_keys, COMBO_END}; // TYPE "you"
+#endif
 #ifdef HD_youd_keys
 const uint16_t PROGMEM H_youd_combo[] = {HD_youd_keys, COMBO_END}; // TYPE "you'd" + 've
 #endif
@@ -223,6 +230,16 @@ const uint16_t PROGMEM H_weve_combo[] = {HD_weve_keys, COMBO_END}; // TYPE "we'v
 
 #ifdef JP_MODE_ENABLE
 #ifdef JP_YOUON_COMBOS  // Major Japanese contracted sounds as combos
+#ifdef JP_ya_keys
+const uint16_t PROGMEM ya_combo[] = {JP_ya_keys, COMBO_END};  // ゃ
+#endif
+#ifdef JP_yu_keys
+const uint16_t PROGMEM yu_combo[] = {JP_yu_keys, COMBO_END};  //　ゅ
+#endif
+#ifdef JP_yo_keys
+const uint16_t PROGMEM yo_combo[] = {JP_yo_keys, COMBO_END};  //　ょ
+#endif
+
 const uint16_t PROGMEM kya_combo[] = {JP_kya_keys, COMBO_END};  // きゃ
 const uint16_t PROGMEM kyu_combo[] = {JP_kyu_keys, COMBO_END};  //　きゅ
 const uint16_t PROGMEM kyo_combo[] = {JP_kyo_keys, COMBO_END};  //　きょ
@@ -266,9 +283,15 @@ const uint16_t PROGMEM nyo_combo[] = {JP_nyo_keys, COMBO_END};  //　にょ
 const uint16_t PROGMEM hyu_combo[] = {JP_hyu_keys, COMBO_END};  //　ひゅ
 const uint16_t PROGMEM hyo_combo[] = {JP_hyo_keys, COMBO_END};  //　ひょ
 
+#ifdef JP_bya_keys
 const uint16_t PROGMEM bya_combo[] = {JP_bya_keys, COMBO_END};  // びゃ
+#endif
+#ifdef JP_byu_keys
 const uint16_t PROGMEM byu_combo[] = {JP_byu_keys, COMBO_END};  //　びゅ  potential conflict?
+#endif
+#ifdef JP_byo_keys
 const uint16_t PROGMEM byo_combo[] = {JP_byo_keys, COMBO_END};  //　びょ
+#endif
 const uint16_t PROGMEM mya_combo[] = {JP_mya_keys, COMBO_END};  // みゃ
 const uint16_t PROGMEM myu_combo[] = {JP_myu_keys, COMBO_END};  //　みゅ
 const uint16_t PROGMEM myo_combo[] = {JP_myo_keys, COMBO_END};  //　みょ
@@ -319,23 +342,25 @@ combo_t key_combos[] = {
     [HC_CFG2] = COMBO(HC_cfg_combo2, MO(L_CFG)), // keyboard/media settings/config layer
     [HC_APP] = COMBO(H_menu_combo, KC_APP), // app menu
     [HC_APPNAV] = COMBO(H_menu_nav_combo, KC_APP), // app menu
-    [HC_HDl_num] = COMBO(H_HDl_num_combo, TG(L_NUM)), // toggle num layer
-    [HC_LNl_num] = COMBO(H_LNl_num_combo, TG(L_NUM)), // toggle num layer
+    [HC_HDl_num] = COMBO(H_HDl_num_combo, TG(L_NUM)), // toggle nav/num layer
+    [HC_LNl_num] = COMBO(H_LNl_num_combo, TG(L_NUM)), // toggle nav/num layer
+    [HC_HDl_fun] = COMBO(H_HDl_fun_combo, TG(L_FUN)), // toggle fun/num-optimized layer
+    [HC_LNl_fun] = COMBO(H_LNl_fun_combo, TG(L_FUN)), // toggle fun/num-optimized layer
     [HC_SCLN] = COMBO(Hscln_combo, KC_SCLN), // ;
     [HC_COLN] = COMBO_ACTION(Hcoln_combo), // :  (hold for elipsis)
     [HC_UNDS] = COMBO(Hunds_combo, S(KC_UNDS)), // _ underscore
-    [HC_TILD] = COMBO(Htild_combo, KC_TILD),  // ~ or SK_TILD?
+    [HC_TILD] = COMBO(Htild_combo, S(KC_GRAVE)),  // ~ or SK_TILD?
     [HC_TIC] = COMBO(Htic_combo, KC_GRAVE),  // ` (not dead)
     [HC_EXLM] = COMBO(Hexlm_combo, KC_EXLM), // !
     [HC_QUES] = COMBO(Hques_combo, KC_QUES), // ?
     [HC_DOLR] = COMBO(Hdolr_combo, KC_DLR), // $
-    [HC_HASH] = COMBO(Hhash_combo, SK_SECT), // # hijacked for §
+    [HC_HASH] = COMBO(Hhash_combo, SK_SECT), // # hijacked for
     [HC_AT] = COMBO_ACTION(Hat_combo), // @ (hold for alanreiser.com)
     [HC_TAB] = COMBO(Htab_combo, KC_TAB),
     [HC_STAB] = COMBO(Hstab_combo, S(KC_TAB)),
 
     [HC_Q] = COMBO_ACTION(H_Q_combo),
-    [HC_L1] = COMBO(H_L1_combo, HD_L1),
+    [HC_L1] = COMBO_ACTION(H_L1_combo),
 //    [HC_L2] = COMBO(H_L2_combo, HD_L2),
 //    [HC_L3] = COMBO(H_L3_combo, HD_L3),
     [HC_Ch] = COMBO_ACTION(H_Ch_combo),
@@ -392,9 +417,15 @@ combo_t key_combos[] = {
 //    [jp_hya] = COMBO_ACTION(hya_combo),  // ひゃ conflicts with diactric combos
     [jp_hyu] = COMBO_ACTION(hyu_combo),  // ひゅ
     [jp_hyo] = COMBO_ACTION(hyo_combo),  // ひょ
+#ifdef JP_bya_keys
     [jp_bya] = COMBO_ACTION(bya_combo),  // びゃ
+#endif
+#ifdef JP_byu_keys
     [jp_byu] = COMBO_ACTION(byu_combo),  // びゅ
+#endif
+#ifdef JP_byo_keys
     [jp_byo] = COMBO_ACTION(byo_combo),  // びょ
+#endif
     [jp_mya] = COMBO_ACTION(mya_combo),  // みゃ
     [jp_myu] = COMBO_ACTION(myu_combo),  // みゅ
     [jp_myo] = COMBO_ACTION(myo_combo),  // みょ
@@ -456,7 +487,6 @@ combo_t key_combos[] = {
     [FC_LANG1] = COMBO(H_KANA_combo, SK_HENK), // kana (others)
 
     [HC_NDSH] = COMBO_ACTION(Hndsh_combo), // – N-DASH (hold for M-dash)
-    
 // Dead keys (Mac only, for now)
     [HC_ACUT] = COMBO_ACTION(Hacut_combo), // ´ acute
     [HC_GRV] = COMBO_ACTION(Hgrv_combo), // ` grave
@@ -465,10 +495,9 @@ combo_t key_combos[] = {
     [HC_DIER] = COMBO_ACTION(Hdier_combo), // ¨ dieresis
     [HC_RING] = COMBO_ACTION(Hring_combo), // ˚ ring
     [HC_CEDILLE] = COMBO_ACTION(Hcedi_combo), // ¸ cedille
-    [HC_ENYE] = COMBO_ACTION(Henye_combo), // ˜ tilde (dead)
 //    [HC_OSLSH] = COMBO_ACTION(Hoslsh_combo), // ø/Ø or Wh
 
-//    [HC_ENYE] = COMBO(Henye_combo, SK_ENYE), // ñ/Ñ enye
+    [HC_ENYE] = COMBO_ACTION(Henye_combo), // ñ/Ñ enye
 //    [HC_ELIP] = COMBO_ACTION(Helip_combo),  // …
 
 
@@ -507,6 +536,9 @@ combo_t key_combos[] = {
     [HC_where_5gram] = COMBO_ACTION(H_where_combo), // TYPE "where"
 #endif
 
+#ifdef HD_you_keys
+   [HC_you_3gram] = COMBO_ACTION(H_you_combo),// TYPE "you"
+#endif
 #ifdef HD_youd_keys
    [HC_youd_5gram] = COMBO_ACTION(H_youd_combo),// TYPE "you'd"
 #endif

@@ -53,8 +53,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         {{{LS_LH5,LS_LH4},   {LS_LH4,LS_LH5}},   {{LS_RH4,LS_RH5},    {LS_RH4,  LS_RH5}}},  // L_SYM, - symbols, punctuation, off-map alphas
         {{{LF_LH5,LF_LH4},   {LF_LH4,LF_LH5}},   {{LF_RH4,LF_RH5},    {LF_RH4,  LF_RH5}}},  // L_FUN, - function & number rows
         {{{LN_LH5,LN_LH4},   {LN_LH4,LN_LH5}},   {{LN_RH4,LN_RH5},    {LN_RH4,  LN_RH5}}},  // L_NUM, - numpad (right); navpad (left)
-        {{{LV_LH5,LV_LH4},   {LV_LH4,LV_LH5}},   {{KC_MFFD, KC_MRWD}, {LV_RH4,LV_RH5}}},    // L_NAV, - nav pad (right); meta keys (left)
-        {{{LC_LH5,LC_LH4},   {LC_LH4,LC_LH5}},   {{LC_RH5,LC_RH4},    {LC_RH4,  LC_RH5}}}   // L_CFG  - Media/Consumer controls; Keyboard settings
+        {{{LV_LH5,LV_LH4},   {LV_LH4,LV_LH5}},   {{KC_MRWD, KC_MFFD}, {LV_RH4,LV_RH5}}},    // L_NAV, - nav pad (right); meta keys (left)
+        {{{LC_LH5,LC_LH4},   {LC_LH4,LC_LH5}},   {{LC_RH4,LC_RH5},    {LC_RH4,  LC_RH5}}}   // L_CFG  - Media/Consumer controls; Keyboard settings
     };
     unregister_mods(MOD_MASK_SHIFT); // lift Shift, but leave all others (preserves capslock..)
         // look up the keycode to send for this layer, encoder, shift state, direction

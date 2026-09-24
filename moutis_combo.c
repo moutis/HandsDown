@@ -68,7 +68,17 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 tap_code16(KC_U); //
                 combo_on = combo_index; // if held, delete the 'u' in matrix_scan_user_process_combo
                 break;
-                
+            case HC_L1: //
+#ifdef JP_MODE_ENABLE
+                if (!IS_ENGLISH_MODE) { // not in English mode?
+                    SEND_STRING("xtu");  // sokuonn "っ"
+                    break;
+                }
+#endif // JP_MODE_ENABLE
+                register_code(HC_L1_KC); //
+                combo_on = combo_index; // hold in matrix_scan_user_process_combo
+                break;
+
 /*
  * H digraphs here
  */
@@ -111,6 +121,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 combo_on = combo_index; // if held, check in matrix_scan_user_process_combo
                 break;
             case HC_Ph:
+#ifdef JP_MODE_ENABLE
+                if (!IS_ENGLISH_MODE) { // not in English mode?
+                    tap_code(KC_X); //
+                    break;
+                }
+#endif // JP_MODE_ENABLE
                 tap_code(KC_P); // send "P" honoring caps
                 combo_on = combo_index; // if held, check in matrix_scan_user_process_combo
                 break;
@@ -213,13 +229,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 combo_on = combo_index; // may add "'ve " if held
                 break;
             case HC_Id:
-#ifdef JP_MODE_ENABLE
-                if (!IS_ENGLISH_MODE) { // if in Japanese mode
-                    send_string("dhi");  // でぃ
-                    break;
-                }
-#endif // JP_MODE_ENABLE
-
             case HC_Ill:
             case HC_Im:
             case HC_Iv:
@@ -260,6 +269,13 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 send_string("e"); // send "We" right away
                 goto addonsuffix;
 #endif // EN_W_PRONOUNS
+#ifdef HD_you_keys
+            case HC_you_3gram:
+                tap_code(KC_Y); // send "Y" honoring caps
+                unregister_mods(MOD_MASK_SHIFT);  //
+                send_string("ou"); // send "We're" right away
+                break;
+#endif // HD_you_keys
             case HC_youd_5gram:
             case HC_youll_6gram:
             case HC_youre_6gram:
@@ -366,7 +382,8 @@ ADD_HERE:
 #endif // EN_PRONOUN_COMBOS
                 
 #ifdef JP_MODE_ENABLE
-        // Don't process these
+// Do the Japanese youon processing only if in Japanese mode
+// and we've defined youon combos
 #ifdef JP_YOUON_COMBOS
             case jp_kya:  // きゃ:
                 send_string("kya");  //
@@ -419,29 +436,29 @@ ADD_HERE:
             case jp_pyo:  // ぴょ
                 send_string("pyo");  //
                 break;
-
+                
 #ifdef JP_YOUON_COMBOS_ALL // JP_YOUON_COMBOS_ALL
-/* Unnecessary?
-            case ch:  // アー
-                send_string("a-");  //
-                break;
-            case jp_ii:  //　イー
-                send_string("i-");  //
-                break;
-            case jp_uu:  //　ウー
-                send_string("u-");  //
-                break;
-            case jp_ee:  //　エー
-                send_string("e-");  //
-                break;
-            case jp_oo:  //　オー
-                send_string("o-");  //
-                break;
-            case jp_nn:  //　ン
-                send_string("nn");  //
-                break;
-*/
-
+                /* Unnecessary?
+                 case ch:  // アー
+                 send_string("a-");  //
+                 break;
+                 case jp_ii:  //　イー
+                 send_string("i-");  //
+                 break;
+                 case jp_uu:  //　ウー
+                 send_string("u-");  //
+                 break;
+                 case jp_ee:  //　エー
+                 send_string("e-");  //
+                 break;
+                 case jp_oo:  //　オー
+                 send_string("o-");  //
+                 break;
+                 case jp_nn:  //　ン
+                 send_string("nn");  //
+                 break;
+                 */
+                
             case jp_gya:  // ぎゃ:
                 send_string("gya");  //
                 break;
@@ -469,12 +486,12 @@ ADD_HERE:
             case jp_dha:  // でゃ
                 send_string("dha");  //
                 break;
- #ifndef EN_PRONOUN_COMBOS
-           case jp_dhi:  // でぃ
+#ifndef EN_PRONOUN_COMBOS
+            case jp_dhi:  // でぃ
                 send_string("dhi");  // /onflicts with I'd pronoun combo, so handle it there.
-
+                
                 break;
-#endif
+#endif // !EN_PRONOUN_COMBOS
             case jp_dhu:  // でょ
                 send_string("dhu");  //
                 break;
@@ -493,26 +510,36 @@ ADD_HERE:
             case jp_nyo:  // ひゅ
                 send_string("nyo");  //
                 break;
-/*
-            case jp_hya:  // ひゃ
-                send_string("hyu");  // handled with diacritic
-                break;
-*/
+                /*
+                 case jp_hya:  // ひゃ
+                 send_string("hyu");  // handled with diacritic
+                 break;
+                 */
             case jp_hyu:  // ひゅ
                 send_string("hyu");  //
                 break;
             case jp_hyo:  // ひょ
                 send_string("hyo");  //
                 break;
+#ifdef JP_bya_keys
             case jp_bya:  // びゃ:
                 send_string("bya");  //
                 break;
-            case jp_byu:  // びゅ
-                send_string("byu");  // conflicts, handled in the main section
+#endif
+#ifdef JP_byu_keys
+            case jp_byu:  // びゅ   // conflicts w/~, handled in the main section
+                if (IS_ENGLISH_MODE) {
+                    tap_code16(S(KC_GRAVE)); // ~ (standalone tilde)
+                } else {
+                    send_string("byu");
+                }
                 break;
+#endif // JP_byu_keys
+#ifdef JP_byo_keys
             case jp_byo:  // びょ
                 send_string("byo");  //
                 break;
+#endif
             case jp_mya:  // みゃ:
                 send_string("mya");  //
                 break;
@@ -534,8 +561,7 @@ ADD_HERE:
 #endif // JP_YOUON_COMBOS_ALL
 #endif // JP_YOUON_COMBOS
 #endif // JP_MODE_ENABLE
-                
-                
+
                 
         } // end switch (combo_index)
         if (combo_on) linger_timer = timer_read(); // start timing for linger process
@@ -671,6 +697,9 @@ ADD_HERE:
 #endif
                     tap_code(KC_SPC); // add space after a composed pronoun
                     combo_on = 0;  // done w/these shenanigans
+                    break;
+                case HC_L1: //
+                    unregister_code(HC_L1_KC); //
                     break;
                 case HC_Q: //
                     unregister_code16(KC_Q); //
@@ -876,22 +905,22 @@ void matrix_scan_user_process_combo() {  // called from matrix_scan_user if comb
                 case HC_ACUT:
                 case HC_GRV:
                 case HC_CIRC:
-                    tap_code16(KC_E); // this should use semkeys? éêè
+                    tap_code16(KC_E); // éêè this should use semkeys?
                     break;
                 case HC_MACR:
-                    tap_code16(KC_O); // this should use semkeys? ō
+                    tap_code16(KC_O); // ō this should use semkeys?
                     break;
                 case HC_DIER:
-                    tap_code16(KC_U); // this should use semkeys? ü
+                    tap_code16(KC_U); // ü this should use semkeys?
                     break;
                 case HC_RING:
-                    tap_code16(KC_A); // this should use semkeys? å
+                    tap_code16(KC_A); // å this should use semkeys?
                     break;
                 case HC_CEDILLE:
-                    tap_code16(KC_C); // this should use semkeys? ç
+                    tap_code16(KC_C); // ç this should use semkeys?
                     break;
                 case HC_ENYE:
-                    tap_SemKey(SK_ENYE); //
+                    tap_code16(KC_N); // ñ this should use tap_SemKey(SK_ENYE);
                     break;
 
                     

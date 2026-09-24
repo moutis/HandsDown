@@ -130,7 +130,7 @@ void keyboard_post_init_user(void) {
         }
     oled_render();
     oled_on();
-#endif
+#endif // OLED_DRIVER_ENABLE
 }
 
 #include "moutis_app_menu.c" // my custom app_menu handler (mac/win)
@@ -152,7 +152,7 @@ void keyboard_post_init_user(void) {
 #include "moutis_casemods.c"
 
 #ifdef ADAPTIVE_ENABLE
-#include HD_adaptive_code   // this is HD variation dependent
+#include HD_adapt_file       // this is HD variation dependent
 #endif
 
 // #include HD_process_record_code   // this might need to be HD variation dependent?

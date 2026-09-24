@@ -33,7 +33,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         (timer_elapsed(prior_keydown) <= ADAPTIVE_TERM * 4) &&  // use large threshold?
         ((keycode & QK_BASIC_MAX) >= KC_A) &&  // followed by any alpha?
         ((keycode & QK_BASIC_MAX) <= KC_Z)) {
-            tap_code(KC_BSPC); // get rid of ADAPT_SHIFT
+            tap_code(KC_BSPC); // get rid of ADAPT_SHIFT letter
             tap_code16(S(keycode & QK_BASIC_MAX)); // send cap letter
             preprior_keycode = linger_key = 0; // reset other states.
             prior_keycode = keycode; // this keycode is stripped of mods+taps
@@ -298,7 +298,7 @@ goto_register_key_trap_and_return: // ##Warning
                 break;
             case KC_QUOT: // SHIFT = ], ALT=», ALT+SHIFT=›
                 if (!saved_mods) {
-                    tap_code16(R_quote); // send ' (or 」in Japanese mode)
+                    register_linger_key(R_quote); // send ' (or 」in Japanese mode)
                     return_state = false; // done with this record.
                     break;
                 }
@@ -378,6 +378,11 @@ goto_register_key_trap_and_return: // ##Warning
 #endif // # MYMODMORPH
 
 #ifdef JP_MODE_ENABLE
+/*
+ Since Japanese IMEs typically treat these as form/morph controls (small kana) or such,
+ rather than individual letters (C, J, L, X don't really exist)
+ these moves are phonetically irrelevant, but offer improved SFBs and better alternation.
+ */
             case KC_C: // C if English, z if Japanese mode
                 if (!IS_ENGLISH_MODE) {
                     register_code(KC_Z);
@@ -397,7 +402,7 @@ goto_register_key_trap_and_return: // ##Warning
                     return_state = false; // done.
                 }
                 break;
-#endif
+#endif // JP_MODE_ENABLE
             case KC_Q:  // Qu, linger deletes U
                 if ((saved_mods & MOD_MASK_ALT)
 #ifdef JP_MODE_ENABLE
@@ -419,7 +424,7 @@ goto_linger_and_return: // ##Warning
                 keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = true;
                 return_state = false; // stop processing this record.
                 goto storeSettings;
-#endif
+#endif // INCLUDE_HD_Lux
            case SK_Win: // SINCE MAC IS MY LAYOUT DEFAULT switch to windows
                 user_config.OSIndex = OS_Win; // for Windows Semkeys
 //                process_magic(QK_MAGIC_SWAP_CTL_GUI); // tell QMK to swap ctrl/gui
@@ -502,7 +507,7 @@ storeSettings:
                     return_state = false; // stop processing this record.
                 }
                 break;
-#endif
+#endif // JP_MODE_ENABLE
 
             case KC_Q:  // for linger Qu (ironically, need to handle this direclty w/o the macros.)
                 unregister_code16(keycode);

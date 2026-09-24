@@ -56,7 +56,7 @@
 // these COMBO_TERM have dilicate interactions with ADAPTIVE_TERM below.
     #define COMBO_TERM (TAPPING_TERM/4) // time to get all combo keys down
     #define COMBO_HOLD (TAPPING_TERM) // time to hold to trigger delayed combo
-#endif
+#endif // COMBO_ENABLE
 
 #define EN_HDIGRAPH_COMBOS // English H-Digraph combos (Th,Ch,Wh,Sh,Gh,Ph,Sch)
 #define EN_PRONOUN_COMBOS // English First Person pronoun combos (I, I'm, I've I'd I'll etc) (184 bytes on AVR)
